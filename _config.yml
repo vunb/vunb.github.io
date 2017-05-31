@@ -5,7 +5,7 @@ url: "https://vunb.github.io/" # the base hostname & protocol for your site
 # THEME-SPECIFIC CONFIGURATION
 theme_settings:
   # Meta
-  title: "Bao-Vu's blog'"
+  title: "Bao-Vu's blog"
   avatar: # avatar.png
   gravatar: 7fff53678ddafc5f1652a5f7e5d04c17 # Email MD5 hash
   description: "Bao-Vu's blog on Github." # used by search engines
@@ -15,7 +15,7 @@ theme_settings:
      <h3>NLP = Text + Voice</h3>
   header_text_feature_image:
   footer_text: >
-   Written with <i class="fa fa-heart orange" aria-hidden="true"></i> by Bao-Vu.
+   Written with <i class="fa fa-heart orange" aria-hidden="true"></i> by Bao-Vu Nhu.
 
   # Icons
   rss: false
@@ -40,8 +40,8 @@ theme_settings:
   youtube:
 
   # Scripts
-  google_analytics: # Tracking ID, e.g. "UA-000000-01"
-  disqus_shortname:
+  google_analytics: "UA-48010057-5" # Tracking ID, e.g. "UA-000000-01"
+  disqus_shortname: "vunb"
   muut_community_name: # From muut.com settings, e.g. "muttcommunityname"
   katex: true # Enable if using math markup
 
