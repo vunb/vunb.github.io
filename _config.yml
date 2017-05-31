@@ -13,6 +13,8 @@ theme_settings:
   # Header and footer text
   header_text: >
      <h3>NLP = Text + Voice</h3>
+
+     <p>The face of the world is changing from GUI to VUI.</p>
   header_text_feature_image:
   footer_text: >
    Written with <i class="fa fa-heart orange" aria-hidden="true"></i> by Bao-Vu Nhu.
