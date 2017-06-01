@@ -7,6 +7,17 @@ This is my vietnamese blog for Natural Language Processing.
 
 * Checkout: [vunb.github.io](https://vunb.github.io)
 
+Focus on categories
+===================
+
+* Basic machine learning
+* Natural language processing
+* Deep learning
+* Programming skills: `python`, `C/C++`, `java`, `javascript`
+* Python Toolkit: `NLTK`, `Beautisoup`, `Pandas`, `Numpy`, `Matplotlib`, `Scipy`, `Ipython`
+* Framework for production: `Tensorflow`, `Caffe2`
+* Big data: `Spark`, `Hadoop`, `AWS`, `Google cloud platform`
+
 Acknowledgement
 ===============
 
