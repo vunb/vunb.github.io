@@ -14,7 +14,7 @@ Focus on categories
 * Natural language processing
 * Deep learning
 * Programming skills: `python`, `C/C++`, `java`, `javascript`
-* Python Toolkit: `NLTK`, `Beautisoup`, `Pandas`, `Numpy`, `Matplotlib`, `Scipy`, `Ipython`
+* Python Toolkit: `scikit-learn`, `gensim`, `NLTK`, `Beautisoup`, `Pandas`, `Numpy`, `Matplotlib`, `Scipy`, `Ipython`
 * Framework for production: `Tensorflow`, `Caffe2`
 * Big data: `Spark`, `Hadoop`, `AWS`, `Google cloud platform`
 
