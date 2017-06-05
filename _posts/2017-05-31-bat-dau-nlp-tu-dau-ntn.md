@@ -15,3 +15,26 @@ Trước khi bắt đầu, chúng ta cần nhận thức được danh sách dư
 Khóa học Online
 ===============
 
+* [Dan Jurafsky & Chris Manning: Natural Language Processing](https://www.youtube.com/watch?v=nfoudtpBV68&list=PL6397E4B26D00A269) [video giới thiệu căn bản]
+* [Stanford CS224d: Deep Learning for Natural Language Processing](http://cs224d.stanford.edu/syllabus.html) [Các thuật toán ML nâng cao: Deep learning, NN for NLP]
+* [Coursera: Introduction to Natural Language Processing](https://www.coursera.org/learn/natural-language-processing) [Khóa học giới thiệu NLP của trường ĐH Michigan]
+
+Các thư viện và mã nguồn mở
+===========================
+
+* [spaCy](https://spacy.io/) [blog](https://explosion.ai/blog/) [Thư viện python mới nổi với những ví dụ tuyệt vời, các hướng dẫn và demo trực quan]
+* [NLTK](http://www.nltk.org/) [book](http://www.nltk.org/book/) [Thường được sử dụng cho việc giảng dạy, nghiên cứu học thuật]
+* [Stanford CoreNLP](https://stanfordnlp.github.io/CoreNLP/) [Bộ công cụ phân tích chất lượng cao, bằng Java]
+
+Các blog hoạt động
+==================
+
+* [natural language processing blog](https://nlpers.blogspot.com/) (Hal Daumé)
+* [Google research blog](https://research.googleblog.com/)
+* [Language log](http://languagelog.ldc.upenn.edu/nll/) (Mark Liberman)
+
+
+Liên kết tham khảo
+==================
+
+* [How to get started in NLP](https://medium.com/towards-data-science/how-to-get-started-in-nlp-6a62aa4eaeff)
