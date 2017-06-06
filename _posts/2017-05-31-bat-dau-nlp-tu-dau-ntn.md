@@ -28,12 +28,20 @@ Các thư viện và mã nguồn mở
 * [NLTK](http://www.nltk.org/) [book](http://www.nltk.org/book/) [Thường được sử dụng cho việc giảng dạy, nghiên cứu học thuật]
 * [Stanford CoreNLP](https://stanfordnlp.github.io/CoreNLP/) [Bộ công cụ phân tích chất lượng cao, bằng Java]
 
-Các blog hoạt động
-==================
+Blog tiếng Anh
+==============
 
 * [natural language processing blog](https://nlpers.blogspot.com/) (Hal Daumé)
 * [Google research blog](https://research.googleblog.com/)
 * [Language log](http://languagelog.ldc.upenn.edu/nll/) (Mark Liberman)
+
+Blog tiếng Việt
+===============
+
+* [Machine Learning cơ bản cho người mới bắt đầu - Vũ Hữu Tiệp PSU](http://machinelearningcoban.com) - [Blog](https://tiepvupsu.github.io)
+* [Machine Learning trong Xử Lý Ngôn Ngữ Tự Nhiên - Nhóm Đông Du Nhật Bản](http://viet.jnlp.org/kien-thuc-co-ban-ve-xu-ly-ngon-ngu-tu-nhien/machine-learning-trong-nlp)
+* [Machine Learning cho người mới bắt đầu - Ông Xuân Hồng JAIST](https://ongxuanhong.wordpress.com/)
+* [Machine Learning book for Vietnamese - Nguyễn Xuân Khánh University of Maryland](https://ml-book-vn.khanhxnguyen.com/) [Blog](http://khanhxnguyen.com/blog), [Tutorials](http://khanhxnguyen.com/tutorials)
 
 Books
 =====
