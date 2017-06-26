@@ -3,7 +3,7 @@ layout: post
 title: Bắt đầu NLP từ đâu và như thế nào ?
 feature-img: "img/this-is-what-i-needed.png"
 category: General
-tags: Introduction Howto
+tags: introduction howto
 ---
 
 Có thể bạn đã nghe rất nhiều về `Trí tuệ nhân tạo (AI)`, `Học máy (Machine Learning)`, hay `Xử lý ngôn ngữ tự nhiên (NLP)`. Và rất muốn được tiếp cận nhưng chưa biết phải bắt đầu từ đâu và cách tiếp cận như thế nào ? Bài viết này cũng là bài đầu tiên mà tôi muốn tìm hiểu tổng quan nhất về các lý thuyết, thuật toán và các ứng dụng cụ thể trong một domain nhỏ của **AI**, đó chính là **NLP**. Làm thế nào để máy tính có thể hiểu được ngôn ngữ tự nhiên ? Làm thế nào để máy tính có trí thông minh như con người ?

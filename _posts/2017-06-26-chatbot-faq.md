@@ -1,7 +1,7 @@
 ---
-layout: page
+layout: post
 title: Chatbot FAQ
-category: chatbots
+category: Chatbots
 tags: tensorflow chatbots word-embeddings seq2seq
 ---
 
