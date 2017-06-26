@@ -5,7 +5,7 @@ category: chatbots
 tags: tensorflow chatbots word-embeddings seq2seq
 ---
 
-![chatbots and deep learning](img/chatbots-and-deep-learning.jpg)
+![chatbots and deep learning](/img/chatbots-and-deep-learning.jpg)
 
 # [How to train tensorflow chat application on updated dataset everyday?](https://datascience.stackexchange.com/a/18899)
 
