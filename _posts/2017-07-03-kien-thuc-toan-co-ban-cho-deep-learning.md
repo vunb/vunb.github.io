@@ -14,9 +14,9 @@ Trước khi bắt đầu vào việc học mạng nơ-ron và deep learning, ch
 
 Nghiên cứu về Đại số tuyến tính liên quan tới các đối tượng toán học sau:
 
-1. **Đại lượng vô hướng (Scalar)**: Đại lượng (số) vô hướng là đại lượng được mô tả hoàn toàn chỉ bằng độ lớn. Mô tả bằng một con số mà thôi, không hơn không kém. Ví dụ như tốc độ, thể tích, khối lượng, nhiệt độ, công suất, thời gian, ... Chúng ta viết các đại lượng vô hướng bằng chữ cái không in đậm, có thể viết hoa, ví dụ: $$ \(x_1, N, y, k\) $$
-2. **Vector**: Vector là một mảng (1-D) chứa các phần tử của nó là dãy các số vô hướng. Các số này được sắp xếp theo một trật tự và chúng ta có thể xác định các số này bằng chỉ số thứ tự của nó. Thường được ký hiệu bằng chữ cái không viết hoa in đậm, ví dụ: $$ \(\mathbf{y}, \mathbf{x}1 \) $$
-3. **Ma trận**: Ma trận là một mảng 2 chiều (2-D), mỗi phần tử của nó được xác định bởi 2 chỉ số. Thường được ký hiệu bởi chữ cái viết hoa và in đậm, ví dụ: $$ \(\mathbf{A, X, Y, W} \) $$
+1. **Đại lượng vô hướng (Scalar)**: Đại lượng (số) vô hướng là đại lượng được mô tả hoàn toàn chỉ bằng độ lớn. Mô tả bằng một con số mà thôi, không hơn không kém. Ví dụ như tốc độ, thể tích, khối lượng, nhiệt độ, công suất, thời gian, ... Chúng ta viết các đại lượng vô hướng bằng chữ cái không in đậm, có thể viết hoa, ví dụ: $$ (x_1, N, y, k) $$
+2. **Vector**: Vector là một mảng (1-D) chứa các phần tử của nó là dãy các số vô hướng. Các số này được sắp xếp theo một trật tự và chúng ta có thể xác định các số này bằng chỉ số thứ tự của nó. Thường được ký hiệu bằng chữ cái không viết hoa in đậm, ví dụ: $$ (\mathbf{y}, \mathbf{x}_1) $$
+3. **Ma trận**: Ma trận là một mảng 2 chiều (2-D), mỗi phần tử của nó được xác định bởi 2 chỉ số. Thường được ký hiệu bởi chữ cái viết hoa và in đậm, ví dụ: $$ (\mathbf{A, X, Y, W}) $$
 4. **Tensor**: Ten-xơ là đối tượng hình học miêu ta quan hệ tuyến tính giữa các đại lượng `Vector`, `Vô hướng`, và các `ten-xơ` với nhau. Theo định nghĩa thì `Vector` và `Vô hướng` cũng là ten-xơ. Bậc (hay *hạng*) của một ten-xơ bằng số chiều của mảng cần để biểu diễn nó, hay tương đương với chỉ số cần để đánh dấu các thành phần của mảng. Đại lượng `vô hướng` là ten-xơ hạng **0**, ...
 
 
