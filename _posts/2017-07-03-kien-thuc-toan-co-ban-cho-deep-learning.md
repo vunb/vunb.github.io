@@ -7,8 +7,7 @@ tags: neural-networks machine-learning deep-learning
 
 Trước khi bắt đầu vào việc học mạng nơ-ron và deep learning, chúng ta cũng cần chuẩn bị một số kiến thức nền tảng của toán học cần thiết. Một vài chủ đề toán học quan trọng để chúng ta có thể hiểu được các chủ đề trong phương pháp học nhiều tầng **Deep learning**.
 
-ĐẠI SỐ TUYẾN TÍNH
-=================
+# 1. ĐẠI SỐ TUYẾN TÍNH
 
 Đại số tuyến tính bao gồm các dạng liên tục chứ không hoàn toàn là Toán học rời rạc, nhiều người làm khoa học máy tính có rất ít kinh nghiệm với nó. Hiểu biết về đại số tuyến tính là một kỹ năng cần thiết để có thể hiểu được và làm việc được với các thuật toán **Machine learning**, đặc biệt là với **Deep learning**.
 
@@ -23,24 +22,45 @@ Một phép toán quan trọng trên ma trận đó là phép **Chuyển vị**.
 
 Trong ngữ cảnh của **deep learning**, chúng ta cũng sử dụng các ký hiệu thông thường ít hơn. Ví dụ, khi ta cộng ma trận với một vector, sinh ra một ma trận: $$ \mathbf{C} = \mathbf{A} + \mathbf{b} $$, trong đó $$ \mathbf{C}(i, j) = \mathbf{A}(i, j) + \mathbf{b}(j) $$. Nói cách khác, vector $$\mathbf{b}$$ được cộng vào mỗi hàng của ma trận. Với cách viết tắt này loại bỏ việc xác định thêm 1 ma trận với mỗi hàng có giá trị là $$ \mathbf{b} $$ trước khi thực hiện phép cộng hai ma trận. Việc sao chép $$ \mathbf{b} $$ như vậy được gọi là **broadcasting**.
 
-Chuyển vị của một tích ma trận có dạng đơn giản là: $$ (\mathbf{AB})^T = \mathbf{B}^T\mathbf{A}^T $$. Ma trận nghịch đảo của $$ \mathbf{A} $$ được ký hiệu là $$ \mathbf{A}^{-1} $$, và tích của chúng đúng bằng ma trận đơn vị: $$ \mathbf{A}^{-1}\mathbf{A} = \mathbf{I} $$. Tuy nhiên, $$ \mathbf{A}^-1 $$ chủ yếu có ích như một công cụ lý thuyết, và nó không nên được sử dụng ngoài thực tế trong hầu hết các ứng dụng phần mềm. Bởi vì $$ \mathbf{A}^{-1} $$ được biểu diễn với độ chính xác hạn chế trên máy tính, các thuật toán sử dụng giá trị của $$ \mathbf{b} $$ thường đạt được đó chính xác hơn ước lượng của $$ \mathbf{x} $$.
+Chuyển vị của một tích ma trận có dạng đơn giản là: $$ (\mathbf{AB})^T = \mathbf{B}^T\mathbf{A}^T $$. Ma trận nghịch đảo của $$ \mathbf{A} $$ được ký hiệu là $$ \mathbf{A}^{-1} $$, và tích của chúng đúng bằng ma trận đơn vị: $$ \mathbf{A}^{-1}\mathbf{A} = \mathbf{I} $$. Tuy nhiên, $$ \mathbf{A}^{-1} $$ chủ yếu có ích như một công cụ lý thuyết, và nó không nên được sử dụng ngoài thực tế trong hầu hết các ứng dụng phần mềm. Bởi vì $$ \mathbf{A}^{-1} $$ được biểu diễn với độ chính xác hạn chế trên máy tính, các thuật toán sử dụng giá trị của $$ \mathbf{b} $$ thường đạt được đó chính xác hơn ước lượng của $$ \mathbf{x} $$.
 
 Chúng ta cần một vài chủ đề khác để hiểu hơn về kỹ thuật ứng dụng.
 
-NORM (Chuẩn)
-============
+# 2. NORM (Chuẩn)
 
-Đôi khi chúng ta cần đo độ lớn của một vector. Trong machine learning, chúng ta thường đo độ lớn của một vector (điểm dữ liệu) hoặc khoảng cách giữa 2 vector, bằng việc sử dụng 1 hàm, được gọi là chuẩn. Việc đo độ lớn và khoảng cách giữa các vector với nhau, chúng ta có thể đánh giá được điểm nào là điểm gần nhất với một điểm dữ liệu cho trước; chúng ta cũng cần đánh giá độ chính xác của việc ước lượng là như thế nào.
+Trong machine learning, chúng ta thường đo độ lớn của một vector (điểm dữ liệu) hoặc khoảng cách giữa 2 vector, bằng việc sử dụng 1 hàm, được gọi là chuẩn. Việc đo độ lớn và khoảng cách giữa các vector với nhau, chúng ta có thể đánh giá được điểm nào là điểm gần nhất với một điểm dữ liệu cho trước; chúng ta cũng cần đánh giá độ chính xác của việc ước lượng là như thế nào.
 
-### Một số chuẩn thường dùng:
+Giả sử có các vector cột: $$ \mathbf{x} = [x_1; x_2; ...; x_n], \mathbf{y} = [y_1; y_2; ...; y_n] $$.
 
-Giả sử có các vectors: $$\mathbf{x} = [x_1; x_2; ...; x_n], \mathbf{y} = [y_1; y_2; ...; y_n]$$.
+Với *p* **là một số không nhỏ hơn 1** bất kỳ, tổng quát $$ \mathbf{x} $$ có chuẩn norm *p* được tính bởi công thức:
 
-Chuẩn Euclid, thường được gọi là chuẩn **norm 2**: $$ \|\mathbf{x}\|_2 = \sqrt{x_1^2 + x_2^2 + ... + x_n^2} ~~~ (1) $$
+$$ \|\mathbf{x}\|_p = (|x_1|^p + |x_2|^p + ... + |x_n|^p)^{\frac{1}{p}} ~~ (1) $$
 
-Với *p* **là một số không nhỏ hơn 1** bất kỳ, hàm số sau đây:
+* Khi $$ p = 2 $$, ta có chuẩn Euclid **norm 2**: $$ \|\mathbf{x}\|_2 = \sqrt{x_1^2 + x_2^2 + ... + x_n^2} ~~~ (2) $$
+* Khi $$ p = 1 $$, ta có **norm 1**: $$ \|\mathbf{x}\|_1 = |x_1| + |x_2| + ... + |x_n| ~~~ (3) $$  
+  là tổng các trị tuyệt đối từng phần tử của $$ \mathbf{x} $$.
+* Khi $$ p \rightarrow \infty $$, ta có norm $$ p $$ chính là trị tuyệt đối của phần tử lớn nhất của vector đó:
+
+$$ \|\mathbf{x}\|_{\infty} = \max_{i = 1, 2, ..., n} |x_i| ~~~ (4) $$
+
+Chặt chẽ hơn, một chuẩn là một hàm số $$ f() $$ ánh xạ một điểm $$ \mathbf{x} $$ từ không gian $$ n $$ chiều sang tập số thực một chiều \mathbf{R} được gọi là norm nếu thỏa mãn các tính chất sau đây:
+
+1. $$ f(\mathbf{x}) = 0 \geq 0 $$. Dấu bằng xảy ra $$ \Leftrightarrow \mathbf{x = 0} $$
+2. $$ f(\alpha \mathbf{x}) = |\alpha| f(\mathbf{x}), ~~~\forall \alpha \in \mathbb{R} $$
+3. $$ f(\mathbf{x}_1) + f(\mathbf{x}_2) \geq f(\mathbf{x}_1 + \mathbf{x}_2), ~~\forall \mathbf{x}_1, \mathbf{x}_2 \in \mathbf{R}^n $$
+
+Tham khảo thêm [định nghĩa][1] về **NORM** [tại đây][1]
+
+# 3. TRỊ RIÊNG
+
+To be continue ...
 
 Liên kết tham khảo
 ==================
 
-* [Basic Mathematics for Deep Learning](https://medium.com/towards-data-science/deep-learning-basic-mathematics-for-deep-learning-a82981e95e3b)
+* [Basic Mathematics for Deep Learning][3]
+* [Một số kiến thức về Đại Số Tuyến Tính, Xác Suất Thống Kê, Toán Tối Ưu cần thiết cho Machine Learning][2]
+
+[1]: (http://machinelearningcoban.com/math/#-norms-chuan)
+[2]: (http://machinelearningcoban.com/math)
+[3]: (https://medium.com/towards-data-science/deep-learning-basic-mathematics-for-deep-learning-a82981e95e3b)
