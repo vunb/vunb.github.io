@@ -34,12 +34,12 @@ Giả sử có các vector cột: $$ \mathbf{x} = [x_1; x_2; ...; x_n], \mathbf{
 
 Với *p* **là một số không nhỏ hơn 1** bất kỳ, tổng quát $$ \mathbf{x} $$ có chuẩn norm *p* được tính bởi công thức:
 
-$$ \vert\mathbf{x}\vert_p = (\vertx_1\vert^p + \vertx_2\vert^p + ... + \vertx_n\vert^p)^{\frac{1}{p}} ~~ (1) $$
+$$ \Vert\mathbf{x}\Vert_p = (\vert x_1 \vert^p + \vert x_2 \vert^p + ... + \vert x_n \vert^p)^{\frac{1}{p}} ~~ (1) $$
 
-* Khi $$ p = 2 $$, ta có chuẩn Euclid **norm 2**: $$ \vert\mathbf{x}\vert_2 = \sqrt{x_1^2 + x_2^2 + ... + x_n^2} ~~~ (2) $$
-* Khi $$ p = 1 $$, ta có **norm 1**: $$ \vert\mathbf{x}\vert_1 = \vertx_1\vert + \vertx_2\vert + ... + \vertx_n\vert ~~~ (3) $$  
+* Khi $$ p = 2 $$, ta có chuẩn Euclid **norm 2**: $$ \Vert\mathbf{x}\Vert_2 = \sqrt{x_1^2 + x_2^2 + ... + x_n^2} ~~~ (2) $$
+* Khi $$ p = 1 $$, ta có **norm 1**: $$ \Vert\mathbf{x}\Vert_1 = \vert x_1 \vert + \vert x_2 \vert + ... + \vert x_n \vert ~~~ (3) $$  
   là tổng các trị tuyệt đối từng phần tử của $$ \mathbf{x} $$.
-* Khi $$ p \rightarrow \infty $$, ta có norm $$ p $$ chính là trị tuyệt đối của phần tử lớn nhất của vector đó: $$ \vert\mathbf{x}\vert_{\infty} = \max_{i = 1, 2, ..., n} \vert x_i \vert ~~~ (4) $$
+* Khi $$ p \rightarrow \infty $$, ta có norm $$ p $$ chính là trị tuyệt đối của phần tử lớn nhất của vector đó: $$ \Vert\mathbf{x}\Vert_{\infty} = \max_{i = 1, 2, ..., n} \vert x_i \vert ~~~ (4) $$
 
 Chặt chẽ hơn, một chuẩn là một hàm số $$ f() $$ ánh xạ một điểm $$ \mathbf{x} $$ từ không gian $$ n $$ chiều sang tập số thực một chiều \mathbf{R} được gọi là norm nếu thỏa mãn các tính chất sau đây:
 
