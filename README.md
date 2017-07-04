@@ -21,4 +21,5 @@ Focus on categories
 Acknowledgement
 ===============
 
+* [Katex](https://khan.github.io/KaTeX/) - The fastest math typesetting library for the web.
 * Powered by [Jekyll](http://jekyllrb.com/) with [Type Theme](https://rohanchandra.github.io/project/type/).
