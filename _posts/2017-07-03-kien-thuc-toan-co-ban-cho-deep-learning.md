@@ -36,7 +36,7 @@ NORM (Chuẩn)
 
 Giả sử có các vectors: $$\mathbf{x} = [x_1; x_2; ...; x_n], \mathbf{y} = [y_1; y_2; ...; y_n]$$.
 
-Chuẩn Euclid, thường được gọi là chuẩn **norm 2**: $$ ||\mathbf{x}||_2 = \sqrt{x_1^2 + x_2^2 + ... + x_n^2} ~~~ (1) $$
+Chuẩn Euclid, thường được gọi là chuẩn **norm 2**: $$ \|\mathbf{x}\|_2 = \sqrt{x_1^2 + x_2^2 + ... + x_n^2} ~~~ (1) $$
 
 Với *p* **là một số không nhỏ hơn 1** bất kỳ, hàm số sau đây:
 
