@@ -39,13 +39,13 @@ $$ \|\mathbf{x}\|_p = (|x_1|^p + |x_2|^p + ... + |x_n|^p)^{\frac{1}{p}} ~~ (1) $
 * Khi $$ p = 2 $$, ta có chuẩn Euclid **norm 2**: $$ \|\mathbf{x}\|_2 = \sqrt{x_1^2 + x_2^2 + ... + x_n^2} ~~~ (2) $$
 * Khi $$ p = 1 $$, ta có **norm 1**: $$ \|\mathbf{x}\|_1 = |x_1| + |x_2| + ... + |x_n| ~~~ (3) $$  
   là tổng các trị tuyệt đối từng phần tử của $$ \mathbf{x} $$.
-* Khi $$ p \rightarrow \infty $$, ta có norm $$ p $$ chính là trị tuyệt đối của phần tử lớn nhất của vector đó: $$ \|\mathbf{x}\|_{\infty} = \max_{i = 1, 2, ..., n} |x_i| ~~~ (4) $$
+* Khi $$ p \rightarrow \infty $$, ta có norm $$ p $$ chính là trị tuyệt đối của phần tử lớn nhất của vector đó: $$ \|\mathbf{x}\|_{\infty} = \max_{i = 1, 2, ..., n} |x_i| ~~~ (4) $$.
 
 Chặt chẽ hơn, một chuẩn là một hàm số $$ f() $$ ánh xạ một điểm $$ \mathbf{x} $$ từ không gian $$ n $$ chiều sang tập số thực một chiều \mathbf{R} được gọi là norm nếu thỏa mãn các tính chất sau đây:
 
-1. $$ f(\mathbf{x}) = 0 \geq 0 $$. Dấu bằng xảy ra $$ \Leftrightarrow \mathbf{x = 0} $$  
-2. $$ f(\alpha \mathbf{x}) = |\alpha| f(\mathbf{x}), ~~~\forall \alpha \in \mathbb{R} $$  
-3. $$ f(\mathbf{x}_1) + f(\mathbf{x}_2) \geq f(\mathbf{x}_1 + \mathbf{x}_2), ~~\forall \mathbf{x}_1, \mathbf{x}_2 \in \mathbf{R}^n $$  
+1. $$ f(\mathbf{x}) = 0 \geq 0 $$. Dấu bằng xảy ra $$ \Leftrightarrow \mathbf{x = 0} $$.
+2. $$ f(\alpha \mathbf{x}) = |\alpha| f(\mathbf{x}), ~~~\forall \alpha \in \mathbb{R} $$.
+3. $$ f(\mathbf{x}_1) + f(\mathbf{x}_2) \geq f(\mathbf{x}_1 + \mathbf{x}_2), ~~\forall \mathbf{x}_1, \mathbf{x}_2 \in \mathbf{R}^n $$.
 
 Tham khảo thêm [định nghĩa][1] về **NORM** [tại đây][1]
 
