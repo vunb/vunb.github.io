@@ -23,7 +23,7 @@ Một phép toán quan trọng trên ma trận đó là phép **Chuyển vị**.
 
 Trong ngữ cảnh của **deep learning**, chúng ta cũng sử dụng các ký hiệu thông thường ít hơn. Ví dụ, khi ta cộng ma trận với một vector, sinh ra một ma trận: $$ \mathbf{C} = \mathbf{A} + \mathbf{b} $$, trong đó $$ \mathbf{C}(i, j) = \mathbf{A}(i, j) + \mathbf{b}(j) $$. Nói cách khác, vector $$\mathbf{b}$$ được cộng vào mỗi hàng của ma trận. Với cách viết tắt này loại bỏ việc xác định thêm 1 ma trận với mỗi hàng có giá trị là $$ \mathbf{b} $$ trước khi thực hiện phép cộng hai ma trận. Việc sao chép $$ \mathbf{b} $$ như vậy được gọi là **broadcasting**.
 
-Chuyển vị của một tích ma trận có dạng đơn giản là: $$ (\mathbf{AB})^T = \mathbf{B}^T\mathbf{A}^T $$. Ma trận nghịch đảo của $$ \mathbf{A} $$ được ký hiệu là $$ \mathbf{A}^-1 $$, và tích của chúng đúng bằng ma trận đơn vị: $$ \mathbf{A}^-1\mathbf{A} = \mathbf{I} $$. Tuy nhiên, $$ \mathbf{A}^-1 $$ chủ yếu có ích như một công cụ lý thuyết, và nó không nên được sử dụng ngoài thực tế trong hầu hết các ứng dụng phần mềm. Bởi vì $$ \mathbf{A}^-1 $$ được biểu diễn với độ chính xác hạn chế trên máy tính, các thuật toán sử dụng giá trị của $$ \mathbf{b} $$ thường đạt được đó chính xác hơn ước lượng của $$ \mathbf{x} $$.
+Chuyển vị của một tích ma trận có dạng đơn giản là: $$ (\mathbf{AB})^T = \mathbf{B}^T\mathbf{A}^T $$. Ma trận nghịch đảo của $$ \mathbf{A} $$ được ký hiệu là $$ \mathbf{A}^{-1} $$, và tích của chúng đúng bằng ma trận đơn vị: $$ \mathbf{A}^{-1}\mathbf{A} = \mathbf{I} $$. Tuy nhiên, $$ \mathbf{A}^-1 $$ chủ yếu có ích như một công cụ lý thuyết, và nó không nên được sử dụng ngoài thực tế trong hầu hết các ứng dụng phần mềm. Bởi vì $$ \mathbf{A}^{-1} $$ được biểu diễn với độ chính xác hạn chế trên máy tính, các thuật toán sử dụng giá trị của $$ \mathbf{b} $$ thường đạt được đó chính xác hơn ước lượng của $$ \mathbf{x} $$.
 
 Chúng ta cần một vài chủ đề khác để hiểu hơn về kỹ thuật ứng dụng.
 
@@ -34,9 +34,9 @@ NORM (Chuẩn)
 
 ### Một số chuẩn thường dùng:
 
-Giả sử có các vectors: $$ \mathbf{x} = [x_1; x_2; \dots; x_n], \mathbf{y} = [y_1; y_2; \dots; y_n]. $$
+Giả sử có các vectors: $$\mathbf{x} = [x_1; x_2; ...; x_n], \mathbf{y} = [y_1; y_2; ...; y_n]$$.
 
-Chuẩn Euclid, thường được gọi là chuẩn **norm 2**: $$ ||\mathbf{x}||_2 = \sqrt{x_1^2 + x_2^2 + \dots x_n^2} ~~~ (1) $$
+Chuẩn Euclid, thường được gọi là chuẩn **norm 2**: $$ ||\mathbf{x}||_2 = \sqrt{x_1^2 + x_2^2 + ... + x_n^2} ~~~ (1) $$
 
 Với *p* **là một số không nhỏ hơn 1** bất kỳ, hàm số sau đây:
 
