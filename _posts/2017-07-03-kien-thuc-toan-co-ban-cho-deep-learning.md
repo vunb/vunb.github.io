@@ -30,22 +30,21 @@ Chúng ta cần một vài chủ đề khác để hiểu hơn về kỹ thuật
 
 Trong machine learning, chúng ta thường đo độ lớn của một vector (điểm dữ liệu) hoặc khoảng cách giữa 2 vector, bằng việc sử dụng 1 hàm, được gọi là chuẩn. Việc đo độ lớn và khoảng cách giữa các vector với nhau, chúng ta có thể đánh giá được điểm nào là điểm gần nhất với một điểm dữ liệu cho trước; chúng ta cũng cần đánh giá độ chính xác của việc ước lượng là như thế nào.
 
-Giả sử có các vector cột: $$ \mathbf{x} = [x_1; x_2; ...; x_n], \mathbf{y} = [y_1; y_2; ...; y_n] $$.
+Giả sử có các vector cột: $$ \mathbf{x} = [x_1; x_2; \cdots; x_n], \mathbf{y} = [y_1; y_2; \cdots; y_n] $$.
 
 Với *p* **là một số không nhỏ hơn 1** bất kỳ, tổng quát $$ \mathbf{x} $$ có chuẩn norm *p* được tính bởi công thức:
 
-$$ \Vert\mathbf{x}\Vert_p = (\vert x_1 \vert^p + \vert x_2 \vert^p + ... + \vert x_n \vert^p)^{\frac{1}{p}} ~~ (1) $$
+$$ \Vert\mathbf{x}\Vert_p = (\vert x_1 \vert^p + \vert x_2 \vert^p + \cdots + \vert x_n \vert^p)^{\frac{1}{p}} ~~ (1) $$
 
-* Khi $$ p = 2 $$, ta có chuẩn Euclid **norm 2**: $$ \Vert\mathbf{x}\Vert_2 = \sqrt{x_1^2 + x_2^2 + ... + x_n^2} ~~~ (2) $$
-* Khi $$ p = 1 $$, ta có **norm 1**: $$ \Vert\mathbf{x}\Vert_1 = \vert x_1 \vert + \vert x_2 \vert + ... + \vert x_n \vert ~~~ (3) $$  
-  là tổng các trị tuyệt đối từng phần tử của $$ \mathbf{x} $$.
-* Khi $$ p \rightarrow \infty $$, ta có norm $$ p $$ chính là trị tuyệt đối của phần tử lớn nhất của vector đó: $$ \Vert\mathbf{x}\Vert_{\infty} = \max_{i = 1, 2, ..., n} \vert x_i \vert ~~~ (4) $$
+* Khi $$ p = 2 $$, ta có chuẩn Euclid **norm 2**: $$ \Vert\mathbf{x}\Vert_2 = \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2} ~~~ (2) $$
+* Khi $$ p = 1 $$, ta có **norm 1**: $$ \Vert\mathbf{x}\Vert_1 = \vert x_1 \vert + \vert x_2 \vert + \cdots + \vert x_n \vert ~~~ (3) ~~~ $$ là tổng các trị tuyệt đối từng phần tử của $$ \mathbf{x} $$.
+* Khi $$ p \rightarrow \infty $$, ta có norm $$ p $$ chính là trị tuyệt đối của phần tử lớn nhất của vector đó: $$ \Vert\mathbf{x}\Vert_{\infty} = \max_{i = 1, 2, \cdots, n} \vert x_i \vert ~~~ (4) $$
 
-Chặt chẽ hơn, một chuẩn là một hàm số $$ f() $$ ánh xạ một điểm $$ \mathbf{x} $$ từ không gian $$ n $$ chiều sang tập số thực một chiều \mathbf{R} được gọi là norm nếu thỏa mãn các tính chất sau đây:
+Chặt chẽ hơn, một chuẩn là một hàm số $$ f() $$ ánh xạ một điểm $$ \mathbf{x} $$ từ không gian $$ n $$ chiều sang tập số thực một chiều $$ \mathbf{R} $$ được gọi là norm nếu thỏa mãn các tính chất sau đây:
 
-1. $$ f(\mathbf{x}) = 0 \geq 0 $$. Dấu bằng xảy ra $$ \Leftrightarrow \mathbf{x = 0} $$  
-2. $$ f(\alpha \mathbf{x}) = \vert\alpha\vert f(\mathbf{x}), ~~~\forall \alpha \in \mathbb{R} $$  
-3. $$ f(\mathbf{x}_1) + f(\mathbf{x}_2) \geq f(\mathbf{x}_1 + \mathbf{x}_2), ~~\forall \mathbf{x}_1, \mathbf{x}_2 \in \mathbf{R}^n $$  
+1. $$ f(\mathbf{x}) = 0 \geq 0 $$. Dấu bằng xảy ra $$ \Leftrightarrow \mathbf{x = 0} $$.  
+2. $$ f(\alpha \mathbf{x}) = \vert\alpha\vert f(\mathbf{x}), ~~~ \forall \alpha \in \mathbb{R} $$.  
+3. $$ f(\mathbf{x}_1) + f(\mathbf{x}_2) \geq f(\mathbf{x}_1 + \mathbf{x}_2), ~~\forall \mathbf{x}_1, \mathbf{x}_2 \in \mathbf{R}^n $$. Đây chính là bất đẳng thức tam giác, nếu coi $$ \mathbf{x_1 = w - y, x_2 = z - w} $$ với $$\mathbf{w}$$ là một điểm bất kỳ trong không gian.
 
 Tham khảo thêm [định nghĩa][1] về **NORM** [tại đây][1]
 

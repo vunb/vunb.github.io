@@ -14,7 +14,7 @@ theme_settings:
   header_text: >
      <h3>NLP = Text + Voice</h3>
 
-     <p>The face of the world is changing from GUI to VUI.</p>
+     <p>The face of the world is changing from <a href="https://en.wikipedia.org/wiki/Graphical_user_interface">GUI</a> to <a href="https://en.wikipedia.org/wiki/Voice_user_interface">VUI</a>.</p>
   header_text_feature_image:
   footer_text: >
    Written with <i class="fa fa-heart orange" aria-hidden="true"></i> by Bao-Vu Nhu.
