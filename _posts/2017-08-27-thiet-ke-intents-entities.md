@@ -9,7 +9,7 @@ tags: chatbot-design
 
 Chìa khóa để cho một con bot có thể hiểu được con người là nó phải có khả năng hiểu các ý định của con người và trích xuất các thông tin liên quan từ ý định đó và tất nhiên có các hành động đáp ứng tương thích với thông tin đó.
 
-Xử lý ngôn ngữ tự nhiên (NLP) là khoa học của việc trích xuất ý định và thông tin từ văn bản `text`. Lý do mà bạn thấy rất nhiều nền tảng phát triển bot ra đời như nấm cùng với NLP như một dịch vụ nền tảng. Việc kết nối các kênh và phát triển bot không phải là một vấn đề, liên kết thiếu duy nhất đó là một nền tảng NLP mà `có thể mở rộng` và `dễ dàng làm việc`, bởi vì bạn sẽ không học NLP để tạo ra một con bot ngớ ngẩn!
+Xử lý ngôn ngữ tự nhiên (NLP) là khoa học của việc trích xuất ý định và thông tin từ văn bản `text`. Lý do mà bạn thấy rất nhiều nền tảng phát triển bot ra đời như nấm cùng với NLP như một dịch vụ nền tảng. Việc kết nối các kênh mạng xã hội và phát triển bot không phải là một vấn đề, liên kết thiếu duy nhất đó là một nền tảng NLP mà `có thể mở rộng` và `dễ dàng làm việc`, bởi vì bạn sẽ không học NLP để tạo ra một con bot ngớ ngẩn!
 
 Một vài nền tảng dịch vụ phổ biển:
 
@@ -22,8 +22,8 @@ Một nền tảng bot lý tưởng cung cấp:
 
 1. **Một dịch vụ NLP** - bạn có thể tự huấn luyện
 2. **SDK** để hỗ trợ và xử lý các hội thoại và `meta-data` của chúng.
-3. Một nền tảng lưu trữ các con bot.
-4. Một nền tảng cho phép kết nối bot với nhiều kênh dịch vụ khác nhau.
+3. Một nền tảng **lưu trữ các con bot**.
+4. Một nền tảng cho phép **kết nối bot với nhiều kênh**, mạng xã hội, dịch vụ khác nhau.
 
 Trong khi NLP như 1 dịch vụ (NLP-as-a-service) giúp cho người phát triển có phát triển NLP trong khoảng thời gian ít nhất có thể, đôi khi developer vẫn có khả năng tiếp tục huấn luyện dịch vụ NLP đạt chất lượng cao nhất có thể. Mỗi dịch vụ NLP có miền và tập ngôn ngữ riêng của nó và bạn phải chọn domain thích hợp nhất để triển khai một dịch vụ NLP. Trong bài note này sẽ chỉ ra một vài tình huống tốt nhất để huấn luyến một dịch vụ mô hình NLP.
 
@@ -67,7 +67,7 @@ Category: ----------------- Sport Shoes
 * Rule #1 của việc huấn luyện bất kỳ một mô hình học máy nào là --- Bạn không bao giờ có thể huấn luyện đủ, lấy thêm dữ liệu và tiếp tục train nó.  
 * Rule #1 của việc huấn luyện bất kỳ một mô hình học máy nào là --- Bạn không bao giờ có thể huấn luyện đủ, lấy thêm dữ liệu và tiếp tục train nó.  
 
-Lý tưởng là bạn nên huấn luyện dịch vụ NLP với các tập ngữ liệu thực tế, nếu bạn có những đoạn chat với khách hàng qua Facebook, hoặc Skype hoặc bất kỳ kênh nào bạn làm việc với các tin nhắn có thể giúp việc huấn luyện intent, hoặc không bạn có thể nghĩ tới việc huấn luyện các intent với các bộ dữ liệu tự sản xuất (Manufactured utterances). Ví dụ -- Huấn luyện intent *"GetReleaseYearByTile"* với các bộ dữ liệu huấn luyện cho intent này như sau:
+Lý tưởng là bạn nên huấn luyện dịch vụ NLP với các tập ngữ liệu thực tế, nếu bạn có những đoạn chat với khách hàng qua Facebook, hoặc Skype hoặc bất kỳ mạng xã hội nào bạn làm việc với các tin nhắn có thể giúp cho việc huấn luyện intent, hoặc không thì bạn có thể nghĩ tới việc huấn luyện các intent với các bộ dữ liệu tự sản xuất (Manufactured utterances). Ví dụ -- Huấn luyện intent *"GetReleaseYearByTile"* với các bộ dữ liệu huấn luyện cho intent này như sau:
 
 * what was the release year of movie Pulp fiction
 * in which year Pulp fiction was released
