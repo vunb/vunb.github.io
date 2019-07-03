@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>&lt;Vunb /&gt;</title>
+    <link>/authors/admin/</link>
+    <description>Recent content on &lt;Vunb /&gt;</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>Vunb &amp;copy; {year}</copyright>
+    
+	    <atom:link href="/authors/admin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>/authors/admin/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/authors/admin/</guid>
+      <description>&lt;p&gt;I am a software engineer, project manager, and blogger at ERM.,JSC currently living in Hanoi, Vietnam. My interests range from technology to programming. I am also interested in education, web development, and writing.&lt;/p&gt;
+
+&lt;p&gt;Here you can travel to read my blog in Vietnamese or some in English. If you’d like to get in touch, feel free to say hello through any of the social links.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

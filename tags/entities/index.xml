@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Entities on &lt;Vunb /&gt;</title>
+    <link>/tags/entities/</link>
+    <description>Recent content in Entities on &lt;Vunb /&gt;</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>Vunb &amp;copy; {year}</copyright>
+    <lastBuildDate>Mon, 28 Aug 2017 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="/tags/entities/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Chatbots - 10 thuật ngữ cần biết</title>
+      <link>/post/2017/08/28/10-thuat-ngu-chatbots/</link>
+      <pubDate>Mon, 28 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017/08/28/10-thuat-ngu-chatbots/</guid>
+      <description>
+
+&lt;p&gt;Có thể khi tìm hiểu về chatbots và xử lý ngôn ngữ tự nhiên, sẽ có nhiều từ vựng hay các thuật ngữ làm cho bạn cảm thấy khó hình dung, hoặc cảm thấy dễ bị lẫn lộn với nhau. Sau đây là 10 thuật ngữ mà chúng ta cần biết và phân biệt chúng khi nghiên cứu và tìm hiểu về chatbots.&lt;/p&gt;
+
+&lt;h1 id=&#34;3-thuật-ngữ-quan-trọng-utterances-intents-và-entities&#34;&gt;3 thuật ngữ quan trọng: Utterances, intents và entities&lt;/h1&gt;
+
+&lt;p&gt;Đây là ba thuật ngữ quan trọng nhất trong chatbots:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Utterances&lt;/strong&gt;: Đây là những gì mà người dùng nói ra. Ví dụ, một người dùng gõ: &amp;ldquo;Show me yesterday&amp;rsquo;s financial news&amp;rdquo;, thì toàn bộ câu này là một lời nói hay utterance.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Intent&lt;/strong&gt;: Là ý định của người dùng trong câu nói. Với ví dụ trên, &amp;ldquo;show me yesterday&amp;rsquo;s financial news&amp;rdquo;, thì ý định của người dùng ở đây là mong muốn nhận một danh sách các tiêu đề về tài chính. Ý định đều có thể đặt tên, thường là một động từ kết hợp với một danh từ, chẳng hạn: &lt;em&gt;&amp;ldquo;showNews&amp;rdquo;&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Entity&lt;/strong&gt;: Là các thực thể bổ nghĩa cho một ý định. Vẫn ví dụ trên, &amp;ldquo;show me yesterday&amp;rsquo;s financial news&amp;rdquo;, thì các thực thể bổ nghĩa là &amp;ldquo;yesterday&amp;rdquo; và &amp;ldquo;financial&amp;rdquo;. Các thực thể cũng đều có thể được đặt tên, ví dụ: &amp;ldquo;dateTime&amp;rdquo;, và &amp;ldquo;newsType&amp;rdquo;. Các thực thể này đôi khi được gọi là các &amp;ldquo;Slot&amp;rdquo;, có thể hình dung đó là các khe thông tin.&lt;/p&gt;
+
+&lt;h1 id=&#34;7-thuật-ngữ-hữu-ích-khác&#34;&gt;7 thuật ngữ hữu ích khác&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Broadcast&lt;/strong&gt;: Đây là một dạng thông điệp được gửi một cách chủ động tới người dùng. Đây không phải là một tin nhắn hồi đáp cho người dùng mà gần như là một thông báo đẩy (trong app mobile)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Channel&lt;/strong&gt;: Các kênh là phương tiện cho các cuộc trò chuyện bằng chatbot. Ví dụ về các kênh như mạng xã hội Facebook, Skype, Slack và SMS. Email và cửa sổ chát trên web cũng là các phương tiện.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Conversational UI&lt;/strong&gt;: Là giao diện giao tiếp với con người, hoặc là viết tay, hoặc là thông qua lời nói (khôn sử dụng buttons, links, hoặc graphical elements). Thường có nhiều chatbots kết hợp conversational UI với graphical UI.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Natural Language Processing (NLP)&lt;/strong&gt;: NLP là công cụ phân tích một lời nói Utterance và trích xuất các ý định và thực thể trong lời nói. Một số dịch vụ Amazon Lex, Facebook Wit.ai, Google API.ai, Microsoft LUIS đều có sử dụng NLP.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Pilot&lt;/strong&gt;: Giai đoạn phát triển chatbot được triển khai cho một nhóm nhỏ người dùng để thử nghiệm. Các pilots đặc biệt quan trọng với chatbot, bởi vì không giống như các ứng dụng Web, phạm vi đầu vào của người dùng là không giới hạn. Nên cần pilot chatbot theo từng giai đoạn.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof-of-concept (POC)&lt;/strong&gt;: Đây là giai đoạn mà các tính năng của Chatbot hoạt động đúng cách, miễn là đầu vào thử nghiệm được kiểm soát đúng cách. Do đó, POC thể hiện tiềm năng của chatbot.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Response&lt;/strong&gt;: Bất cứ điều gì mà bot nói ra đáp ứng với input đầu vào của người dùng.&lt;/p&gt;
+
+&lt;h1 id=&#34;tham-khảo-liên-kết&#34;&gt;Tham khảo liên kết&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://chatbotsmagazine.com/chatbot-vocabulary-10-chatbot-terms-you-need-to-know-3911b1ef31b4&#34; target=&#34;_blank&#34;&gt;Chatbot Vocabulary: 10 Chatbot Terms You Need to Know&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.techbubble.info/blog/artificial-intelligence/chatbots/entry/deep-learning-neural-network-nlu-engine&#34; target=&#34;_blank&#34;&gt;How I built a fully functional Deep Learning Neural Network chatbot platform (NLU Engine) in under a week&amp;hellip;.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://chatbotsmagazine.com/how-i-built-a-fully-functional-deep-learning-neural-network-chatbot-platform-nlu-engine-in-under-1765180d16db&#34; target=&#34;_blank&#34;&gt;How I built a fully functional Deep Learning Neural Network chatbot platform (NLU Engine) in under a week&amp;hellip;.&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

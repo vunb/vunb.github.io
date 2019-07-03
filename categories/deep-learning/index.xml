@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deep Learning on &lt;Vunb /&gt;</title>
+    <link>/categories/deep-learning/</link>
+    <description>Recent content in Deep Learning on &lt;Vunb /&gt;</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>Vunb &amp;copy; {year}</copyright>
+    <lastBuildDate>Sun, 05 Nov 2017 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="/categories/deep-learning/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CRFSuite - Tìm hiểu và ứng dụng với task Chunking</title>
+      <link>/post/2017/11/crfsuite-chunking-task/</link>
+      <pubDate>Sun, 05 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017/11/crfsuite-chunking-task/</guid>
+      <description>
+
+&lt;h1 id=&#34;giới-thiệu&#34;&gt;Giới thiệu&lt;/h1&gt;
+
+&lt;p&gt;Text-chunking là bài toán chia một văn bản thành các cụm thành phần có liên quan tới cú pháp. Ví dụ, trong câu: &lt;strong&gt;&amp;ldquo;He reckons the current account deficit will narrow to only # 1.8 billion in September.&amp;rdquo;&lt;/strong&gt; có thể được phân tích thành như sau:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;[NP He ] [VP reckons ] [NP the current account deficit ] [VP will narrow ] [PP to ] [NP only # 1.8 billion ] [PP in ] [NP September ] .&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Trong ví dụ này, NP đại diện cho một cụm danh từ, VP là một cụm động từ, và PP là cụm giới từ. Text-chunking là một task, có nhiệm vụ là dán các nhãn cho một nhóm các phần tử (token) trong một câu văn bản, kết quả là ta thu được một chuỗi các nhãn tương ứng. Chúng ta sẽ sử dụng ký pháp &lt;code&gt;IOB&lt;/code&gt; để gán nhãn cho các token trong câu.&lt;/p&gt;
+
+&lt;p&gt;Như vậy, một chunk là NP (một đoạn liên tục các token) thì có chú thích như sau:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;B-NP&lt;/strong&gt; bắt đầu một chunk&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;I-NP&lt;/strong&gt; bên trong một chunk&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;O&lt;/strong&gt; nếu token đó không thuộc chunk nào cả&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Ta có một kết quả đầy đủ cho ví dụ trên như sau:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;B-NP He
+B-VP reckons
+B-NP the
+I-NP current
+I-NP account
+I-NP deficit
+B-VP will
+I-VP narrow
+B-PP to
+B-NP only
+I-NP #
+I-NP 1.8
+I-NP billion
+B-PP in
+B-NP September
+O    .
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Mục tiêu của bài hướng dẫn này, là xây dựng một model có thể dự đoán, tách được các chunk và gán nhãn tương ứng cho nó. Tôi sẽ sử dụng công cụ &lt;a href=&#34;https://npmjs.com/package/crfsuite&#34; target=&#34;_blank&#34;&gt;crfsuite&lt;/a&gt; với ngôn ngữ &lt;strong&gt;node/javascript&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;dữ-liệu-huấn-luyện&#34;&gt;Dữ liệu huấn luyện&lt;/h1&gt;
+
+&lt;p&gt;Bài hướng dẫn này sử dụng dữ liệu được cung cấp bởi task &lt;a href=&#34;https://dl.acm.org/citation.cfm?id=1117631&#34; target=&#34;_blank&#34;&gt;CONLL-2000 shared task: Chunking&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Bạn có thể tìm thấy mã nguồn và dữ liệu của bài hướng dẫn này, tại đây: &lt;a href=&#34;https://github.com/vntk/vntk-chunking&#34; target=&#34;_blank&#34;&gt;https://github.com/vntk/vntk-chunking&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Confidence NN B-NP
+in IN B-PP
+the DT B-NP
+pound NN I-NP
+is VBZ B-VP
+widely RB I-VP
+expected VBN I-VP
+to TO I-VP
+take VB I-VP
+another DT B-NP
+sharp JJ I-NP
+dive NN I-NP
+if IN B-SBAR
+trade NN B-NP
+figures NNS I-NP
+for IN B-PP
+September NNP B-NP
+, , O
+due JJ B-ADJP
+for IN B-PP
+release NN B-NP
+tomorrow NN B-NP
+, , O
+fail VB B-VP
+to TO I-VP
+show VB I-VP
+a DT B-NP
+substantial JJ I-NP
+improvement NN I-NP
+-- More  --
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Dữ liệu bao gồm một tập các câu (sequences), mỗi câu chứa một chuỗi các từ (&amp;lsquo;Confidence&amp;rsquo;, &amp;lsquo;in&amp;rsquo;, &amp;hellip;), các nhãn POS (&amp;lsquo;NN&amp;rsquo;, &amp;lsquo;IN&amp;rsquo;, &amp;hellip;), các nhãn chunk (&amp;lsquo;B-NP&amp;rsquo;, &amp;lsquo;B-PP&amp;rsquo;) ngăn cách nhau bởi khoảng trắng. Trong bài này, chúng ta sẽ khởi tạo một model CRF để gán các nhãn cú pháp chunking, với điều kiện là biết trước nhãn từ loại (POS - Part of Speech) của chúng.&lt;/p&gt;
+
+&lt;h1 id=&#34;trích-chọn-đặc-trưng-feature-selection&#34;&gt;Trích chọn đặc trưng (Feature selection)&lt;/h1&gt;
+
+&lt;p&gt;Bước tiếp theo là tiền xử lý dữ liệu training và testing để trích xuất ra được đặc trưng của words trong tập dữ liệu. CRFsuite có khả năng tạo ra các đặc trưng từ các thuộc tính (attribute - còn gọi là tính chất) của tập dữ liệu. Tổng quan, thì đây là một quá trình quan trọng nhất của tiếp cận machine-learning, bởi vì một đặc trưng ảnh hưởng rất lớn đến độ chính xác của nhãn được dự báo. Ví dụ sau đây, chúng ta sẽ lấy 19 loại attributes của một từ tại vị trí &lt;code&gt;t&lt;/code&gt; (vị trí thứ t trong chuỗi câu).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;w[t-2], w[t-1], w[t], w[t+1], w[t+2],
+w[t-1]|w[t], w[t]|w[t+1],
+pos[t-2], pos[t-1], pos[t], pos[t+1], pos[t+2],
+pos[t-2]|pos[t-1], pos[t-1]|pos[t], pos[t]|pos[t+1], pos[t+1]|pos[t+2],
+pos[t-2]|pos[t-1]|pos[t], pos[t-1]|pos[t]|pos[t+1], pos[t]|pos[t+1]|pos[t+2]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Trong danh sách này, thì w[t] và pos[t] đại diện cho từ vựng (words) và từ loại (part-of-speech) tương ứng tại vị trí &lt;code&gt;t&lt;/code&gt; trong câu. Các đặc trưng này thể hiện tính chất của từ vựng tại vị trí &lt;code&gt;t&lt;/code&gt; bằng việc sử dụng các thông tin xung quanh từ đó, ví dụ: w[t-1] và pos[t+1]. Ví dụ, xem xét tính chất của token &lt;code&gt;the&lt;/code&gt; sau đây:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;        He PRP B-NP
+        reckons VBZ B-VP
+t --&amp;gt;   the DT B-NP
+        current JJ I-NP
+        account NN I-NP
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;từ vựng &lt;code&gt;the&lt;/code&gt; tại ví trí &lt;code&gt;t&lt;/code&gt; có những thuộc tính sau đây (t được lược bỏ cho đơn giản và dễ nhìn):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;w[-2]=He, w[-1]=reckons, w[0]=the, w[1]=current, w[2]=account
+w[-1]|w[0]=reckons|the, w[0]|w[1]=the|current
+pos[-2]=PRP, pos[-1]=VBZ, pos[0]=DT, pos[1]=JJ, pos[2]=NN
+pos[-2]|pos[-1]=PRP|VBZ, pos[-1]|pos[0]=VBZ|DT, pos[0]|pos[1]=DT|JJ, pos[1]|pos[2]=JJ|NN
+pos[-2]|pos[-1]|pos[0]=PRP|VBZ|DT, pos[-1]|pos[0]|pos[1]=VBZ|DT|JJ, pos[0]|pos[1]|pos[2]=DT|JJ|NN
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Trong ví dụ này, thuộc tính &lt;code&gt;w[0]=the&lt;/code&gt; biểu diễn cho sự kiện mà mã từ vựng hiện tại là &lt;code&gt;the&lt;/code&gt;, và thuộc tính &lt;code&gt;pos[0]|pos[1]|pos[2]=DT|JJ|NN&lt;/code&gt; biểu diễn cho sự kiện từ loại tại ví trí hiện tại, từ tiếp theo, từ sau nữa là &lt;code&gt;DT&lt;/code&gt;, &lt;code&gt;JJ&lt;/code&gt;, &lt;code&gt;NN&lt;/code&gt; tương ứng. Bạn có thể hình dung ta dịch chuyển 1 cửa sổ có window_size=2 tại ví trí &lt;code&gt;t&lt;/code&gt;. CRFsuite sẽ học sự liên kết giữa các thuộc tính này và nhãn tương ứng của từ đang xem xét &lt;code&gt;the&lt;/code&gt;, đó là &lt;code&gt;B-NP&lt;/code&gt; để dự đoán nhãn khi cho 1 đầu vào (từ vựng) cụ thể khi biết các tính chất xung quanh nó.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Kiến thức toán học cơ bản để làm việc với Deep learning</title>
+      <link>/post/2017/07/03/2017-07-03-kien-thuc-toan-co-ban-cho-deep-learning/</link>
+      <pubDate>Mon, 03 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017/07/03/2017-07-03-kien-thuc-toan-co-ban-cho-deep-learning/</guid>
+      <description>
+
+&lt;p&gt;Trước khi bắt đầu vào việc học mạng nơ-ron và deep learning, chúng ta cũng cần chuẩn bị một số kiến thức nền tảng của toán học cần thiết. Một vài chủ đề toán học quan trọng để chúng ta có thể hiểu được các chủ đề trong phương pháp học nhiều tầng &lt;strong&gt;Deep learning&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;1-đại-số-tuyến-tính&#34;&gt;1. ĐẠI SỐ TUYẾN TÍNH&lt;/h1&gt;
+
+&lt;p&gt;Đại số tuyến tính bao gồm các dạng liên tục chứ không hoàn toàn là Toán học rời rạc, nhiều người làm khoa học máy tính có rất ít kinh nghiệm với nó. Hiểu biết về đại số tuyến tính là một kỹ năng cần thiết để có thể hiểu được và làm việc được với các thuật toán &lt;strong&gt;Machine learning&lt;/strong&gt;, đặc biệt là với &lt;strong&gt;Deep learning&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Nghiên cứu về Đại số tuyến tính liên quan tới các đối tượng toán học sau:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Đại lượng vô hướng (Scalar)&lt;/strong&gt;: Đại lượng (số) vô hướng là đại lượng được mô tả hoàn toàn chỉ bằng độ lớn. Mô tả bằng một con số mà thôi, không hơn không kém. Ví dụ như tốc độ, thể tích, khối lượng, nhiệt độ, công suất, thời gian, &amp;hellip; Chúng ta viết các đại lượng vô hướng bằng chữ cái không in đậm, có thể viết hoa, ví dụ: $$ (x_1, N, y, k) $$&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Vector&lt;/strong&gt;: Vector là một mảng (1-D) chứa các phần tử của nó là dãy các số vô hướng. Các số này được sắp xếp theo một trật tự và chúng ta có thể xác định các số này bằng chỉ số thứ tự của nó. Thường được ký hiệu bằng chữ cái không viết hoa in đậm, ví dụ: $$ (\mathbf{y}, \mathbf{x}_1) $$&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ma trận&lt;/strong&gt;: Ma trận là một mảng 2 chiều (2-D), mỗi phần tử của nó được xác định bởi 2 chỉ số. Thường được ký hiệu bởi chữ cái viết hoa và in đậm, ví dụ: $$ (\mathbf{A, X, Y, W}) $$&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Tensor&lt;/strong&gt;: Ten-xơ là đối tượng hình học miêu ta quan hệ tuyến tính giữa các đại lượng &lt;code&gt;Vector&lt;/code&gt;, &lt;code&gt;Vô hướng&lt;/code&gt;, và các &lt;code&gt;ten-xơ&lt;/code&gt; với nhau. Theo định nghĩa thì &lt;code&gt;Vector&lt;/code&gt; và &lt;code&gt;Vô hướng&lt;/code&gt; cũng là ten-xơ. Bậc (hay &lt;em&gt;hạng&lt;/em&gt;) của một ten-xơ bằng số chiều của mảng cần để biểu diễn nó, hay tương đương với chỉ số cần để đánh dấu các thành phần của mảng. Đại lượng &lt;code&gt;vô hướng&lt;/code&gt; là ten-xơ hạng &lt;strong&gt;0&lt;/strong&gt;, &amp;hellip;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Một phép toán quan trọng trên ma trận đó là phép &lt;strong&gt;Chuyển vị&lt;/strong&gt;. Chuyển vị của một ma trận là một ma trận mà ở đó các hàng được thay thế bằng các cột và ngược lại. Hay cách hình dùng khác thì ma trận chuyển vị là ảnh của ma trận qua &lt;strong&gt;đường chéo chính&lt;/strong&gt;, chạy từ trên xuống theo hướng bên phải, bắt đầu từ góc trái nhất trên cùng (nghe mô tả mà cũng hoảng). Ký hiệu chuyển vị của ma trận $$\mathbf{A}$$ là $$\mathbf{A}^T$$, và được định nghĩa bằng công thức $$ \mathbf{A}^T(i, j) = \mathbf{A}(j, i) $$.&lt;/p&gt;
+
+&lt;p&gt;Trong ngữ cảnh của &lt;strong&gt;deep learning&lt;/strong&gt;, chúng ta cũng sử dụng các ký hiệu thông thường ít hơn. Ví dụ, khi ta cộng ma trận với một vector, sinh ra một ma trận: $$ \mathbf{C} = \mathbf{A} + \mathbf{b} $$, trong đó $$ \mathbf{C}(i, j) = \mathbf{A}(i, j) + \mathbf{b}(j) $$. Nói cách khác, vector $$\mathbf{b}$$ được cộng vào mỗi hàng của ma trận. Với cách viết tắt này loại bỏ việc xác định thêm 1 ma trận với mỗi hàng có giá trị là $$ \mathbf{b} $$ trước khi thực hiện phép cộng hai ma trận. Việc sao chép $$ \mathbf{b} $$ như vậy được gọi là &lt;strong&gt;broadcasting&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Chuyển vị của một tích ma trận có dạng đơn giản là: $$ (\mathbf{AB})^T = \mathbf{B}^T\mathbf{A}^T $$. Ma trận nghịch đảo của $$ \mathbf{A} $$ được ký hiệu là $$ \mathbf{A}^{-1} $$, và tích của chúng đúng bằng ma trận đơn vị: $$ \mathbf{A}^{-1}\mathbf{A} = \mathbf{I} $$. Tuy nhiên, $$ \mathbf{A}^{-1} $$ chủ yếu có ích như một công cụ lý thuyết, và nó không nên được sử dụng ngoài thực tế trong hầu hết các ứng dụng phần mềm. Bởi vì $$ \mathbf{A}^{-1} $$ được biểu diễn với độ chính xác hạn chế trên máy tính, các thuật toán sử dụng giá trị của $$ \mathbf{b} $$ thường đạt được đó chính xác hơn ước lượng của $$ \mathbf{x} $$.&lt;/p&gt;
+
+&lt;p&gt;Chúng ta cần một vài chủ đề khác để hiểu hơn về kỹ thuật ứng dụng.&lt;/p&gt;
+
+&lt;h1 id=&#34;2-norm-chuẩn&#34;&gt;2. NORM (Chuẩn)&lt;/h1&gt;
+
+&lt;p&gt;Trong machine learning, chúng ta thường đo độ lớn của một vector (điểm dữ liệu) hoặc khoảng cách giữa 2 vector, bằng việc sử dụng 1 hàm, được gọi là chuẩn. Việc đo độ lớn và khoảng cách giữa các vector với nhau, chúng ta có thể đánh giá được điểm nào là điểm gần nhất với một điểm dữ liệu cho trước; chúng ta cũng cần đánh giá độ chính xác của việc ước lượng là như thế nào.&lt;/p&gt;
+
+&lt;p&gt;Giả sử có các vector cột: $$ \mathbf{x} = [x_1; x_2; \cdots; x_n], \mathbf{y} = [y_1; y_2; \cdots; y_n] $$.&lt;/p&gt;
+
+&lt;p&gt;Với &lt;em&gt;p&lt;/em&gt; &lt;strong&gt;là một số không nhỏ hơn 1&lt;/strong&gt; bất kỳ, tổng quát $$ \mathbf{x} $$ có chuẩn norm &lt;em&gt;p&lt;/em&gt; được tính bởi công thức:&lt;/p&gt;
+
+&lt;p&gt;$$ \Vert\mathbf{x}\Vert_p = (\vert x_1 \vert^p + \vert x_2 \vert^p + \cdots + \vert x_n \vert^p)^{\frac{1}{p}} ~~ (1) $$&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Khi $$ p = 2 $$, ta có chuẩn Euclid &lt;strong&gt;norm 2&lt;/strong&gt;: $$ \Vert\mathbf{x}\Vert_2 = \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2} ~~~ (2) $$&lt;/li&gt;
+&lt;li&gt;Khi $$ p = 1 $$, ta có &lt;strong&gt;norm 1&lt;/strong&gt;: $$ \Vert\mathbf{x}\Vert_1 = \vert x_1 \vert + \vert x_2 \vert + \cdots + \vert x_n \vert ~~~ (3) ~~~ $$ là tổng các trị tuyệt đối từng phần tử của $$ \mathbf{x} $$.&lt;/li&gt;
+&lt;li&gt;Khi $$ p \rightarrow \infty $$, ta có norm $$ p $$ chính là trị tuyệt đối của phần tử lớn nhất của vector đó: $$ \Vert\mathbf{x}\Vert&lt;em&gt;{\infty} = \max&lt;/em&gt;{i = 1, 2, \cdots, n} \vert x_i \vert ~~~ (4) $$&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Chặt chẽ hơn, một chuẩn là một hàm số $$ f() $$ ánh xạ một điểm $$ \mathbf{x} $$ từ không gian $$ n $$ chiều sang tập số thực một chiều $$ \mathbf{R} $$ được gọi là norm nếu thỏa mãn các tính chất sau đây:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;$$ f(\mathbf{x}) = 0 \geq 0 $$. Dấu bằng xảy ra $$ \Leftrightarrow \mathbf{x = 0} $$.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;$$ f(\alpha \mathbf{x}) = \vert\alpha\vert f(\mathbf{x}), ~~~ \forall \alpha \in \mathbb{R} $$.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;$$ f(\mathbf{x}_1) + f(\mathbf{x}_2) \geq f(\mathbf{x}_1 + \mathbf{x}_2), ~~\forall \mathbf{x}_1, \mathbf{x}_2 \in \mathbf{R}^n $$. Đây chính là bất đẳng thức tam giác, nếu coi $$ \mathbf{x_1 = w - y, x_2 = z - w} $$ với $$\mathbf{w}$$ là một điểm bất kỳ trong không gian.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Tham khảo thêm &lt;a href=&#34;http://machinelearningcoban.com/math/#-norms-chuan&#34; target=&#34;_blank&#34;&gt;định nghĩa&lt;/a&gt; về &lt;strong&gt;NORM&lt;/strong&gt; &lt;a href=&#34;http://machinelearningcoban.com/math/#-norms-chuan&#34; target=&#34;_blank&#34;&gt;tại đây&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;3-trị-riêng&#34;&gt;3. TRỊ RIÊNG&lt;/h1&gt;
+
+&lt;p&gt;To be continue &amp;hellip;&lt;/p&gt;
+
+&lt;h1 id=&#34;liên-kết-tham-khảo&#34;&gt;Liên kết tham khảo&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://medium.com/towards-data-science/deep-learning-basic-mathematics-for-deep-learning-a82981e95e3b&#34; target=&#34;_blank&#34;&gt;Basic Mathematics for Deep Learning&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://machinelearningcoban.com/math&#34; target=&#34;_blank&#34;&gt;Một số kiến thức về Đại Số Tuyến Tính, Xác Suất Thống Kê, Toán Tối Ưu cần thiết cho Machine Learning&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tensorflow on &lt;Vunb /&gt;</title>
+    <link>/categories/tensorflow/</link>
+    <description>Recent content in Tensorflow on &lt;Vunb /&gt;</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>Vunb &amp;copy; {year}</copyright>
+    <lastBuildDate>Tue, 27 Jun 2017 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="/categories/tensorflow/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Sử dụng mô hình được huấn luyện bằng Tensorflow trong C&#43;&#43;</title>
+      <link>/post/2017/06/27/su-dung-model-tensorflow-trong-cc/</link>
+      <pubDate>Tue, 27 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2017/06/27/su-dung-model-tensorflow-trong-cc/</guid>
+      <description>
+
+&lt;p&gt;Một trong những khả năng của Tensorflow đó là định nghĩa và huấn luyện model sử dụng &lt;strong&gt;Python API&lt;/strong&gt; và chuyển model học được sang sử dụng trong &lt;strong&gt;C++&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;các-bước-thực-hiện&#34;&gt;Các bước thực hiện&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Định nghĩa input, output graph của model&lt;/li&gt;
+&lt;li&gt;Lưu lại các checkpoints. (Bước này rất quan trọng, bởi vì tất cả các biến được huấn luyện và lưu giữ ở bước này)&lt;/li&gt;
+&lt;li&gt;Lưu lại &lt;code&gt;graph&lt;/code&gt; (raw definition, no variable). Đặt là &lt;code&gt;input_graph&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Sử dụng file &lt;code&gt;freeze_graph&lt;/code&gt; để kết hợp cấu trúc (3) &lt;code&gt;input_graph&lt;/code&gt; với các giá trị tại mỗi node (2) và sinh ra một graph model mới, đặt là: &lt;code&gt;output_graph&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Sử dụng &lt;code&gt;output_graph&lt;/code&gt; trong file &lt;strong&gt;C++&lt;/strong&gt; để suy diễn. #Optional: Có thể map ánh xạ output của mạng vào các nhãn label.&lt;/li&gt;
+&lt;li&gt;Tạo một file build trong thư mục &lt;code&gt;tensorflow/tensorflow/{our_project}&lt;/code&gt;. Việc này mất một khoảng thời gian để bundle tất cả các file thư viện của tensorflow vào một file có thể chạy.&lt;/li&gt;
+&lt;li&gt;File thực thi đã sẵn sàng để chạy!&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Chi tiết các bước:&lt;/strong&gt; &lt;a href=&#34;https://medium.com/@hamedmp/exporting-trained-tensorflow-models-to-c-the-right-way-cf24b609d183&#34; target=&#34;_blank&#34;&gt;Exporting trained TensorFlow models to C++ the RIGHT way!&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;liên-kết-tham-khảo&#34;&gt;Liên kết tham khảo&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://tebesu.github.io/posts/Training-a-TensorFlow-graph-in-C++-API&#34; target=&#34;_blank&#34;&gt;Training a TensorFlow graph in C++ API&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://medium.com/@hamedmp/exporting-trained-tensorflow-models-to-c-the-right-way-cf24b609d183&#34; target=&#34;_blank&#34;&gt;Exporting trained TensorFlow models to C++ the RIGHT way!&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
