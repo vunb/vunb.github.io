@@ -139,20 +139,20 @@
     </item>
     
     <item>
-      <title>Tensorflow</title>
-      <link>/tags/tensorflow/</link>
-      <pubDate>Tue, 27 Jun 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/tensorflow/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>howto</title>
       <link>/tags/howto/</link>
       <pubDate>Tue, 27 Jun 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/howto/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tensorflow</title>
+      <link>/tags/tensorflow/</link>
+      <pubDate>Tue, 27 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/tensorflow/</guid>
       <description></description>
     </item>
     
