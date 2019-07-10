@@ -7,7 +7,7 @@
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>Vunb &amp;copy; {year}</copyright>
-    <lastBuildDate>Sun, 05 May 2019 00:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 10 Jul 2019 00:00:00 +0000</lastBuildDate>
     
 	    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
@@ -81,6 +81,64 @@
 &lt;p&gt;Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet, euismod magna. Sed rutrum massa id tortor commodo, vitae elementum turpis tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus turpis, venenatis a ullamcorper nec, tincidunt et massa. Integer posuere quam rutrum arcu vehicula imperdiet. Mauris ullamcorper quam vitae purus congue, quis euismod magna eleifend. Vestibulum semper vel augue eget tincidunt. Fusce eget justo sodales, dapibus odio eu, ultrices lorem. Duis condimentum lorem id eros commodo, in facilisis mauris scelerisque. Morbi sed auctor leo. Nullam volutpat a lacus quis pharetra. Nulla congue rutrum magna a ornare.&lt;/p&gt;
 
 &lt;p&gt;Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Katex</title>
+      <link>/post/2019/07/katex/</link>
+      <pubDate>Wed, 10 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2019/07/katex/</guid>
+      <description>&lt;p&gt;Cấu hình Hugo sử dụng &lt;code&gt;katex&lt;/code&gt; và &lt;code&gt;mmark&lt;/code&gt;. Không khó lắm, mất khoảng 15 phút là làm được.&lt;/p&gt;
+
+&lt;p&gt;Sau khi cài đặt xong thì giờ quan tâm tới cách sử dụng thôi 😄&lt;/p&gt;
+
+&lt;h3 id=&#34;display-block&#34;&gt;Display Block&lt;/h3&gt;
+
+&lt;p&gt;Type equation on a single line, with top and bottom spaces. Use double dollar signs as delimiter.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-md&#34;&gt;The following
+
+$$\int_{a}^{b} x^2 dx$$
+
+Is an integral
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The following&lt;/p&gt;
+
+&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\int_{a}^{b} x^2 dx\]&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Is an integral&lt;/p&gt;
+
+&lt;h3 id=&#34;display-inline&#34;&gt;Display Inline&lt;/h3&gt;
+
+&lt;p&gt;Type the equation as per usual, nothing extra needed. Use double dollar signs as delimiter.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-md&#34;&gt;Integrate $$\int x^3 dx$$
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Integrate &lt;span  class=&#34;math&#34;&gt;\(\int x^3 dx\)&lt;/span&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;notice&#34;&gt;Notice&lt;/h3&gt;
+
+&lt;p&gt;Để đoạn mã trên hoạt động được, thêm cấu hình vào từng bài post cấu hình sau:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+katex: true
+markup: &amp;quot;mmark&amp;quot;
+---
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;liên-kết-tham-khảo&#34;&gt;Liên kết tham khảo&lt;/h1&gt;
+
+&lt;p&gt;Một vài hướng dẫn cấu hình&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://eankeen.github.io/blog/render-latex-with-katex-in-hugo-blog/&#34;&gt;https://eankeen.github.io/blog/render-latex-with-katex-in-hugo-blog/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://katex.org/docs/browser.html&#34;&gt;https://katex.org/docs/browser.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://katex.org/docs/autorender.html&#34;&gt;https://katex.org/docs/autorender.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     
