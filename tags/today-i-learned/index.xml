@@ -18,9 +18,7 @@
       <pubDate>Wed, 10 Jul 2019 00:00:00 +0000</pubDate>
       
       <guid>/post/2019/07/katex/</guid>
-      <description>&lt;p&gt;Cấu hình Hugo sử dụng &lt;code&gt;katex&lt;/code&gt; và &lt;code&gt;mmark&lt;/code&gt;. Không khó lắm, mất khoảng 15 phút là làm được.&lt;/p&gt;
-
-&lt;p&gt;Sau khi cài đặt xong thì giờ quan tâm tới cách sử dụng thôi 😄&lt;/p&gt;
+      <description>&lt;p&gt;Cấu hình Hugo sử dụng &lt;code&gt;katex&lt;/code&gt; và &lt;code&gt;mmark&lt;/code&gt;. Không khó lắm, mất khoảng 15 phút là làm được. Sau khi cài đặt xong thì giờ quan tâm tới cách sử dụng thôi 😄&lt;/p&gt;
 
 &lt;h3 id=&#34;display-block&#34;&gt;Display Block&lt;/h3&gt;
 
