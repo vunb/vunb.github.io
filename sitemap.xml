@@ -24,6 +24,18 @@
   </url>
   
   <url>
+    <loc>/tags/bleu/</loc>
+    <lastmod>2019-07-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/bilingual-evaluation-understudy/</loc>
+    <lastmod>2019-07-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/categories/</loc>
     <lastmod>2019-07-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -53,6 +65,12 @@
   </url>
   
   <url>
+    <loc>/categories/nlp/</loc>
+    <lastmod>2019-07-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/post/</loc>
     <lastmod>2019-07-10T00:00:00+00:00</lastmod>
   </url>
@@ -73,6 +91,11 @@
     <loc>/tags/today-i-learned/</loc>
     <lastmod>2019-07-10T00:00:00+00:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/post/2019/07/tim-hieu-bleu/</loc>
+    <lastmod>2019-07-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
