@@ -226,14 +226,14 @@
   </url>
   
   <url>
-    <loc>/post/2017/06/27/su-dung-model-tensorflow-trong-cc/</loc>
+    <loc>/tags/howto/</loc>
     <lastmod>2017-06-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/tensorflow/</loc>
+    <loc>/post/2017/06/27/su-dung-model-tensorflow-trong-cc/</loc>
     <lastmod>2017-06-27T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -243,7 +243,7 @@
   </url>
   
   <url>
-    <loc>/tags/howto/</loc>
+    <loc>/tags/tensorflow/</loc>
     <lastmod>2017-06-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
