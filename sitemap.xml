@@ -3,12 +3,12 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/tutorials/1-sentiment-analysis/</loc>
+    <loc>/courses/1-sentiment-analysis/</loc>
     <lastmod>2019-07-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tutorials/1-sentiment-analysis/example1/</loc>
+    <loc>/courses/1-sentiment-analysis/example1/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url>
   
@@ -23,7 +23,7 @@
   </url>
   
   <url>
-    <loc>/tutorials/1-sentiment-analysis/example2/</loc>
+    <loc>/courses/1-sentiment-analysis/example2/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
   </url>
   
@@ -252,13 +252,13 @@
   </url>
   
   <url>
-    <loc>/categories/tensorflow/</loc>
+    <loc>/tags/tensorflow/</loc>
     <lastmod>2017-06-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/tensorflow/</loc>
+    <loc>/categories/tensorflow/</loc>
     <lastmod>2017-06-27T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -314,6 +314,10 @@
   <url>
     <loc>/authors/</loc>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/courses/</loc>
   </url>
   
   <url>

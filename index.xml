@@ -13,11 +13,11 @@
     
     
     <item>
-      <title>Example Page 1</title>
-      <link>/tutorials/1-sentiment-analysis/example1/</link>
+      <title>Course Page 1</title>
+      <link>/courses/1-sentiment-analysis/example1/</link>
       <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
       
-      <guid>/tutorials/1-sentiment-analysis/example1/</guid>
+      <guid>/courses/1-sentiment-analysis/example1/</guid>
       <description>
 
 &lt;p&gt;In this tutorial, I&amp;rsquo;ll share my top 10 tips for getting started with Academic:&lt;/p&gt;
@@ -85,11 +85,11 @@
     </item>
     
     <item>
-      <title>Example Page 2</title>
-      <link>/tutorials/1-sentiment-analysis/example2/</link>
+      <title>Course Page 2</title>
+      <link>/courses/1-sentiment-analysis/example2/</link>
       <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
       
-      <guid>/tutorials/1-sentiment-analysis/example2/</guid>
+      <guid>/courses/1-sentiment-analysis/example2/</guid>
       <description>
 
 &lt;p&gt;Here are some more tips for getting started with Academic:&lt;/p&gt;
