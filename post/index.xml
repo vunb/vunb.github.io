@@ -1,322 +1,178 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Posts on &lt;Vunb /&gt;</title>
-    <link>/post/</link>
-    <description>Recent content in Posts on &lt;Vunb /&gt;</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
-    <language>en-us</language>
-    <copyright>Vunb &amp;copy; {year}</copyright>
-    <lastBuildDate>Thu, 18 Jul 2019 00:00:00 +0000</lastBuildDate>
-    
-	    <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Lựa chọn Gatsby hay Nextjs</title>
-      <link>/post/2019/07/lua-chon-gatsby-hay-nextjs/</link>
-      <pubDate>Thu, 18 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2019/07/lua-chon-gatsby-hay-nextjs/</guid>
-      <description>
-
-&lt;p&gt;&lt;img src=&#34;/img/dev/gatsbyvsnext.png&#34; alt=&#34;Gatsby hay Nextjs&#34; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;gatsby-vs-next&#34;&gt;Gatsby vs Next&lt;/h1&gt;
-
-&lt;p&gt;Gatsby và Nexjs gần đây khá hot và được cộng đồng quan tâm. Nhìn qua, thì cả hai có vẻ rất giống nhau, và có một số điểm chung như:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Khởi tạo dự án web rất nhanh&lt;/li&gt;
-&lt;li&gt;Mặc định khởi tạo web SPA&lt;/li&gt;
-&lt;li&gt;Mặc định hỗ trợ SEO&lt;/li&gt;
-&lt;li&gt;Có đội ngũ kinh nghiệm&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Những điều trên khiến bạn có thể thấy khó lựa chọn thằng nào để sử dụng???&lt;/p&gt;
-
-&lt;p&gt;Mặc dù chúng có nhiều điểm tương đồng, xong có một vài điểm khác biệt sau đây để bạn có thể lựa chọn một cách dễ dàng hơn:&lt;/p&gt;
-
-&lt;h1 id=&#34;static-site-generator-vs-server-side-rendered-pages&#34;&gt;Static site generator vs. server side rendered pages&lt;/h1&gt;
-
-&lt;p&gt;Static site generator có nghĩa là ứng dụng được sinh ra ngay trong quá trình &lt;strong&gt;build time&lt;/strong&gt; và nó không sử dụng server. Trái lại, server-side rendering là các trang HTML được sinh ra &lt;em&gt;dynamically&lt;/em&gt; mỗi lần có một request mới đến. Và nó sử dụng server cho việc này.&lt;/p&gt;
-
-&lt;p&gt;Gatsby:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Gatsby là một static site generator tool&lt;/li&gt;
-&lt;li&gt;Gatsby tạo ra các tài liệu HTML/CSS/JS, điều này có nghĩa là bạn có thể host nó ở &lt;code&gt;S3&lt;/code&gt;, &lt;code&gt;Netlify&lt;/code&gt;, &lt;code&gt;Github&lt;/code&gt;, hoặc các dịch vụ hosting khác.&lt;/li&gt;
-&lt;li&gt;Do tính chất tĩnh, nên cực kỳ có thể mở rộng đối với hệ thống có traffic cao.&lt;/li&gt;
-&lt;li&gt;Gatsby không cần server&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Nextjs:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Next render các tài liệu HTML với mỗi request đến trong thời gian chạy&lt;/li&gt;
-&lt;li&gt;Next cũng là một server để kết xuất ra các trạng HTML từ server&lt;/li&gt;
-&lt;li&gt;Next cũng hỗ trợ &lt;strong&gt;&lt;a href=&#34;https://nextjs.org/docs/#static-html-export&#34; target=&#34;_blank&#34;&gt;export ra web tĩnh&lt;/a&gt;&lt;/strong&gt; để chạy trên hosting giống Gatsby.&lt;/li&gt;
-&lt;li&gt;Next cần server để chạy&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Tất nhiên cả hai đều có thể gọi &lt;strong&gt;API&lt;/strong&gt; từ phía client.&lt;/p&gt;
-
-&lt;h1 id=&#34;xử-lý-dữ-liệu-của-gatsby&#34;&gt;Xử lý dữ liệu của Gatsby&lt;/h1&gt;
-
-&lt;p&gt;Một điểm khác biệt lớn khác nữa đó là cách xử lý dữ mà 2 nền tảng này cung cấp.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Tất cả dữ liệu trong ứng dụng Gatsby đưa vào GraphQL. Nếu bạn lấy dữ liệu từ API server, ngay sau đó bạn phải thông báo cho Gatsby để import dữ liệu vào trong db GraphQL.&lt;/li&gt;
-&lt;li&gt;React component sẽ lấy dữ liệu từ GraphQL.&lt;/li&gt;
-&lt;li&gt;Gatsby có nhiều plugins cho việc này để dễ dàng tích hợp với dữ liệu từ nhiều nguồn khác nhau như: &lt;a href=&#34;https://www.gatsbyjs.org/packages/gatsby-source-contentful/?=contentfu#gatsby-source-contentful&#34; target=&#34;_blank&#34;&gt;Contentful&lt;/a&gt;, &lt;a href=&#34;https://www.gatsbyjs.org/packages/gatsby-source-contentful/?=contentfu#gatsby-source-contentful&#34; target=&#34;_blank&#34;&gt;Wordpress&lt;/a&gt;, &lt;a href=&#34;https://www.gatsbyjs.org/packages/gatsby-source-contentful/?=contentfu#gatsby-source-contentful&#34; target=&#34;_blank&#34;&gt;MongoDB&lt;/a&gt;, và &lt;a href=&#34;https://www.gatsbyjs.org/packages/gatsby-source-contentful/?=contentfu#gatsby-source-contentful&#34; target=&#34;_blank&#34;&gt;GraphQL&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Khi build production thì GraphQL không được sử dụng, nhưng dữ liệu thì được lưu trong tệp JSON.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Gatsby chỉ cho bạn cách xử lý dữ liệu trong ứng dụng. Next thì không và việc đó hoàn toàn phụ thuộc vào quyết định của bạn. Bạn phải tự dựng kiến trúc cách xử lý dữ liệu, hoặc GraphQL, hoặc Redux, &amp;hellip;&lt;/p&gt;
-
-&lt;h1 id=&#34;tôi-nên-chọn-gatsby-hay-next&#34;&gt;Tôi nên chọn Gatsby hay Next?&lt;/h1&gt;
-
-&lt;p&gt;Việc lựa chọn vẫn phụ thuộc vào tình huống sử dụng của bạn:&lt;/p&gt;
-
-&lt;h2 id=&#34;trường-hợp-không-nên-sử-dụng-gatsby&#34;&gt;Trường hợp không nên sử dụng Gatsby&lt;/h2&gt;
-
-&lt;p&gt;Nếu hệ thống của bạn muốn xây dựng có rất nhiều content, đặc biệt là sự tăng trưởng của content theo thời gian, khi đó hệ thống sinh web tĩnh như Gatsby không phải là giải pháp tốt cho bạn. Lý do là nó sẽ mất rất nhiều thời gian để build site nếu có có nhiều content.&lt;/p&gt;
-
-&lt;p&gt;Khi tạo một hệ thống rất lớn với hàng nghìn &lt;strong&gt;Pages&lt;/strong&gt; thì nó thực sự trở thành vấn đề, hệ thống build rất chậm. Bạn có thể phải chờ 20 phút để sẵn sàng publish và trạng thái go live của hệ thống không phải là giải pháp tốt!&lt;/p&gt;
-
-&lt;p&gt;Vì vậy, nếu bạn có một trang web có nội dung mà bạn sẽ mong đợi tăng trưởng và phát triển theo thời gian, thì Gatsby có thể không mở rộng được cho bạn. Và bạn không chỉ nghĩ về việc bạn có bao nhiêu nội dung bây giờ, mà còn bạn mong đợi bao nhiêu trong tương lai. Bạn sẽ có bao nhiêu &lt;strong&gt;Pages&lt;/strong&gt; trong 1 năm? 5 năm?&lt;/p&gt;
-
-&lt;h2 id=&#34;trường-hợp-nên-sử-dụng-gatsby&#34;&gt;Trường hợp nên sử dụng Gatsby&lt;/h2&gt;
-
-&lt;p&gt;Ví dụ hệ thống của bạn là một site về thương mại điện tử bán điện thoại? Cửa hàng có &amp;lt; 200 sản phẩm. Bạn có thể chỉ mất vài phút để dựng được một hệ thống lên và không kỳ vọng danh mục sản phẩm nhiều lên trong tương lai. Gatsby hoàn toàn tuyệt vời trong trường hợp này.&lt;/p&gt;
-
-&lt;p&gt;Bạn không bao giờ phải lo lắng hay suy nghĩ về quy mô. Bạn thừa biết rằng hệ thống có thể xử lý được bất kỳ lưu lượng nào vì nó chỉ là dữ liệu tĩnh!!! 😄&lt;/p&gt;
-
-&lt;p&gt;Một tình huống khác nữa đó là lưu được toàn bộ lịch sử của dữ liệu. Ví dụ, định kỳ hàng ngày bạn phải build và deploy hệ thống mỗi khi có dữ liệu thay đổi và dữ liệu cũ được lưu lại trong &lt;strong&gt;S3&lt;/strong&gt;. Điều này có nghĩa là bạn luôn có thể deploy lại hệ thống (cũ) trước đó. Nếu dữ liệu&lt;/p&gt;
-
-&lt;h1 id=&#34;liên-kết-tham-khảo&#34;&gt;Liên kết tham khảo&lt;/h1&gt;
-
-&lt;p&gt;Bài viết tham khảo và tổng hợp lại từ một số nguồn để đưa ra đánh giá riêng cá nhân. Có nghĩa là bạn cần có tư duy độc lập để đưa ra quyết định lựa chọn của bạn! Ngoài ra bạn có thể tham khảo các liên kết ngoài trogn danh sách dưới đây.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://dev.to/giogiordano93/why-we-decided-to-move-tonextjs-28gp&#34; target=&#34;_blank&#34;&gt;Why we decided to move to Next.js&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.freecodecamp.org/news/an-introduction-to-next-js-for-everyone-507d2d90ab54/&#34; target=&#34;_blank&#34;&gt;Nextjs for everyone — with some basic knowledge of React&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.freecodecamp.org/news/why-you-should-use-gatsbyjs-to-build-static-sites-4f90eb6d1a7b/&#34; target=&#34;_blank&#34;&gt;Why you should use GatsbyJS to build static sites&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://ori.solutions/blog/why-choose-gatsby-js-when-developing-your-new-website/&#34; target=&#34;_blank&#34;&gt;Why choose gatsby.js when developing your new website&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.storyblok.com/tp/3-reasons-why-you-should-consider-gatsby-js-for-your-next-project&#34; target=&#34;_blank&#34;&gt;3 reasons why you should consider Gatsby.js for your next project&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.jakoblind.no/gatsby-vs-next/&#34; target=&#34;_blank&#34;&gt;Gatsby vs Next&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Katex</title>
-      <link>/post/2019/07/katex/</link>
-      <pubDate>Wed, 10 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2019/07/katex/</guid>
-      <description>&lt;p&gt;Cấu hình Hugo sử dụng &lt;code&gt;katex&lt;/code&gt; và &lt;code&gt;mmark&lt;/code&gt;. Không khó lắm, mất khoảng 15 phút là làm được. Sau khi cài đặt xong thì giờ quan tâm tới cách sử dụng thôi 😄&lt;/p&gt;
-
-&lt;h3 id=&#34;display-block&#34;&gt;Display Block&lt;/h3&gt;
-
-&lt;p&gt;Type equation on a single line, with top and bottom spaces. Use double dollar signs as delimiter.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-md&#34;&gt;The following
-
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on &lt;Vunb /></title><link>/post/</link><description>Recent content in Posts on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Thu, 18 Jul 2019 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Lựa chọn Gatsby hay Nextjs</title><link>/post/2019/07/lua-chon-gatsby-hay-nextjs/</link><pubDate>Thu, 18 Jul 2019 00:00:00 +0000</pubDate><guid>/post/2019/07/lua-chon-gatsby-hay-nextjs/</guid><description>&lt;p>&lt;img src="/img/dev/gatsbyvsnext.png" alt="Gatsby hay Nextjs">&lt;/p>
+&lt;h1 id="gatsby-vs-next">Gatsby vs Next&lt;/h1>
+&lt;p>Gatsby và Nexjs gần đây khá hot và được cộng đồng quan tâm. Nhìn qua, thì cả hai có vẻ rất giống nhau, và có một số điểm chung như:&lt;/p>
+&lt;ul>
+&lt;li>Khởi tạo dự án web rất nhanh&lt;/li>
+&lt;li>Mặc định khởi tạo web SPA&lt;/li>
+&lt;li>Mặc định hỗ trợ SEO&lt;/li>
+&lt;li>Có đội ngũ kinh nghiệm&lt;/li>
+&lt;/ul>
+&lt;p>Những điều trên khiến bạn có thể thấy khó lựa chọn thằng nào để sử dụng???&lt;/p>
+&lt;p>Mặc dù chúng có nhiều điểm tương đồng, xong có một vài điểm khác biệt sau đây để bạn có thể lựa chọn một cách dễ dàng hơn:&lt;/p>
+&lt;h1 id="static-site-generator-vs-server-side-rendered-pages">Static site generator vs. server side rendered pages&lt;/h1>
+&lt;p>Static site generator có nghĩa là ứng dụng được sinh ra ngay trong quá trình &lt;strong>build time&lt;/strong> và nó không sử dụng server. Trái lại, server-side rendering là các trang HTML được sinh ra &lt;em>dynamically&lt;/em> mỗi lần có một request mới đến. Và nó sử dụng server cho việc này.&lt;/p>
+&lt;p>Gatsby:&lt;/p>
+&lt;ul>
+&lt;li>Gatsby là một static site generator tool&lt;/li>
+&lt;li>Gatsby tạo ra các tài liệu HTML/CSS/JS, điều này có nghĩa là bạn có thể host nó ở &lt;code>S3&lt;/code>, &lt;code>Netlify&lt;/code>, &lt;code>Github&lt;/code>, hoặc các dịch vụ hosting khác.&lt;/li>
+&lt;li>Do tính chất tĩnh, nên cực kỳ có thể mở rộng đối với hệ thống có traffic cao.&lt;/li>
+&lt;li>Gatsby không cần server&lt;/li>
+&lt;/ul>
+&lt;p>Nextjs:&lt;/p>
+&lt;ul>
+&lt;li>Next render các tài liệu HTML với mỗi request đến trong thời gian chạy&lt;/li>
+&lt;li>Next cũng là một server để kết xuất ra các trạng HTML từ server&lt;/li>
+&lt;li>Next cũng hỗ trợ &lt;strong>&lt;a href="https://nextjs.org/docs/#static-html-export">export ra web tĩnh&lt;/a>&lt;/strong> để chạy trên hosting giống Gatsby.&lt;/li>
+&lt;li>Next cần server để chạy&lt;/li>
+&lt;/ul>
+&lt;p>Tất nhiên cả hai đều có thể gọi &lt;strong>API&lt;/strong> từ phía client.&lt;/p>
+&lt;h1 id="x-l-d-liu-ca-gatsby">Xử lý dữ liệu của Gatsby&lt;/h1>
+&lt;p>Một điểm khác biệt lớn khác nữa đó là cách xử lý dữ mà 2 nền tảng này cung cấp.&lt;/p>
+&lt;ul>
+&lt;li>Tất cả dữ liệu trong ứng dụng Gatsby đưa vào GraphQL. Nếu bạn lấy dữ liệu từ API server, ngay sau đó bạn phải thông báo cho Gatsby để import dữ liệu vào trong db GraphQL.&lt;/li>
+&lt;li>React component sẽ lấy dữ liệu từ GraphQL.&lt;/li>
+&lt;li>Gatsby có nhiều plugins cho việc này để dễ dàng tích hợp với dữ liệu từ nhiều nguồn khác nhau như: &lt;a href="https://www.gatsbyjs.org/packages/gatsby-source-contentful/?=contentfu#gatsby-source-contentful">Contentful&lt;/a>, &lt;a href="https://www.gatsbyjs.org/packages/gatsby-source-contentful/?=contentfu#gatsby-source-contentful">Wordpress&lt;/a>, &lt;a href="https://www.gatsbyjs.org/packages/gatsby-source-contentful/?=contentfu#gatsby-source-contentful">MongoDB&lt;/a>, và &lt;a href="https://www.gatsbyjs.org/packages/gatsby-source-contentful/?=contentfu#gatsby-source-contentful">GraphQL&lt;/a>.&lt;/li>
+&lt;li>Khi build production thì GraphQL không được sử dụng, nhưng dữ liệu thì được lưu trong tệp JSON.&lt;/li>
+&lt;/ul>
+&lt;p>Gatsby chỉ cho bạn cách xử lý dữ liệu trong ứng dụng. Next thì không và việc đó hoàn toàn phụ thuộc vào quyết định của bạn. Bạn phải tự dựng kiến trúc cách xử lý dữ liệu, hoặc GraphQL, hoặc Redux, &amp;hellip;&lt;/p>
+&lt;h1 id="ti-nn-chn-gatsby-hay-next">Tôi nên chọn Gatsby hay Next?&lt;/h1>
+&lt;p>Việc lựa chọn vẫn phụ thuộc vào tình huống sử dụng của bạn:&lt;/p>
+&lt;h2 id="trng-hp-khng-nn-s-dng-gatsby">Trường hợp không nên sử dụng Gatsby&lt;/h2>
+&lt;p>Nếu hệ thống của bạn muốn xây dựng có rất nhiều content, đặc biệt là sự tăng trưởng của content theo thời gian, khi đó hệ thống sinh web tĩnh như Gatsby không phải là giải pháp tốt cho bạn. Lý do là nó sẽ mất rất nhiều thời gian để build site nếu có có nhiều content.&lt;/p>
+&lt;p>Khi tạo một hệ thống rất lớn với hàng nghìn &lt;strong>Pages&lt;/strong> thì nó thực sự trở thành vấn đề, hệ thống build rất chậm. Bạn có thể phải chờ 20 phút để sẵn sàng publish và trạng thái go live của hệ thống không phải là giải pháp tốt!&lt;/p>
+&lt;p>Vì vậy, nếu bạn có một trang web có nội dung mà bạn sẽ mong đợi tăng trưởng và phát triển theo thời gian, thì Gatsby có thể không mở rộng được cho bạn. Và bạn không chỉ nghĩ về việc bạn có bao nhiêu nội dung bây giờ, mà còn bạn mong đợi bao nhiêu trong tương lai. Bạn sẽ có bao nhiêu &lt;strong>Pages&lt;/strong> trong 1 năm? 5 năm?&lt;/p>
+&lt;h2 id="trng-hp-nn-s-dng-gatsby">Trường hợp nên sử dụng Gatsby&lt;/h2>
+&lt;p>Ví dụ hệ thống của bạn là một site về thương mại điện tử bán điện thoại? Cửa hàng có &amp;lt; 200 sản phẩm. Bạn có thể chỉ mất vài phút để dựng được một hệ thống lên và không kỳ vọng danh mục sản phẩm nhiều lên trong tương lai. Gatsby hoàn toàn tuyệt vời trong trường hợp này.&lt;/p>
+&lt;p>Bạn không bao giờ phải lo lắng hay suy nghĩ về quy mô. Bạn thừa biết rằng hệ thống có thể xử lý được bất kỳ lưu lượng nào vì nó chỉ là dữ liệu tĩnh!!! 😄&lt;/p>
+&lt;p>Một tình huống khác nữa đó là lưu được toàn bộ lịch sử của dữ liệu. Ví dụ, định kỳ hàng ngày bạn phải build và deploy hệ thống mỗi khi có dữ liệu thay đổi và dữ liệu cũ được lưu lại trong &lt;strong>S3&lt;/strong>. Điều này có nghĩa là bạn luôn có thể deploy lại hệ thống (cũ) trước đó. Nếu dữ liệu&lt;/p>
+&lt;h1 id="lin-kt-tham-kho">Liên kết tham khảo&lt;/h1>
+&lt;p>Bài viết tham khảo và tổng hợp lại từ một số nguồn để đưa ra đánh giá riêng cá nhân. Có nghĩa là bạn cần có tư duy độc lập để đưa ra quyết định lựa chọn của bạn! Ngoài ra bạn có thể tham khảo các liên kết ngoài trogn danh sách dưới đây.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://dev.to/giogiordano93/why-we-decided-to-move-tonextjs-28gp">Why we decided to move to Next.js&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.freecodecamp.org/news/an-introduction-to-next-js-for-everyone-507d2d90ab54/">Nextjs for everyone — with some basic knowledge of React&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.freecodecamp.org/news/why-you-should-use-gatsbyjs-to-build-static-sites-4f90eb6d1a7b/">Why you should use GatsbyJS to build static sites&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://ori.solutions/blog/why-choose-gatsby-js-when-developing-your-new-website/">Why choose gatsby.js when developing your new website&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.storyblok.com/tp/3-reasons-why-you-should-consider-gatsby-js-for-your-next-project">3 reasons why you should consider Gatsby.js for your next project&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://blog.jakoblind.no/gatsby-vs-next/">Gatsby vs Next&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Katex</title><link>/post/2019/07/katex/</link><pubDate>Wed, 10 Jul 2019 00:00:00 +0000</pubDate><guid>/post/2019/07/katex/</guid><description>&lt;p>Cấu hình Hugo sử dụng &lt;code>katex&lt;/code> và &lt;code>mmark&lt;/code>. Không khó lắm, mất khoảng 15 phút là làm được. Sau khi cài đặt xong thì giờ quan tâm tới cách sử dụng thôi 😄&lt;/p>
+&lt;h3 id="display-block">Display Block&lt;/h3>
+&lt;p>Type equation on a single line, with top and bottom spaces. Use double dollar signs as delimiter.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">The following
 $$\int_{a}^{b} x^2 dx$$
-
-Is an integral
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The following&lt;/p&gt;
-
-&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\int_{a}^{b} x^2 dx\]&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Is an integral&lt;/p&gt;
-
-&lt;h3 id=&#34;display-inline&#34;&gt;Display Inline&lt;/h3&gt;
-
-&lt;p&gt;Type the equation as per usual, nothing extra needed. Use double dollar signs as delimiter.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-md&#34;&gt;Integrate $$\int x^3 dx$$
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Integrate &lt;span  class=&#34;math&#34;&gt;\(\int x^3 dx\)&lt;/span&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;notice&#34;&gt;Notice&lt;/h3&gt;
-
-&lt;p&gt;Để đoạn mã trên hoạt động được, thêm cấu hình vào từng bài post cấu hình sau:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
-katex: true
-markup: &amp;quot;mmark&amp;quot;
----
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;liên-kết-tham-khảo&#34;&gt;Liên kết tham khảo&lt;/h1&gt;
-
-&lt;p&gt;Một vài hướng dẫn cấu hình&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://eankeen.github.io/blog/render-latex-with-katex-in-hugo-blog/&#34;&gt;https://eankeen.github.io/blog/render-latex-with-katex-in-hugo-blog/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://katex.org/docs/browser.html&#34;&gt;https://katex.org/docs/browser.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://katex.org/docs/autorender.html&#34;&gt;https://katex.org/docs/autorender.html&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Tìm hiểu về độ đo BLEU</title>
-      <link>/post/2019/07/tim-hieu-bleu/</link>
-      <pubDate>Wed, 10 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2019/07/tim-hieu-bleu/</guid>
-      <description>&lt;p&gt;BLEU là viết tắt của &lt;strong&gt;Bilingual Evaluation Understudy&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;BLEU thường được sử dụng trong bài toàn dịch máy (&lt;strong&gt;Machine Translation&lt;/strong&gt;) như một độ đo hay một hệ số điểm khi so sánh một bản dịch (candidate translation) với một hay nhiều bản dịch tham khảo (reference translation). Mặc dù vậy, BLEU cũng có thể được sử dụng để đánh giá cho các bài toán sinh văn bản (text generation) như:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Language generation&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Image caption generation&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Text summarization&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Speech recognition&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Nói một cách nôm na thì bạn cần chấm điểm một câu, biết trước một câu mẫu thì bạn dùng BLEU. BLEU có giá trị trong khoảng &lt;span  class=&#34;math&#34;&gt;\( (0.0, 1.0) \)&lt;/span&gt;. &lt;span  class=&#34;math&#34;&gt;\( 1.0 \)&lt;/span&gt; tức là perfect match, đúng hoàn toàn, còn &lt;span  class=&#34;math&#34;&gt;\( 0.0 \)&lt;/span&gt; tức là perfect mismatch, bạn không đúng tí nào cả.&lt;/p&gt;
-
-&lt;p&gt;Các ưu điểm của BLEU có thể kể đến là:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Nhanh và chi phí tính toán thấp&lt;/li&gt;
-&lt;li&gt;Dễ hiểu&lt;/li&gt;
-&lt;li&gt;Không phụ thuộc vào ngôn ngữ&lt;/li&gt;
-&lt;li&gt;Có độ tương đồng cao với cách đánh giá của con người&lt;/li&gt;
-&lt;li&gt;Được sử dụng rộng rãi&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;phương-pháp-tính&#34;&gt;Phương pháp tính&lt;/h2&gt;
-
-&lt;p&gt;Cách tính của BLEU cũng khá đơn giản. Phương pháp đếm số matching &lt;strong&gt;n-grams&lt;/strong&gt; của candidate và reference (hoặc match trên bất kỳ reference nào nếu như có nhiều reference), kết quả sẽ là số match chia cho số từ của candidate. Các match này không phụ thuộc vào vị trí, do vậy BLEU không sử dụng word order. Càng match nhiều tức là càng tốt.&lt;/p&gt;
-
-&lt;p&gt;Tuy nhiên, nếu chỉ đếm số từ match thông thường sẽ nảy sinh ra việc một từ match với reference nhưng được lặp lại nhiều lần trong candidate (gọi là overgenerate &amp;quot;resonable&amp;quot; words trong paper &lt;a href=&#34;http://www.aclweb.org/anthology/P02-1040.pdf&#34;&gt;BLEU: a Method for Automatic Evaluation of Machine Translation&lt;/a&gt;).&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# overgenerated example
-reference = &#39;this is an example&#39;
-candidiate = &#39;this this this this&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Do đó, khi đếm matching &lt;strong&gt;n-grams&lt;/strong&gt; cần chú ý cả số lần xuất hiện của từ trong reference, một từ trong reference khi được match rồi thì không nên match nữa.&lt;/p&gt;
-
-&lt;p&gt;BLEU còn được dùng để đánh giá một &lt;strong&gt;corpus&lt;/strong&gt; (tập hợp của các sentence, hay một đoạn văn) khá là tốt. Đầu tiên là tính số match với từng câu. Cộng các số này rồi chia cho tổng số n-gram từ các câu là ra &lt;strong&gt;modified precision score&lt;/strong&gt; cho test corpus&lt;/p&gt;
-
-&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[ \frac{\sum_{C \epsilon \{Candidates\}} \sum_{\textit{n-gram} \epsilon C} Count_{clip}(\textit{n-gram})}{\sum_{C&#39; \epsilon \{Candidates\}} \sum_{\textit{n-gram&#39;} \epsilon C&#39;} Count(\textit{n-gram&#39;})} \]&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Không có gì là hoàn hảo nên cũng không có bản dịch hoàn hảo. Điểm của người dịch cũng không phải lúc nào cũng là &lt;span  class=&#34;math&#34;&gt;\(1.0\)&lt;/span&gt;. Điểm BLEU phụ thuộc vào số lượng cũng như chất lượng của của các reference, đây cũng là những yếu tố có thể gây ra khó khăn cho việc tính điểm trên dataset.&lt;/p&gt;
-
-&lt;h2 id=&#34;tính-bleu-với-nltk&#34;&gt;Tính BLEU với NLTK&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;Python Natural Language Toolkit library (NLTK)&lt;/strong&gt; cung cấp cho bạn một số hàm để tính toán BLEU bao gồm cả sentence và corpus&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# two references for one sentence
+Is an integral&lt;/code>&lt;/pre>&lt;/div>
+&lt;p>The following&lt;/p>
+&lt;p>&lt;span class="math">\[\int_{a}^{b} x^2 dx\]&lt;/span>&lt;/p>
+&lt;p>Is an integral&lt;/p>
+&lt;h3 id="display-inline">Display Inline&lt;/h3>
+&lt;p>Type the equation as per usual, nothing extra needed. Use double dollar signs as delimiter.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">Integrate $$\int x^3 dx$$&lt;/code>&lt;/pre>&lt;/div>
+&lt;p>Integrate &lt;span class="math">\(\int x^3 dx\)&lt;/span>&lt;/p>
+&lt;h3 id="notice">Notice&lt;/h3>
+&lt;p>Để đoạn mã trên hoạt động được, thêm cấu hình vào từng bài post cấu hình sau:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">---
+katex: &lt;span style="color:#66d9ef">true&lt;/span>
+markup: &lt;span style="color:#e6db74">&amp;#34;mmark&amp;#34;&lt;/span>
+---&lt;/code>&lt;/pre>&lt;/div>
+&lt;h1 id="liên-kết-tham-khảo">Liên kết tham khảo&lt;/h1>
+&lt;p>Một vài hướng dẫn cấu hình&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://eankeen.github.io/blog/render-latex-with-katex-in-hugo-blog/">https://eankeen.github.io/blog/render-latex-with-katex-in-hugo-blog/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://katex.org/docs/browser.html">https://katex.org/docs/browser.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://katex.org/docs/autorender.html">https://katex.org/docs/autorender.html&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Tìm hiểu về độ đo BLEU</title><link>/post/2019/07/tim-hieu-bleu/</link><pubDate>Wed, 10 Jul 2019 00:00:00 +0000</pubDate><guid>/post/2019/07/tim-hieu-bleu/</guid><description>&lt;p>BLEU là viết tắt của &lt;strong>Bilingual Evaluation Understudy&lt;/strong>.&lt;/p>
+&lt;p>BLEU thường được sử dụng trong bài toàn dịch máy (&lt;strong>Machine Translation&lt;/strong>) như một độ đo hay một hệ số điểm khi so sánh một bản dịch (candidate translation) với một hay nhiều bản dịch tham khảo (reference translation). Mặc dù vậy, BLEU cũng có thể được sử dụng để đánh giá cho các bài toán sinh văn bản (text generation) như:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Language generation&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Image caption generation&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Text summarization&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Speech recognition&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>Nói một cách nôm na thì bạn cần chấm điểm một câu, biết trước một câu mẫu thì bạn dùng BLEU. BLEU có giá trị trong khoảng &lt;span class="math">\( (0.0, 1.0) \)&lt;/span>. &lt;span class="math">\( 1.0 \)&lt;/span> tức là perfect match, đúng hoàn toàn, còn &lt;span class="math">\( 0.0 \)&lt;/span> tức là perfect mismatch, bạn không đúng tí nào cả.&lt;/p>
+&lt;p>Các ưu điểm của BLEU có thể kể đến là:&lt;/p>
+&lt;ul>
+&lt;li>Nhanh và chi phí tính toán thấp&lt;/li>
+&lt;li>Dễ hiểu&lt;/li>
+&lt;li>Không phụ thuộc vào ngôn ngữ&lt;/li>
+&lt;li>Có độ tương đồng cao với cách đánh giá của con người&lt;/li>
+&lt;li>Được sử dụng rộng rãi&lt;/li>
+&lt;/ul>
+&lt;h2 id="phương-pháp-tính">Phương pháp tính&lt;/h2>
+&lt;p>Cách tính của BLEU cũng khá đơn giản. Phương pháp đếm số matching &lt;strong>n-grams&lt;/strong> của candidate và reference (hoặc match trên bất kỳ reference nào nếu như có nhiều reference), kết quả sẽ là số match chia cho số từ của candidate. Các match này không phụ thuộc vào vị trí, do vậy BLEU không sử dụng word order. Càng match nhiều tức là càng tốt.&lt;/p>
+&lt;p>Tuy nhiên, nếu chỉ đếm số từ match thông thường sẽ nảy sinh ra việc một từ match với reference nhưng được lặp lại nhiều lần trong candidate (gọi là overgenerate &amp;quot;resonable&amp;quot; words trong paper &lt;a href="http://www.aclweb.org/anthology/P02-1040.pdf">BLEU: a Method for Automatic Evaluation of Machine Translation&lt;/a>).&lt;/p>
+&lt;pre>&lt;code># overgenerated example
+reference = 'this is an example'
+candidiate = 'this this this this'&lt;/code>&lt;/pre>
+&lt;p>Do đó, khi đếm matching &lt;strong>n-grams&lt;/strong> cần chú ý cả số lần xuất hiện của từ trong reference, một từ trong reference khi được match rồi thì không nên match nữa.&lt;/p>
+&lt;p>BLEU còn được dùng để đánh giá một &lt;strong>corpus&lt;/strong> (tập hợp của các sentence, hay một đoạn văn) khá là tốt. Đầu tiên là tính số match với từng câu. Cộng các số này rồi chia cho tổng số n-gram từ các câu là ra &lt;strong>modified precision score&lt;/strong> cho test corpus&lt;/p>
+&lt;p>&lt;span class="math">\[ \frac{\sum_{C \epsilon \{Candidates\}} \sum_{\textit{n-gram} \epsilon C} Count_{clip}(\textit{n-gram})}{\sum_{C' \epsilon \{Candidates\}} \sum_{\textit{n-gram'} \epsilon C'} Count(\textit{n-gram'})} \]&lt;/span>&lt;/p>
+&lt;p>Không có gì là hoàn hảo nên cũng không có bản dịch hoàn hảo. Điểm của người dịch cũng không phải lúc nào cũng là &lt;span class="math">\(1.0\)&lt;/span>. Điểm BLEU phụ thuộc vào số lượng cũng như chất lượng của của các reference, đây cũng là những yếu tố có thể gây ra khó khăn cho việc tính điểm trên dataset.&lt;/p>
+&lt;h2 id="tính-bleu-với-nltk">Tính BLEU với NLTK&lt;/h2>
+&lt;p>&lt;strong>Python Natural Language Toolkit library (NLTK)&lt;/strong> cung cấp cho bạn một số hàm để tính toán BLEU bao gồm cả sentence và corpus&lt;/p>
+&lt;pre>&lt;code># two references for one sentence
 from nltk.translate.bleu_score import sentence_bleu
-reference = [[&#39;this&#39;, &#39;is&#39;, &#39;a&#39;, &#39;test&#39;], [&#39;this&#39;, &#39;is&#39; &#39;test&#39;]]
-candidate = [&#39;this&#39;, &#39;is&#39;, &#39;a&#39;, &#39;test&#39;]
+reference = [['this', 'is', 'a', 'test'], ['this', 'is' 'test']]
+candidate = ['this', 'is', 'a', 'test']
 score = sentence_bleu(reference, candidate)
 print(score) # output: 1.0
-
 # two references for the 1st sentence and one reference for the 2nd sentence
 from nltk.translate.bleu_score import corpus_bleu
-references = [[[&#39;this&#39;, &#39;is&#39;, &#39;a&#39;, &#39;test&#39;], [&#39;this&#39;, &#39;is&#39; &#39;test&#39;]], [[&#39;this&#39;, &#39;is&#39;, &#39;my&#39;, &#39;blog&#39;]]]
-candidates = [[&#39;this&#39;, &#39;is&#39;, &#39;a&#39;, &#39;test&#39;], [&#39;this&#39;, &#39;is&#39;, &#39;my&#39;, &#39;house&#39;]]
+references = [[['this', 'is', 'a', 'test'], ['this', 'is' 'test']], [['this', 'is', 'my', 'blog']]]
+candidates = [['this', 'is', 'a', 'test'], ['this', 'is', 'my', 'house']]
 score = corpus_bleu(references, candidates)
-print(score) # output: 0.7231269021297695
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;cumulative-and-individual-bleu&#34;&gt;Cumulative and Individual BLEU&lt;/h2&gt;
-
-&lt;p&gt;NLTK cho phép bạn có thể đặt các trọng số  (&lt;strong&gt;weights&lt;/strong&gt;) khác nhau cho các &lt;strong&gt;n-grams&lt;/strong&gt; khác nhau để tính điểm BLEU cuối cùng. Dựa và trọng số này ta chia ra cumulative và individual BLEU.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# n-gram individual BLEU
+print(score) # output: 0.7231269021297695&lt;/code>&lt;/pre>
+&lt;h2 id="cumulative-and-individual-bleu">Cumulative and Individual BLEU&lt;/h2>
+&lt;p>NLTK cho phép bạn có thể đặt các trọng số (&lt;strong>weights&lt;/strong>) khác nhau cho các &lt;strong>n-grams&lt;/strong> khác nhau để tính điểm BLEU cuối cùng. Dựa và trọng số này ta chia ra cumulative và individual BLEU.&lt;/p>
+&lt;pre>&lt;code># n-gram individual BLEU
 from nltk.translate.bleu_score import sentence_bleu
-reference = [[&#39;this&#39;, &#39;is&#39;, &#39;a&#39;, &#39;test&#39;]]
-candidate = [&#39;this&#39;, &#39;is&#39;, &#39;a&#39;, &#39;test&#39;]
-print(&#39;Individual 1-gram: %f&#39; % sentence_bleu(reference, candidate, weights=(1, 0, 0, 0)))
-print(&#39;Individual 2-gram: %f&#39; % sentence_bleu(reference, candidate, weights=(0, 1, 0, 0)))
-print(&#39;Individual 3-gram: %f&#39; % sentence_bleu(reference, candidate, weights=(0, 0, 1, 0)))
-print(&#39;Individual 4-gram: %f&#39; % sentence_bleu(reference, candidate, weights=(0, 0, 0, 1)))
+reference = [['this', 'is', 'a', 'test']]
+candidate = ['this', 'is', 'a', 'test']
+print('Individual 1-gram: %f' % sentence_bleu(reference, candidate, weights=(1, 0, 0, 0)))
+print('Individual 2-gram: %f' % sentence_bleu(reference, candidate, weights=(0, 1, 0, 0)))
+print('Individual 3-gram: %f' % sentence_bleu(reference, candidate, weights=(0, 0, 1, 0)))
+print('Individual 4-gram: %f' % sentence_bleu(reference, candidate, weights=(0, 0, 0, 1)))
 # Individual 1-gram: 1.000000
 # Individual 2-gram: 1.000000
 # Individual 3-gram: 1.000000
-# Individual 4-gram: 1.000000
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;weights&lt;/strong&gt; là 1 tuple thể hiện trọng số tương ứng với từng i-gram score ở vị trí i-th.&lt;/p&gt;
-
-&lt;p&gt;Thông thường, trong các bài báo nghiên cứu, để so sánh các kiến trúc khác nhau trên một benchmark dataset, &lt;strong&gt;cumulative BLEU-1, BLUE-2, BLEU-3, BLEU-4&lt;/strong&gt; được sử dụng với các weight như sau:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# cumulative BLEU scores
+# Individual 4-gram: 1.000000&lt;/code>&lt;/pre>
+&lt;p>&lt;strong>weights&lt;/strong> là 1 tuple thể hiện trọng số tương ứng với từng i-gram score ở vị trí i-th.&lt;/p>
+&lt;p>Thông thường, trong các bài báo nghiên cứu, để so sánh các kiến trúc khác nhau trên một benchmark dataset, &lt;strong>cumulative BLEU-1, BLUE-2, BLEU-3, BLEU-4&lt;/strong> được sử dụng với các weight như sau:&lt;/p>
+&lt;pre>&lt;code># cumulative BLEU scores
 from nltk.translate.bleu_score import sentence_bleu
-reference = [[&#39;this&#39;, &#39;is&#39;, &#39;small&#39;, &#39;test&#39;]]
-candidate = [&#39;this&#39;, &#39;is&#39;, &#39;a&#39;, &#39;test&#39;]
-print(&#39;Cumulative 1-gram: %f&#39; % sentence_bleu(reference, candidate, weights=(1, 0, 0, 0)))
-print(&#39;Cumulative 2-gram: %f&#39; % sentence_bleu(reference, candidate, weights=(0.5, 0.5, 0, 0)))
-print(&#39;Cumulative 3-gram: %f&#39; % sentence_bleu(reference, candidate, weights=(0.33, 0.33, 0.33, 0)))
-print(&#39;Cumulative 4-gram: %f&#39; % sentence_bleu(reference, candidate, weights=(0.25, 0.25, 0.25, 0.25)))
+reference = [['this', 'is', 'small', 'test']]
+candidate = ['this', 'is', 'a', 'test']
+print('Cumulative 1-gram: %f' % sentence_bleu(reference, candidate, weights=(1, 0, 0, 0)))
+print('Cumulative 2-gram: %f' % sentence_bleu(reference, candidate, weights=(0.5, 0.5, 0, 0)))
+print('Cumulative 3-gram: %f' % sentence_bleu(reference, candidate, weights=(0.33, 0.33, 0.33, 0)))
+print('Cumulative 4-gram: %f' % sentence_bleu(reference, candidate, weights=(0.25, 0.25, 0.25, 0.25)))
 # Cumulative 1-gram: 0.750000
 # Cumulative 2-gram: 0.500000
 # Cumulative 3-gram: 0.632878
-# Cumulative 4-gram: 0.707107
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Bạn có thể đọc thêm paper &lt;a href=&#34;http://www.aclweb.org/anthology/P02-1040.pdf&#34;&gt;BLEU: a Method for Automatic Evaluation of Machine Translation&lt;/a&gt;, Work examples trong &lt;a href=&#34;https://machinelearningmastery.com/calculate-bleu-score-for-text-python/&#34;&gt;bài gốc&lt;/a&gt; để hiểu rõ hơn về BLEU.&lt;/p&gt;
-
-&lt;h2 id=&#34;acknowledgment&#34;&gt;Acknowledgment&lt;/h2&gt;
-
-&lt;p&gt;Nguồn bài viết của: &lt;a href=&#34;https://github.com/lego1st&#34;&gt;Trung Nghĩa&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Source: &lt;a href=&#34;https://lego1st.github.io/nlp/mlearning/2019/02/16/bleu-101.html&#34;&gt;101 BLEU score trong Xử lý văn bản&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://machinelearningmastery.com/calculate-bleu-score-for-text-python/&#34;&gt;A Gentle Introduction to Calculating the BLEU Score for Text in Python&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/BLEU&#34;&gt;BLEU - Wikipedia&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.aclweb.org/anthology/P02-1040.pdf&#34;&gt;BLEU: a Method for Automatic Evaluation of Machine Translation&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>CRFSuite - Tìm hiểu và ứng dụng với task Chunking</title>
-      <link>/post/2017/11/crfsuite-chunking-task/</link>
-      <pubDate>Sun, 05 Nov 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2017/11/crfsuite-chunking-task/</guid>
-      <description>
-
-&lt;h1 id=&#34;giới-thiệu&#34;&gt;Giới thiệu&lt;/h1&gt;
-
-&lt;p&gt;Text-chunking là bài toán chia một văn bản thành các cụm thành phần có liên quan tới cú pháp. Ví dụ, trong câu: &lt;strong&gt;&amp;ldquo;He reckons the current account deficit will narrow to only # 1.8 billion in September.&amp;rdquo;&lt;/strong&gt; có thể được phân tích thành như sau:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;[NP He ] [VP reckons ] [NP the current account deficit ] [VP will narrow ] [PP to ] [NP only # 1.8 billion ] [PP in ] [NP September ] .&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Trong ví dụ này, NP đại diện cho một cụm danh từ, VP là một cụm động từ, và PP là cụm giới từ. Text-chunking là một task, có nhiệm vụ là dán các nhãn cho một nhóm các phần tử (token) trong một câu văn bản, kết quả là ta thu được một chuỗi các nhãn tương ứng. Chúng ta sẽ sử dụng ký pháp &lt;code&gt;IOB&lt;/code&gt; để gán nhãn cho các token trong câu.&lt;/p&gt;
-
-&lt;p&gt;Như vậy, một chunk là NP (một đoạn liên tục các token) thì có chú thích như sau:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;B-NP&lt;/strong&gt; bắt đầu một chunk&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;I-NP&lt;/strong&gt; bên trong một chunk&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;O&lt;/strong&gt; nếu token đó không thuộc chunk nào cả&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Ta có một kết quả đầy đủ cho ví dụ trên như sau:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;B-NP He
+# Cumulative 4-gram: 0.707107&lt;/code>&lt;/pre>
+&lt;p>Bạn có thể đọc thêm paper &lt;a href="http://www.aclweb.org/anthology/P02-1040.pdf">BLEU: a Method for Automatic Evaluation of Machine Translation&lt;/a>, Work examples trong &lt;a href="https://machinelearningmastery.com/calculate-bleu-score-for-text-python/">bài gốc&lt;/a> để hiểu rõ hơn về BLEU.&lt;/p>
+&lt;h2 id="acknowledgment">Acknowledgment&lt;/h2>
+&lt;p>Nguồn bài viết của: &lt;a href="https://github.com/lego1st">Trung Nghĩa&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>Source: &lt;a href="https://lego1st.github.io/nlp/mlearning/2019/02/16/bleu-101.html">101 BLEU score trong Xử lý văn bản&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://machinelearningmastery.com/calculate-bleu-score-for-text-python/">A Gentle Introduction to Calculating the BLEU Score for Text in Python&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://en.wikipedia.org/wiki/BLEU">BLEU - Wikipedia&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://www.aclweb.org/anthology/P02-1040.pdf">BLEU: a Method for Automatic Evaluation of Machine Translation&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>CRFSuite - Tìm hiểu và ứng dụng với task Chunking</title><link>/post/2017/11/crfsuite-chunking-task/</link><pubDate>Sun, 05 Nov 2017 00:00:00 +0000</pubDate><guid>/post/2017/11/crfsuite-chunking-task/</guid><description>&lt;h1 id="gii-thiu">Giới thiệu&lt;/h1>
+&lt;p>Text-chunking là bài toán chia một văn bản thành các cụm thành phần có liên quan tới cú pháp. Ví dụ, trong câu: &lt;strong>&amp;ldquo;He reckons the current account deficit will narrow to only # 1.8 billion in September.&amp;quot;&lt;/strong> có thể được phân tích thành như sau:&lt;/p>
+&lt;blockquote>
+&lt;p>[NP He ] [VP reckons ] [NP the current account deficit ] [VP will narrow ] [PP to ] [NP only # 1.8 billion ] [PP in ] [NP September ] .&lt;/p>
+&lt;/blockquote>
+&lt;p>Trong ví dụ này, NP đại diện cho một cụm danh từ, VP là một cụm động từ, và PP là cụm giới từ. Text-chunking là một task, có nhiệm vụ là dán các nhãn cho một nhóm các phần tử (token) trong một câu văn bản, kết quả là ta thu được một chuỗi các nhãn tương ứng. Chúng ta sẽ sử dụng ký pháp &lt;code>IOB&lt;/code> để gán nhãn cho các token trong câu.&lt;/p>
+&lt;p>Như vậy, một chunk là NP (một đoạn liên tục các token) thì có chú thích như sau:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>B-NP&lt;/strong> bắt đầu một chunk&lt;/li>
+&lt;li>&lt;strong>I-NP&lt;/strong> bên trong một chunk&lt;/li>
+&lt;li>&lt;strong>O&lt;/strong> nếu token đó không thuộc chunk nào cả&lt;/li>
+&lt;/ul>
+&lt;p>Ta có một kết quả đầy đủ cho ví dụ trên như sau:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">B-NP He
 B-VP reckons
 B-NP the
 I-NP current
@@ -331,18 +187,12 @@ I-NP 1.8
 I-NP billion
 B-PP in
 B-NP September
-O    .
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Mục tiêu của bài hướng dẫn này, là xây dựng một model có thể dự đoán, tách được các chunk và gán nhãn tương ứng cho nó. Tôi sẽ sử dụng công cụ &lt;a href=&#34;https://npmjs.com/package/crfsuite&#34; target=&#34;_blank&#34;&gt;crfsuite&lt;/a&gt; với ngôn ngữ &lt;strong&gt;node/javascript&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h1 id=&#34;dữ-liệu-huấn-luyện&#34;&gt;Dữ liệu huấn luyện&lt;/h1&gt;
-
-&lt;p&gt;Bài hướng dẫn này sử dụng dữ liệu được cung cấp bởi task &lt;a href=&#34;https://dl.acm.org/citation.cfm?id=1117631&#34; target=&#34;_blank&#34;&gt;CONLL-2000 shared task: Chunking&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Bạn có thể tìm thấy mã nguồn và dữ liệu của bài hướng dẫn này, tại đây: &lt;a href=&#34;https://github.com/vntk/vntk-chunking&#34; target=&#34;_blank&#34;&gt;https://github.com/vntk/vntk-chunking&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Confidence NN B-NP
+O .
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Mục tiêu của bài hướng dẫn này, là xây dựng một model có thể dự đoán, tách được các chunk và gán nhãn tương ứng cho nó. Tôi sẽ sử dụng công cụ &lt;a href="https://npmjs.com/package/crfsuite">crfsuite&lt;/a> với ngôn ngữ &lt;strong>node/javascript&lt;/strong>.&lt;/p>
+&lt;h1 id="d-liu-hun-luyn">Dữ liệu huấn luyện&lt;/h1>
+&lt;p>Bài hướng dẫn này sử dụng dữ liệu được cung cấp bởi task &lt;a href="https://dl.acm.org/citation.cfm?id=1117631">CONLL-2000 shared task: Chunking&lt;/a>&lt;/p>
+&lt;p>Bạn có thể tìm thấy mã nguồn và dữ liệu của bài hướng dẫn này, tại đây: &lt;a href="https://github.com/vntk/vntk-chunking">https://github.com/vntk/vntk-chunking&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">Confidence NN B-NP
 in IN B-PP
 the DT B-NP
 pound NN I-NP
@@ -354,14 +204,14 @@ take VB I-VP
 another DT B-NP
 sharp JJ I-NP
 dive NN I-NP
-if IN B-SBAR
+&lt;span style="color:#66d9ef">if&lt;/span> IN B-SBAR
 trade NN B-NP
 figures NNS I-NP
-for IN B-PP
+&lt;span style="color:#66d9ef">for&lt;/span> IN B-PP
 September NNP B-NP
 , , O
 due JJ B-ADJP
-for IN B-PP
+&lt;span style="color:#66d9ef">for&lt;/span> IN B-PP
 release NN B-NP
 tomorrow NN B-NP
 , , O
@@ -371,540 +221,296 @@ show VB I-VP
 a DT B-NP
 substantial JJ I-NP
 improvement NN I-NP
--- More  --
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Dữ liệu bao gồm một tập các câu (sequences), mỗi câu chứa một chuỗi các từ (&amp;lsquo;Confidence&amp;rsquo;, &amp;lsquo;in&amp;rsquo;, &amp;hellip;), các nhãn POS (&amp;lsquo;NN&amp;rsquo;, &amp;lsquo;IN&amp;rsquo;, &amp;hellip;), các nhãn chunk (&amp;lsquo;B-NP&amp;rsquo;, &amp;lsquo;B-PP&amp;rsquo;) ngăn cách nhau bởi khoảng trắng. Trong bài này, chúng ta sẽ khởi tạo một model CRF để gán các nhãn cú pháp chunking, với điều kiện là biết trước nhãn từ loại (POS - Part of Speech) của chúng.&lt;/p&gt;
-
-&lt;h1 id=&#34;trích-chọn-đặc-trưng-feature-selection&#34;&gt;Trích chọn đặc trưng (Feature selection)&lt;/h1&gt;
-
-&lt;p&gt;Bước tiếp theo là tiền xử lý dữ liệu training và testing để trích xuất ra được đặc trưng của words trong tập dữ liệu. CRFsuite có khả năng tạo ra các đặc trưng từ các thuộc tính (attribute - còn gọi là tính chất) của tập dữ liệu. Tổng quan, thì đây là một quá trình quan trọng nhất của tiếp cận machine-learning, bởi vì một đặc trưng ảnh hưởng rất lớn đến độ chính xác của nhãn được dự báo. Ví dụ sau đây, chúng ta sẽ lấy 19 loại attributes của một từ tại vị trí &lt;code&gt;t&lt;/code&gt; (vị trí thứ t trong chuỗi câu).&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;w[t-2], w[t-1], w[t], w[t+1], w[t+2],
-w[t-1]|w[t], w[t]|w[t+1],
-pos[t-2], pos[t-1], pos[t], pos[t+1], pos[t+2],
-pos[t-2]|pos[t-1], pos[t-1]|pos[t], pos[t]|pos[t+1], pos[t+1]|pos[t+2],
-pos[t-2]|pos[t-1]|pos[t], pos[t-1]|pos[t]|pos[t+1], pos[t]|pos[t+1]|pos[t+2]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Trong danh sách này, thì w[t] và pos[t] đại diện cho từ vựng (words) và từ loại (part-of-speech) tương ứng tại vị trí &lt;code&gt;t&lt;/code&gt; trong câu. Các đặc trưng này thể hiện tính chất của từ vựng tại vị trí &lt;code&gt;t&lt;/code&gt; bằng việc sử dụng các thông tin xung quanh từ đó, ví dụ: w[t-1] và pos[t+1]. Ví dụ, xem xét tính chất của token &lt;code&gt;the&lt;/code&gt; sau đây:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;        He PRP B-NP
-        reckons VBZ B-VP
-t --&amp;gt;   the DT B-NP
-        current JJ I-NP
-        account NN I-NP
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;từ vựng &lt;code&gt;the&lt;/code&gt; tại ví trí &lt;code&gt;t&lt;/code&gt; có những thuộc tính sau đây (t được lược bỏ cho đơn giản và dễ nhìn):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;w[-2]=He, w[-1]=reckons, w[0]=the, w[1]=current, w[2]=account
-w[-1]|w[0]=reckons|the, w[0]|w[1]=the|current
-pos[-2]=PRP, pos[-1]=VBZ, pos[0]=DT, pos[1]=JJ, pos[2]=NN
-pos[-2]|pos[-1]=PRP|VBZ, pos[-1]|pos[0]=VBZ|DT, pos[0]|pos[1]=DT|JJ, pos[1]|pos[2]=JJ|NN
-pos[-2]|pos[-1]|pos[0]=PRP|VBZ|DT, pos[-1]|pos[0]|pos[1]=VBZ|DT|JJ, pos[0]|pos[1]|pos[2]=DT|JJ|NN
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Trong ví dụ này, thuộc tính &lt;code&gt;w[0]=the&lt;/code&gt; biểu diễn cho sự kiện mà mã từ vựng hiện tại là &lt;code&gt;the&lt;/code&gt;, và thuộc tính &lt;code&gt;pos[0]|pos[1]|pos[2]=DT|JJ|NN&lt;/code&gt; biểu diễn cho sự kiện từ loại tại ví trí hiện tại, từ tiếp theo, từ sau nữa là &lt;code&gt;DT&lt;/code&gt;, &lt;code&gt;JJ&lt;/code&gt;, &lt;code&gt;NN&lt;/code&gt; tương ứng. Bạn có thể hình dung ta dịch chuyển 1 cửa sổ có window_size=2 tại ví trí &lt;code&gt;t&lt;/code&gt;. CRFsuite sẽ học sự liên kết giữa các thuộc tính này và nhãn tương ứng của từ đang xem xét &lt;code&gt;the&lt;/code&gt;, đó là &lt;code&gt;B-NP&lt;/code&gt; để dự đoán nhãn khi cho 1 đầu vào (từ vựng) cụ thể khi biết các tính chất xung quanh nó.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Chatbots - 10 thuật ngữ cần biết</title>
-      <link>/post/2017/08/28/10-thuat-ngu-chatbots/</link>
-      <pubDate>Mon, 28 Aug 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2017/08/28/10-thuat-ngu-chatbots/</guid>
-      <description>
-
-&lt;p&gt;Có thể khi tìm hiểu về chatbots và xử lý ngôn ngữ tự nhiên, sẽ có nhiều từ vựng hay các thuật ngữ làm cho bạn cảm thấy khó hình dung, hoặc cảm thấy dễ bị lẫn lộn với nhau. Sau đây là 10 thuật ngữ mà chúng ta cần biết và phân biệt chúng khi nghiên cứu và tìm hiểu về chatbots.&lt;/p&gt;
-
-&lt;h1 id=&#34;3-thuật-ngữ-quan-trọng-utterances-intents-và-entities&#34;&gt;3 thuật ngữ quan trọng: Utterances, intents và entities&lt;/h1&gt;
-
-&lt;p&gt;Đây là ba thuật ngữ quan trọng nhất trong chatbots:&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Utterances&lt;/strong&gt;: Đây là những gì mà người dùng nói ra. Ví dụ, một người dùng gõ: &amp;ldquo;Show me yesterday&amp;rsquo;s financial news&amp;rdquo;, thì toàn bộ câu này là một lời nói hay utterance.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Intent&lt;/strong&gt;: Là ý định của người dùng trong câu nói. Với ví dụ trên, &amp;ldquo;show me yesterday&amp;rsquo;s financial news&amp;rdquo;, thì ý định của người dùng ở đây là mong muốn nhận một danh sách các tiêu đề về tài chính. Ý định đều có thể đặt tên, thường là một động từ kết hợp với một danh từ, chẳng hạn: &lt;em&gt;&amp;ldquo;showNews&amp;rdquo;&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Entity&lt;/strong&gt;: Là các thực thể bổ nghĩa cho một ý định. Vẫn ví dụ trên, &amp;ldquo;show me yesterday&amp;rsquo;s financial news&amp;rdquo;, thì các thực thể bổ nghĩa là &amp;ldquo;yesterday&amp;rdquo; và &amp;ldquo;financial&amp;rdquo;. Các thực thể cũng đều có thể được đặt tên, ví dụ: &amp;ldquo;dateTime&amp;rdquo;, và &amp;ldquo;newsType&amp;rdquo;. Các thực thể này đôi khi được gọi là các &amp;ldquo;Slot&amp;rdquo;, có thể hình dung đó là các khe thông tin.&lt;/p&gt;
-
-&lt;h1 id=&#34;7-thuật-ngữ-hữu-ích-khác&#34;&gt;7 thuật ngữ hữu ích khác&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;Broadcast&lt;/strong&gt;: Đây là một dạng thông điệp được gửi một cách chủ động tới người dùng. Đây không phải là một tin nhắn hồi đáp cho người dùng mà gần như là một thông báo đẩy (trong app mobile)&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Channel&lt;/strong&gt;: Các kênh là phương tiện cho các cuộc trò chuyện bằng chatbot. Ví dụ về các kênh như mạng xã hội Facebook, Skype, Slack và SMS. Email và cửa sổ chát trên web cũng là các phương tiện.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Conversational UI&lt;/strong&gt;: Là giao diện giao tiếp với con người, hoặc là viết tay, hoặc là thông qua lời nói (khôn sử dụng buttons, links, hoặc graphical elements). Thường có nhiều chatbots kết hợp conversational UI với graphical UI.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Natural Language Processing (NLP)&lt;/strong&gt;: NLP là công cụ phân tích một lời nói Utterance và trích xuất các ý định và thực thể trong lời nói. Một số dịch vụ Amazon Lex, Facebook Wit.ai, Google API.ai, Microsoft LUIS đều có sử dụng NLP.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Pilot&lt;/strong&gt;: Giai đoạn phát triển chatbot được triển khai cho một nhóm nhỏ người dùng để thử nghiệm. Các pilots đặc biệt quan trọng với chatbot, bởi vì không giống như các ứng dụng Web, phạm vi đầu vào của người dùng là không giới hạn. Nên cần pilot chatbot theo từng giai đoạn.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Proof-of-concept (POC)&lt;/strong&gt;: Đây là giai đoạn mà các tính năng của Chatbot hoạt động đúng cách, miễn là đầu vào thử nghiệm được kiểm soát đúng cách. Do đó, POC thể hiện tiềm năng của chatbot.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Response&lt;/strong&gt;: Bất cứ điều gì mà bot nói ra đáp ứng với input đầu vào của người dùng.&lt;/p&gt;
-
-&lt;h1 id=&#34;tham-khảo-liên-kết&#34;&gt;Tham khảo liên kết&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://chatbotsmagazine.com/chatbot-vocabulary-10-chatbot-terms-you-need-to-know-3911b1ef31b4&#34; target=&#34;_blank&#34;&gt;Chatbot Vocabulary: 10 Chatbot Terms You Need to Know&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.techbubble.info/blog/artificial-intelligence/chatbots/entry/deep-learning-neural-network-nlu-engine&#34; target=&#34;_blank&#34;&gt;How I built a fully functional Deep Learning Neural Network chatbot platform (NLU Engine) in under a week&amp;hellip;.&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://chatbotsmagazine.com/how-i-built-a-fully-functional-deep-learning-neural-network-chatbot-platform-nlu-engine-in-under-1765180d16db&#34; target=&#34;_blank&#34;&gt;How I built a fully functional Deep Learning Neural Network chatbot platform (NLU Engine) in under a week&amp;hellip;.&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Chatbots - Thiết kế các intents và entities cho các mô hình NLP</title>
-      <link>/post/2017/08/27/thiet-ke-intents-entities/</link>
-      <pubDate>Sun, 27 Aug 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2017/08/27/thiet-ke-intents-entities/</guid>
-      <description>
-
-&lt;p&gt;Chìa khóa để cho một con bot có thể hiểu được con người là nó phải có khả năng hiểu các ý định của con người và trích xuất các thông tin liên quan từ ý định đó và tất nhiên có các hành động đáp ứng tương thích với thông tin đó.&lt;/p&gt;
-
-&lt;p&gt;Xử lý ngôn ngữ tự nhiên (NLP) là khoa học của việc trích xuất ý định và thông tin từ văn bản &lt;code&gt;text&lt;/code&gt;. Lý do mà bạn thấy rất nhiều nền tảng phát triển bot ra đời như nấm cùng với NLP như một dịch vụ nền tảng. Việc kết nối các kênh mạng xã hội và phát triển bot không phải là một vấn đề, liên kết thiếu duy nhất đó là một nền tảng NLP mà &lt;code&gt;có thể mở rộng&lt;/code&gt; và &lt;code&gt;dễ dàng làm việc&lt;/code&gt;, bởi vì bạn sẽ không học NLP để tạo ra một con bot ngớ ngẩn!&lt;/p&gt;
-
-&lt;p&gt;Một vài nền tảng dịch vụ phổ biển:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Luis.ai - by Microsoft&lt;/li&gt;
-&lt;li&gt;Wit.ai - by Facebook&lt;/li&gt;
-&lt;li&gt;Api.ai - by Google&lt;/li&gt;
-&lt;li&gt;Watson - by IBM&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Một nền tảng bot lý tưởng cung cấp:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Một dịch vụ NLP&lt;/strong&gt; - bạn có thể tự huấn luyện&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SDK&lt;/strong&gt; để hỗ trợ và xử lý các hội thoại và &lt;code&gt;meta-data&lt;/code&gt; của chúng.&lt;/li&gt;
-&lt;li&gt;Một nền tảng &lt;strong&gt;lưu trữ các con bot&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;Một nền tảng cho phép &lt;strong&gt;kết nối bot với nhiều kênh&lt;/strong&gt;, mạng xã hội, dịch vụ khác nhau.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Trong khi NLP như 1 dịch vụ (NLP-as-a-service) giúp cho người phát triển có phát triển NLP trong khoảng thời gian ít nhất có thể, đôi khi developer vẫn có khả năng tiếp tục huấn luyện dịch vụ NLP đạt chất lượng cao nhất có thể. Mỗi dịch vụ NLP có miền và tập ngôn ngữ riêng của nó và bạn phải chọn domain thích hợp nhất để triển khai một dịch vụ NLP. Trong bài note này sẽ chỉ ra một vài tình huống tốt nhất để huấn luyến một dịch vụ mô hình NLP.&lt;/p&gt;
-
-&lt;h1 id=&#34;intent&#34;&gt;Intent&lt;/h1&gt;
-
-&lt;p&gt;Intent đơn giản là ý định của người dùng cuối, những ý định này được chuyển tải bởi người dùng tới con bot của bạn. Bạn có thể chủ yếu đặt ý định vào 2 nhóm chính:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Các ý định ngẫu nhiên, casual intents&lt;/li&gt;
-&lt;li&gt;Các ý định nghiệp vụ, business intents.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;1. Casual Intents&lt;/strong&gt; - Đây là những ý định mở đầu hoặc kết thúc một cuộc hội thoại. Nhưng lời chào như: &lt;code&gt;hi&lt;/code&gt;, &lt;code&gt;hello&lt;/code&gt;, &lt;code&gt;hallo&lt;/code&gt;, &lt;code&gt;ciao&lt;/code&gt;, hay &lt;code&gt;bye&lt;/code&gt; là những câu lệnh mở đầu hoặc kết thúc một cuộc hội thoại. Những ý định này nên hướng con bot của bạn phản hồi bằng một câu trả lời gợi ý như: &amp;ldquo;Xin chào, tôi có thể giúp được gì cho bạn?&amp;rdquo; hay &amp;ldquo;Tạm biệt, cảm ơn đã trò chuyện cùng với tôi&amp;rdquo;.&lt;/p&gt;
-
-&lt;p&gt;Các ý định ngẫu nhiên cũng bao gồm các ý định &lt;strong&gt;Khẳng định - Affirmative&lt;/strong&gt; và &lt;strong&gt;Không nhận - Negative&lt;/strong&gt; cho các câu nói như: &amp;ldquo;Ok&amp;rdquo;, &amp;ldquo;vâng&amp;rdquo;, &amp;ldquo;Không, không phải cái này.&amp;rdquo;&lt;/p&gt;
-
-&lt;p&gt;Bằng các ý định chung chung có thể giúp bạn xử lý tất cả các ý định của khách hàng thay vì đưa câu chuyện đã có vào cuộc trò chuyện với bot. Ví dụ, nếu con bot chỉ hỏi một câu hỏi cho người dùng cuối - bạn nên mong đợi hoặc là một ý định khẳng định Affirmative hoặc một ý định Negative và nếu có bất cứ thứ gì khác bot có thể hỏi cùng một câu hỏi. Các ý đồ Affirmative và Negative nên xử lý tất cả các câu nói như vậy.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2. Business Intents&lt;/strong&gt; - Đây là các ý định được map trực tiếp với ý đồ ban đầu của các con bot khi được xây dựng, tức là bot cần phải hỗ trợ và xử lý được các ý định này của người dùng cuối khi họ truy cập vào website. Ví dụ, nếu ý định đó là thông tin của một bộ phim, khi có 1 câu nói &lt;strong&gt;&amp;ldquo;Khi nào danh sách của Schindler được phát hành?&amp;rdquo;&lt;/strong&gt; là một ý định nghiệp vụ mà có ý định tìm ra năm phát hành của bộ phim và bạn nên gắn nhãn nó theo một cái tên có thể hiểu được, giống như: &lt;strong&gt;&amp;ldquo;GetReleaseYearByTile&amp;rdquo;&lt;/strong&gt;. Lý tưởng là bạn nên nghĩ về các ý định nghiệp vụ bởi vì phần còn lại của câu chuyện như những câu chào hay sự lựa chọn thì được quản lý chung bởi các ý định ngẫu nhiên Casual Intents.&lt;/p&gt;
-
-&lt;h1 id=&#34;entities&#34;&gt;Entities&lt;/h1&gt;
-
-&lt;p&gt;Các ý định nghiệp vụ có &lt;code&gt;meta-data&lt;/code&gt; về các intent được gọi là &lt;strong&gt;&amp;ldquo;Entities&amp;rdquo;&lt;/strong&gt;. Lấy ví dụ về intent &lt;em&gt;&amp;ldquo;GetReleaseYearByTile&amp;rdquo;&lt;/em&gt;, với input: &amp;ldquo;Khi nào Danh sách của Schindler được phát hành?&amp;rdquo;. Ở đây &amp;ldquo;Danh sách của Schindler&amp;rdquo; là tên của bộ phim mà người dùng &amp;ldquo;có ý định&amp;rdquo; tìm ra năm phát hành. Quá trình tìm kiếm các thực thể entities có thể được hiểu giống với việc gán nhãn thẻ câu Part-of-Sentence tagging (POS). Tuy nhiên, một người sử dụng NLP as a service thì bạn không cần phải biết kỹ thuật của việc POS tagging được thực hiện như thế nào, nhưng nếu muốn có một bài báo hay nói về nó ở đây: &lt;a href=&#34;http://nlp.stanford.edu/software/tagger.shtml&#34; target=&#34;_blank&#34;&gt;http://nlp.stanford.edu/software/tagger.shtml&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Khi người dùng nghĩ về việc thiết kế intent thì các entities cũng phải được xác định và gán nhãn theo đó. Một lần nữa, bạn cũng có các thực thể chung được gán nhãn để sử dụng trong các mục đích chung như các số liệu metrics (bao gồm: số lượng, số đếm, khối lượng, &amp;hellip;), ngày tháng và hầu hết các dịch vụ NLP cho phép bạn gán thẻ thực thể của các loại chung như vậy mà không gặp phải bất kỳ rắc rối lớn nào.&lt;/p&gt;
-
-&lt;p&gt;Một vài thực thể có thể được gán như những thực thể phức hợp (composite entities), giống như việc có nhiều hơn một thực thể (có các thực thể thành phần bên trong nó). Là một khoa học, không quan trọng nếu bạn không có những tính năng này trong dịch vụ NLP của bạn, miễn là bạn có ghi nhãn thực thể đơn giản. Một nhãn phải được xác định các thực thể trước khi gán nhãn các thực thể phức hợp.&lt;/p&gt;
-
-&lt;p&gt;Ví dụ: Tìm cho tôi đôi giày thể thao Red Adidas cỡ 8.&lt;/p&gt;
-
-&lt;p&gt;Intent: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;- SearchProduct&lt;br /&gt;
-Entities: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;&lt;br /&gt;
-Composite Entity: &amp;mdash;&amp;mdash;&amp;mdash; ProductDetail&lt;br /&gt;
-Component Entity: &amp;mdash;&amp;mdash;&amp;mdash;&lt;br /&gt;
-Size: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash; 8&lt;br /&gt;
-Brand: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash; Adidas&lt;br /&gt;
-Color: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash; Red&lt;br /&gt;
-Category: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash; Sport Shoes&lt;/p&gt;
-
-&lt;h3 id=&#34;huấn-luyện-các-intents-và-entities&#34;&gt;Huấn luyện các Intents và Entities&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Rule #1 của việc huấn luyện bất kỳ một mô hình học máy nào là &amp;mdash; Bạn không bao giờ có thể huấn luyện đủ, lấy thêm dữ liệu và tiếp tục train nó.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Rule #1 của việc huấn luyện bất kỳ một mô hình học máy nào là &amp;mdash; Bạn không bao giờ có thể huấn luyện đủ, lấy thêm dữ liệu và tiếp tục train nó.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Rule #1 của việc huấn luyện bất kỳ một mô hình học máy nào là &amp;mdash; Bạn không bao giờ có thể huấn luyện đủ, lấy thêm dữ liệu và tiếp tục train nó.&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Lý tưởng là bạn nên huấn luyện dịch vụ NLP với các tập ngữ liệu thực tế, nếu bạn có những đoạn chat với khách hàng qua Facebook, hoặc Skype hoặc bất kỳ mạng xã hội nào bạn làm việc với các tin nhắn có thể giúp cho việc huấn luyện intent, hoặc không thì bạn có thể nghĩ tới việc huấn luyện các intent với các bộ dữ liệu tự sản xuất (Manufactured utterances). Ví dụ &amp;ndash; Huấn luyện intent &lt;em&gt;&amp;ldquo;GetReleaseYearByTile&amp;rdquo;&lt;/em&gt; với các bộ dữ liệu huấn luyện cho intent này như sau:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;what was the release year of movie Pulp fiction&lt;/li&gt;
-&lt;li&gt;in which year Pulp fiction was released&lt;/li&gt;
-&lt;li&gt;when did pulp fiction came&lt;/li&gt;
-&lt;li&gt;When was Pulp fiction released&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Huấn luyện với bộ dữ liệu giả lập &lt;strong&gt;Manufactured utterances&lt;/strong&gt; giúp cho việc khởi động nhanh hệ thống nhưng sau một tgian hệ thống cần được huấn luyện lại khi có dữ liệu là các câu nói thực tế. Quá trình huấn luyện lại hệ thống luôn được tiếp tục cho đến khi tỉ lệ lỗi được giảm. Sự khác biệt là những câu nói bạn nhận được từ các cuộc trò chuyện thực sự càng tốt bạn có thể huấn luyện dịch vụ NLP của mình cho các ý định. Tối thiểu là 5 hoặc tối ưu là 10 câu nói cho mỗi ý định là đủ tốt để khởi động hệ thống chạy thực.&lt;/p&gt;
-
-&lt;p&gt;Các dịch vụ NLP đi qua một quá trình học &lt;strong&gt;Supervised - Unsupervised - Supervised&lt;/strong&gt;. Mỗi giai đoạn học được giám sát đóng vai trò như một vòng phản hồi trở lại cho việc điều chỉnh lại mô hình NLP.&lt;/p&gt;
-
-&lt;p&gt;Người dùng huấn luyện hệ thống với các câu nói - đây là quá trình học giám sát, sau đó dịch vụ NLP tự học trên cơ sở học tập có giám sát và khoảng 10% những gì mà dịch vụ NLP đã học được trong quá trình học không giám sát sẽ được hỏi lại từ dịch vụ NLP cho người sử dụng, nếu những gì nó học được là chính xác hay không, người sử dụng một lần nữa đạo tạo lại hoặc bằng việc khẳng định / phủ nhận kết quả học tập không giám sát của dịch vụ NLP và huấn luyện lại mô hình. Quá trình này tiếp tục và cuối cùng người sử dụng sẽ tìm thấy câu hỏi ít hơn bởi dịch vụ NLP với mức độ tin cậy hơn đối với các caua hỏi của nó yêu cầu người dùng xác nhận.&lt;/p&gt;
-
-&lt;h1 id=&#34;các-bước-thực-hiện-chính&#34;&gt;Các bước thực hiện chính&lt;/h1&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Xác định ý định trước &amp;ndash; phân biệt giữa ý định chung/ngẫu nhiên và những ý định nghiệp vụ&lt;/li&gt;
-&lt;li&gt;Xác định các thực thể &amp;ndash; phân biệt giữa các thực thể liên quan đến số liệu (metric) và danh từ (noun)&lt;/li&gt;
-&lt;li&gt;Nếu có thể hãy huấn luyện với tập văn bản hội thoại thực tế, không có thì tự tạo ra tập mẫu. Tối thiểu 5 câu nói cho việc xác định 1 ý định, hoặc tối ưu nên thiết kế được 10 câu / 1 ý định.&lt;/li&gt;
-&lt;li&gt;Huấn luyện, sử dụng, đạo tạo lại - Vòng lặp phản hồi liên tục đào tạo và cải tiến mô hình NLP.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&#34;tham-khảo-liên-kết&#34;&gt;Tham khảo liên kết&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://medium.com/@brijrajsingh/chat-bots-designing-intents-and-entities-for-your-nlp-models-35c385b7730d&#34; target=&#34;_blank&#34;&gt;Chat Bots — Designing Intents and Entities for your NLP Models&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.technologyreview.com/s/601279/how-to-prevent-a-plague-of-dumb-chatbots/&#34; target=&#34;_blank&#34;&gt;How to Prevent a Plague of Dumb Chatbots&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.nlpca.com/DCweb/settingintent.html&#34; target=&#34;_blank&#34;&gt;Setting Intent - an Article by the NLP and Coaching Institute&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://research.google.com/pubs/NaturalLanguageProcessing.html&#34; target=&#34;_blank&#34;&gt;Natural Language Processing - Research at Google&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://nlp.stanford.edu/software/tagger.shtml&#34; target=&#34;_blank&#34;&gt;The Stanford Natural Language Processing Group&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Kiến thức toán học cơ bản để làm việc với Deep learning</title>
-      <link>/post/2017/07/03/2017-07-03-kien-thuc-toan-co-ban-cho-deep-learning/</link>
-      <pubDate>Mon, 03 Jul 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2017/07/03/2017-07-03-kien-thuc-toan-co-ban-cho-deep-learning/</guid>
-      <description>
-
-&lt;p&gt;Trước khi bắt đầu vào việc học mạng nơ-ron và deep learning, chúng ta cũng cần chuẩn bị một số kiến thức nền tảng của toán học cần thiết. Một vài chủ đề toán học quan trọng để chúng ta có thể hiểu được các chủ đề trong phương pháp học nhiều tầng &lt;strong&gt;Deep learning&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h1 id=&#34;1-đại-số-tuyến-tính&#34;&gt;1. ĐẠI SỐ TUYẾN TÍNH&lt;/h1&gt;
-
-&lt;p&gt;Đại số tuyến tính bao gồm các dạng liên tục chứ không hoàn toàn là Toán học rời rạc, nhiều người làm khoa học máy tính có rất ít kinh nghiệm với nó. Hiểu biết về đại số tuyến tính là một kỹ năng cần thiết để có thể hiểu được và làm việc được với các thuật toán &lt;strong&gt;Machine learning&lt;/strong&gt;, đặc biệt là với &lt;strong&gt;Deep learning&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Nghiên cứu về Đại số tuyến tính liên quan tới các đối tượng toán học sau:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Đại lượng vô hướng (Scalar)&lt;/strong&gt;: Đại lượng (số) vô hướng là đại lượng được mô tả hoàn toàn chỉ bằng độ lớn. Mô tả bằng một con số mà thôi, không hơn không kém. Ví dụ như tốc độ, thể tích, khối lượng, nhiệt độ, công suất, thời gian, &amp;hellip; Chúng ta viết các đại lượng vô hướng bằng chữ cái không in đậm, có thể viết hoa, ví dụ: $$ (x_1, N, y, k) $$&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Vector&lt;/strong&gt;: Vector là một mảng (1-D) chứa các phần tử của nó là dãy các số vô hướng. Các số này được sắp xếp theo một trật tự và chúng ta có thể xác định các số này bằng chỉ số thứ tự của nó. Thường được ký hiệu bằng chữ cái không viết hoa in đậm, ví dụ: $$ (\mathbf{y}, \mathbf{x}_1) $$&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Ma trận&lt;/strong&gt;: Ma trận là một mảng 2 chiều (2-D), mỗi phần tử của nó được xác định bởi 2 chỉ số. Thường được ký hiệu bởi chữ cái viết hoa và in đậm, ví dụ: $$ (\mathbf{A, X, Y, W}) $$&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Tensor&lt;/strong&gt;: Ten-xơ là đối tượng hình học miêu ta quan hệ tuyến tính giữa các đại lượng &lt;code&gt;Vector&lt;/code&gt;, &lt;code&gt;Vô hướng&lt;/code&gt;, và các &lt;code&gt;ten-xơ&lt;/code&gt; với nhau. Theo định nghĩa thì &lt;code&gt;Vector&lt;/code&gt; và &lt;code&gt;Vô hướng&lt;/code&gt; cũng là ten-xơ. Bậc (hay &lt;em&gt;hạng&lt;/em&gt;) của một ten-xơ bằng số chiều của mảng cần để biểu diễn nó, hay tương đương với chỉ số cần để đánh dấu các thành phần của mảng. Đại lượng &lt;code&gt;vô hướng&lt;/code&gt; là ten-xơ hạng &lt;strong&gt;0&lt;/strong&gt;, &amp;hellip;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Một phép toán quan trọng trên ma trận đó là phép &lt;strong&gt;Chuyển vị&lt;/strong&gt;. Chuyển vị của một ma trận là một ma trận mà ở đó các hàng được thay thế bằng các cột và ngược lại. Hay cách hình dùng khác thì ma trận chuyển vị là ảnh của ma trận qua &lt;strong&gt;đường chéo chính&lt;/strong&gt;, chạy từ trên xuống theo hướng bên phải, bắt đầu từ góc trái nhất trên cùng (nghe mô tả mà cũng hoảng). Ký hiệu chuyển vị của ma trận $$\mathbf{A}$$ là $$\mathbf{A}^T$$, và được định nghĩa bằng công thức $$ \mathbf{A}^T(i, j) = \mathbf{A}(j, i) $$.&lt;/p&gt;
-
-&lt;p&gt;Trong ngữ cảnh của &lt;strong&gt;deep learning&lt;/strong&gt;, chúng ta cũng sử dụng các ký hiệu thông thường ít hơn. Ví dụ, khi ta cộng ma trận với một vector, sinh ra một ma trận: $$ \mathbf{C} = \mathbf{A} + \mathbf{b} $$, trong đó $$ \mathbf{C}(i, j) = \mathbf{A}(i, j) + \mathbf{b}(j) $$. Nói cách khác, vector $$\mathbf{b}$$ được cộng vào mỗi hàng của ma trận. Với cách viết tắt này loại bỏ việc xác định thêm 1 ma trận với mỗi hàng có giá trị là $$ \mathbf{b} $$ trước khi thực hiện phép cộng hai ma trận. Việc sao chép $$ \mathbf{b} $$ như vậy được gọi là &lt;strong&gt;broadcasting&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Chuyển vị của một tích ma trận có dạng đơn giản là: $$ (\mathbf{AB})^T = \mathbf{B}^T\mathbf{A}^T $$. Ma trận nghịch đảo của $$ \mathbf{A} $$ được ký hiệu là $$ \mathbf{A}^{-1} $$, và tích của chúng đúng bằng ma trận đơn vị: $$ \mathbf{A}^{-1}\mathbf{A} = \mathbf{I} $$. Tuy nhiên, $$ \mathbf{A}^{-1} $$ chủ yếu có ích như một công cụ lý thuyết, và nó không nên được sử dụng ngoài thực tế trong hầu hết các ứng dụng phần mềm. Bởi vì $$ \mathbf{A}^{-1} $$ được biểu diễn với độ chính xác hạn chế trên máy tính, các thuật toán sử dụng giá trị của $$ \mathbf{b} $$ thường đạt được đó chính xác hơn ước lượng của $$ \mathbf{x} $$.&lt;/p&gt;
-
-&lt;p&gt;Chúng ta cần một vài chủ đề khác để hiểu hơn về kỹ thuật ứng dụng.&lt;/p&gt;
-
-&lt;h1 id=&#34;2-norm-chuẩn&#34;&gt;2. NORM (Chuẩn)&lt;/h1&gt;
-
-&lt;p&gt;Trong machine learning, chúng ta thường đo độ lớn của một vector (điểm dữ liệu) hoặc khoảng cách giữa 2 vector, bằng việc sử dụng 1 hàm, được gọi là chuẩn. Việc đo độ lớn và khoảng cách giữa các vector với nhau, chúng ta có thể đánh giá được điểm nào là điểm gần nhất với một điểm dữ liệu cho trước; chúng ta cũng cần đánh giá độ chính xác của việc ước lượng là như thế nào.&lt;/p&gt;
-
-&lt;p&gt;Giả sử có các vector cột: $$ \mathbf{x} = [x_1; x_2; \cdots; x_n], \mathbf{y} = [y_1; y_2; \cdots; y_n] $$.&lt;/p&gt;
-
-&lt;p&gt;Với &lt;em&gt;p&lt;/em&gt; &lt;strong&gt;là một số không nhỏ hơn 1&lt;/strong&gt; bất kỳ, tổng quát $$ \mathbf{x} $$ có chuẩn norm &lt;em&gt;p&lt;/em&gt; được tính bởi công thức:&lt;/p&gt;
-
-&lt;p&gt;$$ \Vert\mathbf{x}\Vert_p = (\vert x_1 \vert^p + \vert x_2 \vert^p + \cdots + \vert x_n \vert^p)^{\frac{1}{p}} ~~ (1) $$&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Khi $$ p = 2 $$, ta có chuẩn Euclid &lt;strong&gt;norm 2&lt;/strong&gt;: $$ \Vert\mathbf{x}\Vert_2 = \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2} ~~~ (2) $$&lt;/li&gt;
-&lt;li&gt;Khi $$ p = 1 $$, ta có &lt;strong&gt;norm 1&lt;/strong&gt;: $$ \Vert\mathbf{x}\Vert_1 = \vert x_1 \vert + \vert x_2 \vert + \cdots + \vert x_n \vert ~~~ (3) ~~~ $$ là tổng các trị tuyệt đối từng phần tử của $$ \mathbf{x} $$.&lt;/li&gt;
-&lt;li&gt;Khi $$ p \rightarrow \infty $$, ta có norm $$ p $$ chính là trị tuyệt đối của phần tử lớn nhất của vector đó: $$ \Vert\mathbf{x}\Vert&lt;em&gt;{\infty} = \max&lt;/em&gt;{i = 1, 2, \cdots, n} \vert x_i \vert ~~~ (4) $$&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Chặt chẽ hơn, một chuẩn là một hàm số $$ f() $$ ánh xạ một điểm $$ \mathbf{x} $$ từ không gian $$ n $$ chiều sang tập số thực một chiều $$ \mathbf{R} $$ được gọi là norm nếu thỏa mãn các tính chất sau đây:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;$$ f(\mathbf{x}) = 0 \geq 0 $$. Dấu bằng xảy ra $$ \Leftrightarrow \mathbf{x = 0} $$.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;$$ f(\alpha \mathbf{x}) = \vert\alpha\vert f(\mathbf{x}), ~~~ \forall \alpha \in \mathbb{R} $$.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;$$ f(\mathbf{x}_1) + f(\mathbf{x}_2) \geq f(\mathbf{x}_1 + \mathbf{x}_2), ~~\forall \mathbf{x}_1, \mathbf{x}_2 \in \mathbf{R}^n $$. Đây chính là bất đẳng thức tam giác, nếu coi $$ \mathbf{x_1 = w - y, x_2 = z - w} $$ với $$\mathbf{w}$$ là một điểm bất kỳ trong không gian.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Tham khảo thêm &lt;a href=&#34;http://machinelearningcoban.com/math/#-norms-chuan&#34; target=&#34;_blank&#34;&gt;định nghĩa&lt;/a&gt; về &lt;strong&gt;NORM&lt;/strong&gt; &lt;a href=&#34;http://machinelearningcoban.com/math/#-norms-chuan&#34; target=&#34;_blank&#34;&gt;tại đây&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;3-trị-riêng&#34;&gt;3. TRỊ RIÊNG&lt;/h1&gt;
-
-&lt;p&gt;To be continue &amp;hellip;&lt;/p&gt;
-
-&lt;h1 id=&#34;liên-kết-tham-khảo&#34;&gt;Liên kết tham khảo&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://medium.com/towards-data-science/deep-learning-basic-mathematics-for-deep-learning-a82981e95e3b&#34; target=&#34;_blank&#34;&gt;Basic Mathematics for Deep Learning&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://machinelearningcoban.com/math&#34; target=&#34;_blank&#34;&gt;Một số kiến thức về Đại Số Tuyến Tính, Xác Suất Thống Kê, Toán Tối Ưu cần thiết cho Machine Learning&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Một số phương pháp làm giảm hiện tượng Overfitting</title>
-      <link>/post/2017/07/01/mot-so-phuong-phap-lam-giam-overfitting/</link>
-      <pubDate>Sat, 01 Jul 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2017/07/01/mot-so-phuong-phap-lam-giam-overfitting/</guid>
-      <description>&lt;p&gt;Một số các phương pháp làm giảm hiện tượng quá khớp trong quá trình huấn luyện mạng nơ-ron.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Weight-decay: &amp;hellip;&lt;/li&gt;
-&lt;li&gt;Weight-sharing: &amp;hellip;&lt;/li&gt;
-&lt;li&gt;Early stopping&lt;/li&gt;
-&lt;li&gt;Model averaging&lt;/li&gt;
-&lt;li&gt;Bayesian fitting of neural nets&lt;/li&gt;
-&lt;li&gt;Dropout&lt;/li&gt;
-&lt;li&gt;Generative pre-training&lt;/li&gt;
-&lt;li&gt;Etc&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Sử dụng mô hình được huấn luyện bằng Tensorflow trong C&#43;&#43;</title>
-      <link>/post/2017/06/27/su-dung-model-tensorflow-trong-cc/</link>
-      <pubDate>Tue, 27 Jun 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2017/06/27/su-dung-model-tensorflow-trong-cc/</guid>
-      <description>
-
-&lt;p&gt;Một trong những khả năng của Tensorflow đó là định nghĩa và huấn luyện model sử dụng &lt;strong&gt;Python API&lt;/strong&gt; và chuyển model học được sang sử dụng trong &lt;strong&gt;C++&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h1 id=&#34;các-bước-thực-hiện&#34;&gt;Các bước thực hiện&lt;/h1&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Định nghĩa input, output graph của model&lt;/li&gt;
-&lt;li&gt;Lưu lại các checkpoints. (Bước này rất quan trọng, bởi vì tất cả các biến được huấn luyện và lưu giữ ở bước này)&lt;/li&gt;
-&lt;li&gt;Lưu lại &lt;code&gt;graph&lt;/code&gt; (raw definition, no variable). Đặt là &lt;code&gt;input_graph&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Sử dụng file &lt;code&gt;freeze_graph&lt;/code&gt; để kết hợp cấu trúc (3) &lt;code&gt;input_graph&lt;/code&gt; với các giá trị tại mỗi node (2) và sinh ra một graph model mới, đặt là: &lt;code&gt;output_graph&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Sử dụng &lt;code&gt;output_graph&lt;/code&gt; trong file &lt;strong&gt;C++&lt;/strong&gt; để suy diễn. #Optional: Có thể map ánh xạ output của mạng vào các nhãn label.&lt;/li&gt;
-&lt;li&gt;Tạo một file build trong thư mục &lt;code&gt;tensorflow/tensorflow/{our_project}&lt;/code&gt;. Việc này mất một khoảng thời gian để bundle tất cả các file thư viện của tensorflow vào một file có thể chạy.&lt;/li&gt;
-&lt;li&gt;File thực thi đã sẵn sàng để chạy!&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;Chi tiết các bước:&lt;/strong&gt; &lt;a href=&#34;https://medium.com/@hamedmp/exporting-trained-tensorflow-models-to-c-the-right-way-cf24b609d183&#34; target=&#34;_blank&#34;&gt;Exporting trained TensorFlow models to C++ the RIGHT way!&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;liên-kết-tham-khảo&#34;&gt;Liên kết tham khảo&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://tebesu.github.io/posts/Training-a-TensorFlow-graph-in-C++-API&#34; target=&#34;_blank&#34;&gt;Training a TensorFlow graph in C++ API&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://medium.com/@hamedmp/exporting-trained-tensorflow-models-to-c-the-right-way-cf24b609d183&#34; target=&#34;_blank&#34;&gt;Exporting trained TensorFlow models to C++ the RIGHT way!&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Chatbot FAQ - Các câu hỏi thường gặp</title>
-      <link>/post/2017/06/26/chatbot-faq/</link>
-      <pubDate>Mon, 26 Jun 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2017/06/26/chatbot-faq/</guid>
-      <description>
-
-&lt;h1 id=&#34;how-to-train-tensorflow-chat-application-on-updated-dataset-everyday-1&#34;&gt;&lt;a href=&#34;https://datascience.stackexchange.com/a/18899&#34; target=&#34;_blank&#34;&gt;How to train tensorflow chat application on updated dataset everyday?&lt;/a&gt;&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;Q&lt;/strong&gt;: I have created chatbot on &lt;strong&gt;Cornell&lt;/strong&gt; movie dataset and it&amp;rsquo;s working fine. I have trained chatbot application up to global step 330000. I am using tensorflow library. I am also receiving output fine. Then I created this new dataset file by modifying original dataset and i wish to train chatbot application with updated files. Now should I delete previously saved checkpoints and saved data and start training from zero or should i train from 330000 onwards without worrying changes in dataset. I wish to modify database daily basis and train on modified database. Please kindly let me know if you have a suggestion for me as I am stuck on this issue. I will really appreciate if you help me with this issue.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;A&lt;/strong&gt;: The distribution of your data won&amp;rsquo;t change too much over a smaller period of time, retraining from scratch seems like a waste. Just add the new data to your set and do one or more epochs on all your data, not just the new ones. It can readjust the weights a little bit for changes in the distribution which is exactly what you want. Make sure you are not overreliant on early stopping as regularization method against overfitting because you continuously train like this, use some other regularizer. I would suggest periodically to retrain from scratch but this doesn&amp;rsquo;t have to happen very regularly, maybe once every two months.&lt;/p&gt;
-
-&lt;p&gt;Source: &lt;a href=&#34;https://datascience.stackexchange.com/a/18899&#34; target=&#34;_blank&#34;&gt;https://datascience.stackexchange.com/a/18899&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;các-bài-toán-nlp-cơ-bản-khi-phát-triển-một-hệ-thống-chatbot-là-gì-2&#34;&gt;&lt;a href=&#34;https://tech.fpt.com.vn/3-van-de-nlp-co-ban-khi-phat-trien-mot-thong-chatbot-va-mot-phuong-phap-giai-quyet-dien-hinh/&#34; target=&#34;_blank&#34;&gt;Các bài toán NLP cơ bản khi phát triển một hệ thống chatbot là gì ?&lt;/a&gt;&lt;/h1&gt;
-
-&lt;p&gt;Các hệ thống chatbot được triển khai trong thực tế phần lớn tuân theo mô hình truy xuất thông tin và được áp dụng trong những miền ứng dụng cụ thể (miền đóng). Ba vấn đề cơ bản NLP mà một hệ thống Chatbot cần xác định và phát triển tích hợp:&lt;/p&gt;
-
-&lt;h2 id=&#34;1-xác-định-phân-loại-ý-định-của-người-dùng&#34;&gt;1. Xác định, phân loại ý định của người dùng.&lt;/h2&gt;
-
-&lt;p&gt;Thông thường người dùng truy cập hệ thống chatbot đều mong muốn một hành động trợ giúp về một vấn đề nào đó. Ví dụ, người dùng mong muốn chatbot hỗ trợ đặt vé máy bay, để đưa ra hỗ trợ được chính xác, chatbot cần xác định được ý điện (intent) đó của người dùng. Việc xác định ý định của người dùng sẽ quyết định hội thoại tiếp theo giữa người dùng và chatbot sẽ diễn ra như thê nào; Nếu xác định sai ý định người dùng, chatbot sẽ không đưa ra được những phản hồi đúng hợp ngữ cảnh. Khi đó, người dùng cảm thấy thất vọng và không quay lại sử dụng hệ thống. Đây được coi là bài toán quan trọng nhất trong hệ thống chatbot.&lt;/p&gt;
-
-&lt;h2 id=&#34;2-trích-xuất-thông-tin&#34;&gt;2. Trích xuất thông tin&lt;/h2&gt;
-
-&lt;p&gt;Bên cạnh việc xác định intent trong câu hội thoại của người dùng, chúng ta cần trích xuất các thông tin cần thiết trong đó. Các thông tin cần trích xuất trong một câu hội thoại thường là các thực thể thuộc về một loại nào đó. Ví dụ, khi một khách hàng muốn đặt vé máy bay, hệ thống cần biết địa điểm xuất phát và địa điểm khách muốn đến, ngày giờ khách hàng muốn bay,…Thành phần NLU của các hệ thống chatbot thường hỗ trợ các loại thực thể sau:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Vị trí (Location)&lt;/li&gt;
-&lt;li&gt;Thời gian (Datetime)&lt;/li&gt;
-&lt;li&gt;Số (Number)&lt;/li&gt;
-&lt;li&gt;Địa chỉ liên lạc (Contact)&lt;/li&gt;
-&lt;li&gt;Khoảng cách (Distance)&lt;/li&gt;
-&lt;li&gt;Khoảng thời gian (Duration)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Trong bài toán trích xuất thông tin, tập nhãn cho các từ trong câu đầu vào thường được tạo ra theo mô hình BIO, với B là viết tắt của &lt;code&gt;Beginning&lt;/code&gt;, I là viết tắt của &lt;code&gt;Inside&lt;/code&gt;, và O là viết tắt của &lt;code&gt;Outside&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;3-quản-lý-hội-thoại&#34;&gt;3. Quản lý hội thoại&lt;/h2&gt;
-
-&lt;p&gt;Trong các phiên trao đổi dài (long conversation) giữa người và chatbot, chatbot sẽ cần ghi nhớ những thông tin về ngữ cảnh (context) hay quản lý các trạng thái hội thoại (dialog state). Vấn đề quản lý hội thoại (dialoge management) khi đó là quan trọng để đảm bảo việc trao đổi giữa người và máy là thông suốt.&lt;/p&gt;
-
-&lt;p&gt;Source: &lt;a href=&#34;https://tech.fpt.com.vn/3-van-de-nlp-co-ban-khi-phat-trien-mot-thong-chatbot-va-mot-phuong-phap-giai-quyet-dien-hinh/&#34; target=&#34;_blank&#34;&gt;3 vấn đề NLP cơ bản khi phát triển một hệ thống chatbot và một số phương pháp giải quyết điển hình&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Lộ trình 8 bước để bắt đầu học AI</title>
-      <link>/post/2017/06/26/8-buoc-hoc-ai/</link>
-      <pubDate>Mon, 26 Jun 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2017/06/26/8-buoc-hoc-ai/</guid>
-      <description>
-
-&lt;p&gt;Đến giờ tôi vẫn mù mờ rất nhiều về AI và các chương trình học máy, mặc dù năm cuối đại học, kỳ &lt;code&gt;20121&lt;/code&gt; đã tự tay cài đặt mạng nơ-ron từ đầu bằng &lt;code&gt;C#&lt;/code&gt; và tham gia một dự án thực tế ở 1 trường ĐH Việt Nam, với đề tài: Dự báo tỉ lệ &lt;strong&gt;NGHỈ HỌC&lt;/strong&gt; của học viên chương trình đào tạo từ xa.&lt;/p&gt;
-
-&lt;p&gt;Kết quả chính mà nhóm chúng tôi đã đạt được bao gồm 2 mô hình và các nhân tố chính ảnh hưởng đến khả năng &lt;strong&gt;NGHỈ HỌC&lt;/strong&gt; của học viên, căn cứ dựa trên hồ sơ thông tin.&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;Mô hình dự báo khả năng &lt;strong&gt;NGHỈ HỌC&lt;/strong&gt; của học viên, căn cứ trên hồ sơ thông tin&lt;/li&gt;
-&lt;li&gt;Mô hình dự báo khả năng &lt;strong&gt;NGHỈ HỌC&lt;/strong&gt; của học viên vượt qua kỳ &lt;strong&gt;K&lt;/strong&gt; (K = &lt;code&gt;{1, 2, 3, 4}&lt;/code&gt;)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Kết quả khả quan của đề tài thực hiện đã giúp cho cán bộ trong chương trình đào tạo có thể giám sát, để hỗ trợ kịp thời và tư vấn cho học viên, làm giảm tỉ lệ nghỉ học của học viên do các tác động từ môi trường học, xã hội, gia đình hoặc động lực học của học viên:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;/img/dropout-forecast.PNG&#34; alt=&#34;Mô hình dự báo khả năng nghỉ học&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Sau 1 khoảng thời gian dài, sau khi ra trường, tôi làm các công việc liên quan đến Công nghệ phần mềm và hệ thống thông tin là chính. Do đó, kỹ năng và kiến thức về &lt;strong&gt;Machine learning&lt;/strong&gt; và &lt;strong&gt;Mạng nơ-ron&lt;/strong&gt; tôi quên cũng khá nhiều. Và bây giờ tôi nghĩ là thời điểm thích hợp để bắt đầu lại từ đầu, chính thức hội nhập kỷ nguyên &lt;strong&gt;dữ liệu&lt;/strong&gt;. Một hứa hẹn chắc chắn sẽ đem lại nhiều lợi ích rất lớn cho nền công nghiệp nước nhà, trong rất nhiều lĩnh vực sản xuất, công nghệ và dịch vụ.&lt;/p&gt;
-
-&lt;h1 id=&#34;lộ-trình-8-bước-để-bắt-đầu-học-ai&#34;&gt;Lộ trình 8 bước để bắt đầu học AI&lt;/h1&gt;
-
-&lt;p&gt;Dưới đây là 8 bước để tôi và bạn có một khởi đầu mới thuận lợi, giúp chúng ta định hướng con đường sự nghiệp cụ thể, tránh rơi vào trạng thái mơ hồ, ảo tưởng:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;Chọn bài toán mà bạn quan tâm hoặc cảm thấy thích thú. Việc bắt đầu với một vấn đề bạn muốn giải quyết sẽ giúp bạn tập trung và có động lực để học hơn.&lt;/li&gt;
-&lt;li&gt;Tìm solution &lt;strong&gt;ĐƠN GIẢN&lt;/strong&gt; nhất. Đừng bắt đầu bằng những thứ phức tạp, bạn sẽ không hiểu tại sao nó lại như thế đâu.&lt;/li&gt;
-&lt;li&gt;Cải thiện dần dần bằng cách đọc thêm các kỹ thuật liên quan.&lt;/li&gt;
-&lt;li&gt;Chia sẻ solution của các bạn với người khác.&lt;/li&gt;
-&lt;li&gt;Lặp lại các bước &lt;code&gt;1-4&lt;/code&gt; với nhiều bài toán khác nhau.&lt;/li&gt;
-&lt;li&gt;Tham gia một Kaggle contest.&lt;/li&gt;
-&lt;li&gt;Thử sức với các bài toán rất thực tế.&lt;/li&gt;
-&lt;li&gt;Chia sẻ kiến thức của bạn với người khác.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;Cuối cùng&lt;/strong&gt;: Mục tiêu nào cũng vậy! Sự hào hứng ban đầu trôi qua rất nhanh, còn lại tính kỷ luật &amp;amp; lòng quyết tâm! Vậy nên hãy cố gắng giữ lửa, đừng để các lý do lãng xẹt, ngăn cản bạn.&lt;/p&gt;
-
-&lt;h1 id=&#34;liên-kết-được-chia-sẻ-bởi-blog-machine-learning-cơ-bản&#34;&gt;Liên kết được chia sẻ bởi blog Machine learning cơ bản&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.facebook.com/machinelearningbasicvn/posts/452340058459164&#34; target=&#34;_blank&#34;&gt;Machine learning cơ bản&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.forbes.com/sites/quora/2017/04/05/eight-easy-steps-to-get-started-learning-artificial-intelligence/&#34; target=&#34;_blank&#34;&gt;Eight Easy Steps To Get Started Learning Artificial Intelligence&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.quora.com/What-are-the-best-sources-to-study-machine-learning-and-artificial-intelligence&#34; target=&#34;_blank&#34;&gt;What are the best sources to study machine learning and artificial intelligence?&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Bắt đầu NLP từ đâu và như thế nào ?</title>
-      <link>/post/2017/05/31/bat-dau-nlp-tu-dau-ntn/</link>
-      <pubDate>Wed, 31 May 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2017/05/31/bat-dau-nlp-tu-dau-ntn/</guid>
-      <description>
-
-&lt;p&gt;Có thể bạn đã nghe rất nhiều về &lt;code&gt;Trí tuệ nhân tạo (AI)&lt;/code&gt;, &lt;code&gt;Học máy (Machine Learning)&lt;/code&gt;, hay &lt;code&gt;Xử lý ngôn ngữ tự nhiên (NLP)&lt;/code&gt;. Và rất muốn được tiếp cận nhưng chưa biết phải bắt đầu từ đâu và cách tiếp cận như thế nào ? Bài viết này cũng là bài đầu tiên mà tôi muốn tìm hiểu tổng quan nhất về các lý thuyết, thuật toán và các ứng dụng cụ thể trong một domain nhỏ của &lt;strong&gt;AI&lt;/strong&gt;, đó chính là &lt;strong&gt;NLP&lt;/strong&gt;. Làm thế nào để máy tính có thể hiểu được ngôn ngữ tự nhiên ? Làm thế nào để máy tính có trí thông minh như con người ?&lt;/p&gt;
-
-&lt;p&gt;Tôi đã từng nghe rằng: Nếu bạn phải &lt;code&gt;trả lời&lt;/code&gt; lần 2 cho cùng một câu hỏi, thì có lẽ 1 ý tưởng hay là đưa nó vào blog. Theo nguyên tắc này, tôi cũng muốn ghi chú lại các bước, câu trả lời cho câu hỏi: &lt;code&gt;Tôi có kiến thức khoa học trong ngành (*), và tôi muốn học NLP. Vậy tôi nên bắt đầu từ đâu?&lt;/code&gt; Để chúng ta có bước khởi đầu thuận lợi và đầy cảm hứng.&lt;/p&gt;
-
-&lt;p&gt;Sau đây là các phương pháp mà tôi dự định tiếp cận theo cách của &lt;a href=&#34;https://medium.com/@melanietosik&#34; target=&#34;_blank&#34;&gt;@Melanie Tosik&lt;/a&gt; và chia sẻ với các bạn, mà tôi nghĩ chúng ta có thể bắt đầu ngay bằng 1 khóa học căn bản, sau đó tự mình trải nghiệm và cài đặt lại các phương pháp để hiểu hơn về bản chất. Đây có thể đây là kim chỉ nam giúp tôi không bị lệch hướng và cũng hi vọng nó có ích cho những người mới như bạn và tôi:&lt;/p&gt;
-
-&lt;p&gt;Trước khi bắt đầu, chúng ta cần nhận thức được danh sách dưới đây thực sự là một điểm bắt đầu rất &lt;code&gt;chung&lt;/code&gt;, cơ bản và có thể không đầy đủ. Để tránh tình huống bị ngập tràn trong một núi thông tin, tôi cố gắng thêm các chú thích bằng các mô tả ngắn gọn và ước lượng các mức độ khó khăn trong ngoặc đơn (sẽ được cập nhật chi tiết hơn khi tôi được trải nghiệm hết). Bằng cách tiếp cận từ trên xuống (Top-Down) và các kỹ thuật thực hành ngay bằng các ví dụ được cài đặt bằng Python có thể giúp chúng ta nắm được một cách tổng quát nhất. Hiểu từ thực tế đến (quay trở về) lý thuyết!&lt;/p&gt;
-
-&lt;h1 id=&#34;khóa-học-online&#34;&gt;Khóa học Online&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=nfoudtpBV68&amp;amp;list=PL6397E4B26D00A269&#34; target=&#34;_blank&#34;&gt;Dan Jurafsky &amp;amp; Chris Manning: Natural Language Processing&lt;/a&gt; [video giới thiệu căn bản]&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://cs224d.stanford.edu/syllabus.html&#34; target=&#34;_blank&#34;&gt;Stanford CS224d: Deep Learning for Natural Language Processing&lt;/a&gt; [Các thuật toán ML nâng cao: Deep learning, NN for NLP]&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.coursera.org/learn/natural-language-processing&#34; target=&#34;_blank&#34;&gt;Coursera: Introduction to Natural Language Processing&lt;/a&gt; [Khóa học giới thiệu NLP của trường ĐH Michigan]&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;các-thư-viện-và-mã-nguồn-mở&#34;&gt;Các thư viện và mã nguồn mở&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://spacy.io/&#34; target=&#34;_blank&#34;&gt;spaCy&lt;/a&gt; &lt;a href=&#34;https://explosion.ai/blog/&#34; target=&#34;_blank&#34;&gt;blog&lt;/a&gt; [Thư viện python mới nổi với những ví dụ tuyệt vời, các hướng dẫn và demo trực quan]&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.nltk.org/&#34; target=&#34;_blank&#34;&gt;NLTK&lt;/a&gt; &lt;a href=&#34;http://www.nltk.org/book/&#34; target=&#34;_blank&#34;&gt;book&lt;/a&gt; [Thường được sử dụng cho việc giảng dạy, nghiên cứu học thuật]&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://stanfordnlp.github.io/CoreNLP/&#34; target=&#34;_blank&#34;&gt;Stanford CoreNLP&lt;/a&gt; [Bộ công cụ phân tích chất lượng cao, bằng Java]&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;blog-tiếng-anh&#34;&gt;Blog tiếng Anh&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://nlpers.blogspot.com/&#34; target=&#34;_blank&#34;&gt;natural language processing blog&lt;/a&gt; (Hal Daumé)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://research.googleblog.com/&#34; target=&#34;_blank&#34;&gt;Google research blog&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://languagelog.ldc.upenn.edu/nll/&#34; target=&#34;_blank&#34;&gt;Language log&lt;/a&gt; (Mark Liberman)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;blog-tiếng-việt&#34;&gt;Blog tiếng Việt&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://machinelearningcoban.com&#34; target=&#34;_blank&#34;&gt;Machine Learning cơ bản cho người mới bắt đầu - Vũ Hữu Tiệp PSU&lt;/a&gt; - &lt;a href=&#34;https://tiepvupsu.github.io&#34; target=&#34;_blank&#34;&gt;Blog&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://viet.jnlp.org/kien-thuc-co-ban-ve-xu-ly-ngon-ngu-tu-nhien/machine-learning-trong-nlp&#34; target=&#34;_blank&#34;&gt;Machine Learning trong Xử Lý Ngôn Ngữ Tự Nhiên - Nhóm Đông Du Nhật Bản&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://ongxuanhong.wordpress.com/&#34; target=&#34;_blank&#34;&gt;Machine Learning cho người mới bắt đầu - Ông Xuân Hồng JAIST&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://ml-book-vn.khanhxnguyen.com/&#34; target=&#34;_blank&#34;&gt;Machine Learning book for Vietnamese - Nguyễn Xuân Khánh University of Maryland&lt;/a&gt; &lt;a href=&#34;http://khanhxnguyen.com/blog&#34; target=&#34;_blank&#34;&gt;Blog&lt;/a&gt;, &lt;a href=&#34;http://khanhxnguyen.com/tutorials&#34; target=&#34;_blank&#34;&gt;Tutorials&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;books&#34;&gt;Books&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://web.stanford.edu/~jurafsky/slp3/&#34; target=&#34;_blank&#34;&gt;Speech and Language Processing&lt;/a&gt; (Daniel Jurafsky and James H. Martin) - sách bao gồm những lý thuyết cơ bản&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://nlp.stanford.edu/fsnlp/&#34; target=&#34;_blank&#34;&gt;Foundations of Statistical Natural Language Processing&lt;/a&gt; (Chris Manning and Hinrich Schütze) - các phương pháp thống kê&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://nlp.stanford.edu/IR-book/&#34; target=&#34;_blank&#34;&gt;Introduction to Information Retrieval&lt;/a&gt; (Chris Manning, Prabhakar Raghavan and Hinrich Schütze) - sách hay về xếp hạng và tìm kiếm ngữ nghĩa&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.amazon.com/Network-Methods-Natural-Language-Processing/dp/1627052984&#34; target=&#34;_blank&#34;&gt;Neural Network Methods in Natural Language Processing&lt;/a&gt; (Yoav Goldberg) - giới thiệu chi tiết hướng tiếp cận NN, phiên bản &lt;a href=&#34;http://u.cs.biu.ac.il/~yogo/nnlp.pdf&#34; target=&#34;_blank&#34;&gt;primer (pdf)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;kỹ-thuật-khác&#34;&gt;Kỹ thuật khác&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.tensorflow.org/versions/master/tutorials/word2vec&#34; target=&#34;_blank&#34;&gt;How to build a word2vec model in TensorFlow&lt;/a&gt; - tutorial&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/andrewt3000/dl4nlp&#34; target=&#34;_blank&#34;&gt;Deep Learning for NLP resources&lt;/a&gt; - dữ liệu mới nhất cho Deep learning, được tổ chức theo các topic&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://mitp.nautil.us/article/170/last-words-computational-linguistics-and-deep-learning&#34; target=&#34;_blank&#34;&gt;Last Words: Computational Linguistics and Deep Learning — A look at the importance of Natural Language Processing&lt;/a&gt; - (Chris Manning) article&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/nyu-dl/NLP_DL_Lecture_Note/blob/master/lecture_note.pdf&#34; target=&#34;_blank&#34;&gt;Natural Language Understanding with Distributed Representation&lt;/a&gt; (Kyunghyun Cho) các ghi chú về ML/NN tiếp cận bài toán Natural Language Understanding (NLU)&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.quora.com/How-do-I-learn-Natural-Language-Processing&#34; target=&#34;_blank&#34;&gt;Quora: How do I learn Natural Language Processing?&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;diy-dữ-liệu-và-các-dự-án-mục-nhúng-tay&#34;&gt;DIY - Dữ liệu và các dự án (mục nhúng tay)&lt;/h1&gt;
-
-&lt;p&gt;Với tập dữ liệu được tạo và public bởi &lt;strong&gt;Nicolas Iderhoff&lt;/strong&gt;. Chúng ta là những người mới cần phải nhúng tay để thực sự bắt đầu làm việc trong lĩnh vực &lt;em&gt;NLP&lt;/em&gt;. Dưới đây là danh sách các bài toán &lt;code&gt;NLP&lt;/code&gt; cần giải được đề xuất bởi &lt;a href=&#34;https://medium.com/@melanietosik&#34; target=&#34;_blank&#34;&gt;Melanie Tosik&lt;/a&gt;:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Xây dựng bộ &lt;a href=&#34;https://en.wikipedia.org/wiki/Part-of-speech_tagging&#34; target=&#34;_blank&#34;&gt;gán nhãn từ loại POS&lt;/a&gt; (Part-of-Speech) dựa trên &lt;a href=&#34;https://en.wikipedia.org/wiki/Hidden_Markov_model&#34; target=&#34;_blank&#34;&gt;mô hình Markov ẩn&lt;/a&gt; (HMM)&lt;/li&gt;
-&lt;li&gt;Cài đặt thuật toán &lt;a href=&#34;https://en.wikipedia.org/wiki/CYK_algorithm&#34; target=&#34;_blank&#34;&gt;CYK&lt;/a&gt; để phân tích bài toán &lt;a href=&#34;https://en.wikipedia.org/wiki/Context-free_grammar&#34; target=&#34;_blank&#34;&gt;phân tích văn phạm phi ngữ cảnh&lt;/a&gt; (Context-free grammars)&lt;/li&gt;
-&lt;li&gt;Xây dựng bộ phân lớp &lt;a href=&#34;https://en.wikipedia.org/wiki/Naive_Bayes_classifier&#34; target=&#34;_blank&#34;&gt;Naive Bayes&lt;/a&gt; cho bài toán &lt;a href=&#34;https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering&#34; target=&#34;_blank&#34;&gt;lọc Spam&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Xây dựng bộ kiểm tra chính tả &lt;a href=&#34;https://en.wikipedia.org/wiki/Spell_checker&#34; target=&#34;_blank&#34;&gt;spell checker&lt;/a&gt; dựa trên kỹ thuật [edit distances] giữa các từ vựng với nhau.&lt;/li&gt;
-&lt;li&gt;Xây dựng bộ sinh văn bản dựa vào &lt;a href=&#34;https://en.wikipedia.org/wiki/Markov_chain&#34; target=&#34;_blank&#34;&gt;chuỗi Markov&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Xây dựng một mô hình thống kê &lt;a href=&#34;https://en.wikipedia.org/wiki/Topic_model&#34; target=&#34;_blank&#34;&gt;Topic model&lt;/a&gt; sử dụng mô hình sinh &lt;a href=&#34;https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation&#34; target=&#34;_blank&#34;&gt;latent Dirichlet allocation&lt;/a&gt; (LDA)&lt;/li&gt;
-&lt;li&gt;Sử dụng [word2vec] để sinh ra word embeddings từ tập ngữ liệu lớn (large text corpus), từ: &lt;a href=&#34;https://en.wikipedia.org/wiki/Wikipedia:Database_download&#34; target=&#34;_blank&#34;&gt;Wikipedia&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;chủ-đề-nlp-trên-mạng-xã-hội&#34;&gt;Chủ đề NLP trên mạng xã hội&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Twitter: &lt;a href=&#34;https://twitter.com/hashtag/nlproc&#34; target=&#34;_blank&#34;&gt;#nlproc&lt;/a&gt;, &lt;a href=&#34;https://twitter.com/jasonbaldridge/lists/nlpers&#34; target=&#34;_blank&#34;&gt;list of NLPers&lt;/a&gt; (by Jason Baldrige)&lt;/li&gt;
-&lt;li&gt;Reddit: &lt;a href=&#34;https://www.reddit.com/r/LanguageTechnology&#34; target=&#34;_blank&#34;&gt;r/LanguageTechnology&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Medium: &lt;a href=&#34;https://medium.com/tag/nlp&#34; target=&#34;_blank&#34;&gt;Nlp&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;acknowledgment&#34;&gt;Acknowledgment&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Original Source: &lt;a href=&#34;https://medium.com/towards-data-science/how-to-get-started-in-nlp-6a62aa4eaeff&#34; target=&#34;_blank&#34;&gt;How to get started in NLP&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Mục đích và mục tiêu nghiên cứu!</title>
-      <link>/post/2017/05/31/todo-list/</link>
-      <pubDate>Wed, 31 May 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2017/05/31/todo-list/</guid>
-      <description>&lt;p&gt;Trước khi bắt đầu khởi tạo và xây dụng blog này, tôi đã có những suy nghĩ về lĩnh vực &lt;strong&gt;công nghệ thông tin trong y tế&lt;/strong&gt;, những thay đổi về bộ mặt, hình dáng, tầm vóc cũng như trọng lượng của ngành công nghiệp này sau &lt;code&gt;5&lt;/code&gt;, &lt;code&gt;10&lt;/code&gt; năm nữa! Nó sẽ thay đổi như thế nào ? Vị trí của mình sẽ ở đâu vào thời điểm đó ? Ngay từ bây giờ chúng ta cần chuẩn bị những gì ?&lt;/p&gt;
-
-&lt;p&gt;Sẽ rất khó hình dung, vì không ai mô tả hoặc phác họa chân dung của bức tranh đó. Tất cả là dự đoán và kỳ vọng vào những thay đổi ngay từ thời khắc này. Gần đây, đã có những tiến bộ vượt bậc về công nghệ dữ liệu lớn cũng như thuật toán được thực hiện bằng máy tính có năng lực lớn đã được chứng minh tính hiệu quả và phù hợp với nhu cầu được ứng dụng. Điều đó đã tác động và làm bùng nổ cuộc cách mạng công nghiệp lần thứ 4 - Cách mạng số!&lt;/p&gt;
-
-&lt;p&gt;Bản chất của cuộc cách mạng số lấy &lt;strong&gt;Khoa học dữ liệu&lt;/strong&gt; làm nòng cốt.&lt;/p&gt;
-
-&lt;p&gt;Continue &amp;hellip;&lt;/p&gt;
-</description>
-    </item>
-    
-  </channel>
-</rss>
+-- More --
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Dữ liệu bao gồm một tập các câu (sequences), mỗi câu chứa một chuỗi các từ (&amp;lsquo;Confidence&amp;rsquo;, &amp;lsquo;in&amp;rsquo;, &amp;hellip;), các nhãn POS (&amp;lsquo;NN&amp;rsquo;, &amp;lsquo;IN&amp;rsquo;, &amp;hellip;), các nhãn chunk (&amp;lsquo;B-NP&amp;rsquo;, &amp;lsquo;B-PP&amp;rsquo;) ngăn cách nhau bởi khoảng trắng. Trong bài này, chúng ta sẽ khởi tạo một model CRF để gán các nhãn cú pháp chunking, với điều kiện là biết trước nhãn từ loại (POS - Part of Speech) của chúng.&lt;/p>
+&lt;h1 id="trch-chn-c-trng-feature-selection">Trích chọn đặc trưng (Feature selection)&lt;/h1>
+&lt;p>Bước tiếp theo là tiền xử lý dữ liệu training và testing để trích xuất ra được đặc trưng của words trong tập dữ liệu. CRFsuite có khả năng tạo ra các đặc trưng từ các thuộc tính (attribute - còn gọi là tính chất) của tập dữ liệu. Tổng quan, thì đây là một quá trình quan trọng nhất của tiếp cận machine-learning, bởi vì một đặc trưng ảnh hưởng rất lớn đến độ chính xác của nhãn được dự báo. Ví dụ sau đây, chúng ta sẽ lấy 19 loại attributes của một từ tại vị trí &lt;code>t&lt;/code> (vị trí thứ t trong chuỗi câu).&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-js" data-lang="js">&lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>], &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>], &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>], &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>], &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>],
+&lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>], &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>],
+&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>], &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>], &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>], &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>], &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>],
+&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>], &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>], &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>], &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>],
+&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>], &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>], &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>]
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Trong danh sách này, thì w[t] và pos[t] đại diện cho từ vựng (words) và từ loại (part-of-speech) tương ứng tại vị trí &lt;code>t&lt;/code> trong câu. Các đặc trưng này thể hiện tính chất của từ vựng tại vị trí &lt;code>t&lt;/code> bằng việc sử dụng các thông tin xung quanh từ đó, ví dụ: w[t-1] và pos[t+1]. Ví dụ, xem xét tính chất của token &lt;code>the&lt;/code> sau đây:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-js" data-lang="js"> &lt;span style="color:#a6e22e">He&lt;/span> &lt;span style="color:#a6e22e">PRP&lt;/span> &lt;span style="color:#a6e22e">B&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#a6e22e">NP&lt;/span>
+&lt;span style="color:#a6e22e">reckons&lt;/span> &lt;span style="color:#a6e22e">VBZ&lt;/span> &lt;span style="color:#a6e22e">B&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#a6e22e">VP&lt;/span>
+&lt;span style="color:#a6e22e">t&lt;/span> &lt;span style="color:#f92672">--&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span> &lt;span style="color:#a6e22e">the&lt;/span> &lt;span style="color:#a6e22e">DT&lt;/span> &lt;span style="color:#a6e22e">B&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#a6e22e">NP&lt;/span>
+&lt;span style="color:#a6e22e">current&lt;/span> &lt;span style="color:#a6e22e">JJ&lt;/span> &lt;span style="color:#a6e22e">I&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#a6e22e">NP&lt;/span>
+&lt;span style="color:#a6e22e">account&lt;/span> &lt;span style="color:#a6e22e">NN&lt;/span> &lt;span style="color:#a6e22e">I&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#a6e22e">NP&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>từ vựng &lt;code>the&lt;/code> tại ví trí &lt;code>t&lt;/code> có những thuộc tính sau đây (t được lược bỏ cho đơn giản và dễ nhìn):&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-js" data-lang="js">&lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">He&lt;/span>, &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">reckons&lt;/span>, &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">the&lt;/span>, &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">current&lt;/span>, &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">account&lt;/span>
+&lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">reckons&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">the&lt;/span>, &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">the&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">current&lt;/span>
+&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">PRP&lt;/span>, &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">VBZ&lt;/span>, &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">DT&lt;/span>, &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">JJ&lt;/span>, &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">NN&lt;/span>
+&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">PRP&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">VBZ&lt;/span>, &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">VBZ&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">DT&lt;/span>, &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">DT&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">JJ&lt;/span>, &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">JJ&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">NN&lt;/span>
+&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">PRP&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">VBZ&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">DT&lt;/span>, &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">VBZ&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">DT&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">JJ&lt;/span>, &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">DT&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">JJ&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">NN&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Trong ví dụ này, thuộc tính &lt;code>w[0]=the&lt;/code> biểu diễn cho sự kiện mà mã từ vựng hiện tại là &lt;code>the&lt;/code>, và thuộc tính &lt;code>pos[0]|pos[1]|pos[2]=DT|JJ|NN&lt;/code> biểu diễn cho sự kiện từ loại tại ví trí hiện tại, từ tiếp theo, từ sau nữa là &lt;code>DT&lt;/code>, &lt;code>JJ&lt;/code>, &lt;code>NN&lt;/code> tương ứng. Bạn có thể hình dung ta dịch chuyển 1 cửa sổ có window_size=2 tại ví trí &lt;code>t&lt;/code>. CRFsuite sẽ học sự liên kết giữa các thuộc tính này và nhãn tương ứng của từ đang xem xét &lt;code>the&lt;/code>, đó là &lt;code>B-NP&lt;/code> để dự đoán nhãn khi cho 1 đầu vào (từ vựng) cụ thể khi biết các tính chất xung quanh nó.&lt;/p></description></item><item><title>Chatbots - 10 thuật ngữ cần biết</title><link>/post/2017/08/28/10-thuat-ngu-chatbots/</link><pubDate>Mon, 28 Aug 2017 00:00:00 +0000</pubDate><guid>/post/2017/08/28/10-thuat-ngu-chatbots/</guid><description>&lt;p>Có thể khi tìm hiểu về chatbots và xử lý ngôn ngữ tự nhiên, sẽ có nhiều từ vựng hay các thuật ngữ làm cho bạn cảm thấy khó hình dung, hoặc cảm thấy dễ bị lẫn lộn với nhau. Sau đây là 10 thuật ngữ mà chúng ta cần biết và phân biệt chúng khi nghiên cứu và tìm hiểu về chatbots.&lt;/p>
+&lt;h1 id="3-thut-ng-quan-trng-utterances-intents-v-entities">3 thuật ngữ quan trọng: Utterances, intents và entities&lt;/h1>
+&lt;p>Đây là ba thuật ngữ quan trọng nhất trong chatbots:&lt;/p>
+&lt;p>&lt;strong>Utterances&lt;/strong>: Đây là những gì mà người dùng nói ra. Ví dụ, một người dùng gõ: &amp;ldquo;Show me yesterday's financial news&amp;rdquo;, thì toàn bộ câu này là một lời nói hay utterance.&lt;/p>
+&lt;p>&lt;strong>Intent&lt;/strong>: Là ý định của người dùng trong câu nói. Với ví dụ trên, &amp;ldquo;show me yesterday's financial news&amp;rdquo;, thì ý định của người dùng ở đây là mong muốn nhận một danh sách các tiêu đề về tài chính. Ý định đều có thể đặt tên, thường là một động từ kết hợp với một danh từ, chẳng hạn: &lt;em>&amp;ldquo;showNews&amp;rdquo;&lt;/em>.&lt;/p>
+&lt;p>&lt;strong>Entity&lt;/strong>: Là các thực thể bổ nghĩa cho một ý định. Vẫn ví dụ trên, &amp;ldquo;show me yesterday's financial news&amp;rdquo;, thì các thực thể bổ nghĩa là &amp;ldquo;yesterday&amp;rdquo; và &amp;ldquo;financial&amp;rdquo;. Các thực thể cũng đều có thể được đặt tên, ví dụ: &amp;ldquo;dateTime&amp;rdquo;, và &amp;ldquo;newsType&amp;rdquo;. Các thực thể này đôi khi được gọi là các &amp;ldquo;Slot&amp;rdquo;, có thể hình dung đó là các khe thông tin.&lt;/p>
+&lt;h1 id="7-thut-ng-hu-ch-khc">7 thuật ngữ hữu ích khác&lt;/h1>
+&lt;p>&lt;strong>Broadcast&lt;/strong>: Đây là một dạng thông điệp được gửi một cách chủ động tới người dùng. Đây không phải là một tin nhắn hồi đáp cho người dùng mà gần như là một thông báo đẩy (trong app mobile)&lt;/p>
+&lt;p>&lt;strong>Channel&lt;/strong>: Các kênh là phương tiện cho các cuộc trò chuyện bằng chatbot. Ví dụ về các kênh như mạng xã hội Facebook, Skype, Slack và SMS. Email và cửa sổ chát trên web cũng là các phương tiện.&lt;/p>
+&lt;p>&lt;strong>Conversational UI&lt;/strong>: Là giao diện giao tiếp với con người, hoặc là viết tay, hoặc là thông qua lời nói (khôn sử dụng buttons, links, hoặc graphical elements). Thường có nhiều chatbots kết hợp conversational UI với graphical UI.&lt;/p>
+&lt;p>&lt;strong>Natural Language Processing (NLP)&lt;/strong>: NLP là công cụ phân tích một lời nói Utterance và trích xuất các ý định và thực thể trong lời nói. Một số dịch vụ Amazon Lex, Facebook Wit.ai, Google API.ai, Microsoft LUIS đều có sử dụng NLP.&lt;/p>
+&lt;p>&lt;strong>Pilot&lt;/strong>: Giai đoạn phát triển chatbot được triển khai cho một nhóm nhỏ người dùng để thử nghiệm. Các pilots đặc biệt quan trọng với chatbot, bởi vì không giống như các ứng dụng Web, phạm vi đầu vào của người dùng là không giới hạn. Nên cần pilot chatbot theo từng giai đoạn.&lt;/p>
+&lt;p>&lt;strong>Proof-of-concept (POC)&lt;/strong>: Đây là giai đoạn mà các tính năng của Chatbot hoạt động đúng cách, miễn là đầu vào thử nghiệm được kiểm soát đúng cách. Do đó, POC thể hiện tiềm năng của chatbot.&lt;/p>
+&lt;p>&lt;strong>Response&lt;/strong>: Bất cứ điều gì mà bot nói ra đáp ứng với input đầu vào của người dùng.&lt;/p>
+&lt;h1 id="tham-kho-lin-kt">Tham khảo liên kết&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://chatbotsmagazine.com/chatbot-vocabulary-10-chatbot-terms-you-need-to-know-3911b1ef31b4">Chatbot Vocabulary: 10 Chatbot Terms You Need to Know&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.techbubble.info/blog/artificial-intelligence/chatbots/entry/deep-learning-neural-network-nlu-engine">How I built a fully functional Deep Learning Neural Network chatbot platform (NLU Engine) in under a week&amp;hellip;.&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://chatbotsmagazine.com/how-i-built-a-fully-functional-deep-learning-neural-network-chatbot-platform-nlu-engine-in-under-1765180d16db">How I built a fully functional Deep Learning Neural Network chatbot platform (NLU Engine) in under a week&amp;hellip;.&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Chatbots - Thiết kế các intents và entities cho các mô hình NLP</title><link>/post/2017/08/27/thiet-ke-intents-entities/</link><pubDate>Sun, 27 Aug 2017 00:00:00 +0000</pubDate><guid>/post/2017/08/27/thiet-ke-intents-entities/</guid><description>&lt;p>Chìa khóa để cho một con bot có thể hiểu được con người là nó phải có khả năng hiểu các ý định của con người và trích xuất các thông tin liên quan từ ý định đó và tất nhiên có các hành động đáp ứng tương thích với thông tin đó.&lt;/p>
+&lt;p>Xử lý ngôn ngữ tự nhiên (NLP) là khoa học của việc trích xuất ý định và thông tin từ văn bản &lt;code>text&lt;/code>. Lý do mà bạn thấy rất nhiều nền tảng phát triển bot ra đời như nấm cùng với NLP như một dịch vụ nền tảng. Việc kết nối các kênh mạng xã hội và phát triển bot không phải là một vấn đề, liên kết thiếu duy nhất đó là một nền tảng NLP mà &lt;code>có thể mở rộng&lt;/code> và &lt;code>dễ dàng làm việc&lt;/code>, bởi vì bạn sẽ không học NLP để tạo ra một con bot ngớ ngẩn!&lt;/p>
+&lt;p>Một vài nền tảng dịch vụ phổ biển:&lt;/p>
+&lt;ol>
+&lt;li>Luis.ai - by Microsoft&lt;/li>
+&lt;li>Wit.ai - by Facebook&lt;/li>
+&lt;li>Api.ai - by Google&lt;/li>
+&lt;li>Watson - by IBM&lt;/li>
+&lt;/ol>
+&lt;p>Một nền tảng bot lý tưởng cung cấp:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Một dịch vụ NLP&lt;/strong> - bạn có thể tự huấn luyện&lt;/li>
+&lt;li>&lt;strong>SDK&lt;/strong> để hỗ trợ và xử lý các hội thoại và &lt;code>meta-data&lt;/code> của chúng.&lt;/li>
+&lt;li>Một nền tảng &lt;strong>lưu trữ các con bot&lt;/strong>.&lt;/li>
+&lt;li>Một nền tảng cho phép &lt;strong>kết nối bot với nhiều kênh&lt;/strong>, mạng xã hội, dịch vụ khác nhau.&lt;/li>
+&lt;/ol>
+&lt;p>Trong khi NLP như 1 dịch vụ (NLP-as-a-service) giúp cho người phát triển có phát triển NLP trong khoảng thời gian ít nhất có thể, đôi khi developer vẫn có khả năng tiếp tục huấn luyện dịch vụ NLP đạt chất lượng cao nhất có thể. Mỗi dịch vụ NLP có miền và tập ngôn ngữ riêng của nó và bạn phải chọn domain thích hợp nhất để triển khai một dịch vụ NLP. Trong bài note này sẽ chỉ ra một vài tình huống tốt nhất để huấn luyến một dịch vụ mô hình NLP.&lt;/p>
+&lt;h1 id="intent">Intent&lt;/h1>
+&lt;p>Intent đơn giản là ý định của người dùng cuối, những ý định này được chuyển tải bởi người dùng tới con bot của bạn. Bạn có thể chủ yếu đặt ý định vào 2 nhóm chính:&lt;/p>
+&lt;ol>
+&lt;li>Các ý định ngẫu nhiên, casual intents&lt;/li>
+&lt;li>Các ý định nghiệp vụ, business intents.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>1. Casual Intents&lt;/strong> - Đây là những ý định mở đầu hoặc kết thúc một cuộc hội thoại. Nhưng lời chào như: &lt;code>hi&lt;/code>, &lt;code>hello&lt;/code>, &lt;code>hallo&lt;/code>, &lt;code>ciao&lt;/code>, hay &lt;code>bye&lt;/code> là những câu lệnh mở đầu hoặc kết thúc một cuộc hội thoại. Những ý định này nên hướng con bot của bạn phản hồi bằng một câu trả lời gợi ý như: &amp;ldquo;Xin chào, tôi có thể giúp được gì cho bạn?&amp;rdquo; hay &amp;ldquo;Tạm biệt, cảm ơn đã trò chuyện cùng với tôi&amp;rdquo;.&lt;/p>
+&lt;p>Các ý định ngẫu nhiên cũng bao gồm các ý định &lt;strong>Khẳng định - Affirmative&lt;/strong> và &lt;strong>Không nhận - Negative&lt;/strong> cho các câu nói như: &amp;ldquo;Ok&amp;rdquo;, &amp;ldquo;vâng&amp;rdquo;, &amp;ldquo;Không, không phải cái này.&amp;rdquo;&lt;/p>
+&lt;p>Bằng các ý định chung chung có thể giúp bạn xử lý tất cả các ý định của khách hàng thay vì đưa câu chuyện đã có vào cuộc trò chuyện với bot. Ví dụ, nếu con bot chỉ hỏi một câu hỏi cho người dùng cuối - bạn nên mong đợi hoặc là một ý định khẳng định Affirmative hoặc một ý định Negative và nếu có bất cứ thứ gì khác bot có thể hỏi cùng một câu hỏi. Các ý đồ Affirmative và Negative nên xử lý tất cả các câu nói như vậy.&lt;/p>
+&lt;p>&lt;strong>2. Business Intents&lt;/strong> - Đây là các ý định được map trực tiếp với ý đồ ban đầu của các con bot khi được xây dựng, tức là bot cần phải hỗ trợ và xử lý được các ý định này của người dùng cuối khi họ truy cập vào website. Ví dụ, nếu ý định đó là thông tin của một bộ phim, khi có 1 câu nói &lt;strong>&amp;ldquo;Khi nào danh sách của Schindler được phát hành?&amp;quot;&lt;/strong> là một ý định nghiệp vụ mà có ý định tìm ra năm phát hành của bộ phim và bạn nên gắn nhãn nó theo một cái tên có thể hiểu được, giống như: &lt;strong>&amp;ldquo;GetReleaseYearByTile&amp;rdquo;&lt;/strong>. Lý tưởng là bạn nên nghĩ về các ý định nghiệp vụ bởi vì phần còn lại của câu chuyện như những câu chào hay sự lựa chọn thì được quản lý chung bởi các ý định ngẫu nhiên Casual Intents.&lt;/p>
+&lt;h1 id="entities">Entities&lt;/h1>
+&lt;p>Các ý định nghiệp vụ có &lt;code>meta-data&lt;/code> về các intent được gọi là &lt;strong>&amp;ldquo;Entities&amp;rdquo;&lt;/strong>. Lấy ví dụ về intent &lt;em>&amp;ldquo;GetReleaseYearByTile&amp;rdquo;&lt;/em>, với input: &amp;ldquo;Khi nào Danh sách của Schindler được phát hành?&amp;quot;. Ở đây &amp;ldquo;Danh sách của Schindler&amp;rdquo; là tên của bộ phim mà người dùng &amp;ldquo;có ý định&amp;rdquo; tìm ra năm phát hành. Quá trình tìm kiếm các thực thể entities có thể được hiểu giống với việc gán nhãn thẻ câu Part-of-Sentence tagging (POS). Tuy nhiên, một người sử dụng NLP as a service thì bạn không cần phải biết kỹ thuật của việc POS tagging được thực hiện như thế nào, nhưng nếu muốn có một bài báo hay nói về nó ở đây: &lt;a href="http://nlp.stanford.edu/software/tagger.shtml">http://nlp.stanford.edu/software/tagger.shtml&lt;/a>&lt;/p>
+&lt;p>Khi người dùng nghĩ về việc thiết kế intent thì các entities cũng phải được xác định và gán nhãn theo đó. Một lần nữa, bạn cũng có các thực thể chung được gán nhãn để sử dụng trong các mục đích chung như các số liệu metrics (bao gồm: số lượng, số đếm, khối lượng, &amp;hellip;), ngày tháng và hầu hết các dịch vụ NLP cho phép bạn gán thẻ thực thể của các loại chung như vậy mà không gặp phải bất kỳ rắc rối lớn nào.&lt;/p>
+&lt;p>Một vài thực thể có thể được gán như những thực thể phức hợp (composite entities), giống như việc có nhiều hơn một thực thể (có các thực thể thành phần bên trong nó). Là một khoa học, không quan trọng nếu bạn không có những tính năng này trong dịch vụ NLP của bạn, miễn là bạn có ghi nhãn thực thể đơn giản. Một nhãn phải được xác định các thực thể trước khi gán nhãn các thực thể phức hợp.&lt;/p>
+&lt;p>Ví dụ: Tìm cho tôi đôi giày thể thao Red Adidas cỡ 8.&lt;/p>
+&lt;p>Intent: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;- SearchProduct&lt;br>
+Entities: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;&lt;br>
+Composite Entity: &amp;mdash;&amp;mdash;&amp;mdash; ProductDetail&lt;br>
+Component Entity: &amp;mdash;&amp;mdash;&amp;mdash;&lt;br>
+Size: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash; 8&lt;br>
+Brand: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash; Adidas&lt;br>
+Color: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash; Red&lt;br>
+Category: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash; Sport Shoes&lt;/p>
+&lt;h3 id="hun-luyn-cc-intents-v-entities">Huấn luyện các Intents và Entities&lt;/h3>
+&lt;ul>
+&lt;li>Rule #1 của việc huấn luyện bất kỳ một mô hình học máy nào là &amp;mdash; Bạn không bao giờ có thể huấn luyện đủ, lấy thêm dữ liệu và tiếp tục train nó.&lt;/li>
+&lt;li>Rule #1 của việc huấn luyện bất kỳ một mô hình học máy nào là &amp;mdash; Bạn không bao giờ có thể huấn luyện đủ, lấy thêm dữ liệu và tiếp tục train nó.&lt;/li>
+&lt;li>Rule #1 của việc huấn luyện bất kỳ một mô hình học máy nào là &amp;mdash; Bạn không bao giờ có thể huấn luyện đủ, lấy thêm dữ liệu và tiếp tục train nó.&lt;/li>
+&lt;/ul>
+&lt;p>Lý tưởng là bạn nên huấn luyện dịch vụ NLP với các tập ngữ liệu thực tế, nếu bạn có những đoạn chat với khách hàng qua Facebook, hoặc Skype hoặc bất kỳ mạng xã hội nào bạn làm việc với các tin nhắn có thể giúp cho việc huấn luyện intent, hoặc không thì bạn có thể nghĩ tới việc huấn luyện các intent với các bộ dữ liệu tự sản xuất (Manufactured utterances). Ví dụ &amp;ndash; Huấn luyện intent &lt;em>&amp;ldquo;GetReleaseYearByTile&amp;rdquo;&lt;/em> với các bộ dữ liệu huấn luyện cho intent này như sau:&lt;/p>
+&lt;ul>
+&lt;li>what was the release year of movie Pulp fiction&lt;/li>
+&lt;li>in which year Pulp fiction was released&lt;/li>
+&lt;li>when did pulp fiction came&lt;/li>
+&lt;li>When was Pulp fiction released&lt;/li>
+&lt;/ul>
+&lt;p>Huấn luyện với bộ dữ liệu giả lập &lt;strong>Manufactured utterances&lt;/strong> giúp cho việc khởi động nhanh hệ thống nhưng sau một tgian hệ thống cần được huấn luyện lại khi có dữ liệu là các câu nói thực tế. Quá trình huấn luyện lại hệ thống luôn được tiếp tục cho đến khi tỉ lệ lỗi được giảm. Sự khác biệt là những câu nói bạn nhận được từ các cuộc trò chuyện thực sự càng tốt bạn có thể huấn luyện dịch vụ NLP của mình cho các ý định. Tối thiểu là 5 hoặc tối ưu là 10 câu nói cho mỗi ý định là đủ tốt để khởi động hệ thống chạy thực.&lt;/p>
+&lt;p>Các dịch vụ NLP đi qua một quá trình học &lt;strong>Supervised - Unsupervised - Supervised&lt;/strong>. Mỗi giai đoạn học được giám sát đóng vai trò như một vòng phản hồi trở lại cho việc điều chỉnh lại mô hình NLP.&lt;/p>
+&lt;p>Người dùng huấn luyện hệ thống với các câu nói - đây là quá trình học giám sát, sau đó dịch vụ NLP tự học trên cơ sở học tập có giám sát và khoảng 10% những gì mà dịch vụ NLP đã học được trong quá trình học không giám sát sẽ được hỏi lại từ dịch vụ NLP cho người sử dụng, nếu những gì nó học được là chính xác hay không, người sử dụng một lần nữa đạo tạo lại hoặc bằng việc khẳng định / phủ nhận kết quả học tập không giám sát của dịch vụ NLP và huấn luyện lại mô hình. Quá trình này tiếp tục và cuối cùng người sử dụng sẽ tìm thấy câu hỏi ít hơn bởi dịch vụ NLP với mức độ tin cậy hơn đối với các caua hỏi của nó yêu cầu người dùng xác nhận.&lt;/p>
+&lt;h1 id="cc-bc-thc-hin-chnh">Các bước thực hiện chính&lt;/h1>
+&lt;ol>
+&lt;li>Xác định ý định trước &amp;ndash; phân biệt giữa ý định chung/ngẫu nhiên và những ý định nghiệp vụ&lt;/li>
+&lt;li>Xác định các thực thể &amp;ndash; phân biệt giữa các thực thể liên quan đến số liệu (metric) và danh từ (noun)&lt;/li>
+&lt;li>Nếu có thể hãy huấn luyện với tập văn bản hội thoại thực tế, không có thì tự tạo ra tập mẫu. Tối thiểu 5 câu nói cho việc xác định 1 ý định, hoặc tối ưu nên thiết kế được 10 câu / 1 ý định.&lt;/li>
+&lt;li>Huấn luyện, sử dụng, đạo tạo lại - Vòng lặp phản hồi liên tục đào tạo và cải tiến mô hình NLP.&lt;/li>
+&lt;/ol>
+&lt;h1 id="tham-kho-lin-kt">Tham khảo liên kết&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://medium.com/@brijrajsingh/chat-bots-designing-intents-and-entities-for-your-nlp-models-35c385b7730d">Chat Bots — Designing Intents and Entities for your NLP Models&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.technologyreview.com/s/601279/how-to-prevent-a-plague-of-dumb-chatbots/">How to Prevent a Plague of Dumb Chatbots&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://www.nlpca.com/DCweb/settingintent.html">Setting Intent - an Article by the NLP and Coaching Institute&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://research.google.com/pubs/NaturalLanguageProcessing.html">Natural Language Processing - Research at Google&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://nlp.stanford.edu/software/tagger.shtml">The Stanford Natural Language Processing Group&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Kiến thức toán học cơ bản để làm việc với Deep learning</title><link>/post/2017/07/03/2017-07-03-kien-thuc-toan-co-ban-cho-deep-learning/</link><pubDate>Mon, 03 Jul 2017 00:00:00 +0000</pubDate><guid>/post/2017/07/03/2017-07-03-kien-thuc-toan-co-ban-cho-deep-learning/</guid><description>&lt;p>Trước khi bắt đầu vào việc học mạng nơ-ron và deep learning, chúng ta cũng cần chuẩn bị một số kiến thức nền tảng của toán học cần thiết. Một vài chủ đề toán học quan trọng để chúng ta có thể hiểu được các chủ đề trong phương pháp học nhiều tầng &lt;strong>Deep learning&lt;/strong>.&lt;/p>
+&lt;h1 id="1-i-s-tuyn-tnh">1. ĐẠI SỐ TUYẾN TÍNH&lt;/h1>
+&lt;p>Đại số tuyến tính bao gồm các dạng liên tục chứ không hoàn toàn là Toán học rời rạc, nhiều người làm khoa học máy tính có rất ít kinh nghiệm với nó. Hiểu biết về đại số tuyến tính là một kỹ năng cần thiết để có thể hiểu được và làm việc được với các thuật toán &lt;strong>Machine learning&lt;/strong>, đặc biệt là với &lt;strong>Deep learning&lt;/strong>.&lt;/p>
+&lt;p>Nghiên cứu về Đại số tuyến tính liên quan tới các đối tượng toán học sau:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Đại lượng vô hướng (Scalar)&lt;/strong>: Đại lượng (số) vô hướng là đại lượng được mô tả hoàn toàn chỉ bằng độ lớn. Mô tả bằng một con số mà thôi, không hơn không kém. Ví dụ như tốc độ, thể tích, khối lượng, nhiệt độ, công suất, thời gian, &amp;hellip; Chúng ta viết các đại lượng vô hướng bằng chữ cái không in đậm, có thể viết hoa, ví dụ: $$ (x_1, N, y, k) $$&lt;/li>
+&lt;li>&lt;strong>Vector&lt;/strong>: Vector là một mảng (1-D) chứa các phần tử của nó là dãy các số vô hướng. Các số này được sắp xếp theo một trật tự và chúng ta có thể xác định các số này bằng chỉ số thứ tự của nó. Thường được ký hiệu bằng chữ cái không viết hoa in đậm, ví dụ: $$ (\mathbf{y}, \mathbf{x}_1) $$&lt;/li>
+&lt;li>&lt;strong>Ma trận&lt;/strong>: Ma trận là một mảng 2 chiều (2-D), mỗi phần tử của nó được xác định bởi 2 chỉ số. Thường được ký hiệu bởi chữ cái viết hoa và in đậm, ví dụ: $$ (\mathbf{A, X, Y, W}) $$&lt;/li>
+&lt;li>&lt;strong>Tensor&lt;/strong>: Ten-xơ là đối tượng hình học miêu ta quan hệ tuyến tính giữa các đại lượng &lt;code>Vector&lt;/code>, &lt;code>Vô hướng&lt;/code>, và các &lt;code>ten-xơ&lt;/code> với nhau. Theo định nghĩa thì &lt;code>Vector&lt;/code> và &lt;code>Vô hướng&lt;/code> cũng là ten-xơ. Bậc (hay &lt;em>hạng&lt;/em>) của một ten-xơ bằng số chiều của mảng cần để biểu diễn nó, hay tương đương với chỉ số cần để đánh dấu các thành phần của mảng. Đại lượng &lt;code>vô hướng&lt;/code> là ten-xơ hạng &lt;strong>0&lt;/strong>, &amp;hellip;&lt;/li>
+&lt;/ol>
+&lt;p>Một phép toán quan trọng trên ma trận đó là phép &lt;strong>Chuyển vị&lt;/strong>. Chuyển vị của một ma trận là một ma trận mà ở đó các hàng được thay thế bằng các cột và ngược lại. Hay cách hình dùng khác thì ma trận chuyển vị là ảnh của ma trận qua &lt;strong>đường chéo chính&lt;/strong>, chạy từ trên xuống theo hướng bên phải, bắt đầu từ góc trái nhất trên cùng (nghe mô tả mà cũng hoảng). Ký hiệu chuyển vị của ma trận $$\mathbf{A}$$ là $$\mathbf{A}^T$$, và được định nghĩa bằng công thức $$ \mathbf{A}^T(i, j) = \mathbf{A}(j, i) $$.&lt;/p>
+&lt;p>Trong ngữ cảnh của &lt;strong>deep learning&lt;/strong>, chúng ta cũng sử dụng các ký hiệu thông thường ít hơn. Ví dụ, khi ta cộng ma trận với một vector, sinh ra một ma trận: $$ \mathbf{C} = \mathbf{A} + \mathbf{b} $$, trong đó $$ \mathbf{C}(i, j) = \mathbf{A}(i, j) + \mathbf{b}(j) $$. Nói cách khác, vector $$\mathbf{b}$$ được cộng vào mỗi hàng của ma trận. Với cách viết tắt này loại bỏ việc xác định thêm 1 ma trận với mỗi hàng có giá trị là $$ \mathbf{b} $$ trước khi thực hiện phép cộng hai ma trận. Việc sao chép $$ \mathbf{b} $$ như vậy được gọi là &lt;strong>broadcasting&lt;/strong>.&lt;/p>
+&lt;p>Chuyển vị của một tích ma trận có dạng đơn giản là: $$ (\mathbf{AB})^T = \mathbf{B}^T\mathbf{A}^T $$. Ma trận nghịch đảo của $$ \mathbf{A} $$ được ký hiệu là $$ \mathbf{A}^{-1} $$, và tích của chúng đúng bằng ma trận đơn vị: $$ \mathbf{A}^{-1}\mathbf{A} = \mathbf{I} $$. Tuy nhiên, $$ \mathbf{A}^{-1} $$ chủ yếu có ích như một công cụ lý thuyết, và nó không nên được sử dụng ngoài thực tế trong hầu hết các ứng dụng phần mềm. Bởi vì $$ \mathbf{A}^{-1} $$ được biểu diễn với độ chính xác hạn chế trên máy tính, các thuật toán sử dụng giá trị của $$ \mathbf{b} $$ thường đạt được đó chính xác hơn ước lượng của $$ \mathbf{x} $$.&lt;/p>
+&lt;p>Chúng ta cần một vài chủ đề khác để hiểu hơn về kỹ thuật ứng dụng.&lt;/p>
+&lt;h1 id="2-norm-chun">2. NORM (Chuẩn)&lt;/h1>
+&lt;p>Trong machine learning, chúng ta thường đo độ lớn của một vector (điểm dữ liệu) hoặc khoảng cách giữa 2 vector, bằng việc sử dụng 1 hàm, được gọi là chuẩn. Việc đo độ lớn và khoảng cách giữa các vector với nhau, chúng ta có thể đánh giá được điểm nào là điểm gần nhất với một điểm dữ liệu cho trước; chúng ta cũng cần đánh giá độ chính xác của việc ước lượng là như thế nào.&lt;/p>
+&lt;p>Giả sử có các vector cột: $$ \mathbf{x} = [x_1; x_2; \cdots; x_n], \mathbf{y} = [y_1; y_2; \cdots; y_n] $$.&lt;/p>
+&lt;p>Với &lt;em>p&lt;/em> &lt;strong>là một số không nhỏ hơn 1&lt;/strong> bất kỳ, tổng quát $$ \mathbf{x} $$ có chuẩn norm &lt;em>p&lt;/em> được tính bởi công thức:&lt;/p>
+&lt;p>$$ \Vert\mathbf{x}\Vert_p = (\vert x_1 \vert^p + \vert x_2 \vert^p + \cdots + \vert x_n \vert^p)^{\frac{1}{p}} ~~ (1) $$&lt;/p>
+&lt;ul>
+&lt;li>Khi $$ p = 2 $$, ta có chuẩn Euclid &lt;strong>norm 2&lt;/strong>: $$ \Vert\mathbf{x}\Vert_2 = \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2} ~~~ (2) $$&lt;/li>
+&lt;li>Khi $$ p = 1 $$, ta có &lt;strong>norm 1&lt;/strong>: $$ \Vert\mathbf{x}\Vert_1 = \vert x_1 \vert + \vert x_2 \vert + \cdots + \vert x_n \vert ~~~ (3) ~~~ $$ là tổng các trị tuyệt đối từng phần tử của $$ \mathbf{x} $$.&lt;/li>
+&lt;li>Khi $$ p \rightarrow \infty $$, ta có norm $$ p $$ chính là trị tuyệt đối của phần tử lớn nhất của vector đó: $$ \Vert\mathbf{x}\Vert_{\infty} = \max_{i = 1, 2, \cdots, n} \vert x_i \vert ~~~ (4) $$&lt;/li>
+&lt;/ul>
+&lt;p>Chặt chẽ hơn, một chuẩn là một hàm số $$ f() $$ ánh xạ một điểm $$ \mathbf{x} $$ từ không gian $$ n $$ chiều sang tập số thực một chiều $$ \mathbf{R} $$ được gọi là norm nếu thỏa mãn các tính chất sau đây:&lt;/p>
+&lt;ol>
+&lt;li>$$ f(\mathbf{x}) = 0 \geq 0 $$. Dấu bằng xảy ra $$ \Leftrightarrow \mathbf{x = 0} $$.&lt;/li>
+&lt;li>$$ f(\alpha \mathbf{x}) = \vert\alpha\vert f(\mathbf{x}), ~~~ \forall \alpha \in \mathbb{R} $$.&lt;/li>
+&lt;li>$$ f(\mathbf{x}_1) + f(\mathbf{x}_2) \geq f(\mathbf{x}_1 + \mathbf{x}_2), ~~\forall \mathbf{x}_1, \mathbf{x}_2 \in \mathbf{R}^n $$. Đây chính là bất đẳng thức tam giác, nếu coi $$ \mathbf{x_1 = w - y, x_2 = z - w} $$ với $$\mathbf{w}$$ là một điểm bất kỳ trong không gian.&lt;/li>
+&lt;/ol>
+&lt;p>Tham khảo thêm &lt;a href="http://machinelearningcoban.com/math/#-norms-chuan">định nghĩa&lt;/a> về &lt;strong>NORM&lt;/strong> &lt;a href="http://machinelearningcoban.com/math/#-norms-chuan">tại đây&lt;/a>&lt;/p>
+&lt;h1 id="3-tr-ring">3. TRỊ RIÊNG&lt;/h1>
+&lt;p>To be continue &amp;hellip;&lt;/p>
+&lt;h1 id="lin-kt-tham-kho">Liên kết tham khảo&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://medium.com/towards-data-science/deep-learning-basic-mathematics-for-deep-learning-a82981e95e3b">Basic Mathematics for Deep Learning&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://machinelearningcoban.com/math">Một số kiến thức về Đại Số Tuyến Tính, Xác Suất Thống Kê, Toán Tối Ưu cần thiết cho Machine Learning&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Một số phương pháp làm giảm hiện tượng Overfitting</title><link>/post/2017/07/01/mot-so-phuong-phap-lam-giam-overfitting/</link><pubDate>Sat, 01 Jul 2017 00:00:00 +0000</pubDate><guid>/post/2017/07/01/mot-so-phuong-phap-lam-giam-overfitting/</guid><description>&lt;p>Một số các phương pháp làm giảm hiện tượng quá khớp trong quá trình huấn luyện mạng nơ-ron.&lt;/p>
+&lt;ol>
+&lt;li>Weight-decay: &amp;hellip;&lt;/li>
+&lt;li>Weight-sharing: &amp;hellip;&lt;/li>
+&lt;li>Early stopping&lt;/li>
+&lt;li>Model averaging&lt;/li>
+&lt;li>Bayesian fitting of neural nets&lt;/li>
+&lt;li>Dropout&lt;/li>
+&lt;li>Generative pre-training&lt;/li>
+&lt;li>Etc&lt;/li>
+&lt;/ol></description></item><item><title>Sử dụng mô hình được huấn luyện bằng Tensorflow trong C++</title><link>/post/2017/06/27/su-dung-model-tensorflow-trong-cc/</link><pubDate>Tue, 27 Jun 2017 00:00:00 +0000</pubDate><guid>/post/2017/06/27/su-dung-model-tensorflow-trong-cc/</guid><description>&lt;p>Một trong những khả năng của Tensorflow đó là định nghĩa và huấn luyện model sử dụng &lt;strong>Python API&lt;/strong> và chuyển model học được sang sử dụng trong &lt;strong>C++&lt;/strong>.&lt;/p>
+&lt;h1 id="cc-bc-thc-hin">Các bước thực hiện&lt;/h1>
+&lt;ol>
+&lt;li>Định nghĩa input, output graph của model&lt;/li>
+&lt;li>Lưu lại các checkpoints. (Bước này rất quan trọng, bởi vì tất cả các biến được huấn luyện và lưu giữ ở bước này)&lt;/li>
+&lt;li>Lưu lại &lt;code>graph&lt;/code> (raw definition, no variable). Đặt là &lt;code>input_graph&lt;/code>&lt;/li>
+&lt;li>Sử dụng file &lt;code>freeze_graph&lt;/code> để kết hợp cấu trúc (3) &lt;code>input_graph&lt;/code> với các giá trị tại mỗi node (2) và sinh ra một graph model mới, đặt là: &lt;code>output_graph&lt;/code>&lt;/li>
+&lt;li>Sử dụng &lt;code>output_graph&lt;/code> trong file &lt;strong>C++&lt;/strong> để suy diễn. #Optional: Có thể map ánh xạ output của mạng vào các nhãn label.&lt;/li>
+&lt;li>Tạo một file build trong thư mục &lt;code>tensorflow/tensorflow/{our_project}&lt;/code>. Việc này mất một khoảng thời gian để bundle tất cả các file thư viện của tensorflow vào một file có thể chạy.&lt;/li>
+&lt;li>File thực thi đã sẵn sàng để chạy!&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>Chi tiết các bước:&lt;/strong> &lt;a href="https://medium.com/@hamedmp/exporting-trained-tensorflow-models-to-c-the-right-way-cf24b609d183">Exporting trained TensorFlow models to C++ the RIGHT way!&lt;/a>&lt;/p>
+&lt;h1 id="lin-kt-tham-kho">Liên kết tham khảo&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://tebesu.github.io/posts/Training-a-TensorFlow-graph-in-C++-API">Training a TensorFlow graph in C++ API&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://medium.com/@hamedmp/exporting-trained-tensorflow-models-to-c-the-right-way-cf24b609d183">Exporting trained TensorFlow models to C++ the RIGHT way!&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Chatbot FAQ - Các câu hỏi thường gặp</title><link>/post/2017/06/26/chatbot-faq/</link><pubDate>Mon, 26 Jun 2017 00:00:00 +0000</pubDate><guid>/post/2017/06/26/chatbot-faq/</guid><description>&lt;h1 id="how-to-train-tensorflow-chat-application-on-updated-dataset-everyday1">&lt;a href="https://datascience.stackexchange.com/a/18899">How to train tensorflow chat application on updated dataset everyday?&lt;/a>&lt;/h1>
+&lt;p>&lt;strong>Q&lt;/strong>: I have created chatbot on &lt;strong>Cornell&lt;/strong> movie dataset and it's working fine. I have trained chatbot application up to global step 330000. I am using tensorflow library. I am also receiving output fine. Then I created this new dataset file by modifying original dataset and i wish to train chatbot application with updated files. Now should I delete previously saved checkpoints and saved data and start training from zero or should i train from 330000 onwards without worrying changes in dataset. I wish to modify database daily basis and train on modified database. Please kindly let me know if you have a suggestion for me as I am stuck on this issue. I will really appreciate if you help me with this issue.&lt;/p>
+&lt;p>&lt;strong>A&lt;/strong>: The distribution of your data won't change too much over a smaller period of time, retraining from scratch seems like a waste. Just add the new data to your set and do one or more epochs on all your data, not just the new ones. It can readjust the weights a little bit for changes in the distribution which is exactly what you want. Make sure you are not overreliant on early stopping as regularization method against overfitting because you continuously train like this, use some other regularizer. I would suggest periodically to retrain from scratch but this doesn't have to happen very regularly, maybe once every two months.&lt;/p>
+&lt;p>Source: &lt;a href="https://datascience.stackexchange.com/a/18899">https://datascience.stackexchange.com/a/18899&lt;/a>&lt;/p>
+&lt;h1 id="cc-bi-ton-nlp-c-bn-khi-pht-trin-mt-h-thng-chatbot-l-g-2">&lt;a href="https://tech.fpt.com.vn/3-van-de-nlp-co-ban-khi-phat-trien-mot-thong-chatbot-va-mot-phuong-phap-giai-quyet-dien-hinh/">Các bài toán NLP cơ bản khi phát triển một hệ thống chatbot là gì ?&lt;/a>&lt;/h1>
+&lt;p>Các hệ thống chatbot được triển khai trong thực tế phần lớn tuân theo mô hình truy xuất thông tin và được áp dụng trong những miền ứng dụng cụ thể (miền đóng). Ba vấn đề cơ bản NLP mà một hệ thống Chatbot cần xác định và phát triển tích hợp:&lt;/p>
+&lt;h2 id="1-xc-nh-phn-loi--nh-ca-ngi-dng">1. Xác định, phân loại ý định của người dùng.&lt;/h2>
+&lt;p>Thông thường người dùng truy cập hệ thống chatbot đều mong muốn một hành động trợ giúp về một vấn đề nào đó. Ví dụ, người dùng mong muốn chatbot hỗ trợ đặt vé máy bay, để đưa ra hỗ trợ được chính xác, chatbot cần xác định được ý điện (intent) đó của người dùng. Việc xác định ý định của người dùng sẽ quyết định hội thoại tiếp theo giữa người dùng và chatbot sẽ diễn ra như thê nào; Nếu xác định sai ý định người dùng, chatbot sẽ không đưa ra được những phản hồi đúng hợp ngữ cảnh. Khi đó, người dùng cảm thấy thất vọng và không quay lại sử dụng hệ thống. Đây được coi là bài toán quan trọng nhất trong hệ thống chatbot.&lt;/p>
+&lt;h2 id="2-trch-xut-thng-tin">2. Trích xuất thông tin&lt;/h2>
+&lt;p>Bên cạnh việc xác định intent trong câu hội thoại của người dùng, chúng ta cần trích xuất các thông tin cần thiết trong đó. Các thông tin cần trích xuất trong một câu hội thoại thường là các thực thể thuộc về một loại nào đó. Ví dụ, khi một khách hàng muốn đặt vé máy bay, hệ thống cần biết địa điểm xuất phát và địa điểm khách muốn đến, ngày giờ khách hàng muốn bay,…Thành phần NLU của các hệ thống chatbot thường hỗ trợ các loại thực thể sau:&lt;/p>
+&lt;ul>
+&lt;li>Vị trí (Location)&lt;/li>
+&lt;li>Thời gian (Datetime)&lt;/li>
+&lt;li>Số (Number)&lt;/li>
+&lt;li>Địa chỉ liên lạc (Contact)&lt;/li>
+&lt;li>Khoảng cách (Distance)&lt;/li>
+&lt;li>Khoảng thời gian (Duration)&lt;/li>
+&lt;/ul>
+&lt;p>Trong bài toán trích xuất thông tin, tập nhãn cho các từ trong câu đầu vào thường được tạo ra theo mô hình BIO, với B là viết tắt của &lt;code>Beginning&lt;/code>, I là viết tắt của &lt;code>Inside&lt;/code>, và O là viết tắt của &lt;code>Outside&lt;/code>.&lt;/p>
+&lt;h2 id="3-qun-l-hi-thoi">3. Quản lý hội thoại&lt;/h2>
+&lt;p>Trong các phiên trao đổi dài (long conversation) giữa người và chatbot, chatbot sẽ cần ghi nhớ những thông tin về ngữ cảnh (context) hay quản lý các trạng thái hội thoại (dialog state). Vấn đề quản lý hội thoại (dialoge management) khi đó là quan trọng để đảm bảo việc trao đổi giữa người và máy là thông suốt.&lt;/p>
+&lt;p>Source: &lt;a href="https://tech.fpt.com.vn/3-van-de-nlp-co-ban-khi-phat-trien-mot-thong-chatbot-va-mot-phuong-phap-giai-quyet-dien-hinh/">3 vấn đề NLP cơ bản khi phát triển một hệ thống chatbot và một số phương pháp giải quyết điển hình&lt;/a>&lt;/p></description></item><item><title>Lộ trình 8 bước để bắt đầu học AI</title><link>/post/2017/06/26/8-buoc-hoc-ai/</link><pubDate>Mon, 26 Jun 2017 00:00:00 +0000</pubDate><guid>/post/2017/06/26/8-buoc-hoc-ai/</guid><description>&lt;p>Đến giờ tôi vẫn mù mờ rất nhiều về AI và các chương trình học máy, mặc dù năm cuối đại học, kỳ &lt;code>20121&lt;/code> đã tự tay cài đặt mạng nơ-ron từ đầu bằng &lt;code>C#&lt;/code> và tham gia một dự án thực tế ở 1 trường ĐH Việt Nam, với đề tài: Dự báo tỉ lệ &lt;strong>NGHỈ HỌC&lt;/strong> của học viên chương trình đào tạo từ xa.&lt;/p>
+&lt;p>Kết quả chính mà nhóm chúng tôi đã đạt được bao gồm 2 mô hình và các nhân tố chính ảnh hưởng đến khả năng &lt;strong>NGHỈ HỌC&lt;/strong> của học viên, căn cứ dựa trên hồ sơ thông tin.&lt;/p>
+&lt;blockquote>
+&lt;ol>
+&lt;li>Mô hình dự báo khả năng &lt;strong>NGHỈ HỌC&lt;/strong> của học viên, căn cứ trên hồ sơ thông tin&lt;/li>
+&lt;li>Mô hình dự báo khả năng &lt;strong>NGHỈ HỌC&lt;/strong> của học viên vượt qua kỳ &lt;strong>K&lt;/strong> (K = &lt;code>{1, 2, 3, 4}&lt;/code>)&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>Kết quả khả quan của đề tài thực hiện đã giúp cho cán bộ trong chương trình đào tạo có thể giám sát, để hỗ trợ kịp thời và tư vấn cho học viên, làm giảm tỉ lệ nghỉ học của học viên do các tác động từ môi trường học, xã hội, gia đình hoặc động lực học của học viên:&lt;/p>
+&lt;p>&lt;img src="/img/dropout-forecast.PNG" alt="Mô hình dự báo khả năng nghỉ học">&lt;/p>
+&lt;p>Sau 1 khoảng thời gian dài, sau khi ra trường, tôi làm các công việc liên quan đến Công nghệ phần mềm và hệ thống thông tin là chính. Do đó, kỹ năng và kiến thức về &lt;strong>Machine learning&lt;/strong> và &lt;strong>Mạng nơ-ron&lt;/strong> tôi quên cũng khá nhiều. Và bây giờ tôi nghĩ là thời điểm thích hợp để bắt đầu lại từ đầu, chính thức hội nhập kỷ nguyên &lt;strong>dữ liệu&lt;/strong>. Một hứa hẹn chắc chắn sẽ đem lại nhiều lợi ích rất lớn cho nền công nghiệp nước nhà, trong rất nhiều lĩnh vực sản xuất, công nghệ và dịch vụ.&lt;/p>
+&lt;h1 id="l-trnh-8-bc--bt-u-hc-ai">Lộ trình 8 bước để bắt đầu học AI&lt;/h1>
+&lt;p>Dưới đây là 8 bước để tôi và bạn có một khởi đầu mới thuận lợi, giúp chúng ta định hướng con đường sự nghiệp cụ thể, tránh rơi vào trạng thái mơ hồ, ảo tưởng:&lt;/p>
+&lt;blockquote>
+&lt;ol>
+&lt;li>Chọn bài toán mà bạn quan tâm hoặc cảm thấy thích thú. Việc bắt đầu với một vấn đề bạn muốn giải quyết sẽ giúp bạn tập trung và có động lực để học hơn.&lt;/li>
+&lt;li>Tìm solution &lt;strong>ĐƠN GIẢN&lt;/strong> nhất. Đừng bắt đầu bằng những thứ phức tạp, bạn sẽ không hiểu tại sao nó lại như thế đâu.&lt;/li>
+&lt;li>Cải thiện dần dần bằng cách đọc thêm các kỹ thuật liên quan.&lt;/li>
+&lt;li>Chia sẻ solution của các bạn với người khác.&lt;/li>
+&lt;li>Lặp lại các bước &lt;code>1-4&lt;/code> với nhiều bài toán khác nhau.&lt;/li>
+&lt;li>Tham gia một Kaggle contest.&lt;/li>
+&lt;li>Thử sức với các bài toán rất thực tế.&lt;/li>
+&lt;li>Chia sẻ kiến thức của bạn với người khác.&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>&lt;strong>Cuối cùng&lt;/strong>: Mục tiêu nào cũng vậy! Sự hào hứng ban đầu trôi qua rất nhanh, còn lại tính kỷ luật &amp;amp; lòng quyết tâm! Vậy nên hãy cố gắng giữ lửa, đừng để các lý do lãng xẹt, ngăn cản bạn.&lt;/p>
+&lt;h1 id="lin-kt-c-chia-s-bi-blog-machine-learning-c-bn">Liên kết được chia sẻ bởi blog Machine learning cơ bản&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://www.facebook.com/machinelearningbasicvn/posts/452340058459164">Machine learning cơ bản&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.forbes.com/sites/quora/2017/04/05/eight-easy-steps-to-get-started-learning-artificial-intelligence/">Eight Easy Steps To Get Started Learning Artificial Intelligence&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.quora.com/What-are-the-best-sources-to-study-machine-learning-and-artificial-intelligence">What are the best sources to study machine learning and artificial intelligence?&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Bắt đầu NLP từ đâu và như thế nào ?</title><link>/post/2017/05/31/bat-dau-nlp-tu-dau-ntn/</link><pubDate>Wed, 31 May 2017 00:00:00 +0000</pubDate><guid>/post/2017/05/31/bat-dau-nlp-tu-dau-ntn/</guid><description>&lt;p>Có thể bạn đã nghe rất nhiều về &lt;code>Trí tuệ nhân tạo (AI)&lt;/code>, &lt;code>Học máy (Machine Learning)&lt;/code>, hay &lt;code>Xử lý ngôn ngữ tự nhiên (NLP)&lt;/code>. Và rất muốn được tiếp cận nhưng chưa biết phải bắt đầu từ đâu và cách tiếp cận như thế nào ? Bài viết này cũng là bài đầu tiên mà tôi muốn tìm hiểu tổng quan nhất về các lý thuyết, thuật toán và các ứng dụng cụ thể trong một domain nhỏ của &lt;strong>AI&lt;/strong>, đó chính là &lt;strong>NLP&lt;/strong>. Làm thế nào để máy tính có thể hiểu được ngôn ngữ tự nhiên ? Làm thế nào để máy tính có trí thông minh như con người ?&lt;/p>
+&lt;p>Tôi đã từng nghe rằng: Nếu bạn phải &lt;code>trả lời&lt;/code> lần 2 cho cùng một câu hỏi, thì có lẽ 1 ý tưởng hay là đưa nó vào blog. Theo nguyên tắc này, tôi cũng muốn ghi chú lại các bước, câu trả lời cho câu hỏi: &lt;code>Tôi có kiến thức khoa học trong ngành (*), và tôi muốn học NLP. Vậy tôi nên bắt đầu từ đâu?&lt;/code> Để chúng ta có bước khởi đầu thuận lợi và đầy cảm hứng.&lt;/p>
+&lt;p>Sau đây là các phương pháp mà tôi dự định tiếp cận theo cách của &lt;a href="https://medium.com/@melanietosik">@Melanie Tosik&lt;/a> và chia sẻ với các bạn, mà tôi nghĩ chúng ta có thể bắt đầu ngay bằng 1 khóa học căn bản, sau đó tự mình trải nghiệm và cài đặt lại các phương pháp để hiểu hơn về bản chất. Đây có thể đây là kim chỉ nam giúp tôi không bị lệch hướng và cũng hi vọng nó có ích cho những người mới như bạn và tôi:&lt;/p>
+&lt;p>Trước khi bắt đầu, chúng ta cần nhận thức được danh sách dưới đây thực sự là một điểm bắt đầu rất &lt;code>chung&lt;/code>, cơ bản và có thể không đầy đủ. Để tránh tình huống bị ngập tràn trong một núi thông tin, tôi cố gắng thêm các chú thích bằng các mô tả ngắn gọn và ước lượng các mức độ khó khăn trong ngoặc đơn (sẽ được cập nhật chi tiết hơn khi tôi được trải nghiệm hết). Bằng cách tiếp cận từ trên xuống (Top-Down) và các kỹ thuật thực hành ngay bằng các ví dụ được cài đặt bằng Python có thể giúp chúng ta nắm được một cách tổng quát nhất. Hiểu từ thực tế đến (quay trở về) lý thuyết!&lt;/p>
+&lt;h1 id="kha-hc-online">Khóa học Online&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://www.youtube.com/watch?v=nfoudtpBV68&amp;amp;list=PL6397E4B26D00A269">Dan Jurafsky &amp;amp; Chris Manning: Natural Language Processing&lt;/a> [video giới thiệu căn bản]&lt;/li>
+&lt;li>&lt;a href="http://cs224d.stanford.edu/syllabus.html">Stanford CS224d: Deep Learning for Natural Language Processing&lt;/a> [Các thuật toán ML nâng cao: Deep learning, NN for NLP]&lt;/li>
+&lt;li>&lt;a href="https://www.coursera.org/learn/natural-language-processing">Coursera: Introduction to Natural Language Processing&lt;/a> [Khóa học giới thiệu NLP của trường ĐH Michigan]&lt;/li>
+&lt;/ul>
+&lt;h1 id="cc-th-vin-v-m-ngun-m">Các thư viện và mã nguồn mở&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://spacy.io/">spaCy&lt;/a> &lt;a href="https://explosion.ai/blog/">blog&lt;/a> [Thư viện python mới nổi với những ví dụ tuyệt vời, các hướng dẫn và demo trực quan]&lt;/li>
+&lt;li>&lt;a href="http://www.nltk.org/">NLTK&lt;/a> &lt;a href="http://www.nltk.org/book/">book&lt;/a> [Thường được sử dụng cho việc giảng dạy, nghiên cứu học thuật]&lt;/li>
+&lt;li>&lt;a href="https://stanfordnlp.github.io/CoreNLP/">Stanford CoreNLP&lt;/a> [Bộ công cụ phân tích chất lượng cao, bằng Java]&lt;/li>
+&lt;/ul>
+&lt;h1 id="blog-ting-anh">Blog tiếng Anh&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://nlpers.blogspot.com/">natural language processing blog&lt;/a> (Hal Daumé)&lt;/li>
+&lt;li>&lt;a href="https://research.googleblog.com/">Google research blog&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://languagelog.ldc.upenn.edu/nll/">Language log&lt;/a> (Mark Liberman)&lt;/li>
+&lt;/ul>
+&lt;h1 id="blog-ting-vit">Blog tiếng Việt&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="http://machinelearningcoban.com">Machine Learning cơ bản cho người mới bắt đầu - Vũ Hữu Tiệp PSU&lt;/a> - &lt;a href="https://tiepvupsu.github.io">Blog&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://viet.jnlp.org/kien-thuc-co-ban-ve-xu-ly-ngon-ngu-tu-nhien/machine-learning-trong-nlp">Machine Learning trong Xử Lý Ngôn Ngữ Tự Nhiên - Nhóm Đông Du Nhật Bản&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://ongxuanhong.wordpress.com/">Machine Learning cho người mới bắt đầu - Ông Xuân Hồng JAIST&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://ml-book-vn.khanhxnguyen.com/">Machine Learning book for Vietnamese - Nguyễn Xuân Khánh University of Maryland&lt;/a> &lt;a href="http://khanhxnguyen.com/blog">Blog&lt;/a>, &lt;a href="http://khanhxnguyen.com/tutorials">Tutorials&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="books">Books&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://web.stanford.edu/~jurafsky/slp3/">Speech and Language Processing&lt;/a> (Daniel Jurafsky and James H. Martin) - sách bao gồm những lý thuyết cơ bản&lt;/li>
+&lt;li>&lt;a href="https://nlp.stanford.edu/fsnlp/">Foundations of Statistical Natural Language Processing&lt;/a> (Chris Manning and Hinrich Schütze) - các phương pháp thống kê&lt;/li>
+&lt;li>&lt;a href="https://nlp.stanford.edu/IR-book/">Introduction to Information Retrieval&lt;/a> (Chris Manning, Prabhakar Raghavan and Hinrich Schütze) - sách hay về xếp hạng và tìm kiếm ngữ nghĩa&lt;/li>
+&lt;li>&lt;a href="https://www.amazon.com/Network-Methods-Natural-Language-Processing/dp/1627052984">Neural Network Methods in Natural Language Processing&lt;/a> (Yoav Goldberg) - giới thiệu chi tiết hướng tiếp cận NN, phiên bản &lt;a href="http://u.cs.biu.ac.il/~yogo/nnlp.pdf">primer (pdf)&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="k-thut-khc">Kỹ thuật khác&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://www.tensorflow.org/versions/master/tutorials/word2vec">How to build a word2vec model in TensorFlow&lt;/a> - tutorial&lt;/li>
+&lt;li>&lt;a href="https://github.com/andrewt3000/dl4nlp">Deep Learning for NLP resources&lt;/a> - dữ liệu mới nhất cho Deep learning, được tổ chức theo các topic&lt;/li>
+&lt;li>&lt;a href="http://mitp.nautil.us/article/170/last-words-computational-linguistics-and-deep-learning">Last Words: Computational Linguistics and Deep Learning — A look at the importance of Natural Language Processing&lt;/a> - (Chris Manning) article&lt;/li>
+&lt;li>&lt;a href="https://github.com/nyu-dl/NLP_DL_Lecture_Note/blob/master/lecture_note.pdf">Natural Language Understanding with Distributed Representation&lt;/a> (Kyunghyun Cho) các ghi chú về ML/NN tiếp cận bài toán Natural Language Understanding (NLU)&lt;/li>
+&lt;li>&lt;a href="https://www.quora.com/How-do-I-learn-Natural-Language-Processing">Quora: How do I learn Natural Language Processing?&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="diy---d-liu-v-cc-d-n-mc-nhng-tay">DIY - Dữ liệu và các dự án (mục nhúng tay)&lt;/h1>
+&lt;p>Với tập dữ liệu được tạo và public bởi &lt;strong>Nicolas Iderhoff&lt;/strong>. Chúng ta là những người mới cần phải nhúng tay để thực sự bắt đầu làm việc trong lĩnh vực &lt;em>NLP&lt;/em>. Dưới đây là danh sách các bài toán &lt;code>NLP&lt;/code> cần giải được đề xuất bởi &lt;a href="https://medium.com/@melanietosik">Melanie Tosik&lt;/a>:&lt;/p>
+&lt;ul>
+&lt;li>Xây dựng bộ &lt;a href="https://en.wikipedia.org/wiki/Part-of-speech_tagging">gán nhãn từ loại POS&lt;/a> (Part-of-Speech) dựa trên &lt;a href="https://en.wikipedia.org/wiki/Hidden_Markov_model">mô hình Markov ẩn&lt;/a> (HMM)&lt;/li>
+&lt;li>Cài đặt thuật toán &lt;a href="https://en.wikipedia.org/wiki/CYK_algorithm">CYK&lt;/a> để phân tích bài toán &lt;a href="https://en.wikipedia.org/wiki/Context-free_grammar">phân tích văn phạm phi ngữ cảnh&lt;/a> (Context-free grammars)&lt;/li>
+&lt;li>Xây dựng bộ phân lớp &lt;a href="https://en.wikipedia.org/wiki/Naive_Bayes_classifier">Naive Bayes&lt;/a> cho bài toán &lt;a href="https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering">lọc Spam&lt;/a>&lt;/li>
+&lt;li>Xây dựng bộ kiểm tra chính tả &lt;a href="https://en.wikipedia.org/wiki/Spell_checker">spell checker&lt;/a> dựa trên kỹ thuật [edit distances] giữa các từ vựng với nhau.&lt;/li>
+&lt;li>Xây dựng bộ sinh văn bản dựa vào &lt;a href="https://en.wikipedia.org/wiki/Markov_chain">chuỗi Markov&lt;/a>&lt;/li>
+&lt;li>Xây dựng một mô hình thống kê &lt;a href="https://en.wikipedia.org/wiki/Topic_model">Topic model&lt;/a> sử dụng mô hình sinh &lt;a href="https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation">latent Dirichlet allocation&lt;/a> (LDA)&lt;/li>
+&lt;li>Sử dụng [word2vec] để sinh ra word embeddings từ tập ngữ liệu lớn (large text corpus), từ: &lt;a href="https://en.wikipedia.org/wiki/Wikipedia:Database_download">Wikipedia&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;h1 id="ch--nlp-trn-mng-x-hi">Chủ đề NLP trên mạng xã hội&lt;/h1>
+&lt;ul>
+&lt;li>Twitter: &lt;a href="https://twitter.com/hashtag/nlproc">#nlproc&lt;/a>, &lt;a href="https://twitter.com/jasonbaldridge/lists/nlpers">list of NLPers&lt;/a> (by Jason Baldrige)&lt;/li>
+&lt;li>Reddit: &lt;a href="https://www.reddit.com/r/LanguageTechnology">r/LanguageTechnology&lt;/a>&lt;/li>
+&lt;li>Medium: &lt;a href="https://medium.com/tag/nlp">Nlp&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="acknowledgment">Acknowledgment&lt;/h1>
+&lt;ul>
+&lt;li>Original Source: &lt;a href="https://medium.com/towards-data-science/how-to-get-started-in-nlp-6a62aa4eaeff">How to get started in NLP&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Mục đích và mục tiêu nghiên cứu!</title><link>/post/2017/05/31/todo-list/</link><pubDate>Wed, 31 May 2017 00:00:00 +0000</pubDate><guid>/post/2017/05/31/todo-list/</guid><description>&lt;p>Trước khi bắt đầu khởi tạo và xây dụng blog này, tôi đã có những suy nghĩ về lĩnh vực &lt;strong>công nghệ thông tin trong y tế&lt;/strong>, những thay đổi về bộ mặt, hình dáng, tầm vóc cũng như trọng lượng của ngành công nghiệp này sau &lt;code>5&lt;/code>, &lt;code>10&lt;/code> năm nữa! Nó sẽ thay đổi như thế nào ? Vị trí của mình sẽ ở đâu vào thời điểm đó ? Ngay từ bây giờ chúng ta cần chuẩn bị những gì ?&lt;/p>
+&lt;p>Sẽ rất khó hình dung, vì không ai mô tả hoặc phác họa chân dung của bức tranh đó. Tất cả là dự đoán và kỳ vọng vào những thay đổi ngay từ thời khắc này. Gần đây, đã có những tiến bộ vượt bậc về công nghệ dữ liệu lớn cũng như thuật toán được thực hiện bằng máy tính có năng lực lớn đã được chứng minh tính hiệu quả và phù hợp với nhu cầu được ứng dụng. Điều đó đã tác động và làm bùng nổ cuộc cách mạng công nghiệp lần thứ 4 - Cách mạng số!&lt;/p>
+&lt;p>Bản chất của cuộc cách mạng số lấy &lt;strong>Khoa học dữ liệu&lt;/strong> làm nòng cốt.&lt;/p>
+&lt;p>Continue &amp;hellip;&lt;/p></description></item></channel></rss>

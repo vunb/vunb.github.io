@@ -1,46 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>CRFsuite on &lt;Vunb /&gt;</title>
-    <link>/tags/crfsuite/</link>
-    <description>Recent content in CRFsuite on &lt;Vunb /&gt;</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
-    <language>en-us</language>
-    <copyright>Vunb &amp;copy; {year}</copyright>
-    <lastBuildDate>Sun, 05 Nov 2017 00:00:00 +0000</lastBuildDate>
-    
-	    <atom:link href="/tags/crfsuite/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>CRFSuite - Tìm hiểu và ứng dụng với task Chunking</title>
-      <link>/post/2017/11/crfsuite-chunking-task/</link>
-      <pubDate>Sun, 05 Nov 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2017/11/crfsuite-chunking-task/</guid>
-      <description>
-
-&lt;h1 id=&#34;giới-thiệu&#34;&gt;Giới thiệu&lt;/h1&gt;
-
-&lt;p&gt;Text-chunking là bài toán chia một văn bản thành các cụm thành phần có liên quan tới cú pháp. Ví dụ, trong câu: &lt;strong&gt;&amp;ldquo;He reckons the current account deficit will narrow to only # 1.8 billion in September.&amp;rdquo;&lt;/strong&gt; có thể được phân tích thành như sau:&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;[NP He ] [VP reckons ] [NP the current account deficit ] [VP will narrow ] [PP to ] [NP only # 1.8 billion ] [PP in ] [NP September ] .&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Trong ví dụ này, NP đại diện cho một cụm danh từ, VP là một cụm động từ, và PP là cụm giới từ. Text-chunking là một task, có nhiệm vụ là dán các nhãn cho một nhóm các phần tử (token) trong một câu văn bản, kết quả là ta thu được một chuỗi các nhãn tương ứng. Chúng ta sẽ sử dụng ký pháp &lt;code&gt;IOB&lt;/code&gt; để gán nhãn cho các token trong câu.&lt;/p&gt;
-
-&lt;p&gt;Như vậy, một chunk là NP (một đoạn liên tục các token) thì có chú thích như sau:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;B-NP&lt;/strong&gt; bắt đầu một chunk&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;I-NP&lt;/strong&gt; bên trong một chunk&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;O&lt;/strong&gt; nếu token đó không thuộc chunk nào cả&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Ta có một kết quả đầy đủ cho ví dụ trên như sau:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;B-NP He
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CRFsuite on &lt;Vunb /></title><link>/tags/crfsuite/</link><description>Recent content in CRFsuite on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Sun, 05 Nov 2017 00:00:00 +0000</lastBuildDate><atom:link href="/tags/crfsuite/index.xml" rel="self" type="application/rss+xml"/><item><title>CRFSuite - Tìm hiểu và ứng dụng với task Chunking</title><link>/post/2017/11/crfsuite-chunking-task/</link><pubDate>Sun, 05 Nov 2017 00:00:00 +0000</pubDate><guid>/post/2017/11/crfsuite-chunking-task/</guid><description>&lt;h1 id="gii-thiu">Giới thiệu&lt;/h1>
+&lt;p>Text-chunking là bài toán chia một văn bản thành các cụm thành phần có liên quan tới cú pháp. Ví dụ, trong câu: &lt;strong>&amp;ldquo;He reckons the current account deficit will narrow to only # 1.8 billion in September.&amp;quot;&lt;/strong> có thể được phân tích thành như sau:&lt;/p>
+&lt;blockquote>
+&lt;p>[NP He ] [VP reckons ] [NP the current account deficit ] [VP will narrow ] [PP to ] [NP only # 1.8 billion ] [PP in ] [NP September ] .&lt;/p>
+&lt;/blockquote>
+&lt;p>Trong ví dụ này, NP đại diện cho một cụm danh từ, VP là một cụm động từ, và PP là cụm giới từ. Text-chunking là một task, có nhiệm vụ là dán các nhãn cho một nhóm các phần tử (token) trong một câu văn bản, kết quả là ta thu được một chuỗi các nhãn tương ứng. Chúng ta sẽ sử dụng ký pháp &lt;code>IOB&lt;/code> để gán nhãn cho các token trong câu.&lt;/p>
+&lt;p>Như vậy, một chunk là NP (một đoạn liên tục các token) thì có chú thích như sau:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>B-NP&lt;/strong> bắt đầu một chunk&lt;/li>
+&lt;li>&lt;strong>I-NP&lt;/strong> bên trong một chunk&lt;/li>
+&lt;li>&lt;strong>O&lt;/strong> nếu token đó không thuộc chunk nào cả&lt;/li>
+&lt;/ul>
+&lt;p>Ta có một kết quả đầy đủ cho ví dụ trên như sau:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">B-NP He
 B-VP reckons
 B-NP the
 I-NP current
@@ -55,18 +26,12 @@ I-NP 1.8
 I-NP billion
 B-PP in
 B-NP September
-O    .
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Mục tiêu của bài hướng dẫn này, là xây dựng một model có thể dự đoán, tách được các chunk và gán nhãn tương ứng cho nó. Tôi sẽ sử dụng công cụ &lt;a href=&#34;https://npmjs.com/package/crfsuite&#34; target=&#34;_blank&#34;&gt;crfsuite&lt;/a&gt; với ngôn ngữ &lt;strong&gt;node/javascript&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;h1 id=&#34;dữ-liệu-huấn-luyện&#34;&gt;Dữ liệu huấn luyện&lt;/h1&gt;
-
-&lt;p&gt;Bài hướng dẫn này sử dụng dữ liệu được cung cấp bởi task &lt;a href=&#34;https://dl.acm.org/citation.cfm?id=1117631&#34; target=&#34;_blank&#34;&gt;CONLL-2000 shared task: Chunking&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Bạn có thể tìm thấy mã nguồn và dữ liệu của bài hướng dẫn này, tại đây: &lt;a href=&#34;https://github.com/vntk/vntk-chunking&#34; target=&#34;_blank&#34;&gt;https://github.com/vntk/vntk-chunking&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Confidence NN B-NP
+O .
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Mục tiêu của bài hướng dẫn này, là xây dựng một model có thể dự đoán, tách được các chunk và gán nhãn tương ứng cho nó. Tôi sẽ sử dụng công cụ &lt;a href="https://npmjs.com/package/crfsuite">crfsuite&lt;/a> với ngôn ngữ &lt;strong>node/javascript&lt;/strong>.&lt;/p>
+&lt;h1 id="d-liu-hun-luyn">Dữ liệu huấn luyện&lt;/h1>
+&lt;p>Bài hướng dẫn này sử dụng dữ liệu được cung cấp bởi task &lt;a href="https://dl.acm.org/citation.cfm?id=1117631">CONLL-2000 shared task: Chunking&lt;/a>&lt;/p>
+&lt;p>Bạn có thể tìm thấy mã nguồn và dữ liệu của bài hướng dẫn này, tại đây: &lt;a href="https://github.com/vntk/vntk-chunking">https://github.com/vntk/vntk-chunking&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">Confidence NN B-NP
 in IN B-PP
 the DT B-NP
 pound NN I-NP
@@ -78,14 +43,14 @@ take VB I-VP
 another DT B-NP
 sharp JJ I-NP
 dive NN I-NP
-if IN B-SBAR
+&lt;span style="color:#66d9ef">if&lt;/span> IN B-SBAR
 trade NN B-NP
 figures NNS I-NP
-for IN B-PP
+&lt;span style="color:#66d9ef">for&lt;/span> IN B-PP
 September NNP B-NP
 , , O
 due JJ B-ADJP
-for IN B-PP
+&lt;span style="color:#66d9ef">for&lt;/span> IN B-PP
 release NN B-NP
 tomorrow NN B-NP
 , , O
@@ -95,43 +60,25 @@ show VB I-VP
 a DT B-NP
 substantial JJ I-NP
 improvement NN I-NP
--- More  --
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Dữ liệu bao gồm một tập các câu (sequences), mỗi câu chứa một chuỗi các từ (&amp;lsquo;Confidence&amp;rsquo;, &amp;lsquo;in&amp;rsquo;, &amp;hellip;), các nhãn POS (&amp;lsquo;NN&amp;rsquo;, &amp;lsquo;IN&amp;rsquo;, &amp;hellip;), các nhãn chunk (&amp;lsquo;B-NP&amp;rsquo;, &amp;lsquo;B-PP&amp;rsquo;) ngăn cách nhau bởi khoảng trắng. Trong bài này, chúng ta sẽ khởi tạo một model CRF để gán các nhãn cú pháp chunking, với điều kiện là biết trước nhãn từ loại (POS - Part of Speech) của chúng.&lt;/p&gt;
-
-&lt;h1 id=&#34;trích-chọn-đặc-trưng-feature-selection&#34;&gt;Trích chọn đặc trưng (Feature selection)&lt;/h1&gt;
-
-&lt;p&gt;Bước tiếp theo là tiền xử lý dữ liệu training và testing để trích xuất ra được đặc trưng của words trong tập dữ liệu. CRFsuite có khả năng tạo ra các đặc trưng từ các thuộc tính (attribute - còn gọi là tính chất) của tập dữ liệu. Tổng quan, thì đây là một quá trình quan trọng nhất của tiếp cận machine-learning, bởi vì một đặc trưng ảnh hưởng rất lớn đến độ chính xác của nhãn được dự báo. Ví dụ sau đây, chúng ta sẽ lấy 19 loại attributes của một từ tại vị trí &lt;code&gt;t&lt;/code&gt; (vị trí thứ t trong chuỗi câu).&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;w[t-2], w[t-1], w[t], w[t+1], w[t+2],
-w[t-1]|w[t], w[t]|w[t+1],
-pos[t-2], pos[t-1], pos[t], pos[t+1], pos[t+2],
-pos[t-2]|pos[t-1], pos[t-1]|pos[t], pos[t]|pos[t+1], pos[t+1]|pos[t+2],
-pos[t-2]|pos[t-1]|pos[t], pos[t-1]|pos[t]|pos[t+1], pos[t]|pos[t+1]|pos[t+2]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Trong danh sách này, thì w[t] và pos[t] đại diện cho từ vựng (words) và từ loại (part-of-speech) tương ứng tại vị trí &lt;code&gt;t&lt;/code&gt; trong câu. Các đặc trưng này thể hiện tính chất của từ vựng tại vị trí &lt;code&gt;t&lt;/code&gt; bằng việc sử dụng các thông tin xung quanh từ đó, ví dụ: w[t-1] và pos[t+1]. Ví dụ, xem xét tính chất của token &lt;code&gt;the&lt;/code&gt; sau đây:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;        He PRP B-NP
-        reckons VBZ B-VP
-t --&amp;gt;   the DT B-NP
-        current JJ I-NP
-        account NN I-NP
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;từ vựng &lt;code&gt;the&lt;/code&gt; tại ví trí &lt;code&gt;t&lt;/code&gt; có những thuộc tính sau đây (t được lược bỏ cho đơn giản và dễ nhìn):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;w[-2]=He, w[-1]=reckons, w[0]=the, w[1]=current, w[2]=account
-w[-1]|w[0]=reckons|the, w[0]|w[1]=the|current
-pos[-2]=PRP, pos[-1]=VBZ, pos[0]=DT, pos[1]=JJ, pos[2]=NN
-pos[-2]|pos[-1]=PRP|VBZ, pos[-1]|pos[0]=VBZ|DT, pos[0]|pos[1]=DT|JJ, pos[1]|pos[2]=JJ|NN
-pos[-2]|pos[-1]|pos[0]=PRP|VBZ|DT, pos[-1]|pos[0]|pos[1]=VBZ|DT|JJ, pos[0]|pos[1]|pos[2]=DT|JJ|NN
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Trong ví dụ này, thuộc tính &lt;code&gt;w[0]=the&lt;/code&gt; biểu diễn cho sự kiện mà mã từ vựng hiện tại là &lt;code&gt;the&lt;/code&gt;, và thuộc tính &lt;code&gt;pos[0]|pos[1]|pos[2]=DT|JJ|NN&lt;/code&gt; biểu diễn cho sự kiện từ loại tại ví trí hiện tại, từ tiếp theo, từ sau nữa là &lt;code&gt;DT&lt;/code&gt;, &lt;code&gt;JJ&lt;/code&gt;, &lt;code&gt;NN&lt;/code&gt; tương ứng. Bạn có thể hình dung ta dịch chuyển 1 cửa sổ có window_size=2 tại ví trí &lt;code&gt;t&lt;/code&gt;. CRFsuite sẽ học sự liên kết giữa các thuộc tính này và nhãn tương ứng của từ đang xem xét &lt;code&gt;the&lt;/code&gt;, đó là &lt;code&gt;B-NP&lt;/code&gt; để dự đoán nhãn khi cho 1 đầu vào (từ vựng) cụ thể khi biết các tính chất xung quanh nó.&lt;/p&gt;
-</description>
-    </item>
-    
-  </channel>
-</rss>
+-- More --
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Dữ liệu bao gồm một tập các câu (sequences), mỗi câu chứa một chuỗi các từ (&amp;lsquo;Confidence&amp;rsquo;, &amp;lsquo;in&amp;rsquo;, &amp;hellip;), các nhãn POS (&amp;lsquo;NN&amp;rsquo;, &amp;lsquo;IN&amp;rsquo;, &amp;hellip;), các nhãn chunk (&amp;lsquo;B-NP&amp;rsquo;, &amp;lsquo;B-PP&amp;rsquo;) ngăn cách nhau bởi khoảng trắng. Trong bài này, chúng ta sẽ khởi tạo một model CRF để gán các nhãn cú pháp chunking, với điều kiện là biết trước nhãn từ loại (POS - Part of Speech) của chúng.&lt;/p>
+&lt;h1 id="trch-chn-c-trng-feature-selection">Trích chọn đặc trưng (Feature selection)&lt;/h1>
+&lt;p>Bước tiếp theo là tiền xử lý dữ liệu training và testing để trích xuất ra được đặc trưng của words trong tập dữ liệu. CRFsuite có khả năng tạo ra các đặc trưng từ các thuộc tính (attribute - còn gọi là tính chất) của tập dữ liệu. Tổng quan, thì đây là một quá trình quan trọng nhất của tiếp cận machine-learning, bởi vì một đặc trưng ảnh hưởng rất lớn đến độ chính xác của nhãn được dự báo. Ví dụ sau đây, chúng ta sẽ lấy 19 loại attributes của một từ tại vị trí &lt;code>t&lt;/code> (vị trí thứ t trong chuỗi câu).&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-js" data-lang="js">&lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>], &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>], &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>], &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>], &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>],
+&lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>], &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>],
+&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>], &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>], &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>], &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>], &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>],
+&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>], &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>], &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>], &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>],
+&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>], &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>], &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#a6e22e">t&lt;/span>&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>]
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Trong danh sách này, thì w[t] và pos[t] đại diện cho từ vựng (words) và từ loại (part-of-speech) tương ứng tại vị trí &lt;code>t&lt;/code> trong câu. Các đặc trưng này thể hiện tính chất của từ vựng tại vị trí &lt;code>t&lt;/code> bằng việc sử dụng các thông tin xung quanh từ đó, ví dụ: w[t-1] và pos[t+1]. Ví dụ, xem xét tính chất của token &lt;code>the&lt;/code> sau đây:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-js" data-lang="js"> &lt;span style="color:#a6e22e">He&lt;/span> &lt;span style="color:#a6e22e">PRP&lt;/span> &lt;span style="color:#a6e22e">B&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#a6e22e">NP&lt;/span>
+&lt;span style="color:#a6e22e">reckons&lt;/span> &lt;span style="color:#a6e22e">VBZ&lt;/span> &lt;span style="color:#a6e22e">B&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#a6e22e">VP&lt;/span>
+&lt;span style="color:#a6e22e">t&lt;/span> &lt;span style="color:#f92672">--&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span> &lt;span style="color:#a6e22e">the&lt;/span> &lt;span style="color:#a6e22e">DT&lt;/span> &lt;span style="color:#a6e22e">B&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#a6e22e">NP&lt;/span>
+&lt;span style="color:#a6e22e">current&lt;/span> &lt;span style="color:#a6e22e">JJ&lt;/span> &lt;span style="color:#a6e22e">I&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#a6e22e">NP&lt;/span>
+&lt;span style="color:#a6e22e">account&lt;/span> &lt;span style="color:#a6e22e">NN&lt;/span> &lt;span style="color:#a6e22e">I&lt;/span>&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#a6e22e">NP&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>từ vựng &lt;code>the&lt;/code> tại ví trí &lt;code>t&lt;/code> có những thuộc tính sau đây (t được lược bỏ cho đơn giản và dễ nhìn):&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-js" data-lang="js">&lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">He&lt;/span>, &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">reckons&lt;/span>, &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">the&lt;/span>, &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">current&lt;/span>, &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">account&lt;/span>
+&lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">reckons&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">the&lt;/span>, &lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">w&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">the&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">current&lt;/span>
+&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">PRP&lt;/span>, &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">VBZ&lt;/span>, &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">DT&lt;/span>, &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">JJ&lt;/span>, &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">NN&lt;/span>
+&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">PRP&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">VBZ&lt;/span>, &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">VBZ&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">DT&lt;/span>, &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">DT&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">JJ&lt;/span>, &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">JJ&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">NN&lt;/span>
+&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">PRP&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">VBZ&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">DT&lt;/span>, &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">VBZ&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">DT&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">JJ&lt;/span>, &lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">0&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">1&lt;/span>]&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">pos&lt;/span>[&lt;span style="color:#ae81ff">2&lt;/span>]&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#a6e22e">DT&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">JJ&lt;/span>&lt;span style="color:#f92672">|&lt;/span>&lt;span style="color:#a6e22e">NN&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Trong ví dụ này, thuộc tính &lt;code>w[0]=the&lt;/code> biểu diễn cho sự kiện mà mã từ vựng hiện tại là &lt;code>the&lt;/code>, và thuộc tính &lt;code>pos[0]|pos[1]|pos[2]=DT|JJ|NN&lt;/code> biểu diễn cho sự kiện từ loại tại ví trí hiện tại, từ tiếp theo, từ sau nữa là &lt;code>DT&lt;/code>, &lt;code>JJ&lt;/code>, &lt;code>NN&lt;/code> tương ứng. Bạn có thể hình dung ta dịch chuyển 1 cửa sổ có window_size=2 tại ví trí &lt;code>t&lt;/code>. CRFsuite sẽ học sự liên kết giữa các thuộc tính này và nhãn tương ứng của từ đang xem xét &lt;code>the&lt;/code>, đó là &lt;code>B-NP&lt;/code> để dự đoán nhãn khi cho 1 đầu vào (từ vựng) cụ thể khi biết các tính chất xung quanh nó.&lt;/p></description></item></channel></rss>

@@ -1,128 +1,71 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Text Classification on &lt;Vunb /&gt;</title>
-    <link>/tags/text-classification/</link>
-    <description>Recent content in Text Classification on &lt;Vunb /&gt;</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
-    <language>en-us</language>
-    <copyright>Vunb &amp;copy; {year}</copyright>
-    <lastBuildDate>Sun, 27 Aug 2017 00:00:00 +0000</lastBuildDate>
-    
-	    <atom:link href="/tags/text-classification/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Chatbots - Thiết kế các intents và entities cho các mô hình NLP</title>
-      <link>/post/2017/08/27/thiet-ke-intents-entities/</link>
-      <pubDate>Sun, 27 Aug 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2017/08/27/thiet-ke-intents-entities/</guid>
-      <description>
-
-&lt;p&gt;Chìa khóa để cho một con bot có thể hiểu được con người là nó phải có khả năng hiểu các ý định của con người và trích xuất các thông tin liên quan từ ý định đó và tất nhiên có các hành động đáp ứng tương thích với thông tin đó.&lt;/p&gt;
-
-&lt;p&gt;Xử lý ngôn ngữ tự nhiên (NLP) là khoa học của việc trích xuất ý định và thông tin từ văn bản &lt;code&gt;text&lt;/code&gt;. Lý do mà bạn thấy rất nhiều nền tảng phát triển bot ra đời như nấm cùng với NLP như một dịch vụ nền tảng. Việc kết nối các kênh mạng xã hội và phát triển bot không phải là một vấn đề, liên kết thiếu duy nhất đó là một nền tảng NLP mà &lt;code&gt;có thể mở rộng&lt;/code&gt; và &lt;code&gt;dễ dàng làm việc&lt;/code&gt;, bởi vì bạn sẽ không học NLP để tạo ra một con bot ngớ ngẩn!&lt;/p&gt;
-
-&lt;p&gt;Một vài nền tảng dịch vụ phổ biển:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Luis.ai - by Microsoft&lt;/li&gt;
-&lt;li&gt;Wit.ai - by Facebook&lt;/li&gt;
-&lt;li&gt;Api.ai - by Google&lt;/li&gt;
-&lt;li&gt;Watson - by IBM&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Một nền tảng bot lý tưởng cung cấp:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Một dịch vụ NLP&lt;/strong&gt; - bạn có thể tự huấn luyện&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SDK&lt;/strong&gt; để hỗ trợ và xử lý các hội thoại và &lt;code&gt;meta-data&lt;/code&gt; của chúng.&lt;/li&gt;
-&lt;li&gt;Một nền tảng &lt;strong&gt;lưu trữ các con bot&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;Một nền tảng cho phép &lt;strong&gt;kết nối bot với nhiều kênh&lt;/strong&gt;, mạng xã hội, dịch vụ khác nhau.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Trong khi NLP như 1 dịch vụ (NLP-as-a-service) giúp cho người phát triển có phát triển NLP trong khoảng thời gian ít nhất có thể, đôi khi developer vẫn có khả năng tiếp tục huấn luyện dịch vụ NLP đạt chất lượng cao nhất có thể. Mỗi dịch vụ NLP có miền và tập ngôn ngữ riêng của nó và bạn phải chọn domain thích hợp nhất để triển khai một dịch vụ NLP. Trong bài note này sẽ chỉ ra một vài tình huống tốt nhất để huấn luyến một dịch vụ mô hình NLP.&lt;/p&gt;
-
-&lt;h1 id=&#34;intent&#34;&gt;Intent&lt;/h1&gt;
-
-&lt;p&gt;Intent đơn giản là ý định của người dùng cuối, những ý định này được chuyển tải bởi người dùng tới con bot của bạn. Bạn có thể chủ yếu đặt ý định vào 2 nhóm chính:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Các ý định ngẫu nhiên, casual intents&lt;/li&gt;
-&lt;li&gt;Các ý định nghiệp vụ, business intents.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;1. Casual Intents&lt;/strong&gt; - Đây là những ý định mở đầu hoặc kết thúc một cuộc hội thoại. Nhưng lời chào như: &lt;code&gt;hi&lt;/code&gt;, &lt;code&gt;hello&lt;/code&gt;, &lt;code&gt;hallo&lt;/code&gt;, &lt;code&gt;ciao&lt;/code&gt;, hay &lt;code&gt;bye&lt;/code&gt; là những câu lệnh mở đầu hoặc kết thúc một cuộc hội thoại. Những ý định này nên hướng con bot của bạn phản hồi bằng một câu trả lời gợi ý như: &amp;ldquo;Xin chào, tôi có thể giúp được gì cho bạn?&amp;rdquo; hay &amp;ldquo;Tạm biệt, cảm ơn đã trò chuyện cùng với tôi&amp;rdquo;.&lt;/p&gt;
-
-&lt;p&gt;Các ý định ngẫu nhiên cũng bao gồm các ý định &lt;strong&gt;Khẳng định - Affirmative&lt;/strong&gt; và &lt;strong&gt;Không nhận - Negative&lt;/strong&gt; cho các câu nói như: &amp;ldquo;Ok&amp;rdquo;, &amp;ldquo;vâng&amp;rdquo;, &amp;ldquo;Không, không phải cái này.&amp;rdquo;&lt;/p&gt;
-
-&lt;p&gt;Bằng các ý định chung chung có thể giúp bạn xử lý tất cả các ý định của khách hàng thay vì đưa câu chuyện đã có vào cuộc trò chuyện với bot. Ví dụ, nếu con bot chỉ hỏi một câu hỏi cho người dùng cuối - bạn nên mong đợi hoặc là một ý định khẳng định Affirmative hoặc một ý định Negative và nếu có bất cứ thứ gì khác bot có thể hỏi cùng một câu hỏi. Các ý đồ Affirmative và Negative nên xử lý tất cả các câu nói như vậy.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2. Business Intents&lt;/strong&gt; - Đây là các ý định được map trực tiếp với ý đồ ban đầu của các con bot khi được xây dựng, tức là bot cần phải hỗ trợ và xử lý được các ý định này của người dùng cuối khi họ truy cập vào website. Ví dụ, nếu ý định đó là thông tin của một bộ phim, khi có 1 câu nói &lt;strong&gt;&amp;ldquo;Khi nào danh sách của Schindler được phát hành?&amp;rdquo;&lt;/strong&gt; là một ý định nghiệp vụ mà có ý định tìm ra năm phát hành của bộ phim và bạn nên gắn nhãn nó theo một cái tên có thể hiểu được, giống như: &lt;strong&gt;&amp;ldquo;GetReleaseYearByTile&amp;rdquo;&lt;/strong&gt;. Lý tưởng là bạn nên nghĩ về các ý định nghiệp vụ bởi vì phần còn lại của câu chuyện như những câu chào hay sự lựa chọn thì được quản lý chung bởi các ý định ngẫu nhiên Casual Intents.&lt;/p&gt;
-
-&lt;h1 id=&#34;entities&#34;&gt;Entities&lt;/h1&gt;
-
-&lt;p&gt;Các ý định nghiệp vụ có &lt;code&gt;meta-data&lt;/code&gt; về các intent được gọi là &lt;strong&gt;&amp;ldquo;Entities&amp;rdquo;&lt;/strong&gt;. Lấy ví dụ về intent &lt;em&gt;&amp;ldquo;GetReleaseYearByTile&amp;rdquo;&lt;/em&gt;, với input: &amp;ldquo;Khi nào Danh sách của Schindler được phát hành?&amp;rdquo;. Ở đây &amp;ldquo;Danh sách của Schindler&amp;rdquo; là tên của bộ phim mà người dùng &amp;ldquo;có ý định&amp;rdquo; tìm ra năm phát hành. Quá trình tìm kiếm các thực thể entities có thể được hiểu giống với việc gán nhãn thẻ câu Part-of-Sentence tagging (POS). Tuy nhiên, một người sử dụng NLP as a service thì bạn không cần phải biết kỹ thuật của việc POS tagging được thực hiện như thế nào, nhưng nếu muốn có một bài báo hay nói về nó ở đây: &lt;a href=&#34;http://nlp.stanford.edu/software/tagger.shtml&#34; target=&#34;_blank&#34;&gt;http://nlp.stanford.edu/software/tagger.shtml&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Khi người dùng nghĩ về việc thiết kế intent thì các entities cũng phải được xác định và gán nhãn theo đó. Một lần nữa, bạn cũng có các thực thể chung được gán nhãn để sử dụng trong các mục đích chung như các số liệu metrics (bao gồm: số lượng, số đếm, khối lượng, &amp;hellip;), ngày tháng và hầu hết các dịch vụ NLP cho phép bạn gán thẻ thực thể của các loại chung như vậy mà không gặp phải bất kỳ rắc rối lớn nào.&lt;/p&gt;
-
-&lt;p&gt;Một vài thực thể có thể được gán như những thực thể phức hợp (composite entities), giống như việc có nhiều hơn một thực thể (có các thực thể thành phần bên trong nó). Là một khoa học, không quan trọng nếu bạn không có những tính năng này trong dịch vụ NLP của bạn, miễn là bạn có ghi nhãn thực thể đơn giản. Một nhãn phải được xác định các thực thể trước khi gán nhãn các thực thể phức hợp.&lt;/p&gt;
-
-&lt;p&gt;Ví dụ: Tìm cho tôi đôi giày thể thao Red Adidas cỡ 8.&lt;/p&gt;
-
-&lt;p&gt;Intent: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;- SearchProduct&lt;br /&gt;
-Entities: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;&lt;br /&gt;
-Composite Entity: &amp;mdash;&amp;mdash;&amp;mdash; ProductDetail&lt;br /&gt;
-Component Entity: &amp;mdash;&amp;mdash;&amp;mdash;&lt;br /&gt;
-Size: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash; 8&lt;br /&gt;
-Brand: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash; Adidas&lt;br /&gt;
-Color: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash; Red&lt;br /&gt;
-Category: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash; Sport Shoes&lt;/p&gt;
-
-&lt;h3 id=&#34;huấn-luyện-các-intents-và-entities&#34;&gt;Huấn luyện các Intents và Entities&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Rule #1 của việc huấn luyện bất kỳ một mô hình học máy nào là &amp;mdash; Bạn không bao giờ có thể huấn luyện đủ, lấy thêm dữ liệu và tiếp tục train nó.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Rule #1 của việc huấn luyện bất kỳ một mô hình học máy nào là &amp;mdash; Bạn không bao giờ có thể huấn luyện đủ, lấy thêm dữ liệu và tiếp tục train nó.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Rule #1 của việc huấn luyện bất kỳ một mô hình học máy nào là &amp;mdash; Bạn không bao giờ có thể huấn luyện đủ, lấy thêm dữ liệu và tiếp tục train nó.&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Lý tưởng là bạn nên huấn luyện dịch vụ NLP với các tập ngữ liệu thực tế, nếu bạn có những đoạn chat với khách hàng qua Facebook, hoặc Skype hoặc bất kỳ mạng xã hội nào bạn làm việc với các tin nhắn có thể giúp cho việc huấn luyện intent, hoặc không thì bạn có thể nghĩ tới việc huấn luyện các intent với các bộ dữ liệu tự sản xuất (Manufactured utterances). Ví dụ &amp;ndash; Huấn luyện intent &lt;em&gt;&amp;ldquo;GetReleaseYearByTile&amp;rdquo;&lt;/em&gt; với các bộ dữ liệu huấn luyện cho intent này như sau:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;what was the release year of movie Pulp fiction&lt;/li&gt;
-&lt;li&gt;in which year Pulp fiction was released&lt;/li&gt;
-&lt;li&gt;when did pulp fiction came&lt;/li&gt;
-&lt;li&gt;When was Pulp fiction released&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Huấn luyện với bộ dữ liệu giả lập &lt;strong&gt;Manufactured utterances&lt;/strong&gt; giúp cho việc khởi động nhanh hệ thống nhưng sau một tgian hệ thống cần được huấn luyện lại khi có dữ liệu là các câu nói thực tế. Quá trình huấn luyện lại hệ thống luôn được tiếp tục cho đến khi tỉ lệ lỗi được giảm. Sự khác biệt là những câu nói bạn nhận được từ các cuộc trò chuyện thực sự càng tốt bạn có thể huấn luyện dịch vụ NLP của mình cho các ý định. Tối thiểu là 5 hoặc tối ưu là 10 câu nói cho mỗi ý định là đủ tốt để khởi động hệ thống chạy thực.&lt;/p&gt;
-
-&lt;p&gt;Các dịch vụ NLP đi qua một quá trình học &lt;strong&gt;Supervised - Unsupervised - Supervised&lt;/strong&gt;. Mỗi giai đoạn học được giám sát đóng vai trò như một vòng phản hồi trở lại cho việc điều chỉnh lại mô hình NLP.&lt;/p&gt;
-
-&lt;p&gt;Người dùng huấn luyện hệ thống với các câu nói - đây là quá trình học giám sát, sau đó dịch vụ NLP tự học trên cơ sở học tập có giám sát và khoảng 10% những gì mà dịch vụ NLP đã học được trong quá trình học không giám sát sẽ được hỏi lại từ dịch vụ NLP cho người sử dụng, nếu những gì nó học được là chính xác hay không, người sử dụng một lần nữa đạo tạo lại hoặc bằng việc khẳng định / phủ nhận kết quả học tập không giám sát của dịch vụ NLP và huấn luyện lại mô hình. Quá trình này tiếp tục và cuối cùng người sử dụng sẽ tìm thấy câu hỏi ít hơn bởi dịch vụ NLP với mức độ tin cậy hơn đối với các caua hỏi của nó yêu cầu người dùng xác nhận.&lt;/p&gt;
-
-&lt;h1 id=&#34;các-bước-thực-hiện-chính&#34;&gt;Các bước thực hiện chính&lt;/h1&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Xác định ý định trước &amp;ndash; phân biệt giữa ý định chung/ngẫu nhiên và những ý định nghiệp vụ&lt;/li&gt;
-&lt;li&gt;Xác định các thực thể &amp;ndash; phân biệt giữa các thực thể liên quan đến số liệu (metric) và danh từ (noun)&lt;/li&gt;
-&lt;li&gt;Nếu có thể hãy huấn luyện với tập văn bản hội thoại thực tế, không có thì tự tạo ra tập mẫu. Tối thiểu 5 câu nói cho việc xác định 1 ý định, hoặc tối ưu nên thiết kế được 10 câu / 1 ý định.&lt;/li&gt;
-&lt;li&gt;Huấn luyện, sử dụng, đạo tạo lại - Vòng lặp phản hồi liên tục đào tạo và cải tiến mô hình NLP.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&#34;tham-khảo-liên-kết&#34;&gt;Tham khảo liên kết&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://medium.com/@brijrajsingh/chat-bots-designing-intents-and-entities-for-your-nlp-models-35c385b7730d&#34; target=&#34;_blank&#34;&gt;Chat Bots — Designing Intents and Entities for your NLP Models&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.technologyreview.com/s/601279/how-to-prevent-a-plague-of-dumb-chatbots/&#34; target=&#34;_blank&#34;&gt;How to Prevent a Plague of Dumb Chatbots&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.nlpca.com/DCweb/settingintent.html&#34; target=&#34;_blank&#34;&gt;Setting Intent - an Article by the NLP and Coaching Institute&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://research.google.com/pubs/NaturalLanguageProcessing.html&#34; target=&#34;_blank&#34;&gt;Natural Language Processing - Research at Google&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://nlp.stanford.edu/software/tagger.shtml&#34; target=&#34;_blank&#34;&gt;The Stanford Natural Language Processing Group&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Text Classification on &lt;Vunb /></title><link>/tags/text-classification/</link><description>Recent content in Text Classification on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Sun, 27 Aug 2017 00:00:00 +0000</lastBuildDate><atom:link href="/tags/text-classification/index.xml" rel="self" type="application/rss+xml"/><item><title>Chatbots - Thiết kế các intents và entities cho các mô hình NLP</title><link>/post/2017/08/27/thiet-ke-intents-entities/</link><pubDate>Sun, 27 Aug 2017 00:00:00 +0000</pubDate><guid>/post/2017/08/27/thiet-ke-intents-entities/</guid><description>&lt;p>Chìa khóa để cho một con bot có thể hiểu được con người là nó phải có khả năng hiểu các ý định của con người và trích xuất các thông tin liên quan từ ý định đó và tất nhiên có các hành động đáp ứng tương thích với thông tin đó.&lt;/p>
+&lt;p>Xử lý ngôn ngữ tự nhiên (NLP) là khoa học của việc trích xuất ý định và thông tin từ văn bản &lt;code>text&lt;/code>. Lý do mà bạn thấy rất nhiều nền tảng phát triển bot ra đời như nấm cùng với NLP như một dịch vụ nền tảng. Việc kết nối các kênh mạng xã hội và phát triển bot không phải là một vấn đề, liên kết thiếu duy nhất đó là một nền tảng NLP mà &lt;code>có thể mở rộng&lt;/code> và &lt;code>dễ dàng làm việc&lt;/code>, bởi vì bạn sẽ không học NLP để tạo ra một con bot ngớ ngẩn!&lt;/p>
+&lt;p>Một vài nền tảng dịch vụ phổ biển:&lt;/p>
+&lt;ol>
+&lt;li>Luis.ai - by Microsoft&lt;/li>
+&lt;li>Wit.ai - by Facebook&lt;/li>
+&lt;li>Api.ai - by Google&lt;/li>
+&lt;li>Watson - by IBM&lt;/li>
+&lt;/ol>
+&lt;p>Một nền tảng bot lý tưởng cung cấp:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Một dịch vụ NLP&lt;/strong> - bạn có thể tự huấn luyện&lt;/li>
+&lt;li>&lt;strong>SDK&lt;/strong> để hỗ trợ và xử lý các hội thoại và &lt;code>meta-data&lt;/code> của chúng.&lt;/li>
+&lt;li>Một nền tảng &lt;strong>lưu trữ các con bot&lt;/strong>.&lt;/li>
+&lt;li>Một nền tảng cho phép &lt;strong>kết nối bot với nhiều kênh&lt;/strong>, mạng xã hội, dịch vụ khác nhau.&lt;/li>
+&lt;/ol>
+&lt;p>Trong khi NLP như 1 dịch vụ (NLP-as-a-service) giúp cho người phát triển có phát triển NLP trong khoảng thời gian ít nhất có thể, đôi khi developer vẫn có khả năng tiếp tục huấn luyện dịch vụ NLP đạt chất lượng cao nhất có thể. Mỗi dịch vụ NLP có miền và tập ngôn ngữ riêng của nó và bạn phải chọn domain thích hợp nhất để triển khai một dịch vụ NLP. Trong bài note này sẽ chỉ ra một vài tình huống tốt nhất để huấn luyến một dịch vụ mô hình NLP.&lt;/p>
+&lt;h1 id="intent">Intent&lt;/h1>
+&lt;p>Intent đơn giản là ý định của người dùng cuối, những ý định này được chuyển tải bởi người dùng tới con bot của bạn. Bạn có thể chủ yếu đặt ý định vào 2 nhóm chính:&lt;/p>
+&lt;ol>
+&lt;li>Các ý định ngẫu nhiên, casual intents&lt;/li>
+&lt;li>Các ý định nghiệp vụ, business intents.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>1. Casual Intents&lt;/strong> - Đây là những ý định mở đầu hoặc kết thúc một cuộc hội thoại. Nhưng lời chào như: &lt;code>hi&lt;/code>, &lt;code>hello&lt;/code>, &lt;code>hallo&lt;/code>, &lt;code>ciao&lt;/code>, hay &lt;code>bye&lt;/code> là những câu lệnh mở đầu hoặc kết thúc một cuộc hội thoại. Những ý định này nên hướng con bot của bạn phản hồi bằng một câu trả lời gợi ý như: &amp;ldquo;Xin chào, tôi có thể giúp được gì cho bạn?&amp;rdquo; hay &amp;ldquo;Tạm biệt, cảm ơn đã trò chuyện cùng với tôi&amp;rdquo;.&lt;/p>
+&lt;p>Các ý định ngẫu nhiên cũng bao gồm các ý định &lt;strong>Khẳng định - Affirmative&lt;/strong> và &lt;strong>Không nhận - Negative&lt;/strong> cho các câu nói như: &amp;ldquo;Ok&amp;rdquo;, &amp;ldquo;vâng&amp;rdquo;, &amp;ldquo;Không, không phải cái này.&amp;rdquo;&lt;/p>
+&lt;p>Bằng các ý định chung chung có thể giúp bạn xử lý tất cả các ý định của khách hàng thay vì đưa câu chuyện đã có vào cuộc trò chuyện với bot. Ví dụ, nếu con bot chỉ hỏi một câu hỏi cho người dùng cuối - bạn nên mong đợi hoặc là một ý định khẳng định Affirmative hoặc một ý định Negative và nếu có bất cứ thứ gì khác bot có thể hỏi cùng một câu hỏi. Các ý đồ Affirmative và Negative nên xử lý tất cả các câu nói như vậy.&lt;/p>
+&lt;p>&lt;strong>2. Business Intents&lt;/strong> - Đây là các ý định được map trực tiếp với ý đồ ban đầu của các con bot khi được xây dựng, tức là bot cần phải hỗ trợ và xử lý được các ý định này của người dùng cuối khi họ truy cập vào website. Ví dụ, nếu ý định đó là thông tin của một bộ phim, khi có 1 câu nói &lt;strong>&amp;ldquo;Khi nào danh sách của Schindler được phát hành?&amp;quot;&lt;/strong> là một ý định nghiệp vụ mà có ý định tìm ra năm phát hành của bộ phim và bạn nên gắn nhãn nó theo một cái tên có thể hiểu được, giống như: &lt;strong>&amp;ldquo;GetReleaseYearByTile&amp;rdquo;&lt;/strong>. Lý tưởng là bạn nên nghĩ về các ý định nghiệp vụ bởi vì phần còn lại của câu chuyện như những câu chào hay sự lựa chọn thì được quản lý chung bởi các ý định ngẫu nhiên Casual Intents.&lt;/p>
+&lt;h1 id="entities">Entities&lt;/h1>
+&lt;p>Các ý định nghiệp vụ có &lt;code>meta-data&lt;/code> về các intent được gọi là &lt;strong>&amp;ldquo;Entities&amp;rdquo;&lt;/strong>. Lấy ví dụ về intent &lt;em>&amp;ldquo;GetReleaseYearByTile&amp;rdquo;&lt;/em>, với input: &amp;ldquo;Khi nào Danh sách của Schindler được phát hành?&amp;quot;. Ở đây &amp;ldquo;Danh sách của Schindler&amp;rdquo; là tên của bộ phim mà người dùng &amp;ldquo;có ý định&amp;rdquo; tìm ra năm phát hành. Quá trình tìm kiếm các thực thể entities có thể được hiểu giống với việc gán nhãn thẻ câu Part-of-Sentence tagging (POS). Tuy nhiên, một người sử dụng NLP as a service thì bạn không cần phải biết kỹ thuật của việc POS tagging được thực hiện như thế nào, nhưng nếu muốn có một bài báo hay nói về nó ở đây: &lt;a href="http://nlp.stanford.edu/software/tagger.shtml">http://nlp.stanford.edu/software/tagger.shtml&lt;/a>&lt;/p>
+&lt;p>Khi người dùng nghĩ về việc thiết kế intent thì các entities cũng phải được xác định và gán nhãn theo đó. Một lần nữa, bạn cũng có các thực thể chung được gán nhãn để sử dụng trong các mục đích chung như các số liệu metrics (bao gồm: số lượng, số đếm, khối lượng, &amp;hellip;), ngày tháng và hầu hết các dịch vụ NLP cho phép bạn gán thẻ thực thể của các loại chung như vậy mà không gặp phải bất kỳ rắc rối lớn nào.&lt;/p>
+&lt;p>Một vài thực thể có thể được gán như những thực thể phức hợp (composite entities), giống như việc có nhiều hơn một thực thể (có các thực thể thành phần bên trong nó). Là một khoa học, không quan trọng nếu bạn không có những tính năng này trong dịch vụ NLP của bạn, miễn là bạn có ghi nhãn thực thể đơn giản. Một nhãn phải được xác định các thực thể trước khi gán nhãn các thực thể phức hợp.&lt;/p>
+&lt;p>Ví dụ: Tìm cho tôi đôi giày thể thao Red Adidas cỡ 8.&lt;/p>
+&lt;p>Intent: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;- SearchProduct&lt;br>
+Entities: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash;&lt;br>
+Composite Entity: &amp;mdash;&amp;mdash;&amp;mdash; ProductDetail&lt;br>
+Component Entity: &amp;mdash;&amp;mdash;&amp;mdash;&lt;br>
+Size: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash; 8&lt;br>
+Brand: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash; Adidas&lt;br>
+Color: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash; Red&lt;br>
+Category: &amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash; Sport Shoes&lt;/p>
+&lt;h3 id="hun-luyn-cc-intents-v-entities">Huấn luyện các Intents và Entities&lt;/h3>
+&lt;ul>
+&lt;li>Rule #1 của việc huấn luyện bất kỳ một mô hình học máy nào là &amp;mdash; Bạn không bao giờ có thể huấn luyện đủ, lấy thêm dữ liệu và tiếp tục train nó.&lt;/li>
+&lt;li>Rule #1 của việc huấn luyện bất kỳ một mô hình học máy nào là &amp;mdash; Bạn không bao giờ có thể huấn luyện đủ, lấy thêm dữ liệu và tiếp tục train nó.&lt;/li>
+&lt;li>Rule #1 của việc huấn luyện bất kỳ một mô hình học máy nào là &amp;mdash; Bạn không bao giờ có thể huấn luyện đủ, lấy thêm dữ liệu và tiếp tục train nó.&lt;/li>
+&lt;/ul>
+&lt;p>Lý tưởng là bạn nên huấn luyện dịch vụ NLP với các tập ngữ liệu thực tế, nếu bạn có những đoạn chat với khách hàng qua Facebook, hoặc Skype hoặc bất kỳ mạng xã hội nào bạn làm việc với các tin nhắn có thể giúp cho việc huấn luyện intent, hoặc không thì bạn có thể nghĩ tới việc huấn luyện các intent với các bộ dữ liệu tự sản xuất (Manufactured utterances). Ví dụ &amp;ndash; Huấn luyện intent &lt;em>&amp;ldquo;GetReleaseYearByTile&amp;rdquo;&lt;/em> với các bộ dữ liệu huấn luyện cho intent này như sau:&lt;/p>
+&lt;ul>
+&lt;li>what was the release year of movie Pulp fiction&lt;/li>
+&lt;li>in which year Pulp fiction was released&lt;/li>
+&lt;li>when did pulp fiction came&lt;/li>
+&lt;li>When was Pulp fiction released&lt;/li>
+&lt;/ul>
+&lt;p>Huấn luyện với bộ dữ liệu giả lập &lt;strong>Manufactured utterances&lt;/strong> giúp cho việc khởi động nhanh hệ thống nhưng sau một tgian hệ thống cần được huấn luyện lại khi có dữ liệu là các câu nói thực tế. Quá trình huấn luyện lại hệ thống luôn được tiếp tục cho đến khi tỉ lệ lỗi được giảm. Sự khác biệt là những câu nói bạn nhận được từ các cuộc trò chuyện thực sự càng tốt bạn có thể huấn luyện dịch vụ NLP của mình cho các ý định. Tối thiểu là 5 hoặc tối ưu là 10 câu nói cho mỗi ý định là đủ tốt để khởi động hệ thống chạy thực.&lt;/p>
+&lt;p>Các dịch vụ NLP đi qua một quá trình học &lt;strong>Supervised - Unsupervised - Supervised&lt;/strong>. Mỗi giai đoạn học được giám sát đóng vai trò như một vòng phản hồi trở lại cho việc điều chỉnh lại mô hình NLP.&lt;/p>
+&lt;p>Người dùng huấn luyện hệ thống với các câu nói - đây là quá trình học giám sát, sau đó dịch vụ NLP tự học trên cơ sở học tập có giám sát và khoảng 10% những gì mà dịch vụ NLP đã học được trong quá trình học không giám sát sẽ được hỏi lại từ dịch vụ NLP cho người sử dụng, nếu những gì nó học được là chính xác hay không, người sử dụng một lần nữa đạo tạo lại hoặc bằng việc khẳng định / phủ nhận kết quả học tập không giám sát của dịch vụ NLP và huấn luyện lại mô hình. Quá trình này tiếp tục và cuối cùng người sử dụng sẽ tìm thấy câu hỏi ít hơn bởi dịch vụ NLP với mức độ tin cậy hơn đối với các caua hỏi của nó yêu cầu người dùng xác nhận.&lt;/p>
+&lt;h1 id="cc-bc-thc-hin-chnh">Các bước thực hiện chính&lt;/h1>
+&lt;ol>
+&lt;li>Xác định ý định trước &amp;ndash; phân biệt giữa ý định chung/ngẫu nhiên và những ý định nghiệp vụ&lt;/li>
+&lt;li>Xác định các thực thể &amp;ndash; phân biệt giữa các thực thể liên quan đến số liệu (metric) và danh từ (noun)&lt;/li>
+&lt;li>Nếu có thể hãy huấn luyện với tập văn bản hội thoại thực tế, không có thì tự tạo ra tập mẫu. Tối thiểu 5 câu nói cho việc xác định 1 ý định, hoặc tối ưu nên thiết kế được 10 câu / 1 ý định.&lt;/li>
+&lt;li>Huấn luyện, sử dụng, đạo tạo lại - Vòng lặp phản hồi liên tục đào tạo và cải tiến mô hình NLP.&lt;/li>
+&lt;/ol>
+&lt;h1 id="tham-kho-lin-kt">Tham khảo liên kết&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://medium.com/@brijrajsingh/chat-bots-designing-intents-and-entities-for-your-nlp-models-35c385b7730d">Chat Bots — Designing Intents and Entities for your NLP Models&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.technologyreview.com/s/601279/how-to-prevent-a-plague-of-dumb-chatbots/">How to Prevent a Plague of Dumb Chatbots&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://www.nlpca.com/DCweb/settingintent.html">Setting Intent - an Article by the NLP and Coaching Institute&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://research.google.com/pubs/NaturalLanguageProcessing.html">Natural Language Processing - Research at Google&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://nlp.stanford.edu/software/tagger.shtml">The Stanford Natural Language Processing Group&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

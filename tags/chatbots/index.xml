@@ -1,63 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Chatbots on &lt;Vunb /&gt;</title>
-    <link>/tags/chatbots/</link>
-    <description>Recent content in Chatbots on &lt;Vunb /&gt;</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
-    <language>en-us</language>
-    <copyright>Vunb &amp;copy; {year}</copyright>
-    <lastBuildDate>Mon, 26 Jun 2017 00:00:00 +0000</lastBuildDate>
-    
-	    <atom:link href="/tags/chatbots/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Chatbot FAQ - Các câu hỏi thường gặp</title>
-      <link>/post/2017/06/26/chatbot-faq/</link>
-      <pubDate>Mon, 26 Jun 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2017/06/26/chatbot-faq/</guid>
-      <description>
-
-&lt;h1 id=&#34;how-to-train-tensorflow-chat-application-on-updated-dataset-everyday-1&#34;&gt;&lt;a href=&#34;https://datascience.stackexchange.com/a/18899&#34; target=&#34;_blank&#34;&gt;How to train tensorflow chat application on updated dataset everyday?&lt;/a&gt;&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;Q&lt;/strong&gt;: I have created chatbot on &lt;strong&gt;Cornell&lt;/strong&gt; movie dataset and it&amp;rsquo;s working fine. I have trained chatbot application up to global step 330000. I am using tensorflow library. I am also receiving output fine. Then I created this new dataset file by modifying original dataset and i wish to train chatbot application with updated files. Now should I delete previously saved checkpoints and saved data and start training from zero or should i train from 330000 onwards without worrying changes in dataset. I wish to modify database daily basis and train on modified database. Please kindly let me know if you have a suggestion for me as I am stuck on this issue. I will really appreciate if you help me with this issue.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;A&lt;/strong&gt;: The distribution of your data won&amp;rsquo;t change too much over a smaller period of time, retraining from scratch seems like a waste. Just add the new data to your set and do one or more epochs on all your data, not just the new ones. It can readjust the weights a little bit for changes in the distribution which is exactly what you want. Make sure you are not overreliant on early stopping as regularization method against overfitting because you continuously train like this, use some other regularizer. I would suggest periodically to retrain from scratch but this doesn&amp;rsquo;t have to happen very regularly, maybe once every two months.&lt;/p&gt;
-
-&lt;p&gt;Source: &lt;a href=&#34;https://datascience.stackexchange.com/a/18899&#34; target=&#34;_blank&#34;&gt;https://datascience.stackexchange.com/a/18899&lt;/a&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;các-bài-toán-nlp-cơ-bản-khi-phát-triển-một-hệ-thống-chatbot-là-gì-2&#34;&gt;&lt;a href=&#34;https://tech.fpt.com.vn/3-van-de-nlp-co-ban-khi-phat-trien-mot-thong-chatbot-va-mot-phuong-phap-giai-quyet-dien-hinh/&#34; target=&#34;_blank&#34;&gt;Các bài toán NLP cơ bản khi phát triển một hệ thống chatbot là gì ?&lt;/a&gt;&lt;/h1&gt;
-
-&lt;p&gt;Các hệ thống chatbot được triển khai trong thực tế phần lớn tuân theo mô hình truy xuất thông tin và được áp dụng trong những miền ứng dụng cụ thể (miền đóng). Ba vấn đề cơ bản NLP mà một hệ thống Chatbot cần xác định và phát triển tích hợp:&lt;/p&gt;
-
-&lt;h2 id=&#34;1-xác-định-phân-loại-ý-định-của-người-dùng&#34;&gt;1. Xác định, phân loại ý định của người dùng.&lt;/h2&gt;
-
-&lt;p&gt;Thông thường người dùng truy cập hệ thống chatbot đều mong muốn một hành động trợ giúp về một vấn đề nào đó. Ví dụ, người dùng mong muốn chatbot hỗ trợ đặt vé máy bay, để đưa ra hỗ trợ được chính xác, chatbot cần xác định được ý điện (intent) đó của người dùng. Việc xác định ý định của người dùng sẽ quyết định hội thoại tiếp theo giữa người dùng và chatbot sẽ diễn ra như thê nào; Nếu xác định sai ý định người dùng, chatbot sẽ không đưa ra được những phản hồi đúng hợp ngữ cảnh. Khi đó, người dùng cảm thấy thất vọng và không quay lại sử dụng hệ thống. Đây được coi là bài toán quan trọng nhất trong hệ thống chatbot.&lt;/p&gt;
-
-&lt;h2 id=&#34;2-trích-xuất-thông-tin&#34;&gt;2. Trích xuất thông tin&lt;/h2&gt;
-
-&lt;p&gt;Bên cạnh việc xác định intent trong câu hội thoại của người dùng, chúng ta cần trích xuất các thông tin cần thiết trong đó. Các thông tin cần trích xuất trong một câu hội thoại thường là các thực thể thuộc về một loại nào đó. Ví dụ, khi một khách hàng muốn đặt vé máy bay, hệ thống cần biết địa điểm xuất phát và địa điểm khách muốn đến, ngày giờ khách hàng muốn bay,…Thành phần NLU của các hệ thống chatbot thường hỗ trợ các loại thực thể sau:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Vị trí (Location)&lt;/li&gt;
-&lt;li&gt;Thời gian (Datetime)&lt;/li&gt;
-&lt;li&gt;Số (Number)&lt;/li&gt;
-&lt;li&gt;Địa chỉ liên lạc (Contact)&lt;/li&gt;
-&lt;li&gt;Khoảng cách (Distance)&lt;/li&gt;
-&lt;li&gt;Khoảng thời gian (Duration)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Trong bài toán trích xuất thông tin, tập nhãn cho các từ trong câu đầu vào thường được tạo ra theo mô hình BIO, với B là viết tắt của &lt;code&gt;Beginning&lt;/code&gt;, I là viết tắt của &lt;code&gt;Inside&lt;/code&gt;, và O là viết tắt của &lt;code&gt;Outside&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;3-quản-lý-hội-thoại&#34;&gt;3. Quản lý hội thoại&lt;/h2&gt;
-
-&lt;p&gt;Trong các phiên trao đổi dài (long conversation) giữa người và chatbot, chatbot sẽ cần ghi nhớ những thông tin về ngữ cảnh (context) hay quản lý các trạng thái hội thoại (dialog state). Vấn đề quản lý hội thoại (dialoge management) khi đó là quan trọng để đảm bảo việc trao đổi giữa người và máy là thông suốt.&lt;/p&gt;
-
-&lt;p&gt;Source: &lt;a href=&#34;https://tech.fpt.com.vn/3-van-de-nlp-co-ban-khi-phat-trien-mot-thong-chatbot-va-mot-phuong-phap-giai-quyet-dien-hinh/&#34; target=&#34;_blank&#34;&gt;3 vấn đề NLP cơ bản khi phát triển một hệ thống chatbot và một số phương pháp giải quyết điển hình&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Chatbots on &lt;Vunb /></title><link>/tags/chatbots/</link><description>Recent content in Chatbots on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Mon, 26 Jun 2017 00:00:00 +0000</lastBuildDate><atom:link href="/tags/chatbots/index.xml" rel="self" type="application/rss+xml"/><item><title>Chatbot FAQ - Các câu hỏi thường gặp</title><link>/post/2017/06/26/chatbot-faq/</link><pubDate>Mon, 26 Jun 2017 00:00:00 +0000</pubDate><guid>/post/2017/06/26/chatbot-faq/</guid><description>&lt;h1 id="how-to-train-tensorflow-chat-application-on-updated-dataset-everyday1">&lt;a href="https://datascience.stackexchange.com/a/18899">How to train tensorflow chat application on updated dataset everyday?&lt;/a>&lt;/h1>
+&lt;p>&lt;strong>Q&lt;/strong>: I have created chatbot on &lt;strong>Cornell&lt;/strong> movie dataset and it's working fine. I have trained chatbot application up to global step 330000. I am using tensorflow library. I am also receiving output fine. Then I created this new dataset file by modifying original dataset and i wish to train chatbot application with updated files. Now should I delete previously saved checkpoints and saved data and start training from zero or should i train from 330000 onwards without worrying changes in dataset. I wish to modify database daily basis and train on modified database. Please kindly let me know if you have a suggestion for me as I am stuck on this issue. I will really appreciate if you help me with this issue.&lt;/p>
+&lt;p>&lt;strong>A&lt;/strong>: The distribution of your data won't change too much over a smaller period of time, retraining from scratch seems like a waste. Just add the new data to your set and do one or more epochs on all your data, not just the new ones. It can readjust the weights a little bit for changes in the distribution which is exactly what you want. Make sure you are not overreliant on early stopping as regularization method against overfitting because you continuously train like this, use some other regularizer. I would suggest periodically to retrain from scratch but this doesn't have to happen very regularly, maybe once every two months.&lt;/p>
+&lt;p>Source: &lt;a href="https://datascience.stackexchange.com/a/18899">https://datascience.stackexchange.com/a/18899&lt;/a>&lt;/p>
+&lt;h1 id="cc-bi-ton-nlp-c-bn-khi-pht-trin-mt-h-thng-chatbot-l-g-2">&lt;a href="https://tech.fpt.com.vn/3-van-de-nlp-co-ban-khi-phat-trien-mot-thong-chatbot-va-mot-phuong-phap-giai-quyet-dien-hinh/">Các bài toán NLP cơ bản khi phát triển một hệ thống chatbot là gì ?&lt;/a>&lt;/h1>
+&lt;p>Các hệ thống chatbot được triển khai trong thực tế phần lớn tuân theo mô hình truy xuất thông tin và được áp dụng trong những miền ứng dụng cụ thể (miền đóng). Ba vấn đề cơ bản NLP mà một hệ thống Chatbot cần xác định và phát triển tích hợp:&lt;/p>
+&lt;h2 id="1-xc-nh-phn-loi--nh-ca-ngi-dng">1. Xác định, phân loại ý định của người dùng.&lt;/h2>
+&lt;p>Thông thường người dùng truy cập hệ thống chatbot đều mong muốn một hành động trợ giúp về một vấn đề nào đó. Ví dụ, người dùng mong muốn chatbot hỗ trợ đặt vé máy bay, để đưa ra hỗ trợ được chính xác, chatbot cần xác định được ý điện (intent) đó của người dùng. Việc xác định ý định của người dùng sẽ quyết định hội thoại tiếp theo giữa người dùng và chatbot sẽ diễn ra như thê nào; Nếu xác định sai ý định người dùng, chatbot sẽ không đưa ra được những phản hồi đúng hợp ngữ cảnh. Khi đó, người dùng cảm thấy thất vọng và không quay lại sử dụng hệ thống. Đây được coi là bài toán quan trọng nhất trong hệ thống chatbot.&lt;/p>
+&lt;h2 id="2-trch-xut-thng-tin">2. Trích xuất thông tin&lt;/h2>
+&lt;p>Bên cạnh việc xác định intent trong câu hội thoại của người dùng, chúng ta cần trích xuất các thông tin cần thiết trong đó. Các thông tin cần trích xuất trong một câu hội thoại thường là các thực thể thuộc về một loại nào đó. Ví dụ, khi một khách hàng muốn đặt vé máy bay, hệ thống cần biết địa điểm xuất phát và địa điểm khách muốn đến, ngày giờ khách hàng muốn bay,…Thành phần NLU của các hệ thống chatbot thường hỗ trợ các loại thực thể sau:&lt;/p>
+&lt;ul>
+&lt;li>Vị trí (Location)&lt;/li>
+&lt;li>Thời gian (Datetime)&lt;/li>
+&lt;li>Số (Number)&lt;/li>
+&lt;li>Địa chỉ liên lạc (Contact)&lt;/li>
+&lt;li>Khoảng cách (Distance)&lt;/li>
+&lt;li>Khoảng thời gian (Duration)&lt;/li>
+&lt;/ul>
+&lt;p>Trong bài toán trích xuất thông tin, tập nhãn cho các từ trong câu đầu vào thường được tạo ra theo mô hình BIO, với B là viết tắt của &lt;code>Beginning&lt;/code>, I là viết tắt của &lt;code>Inside&lt;/code>, và O là viết tắt của &lt;code>Outside&lt;/code>.&lt;/p>
+&lt;h2 id="3-qun-l-hi-thoi">3. Quản lý hội thoại&lt;/h2>
+&lt;p>Trong các phiên trao đổi dài (long conversation) giữa người và chatbot, chatbot sẽ cần ghi nhớ những thông tin về ngữ cảnh (context) hay quản lý các trạng thái hội thoại (dialog state). Vấn đề quản lý hội thoại (dialoge management) khi đó là quan trọng để đảm bảo việc trao đổi giữa người và máy là thông suốt.&lt;/p>
+&lt;p>Source: &lt;a href="https://tech.fpt.com.vn/3-van-de-nlp-co-ban-khi-phat-trien-mot-thong-chatbot-va-mot-phuong-phap-giai-quyet-dien-hinh/">3 vấn đề NLP cơ bản khi phát triển một hệ thống chatbot và một số phương pháp giải quyết điển hình&lt;/a>&lt;/p></description></item></channel></rss>

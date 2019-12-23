@@ -1,15 +1,43 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Courses on &lt;Vunb /&gt;</title>
-    <link>/courses/</link>
-    <description>Recent content in Courses on &lt;Vunb /&gt;</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
-    <language>en-us</language>
-    <copyright>Vunb &amp;copy; {year}</copyright>
-    
-	    <atom:link href="/courses/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Courses on &lt;Vunb /></title><link>/courses/</link><description>Recent content in Courses on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><atom:link href="/courses/index.xml" rel="self" type="application/rss+xml"/><item><title>Khóa học phân tích cảm xúc đối tượng</title><link>/courses/1-sentiment-analysis/</link><pubDate>Tue, 16 Jul 2019 00:00:00 +0000</pubDate><guid>/courses/1-sentiment-analysis/</guid><description>&lt;h2 id="gii-thiu">Giới thiệu&lt;/h2>
+&lt;p>Đây là chủ đề hấp dẫn để nghiên cứu và phân tích về cảm xúc của người dùng thông qua các phương tiện mạng xã hội. Việc phân tích sentiment, giúp chủ doanh nghiệp biết lắng nghe và thấu hiểu những gì đang được nói về thương hiệu và sản phẩm của mình trên các phương tiện thông tin đại chúng. Chủ đề nào được đề cập tới, nói như thế nào, tốt hay xấu, tốt về mặt nào và xấu về mặt nào?&lt;/p>
+&lt;p>Như vậy việc đo lường &lt;strong>cảm xúc&lt;/strong> của người dùng thực sự quan trọng trong việc quản lý các chiến dịch truyền thông hoặc bảo vệ thương hiệu. Một số lợi ích chúng ta có thể thấy như:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Giúp brand nắm được tình hình thị trường:&lt;/strong> Biết được điểm mạnh, điểm yếu của sản phẩm hoặc thương hiệu, biết được những mặt đang được đánh giá cao, mặt nào đang là tâm điểm của thảo luận tiêu cực&lt;/li>
+&lt;li>&lt;strong>Giúp Agency quản lý thương hiệu phản hồi:&lt;/strong> Nắm được những khía cạnh được đánh giá cao của thương hiệu/sản phẩm và có được thông tin nhanh chóng về các thảo luận tiêu cực (ở đâu, mang nội dung gì) cho phép agency có thể đến tận nơi thảo luận được viết để phản hồi kịp thời. Việc này không những giúp nâng cao hiệu quả hoạt động của agency mà còn giúp agency và brand chủ động hơn trong việc ngăn ngừa và xử lý khủng hoảng.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="/img/aiml/sociallisteningtool.jpg" alt="Social listening tool">&lt;/p>
+&lt;p>Việc theo dõi sự thay đổi của Sentiment trong một thời gian dài sẽ nói sức khỏe của thương hiệu giúp các &lt;code>brand manager&lt;/code> và các &lt;code>marketer&lt;/code> phần nào đánh giá lại hiệu quả hoạt động của các chiến dịch marketing và đưa ra định hướng cho các chiến dịch trong tương lai.&lt;/p>
+&lt;p>&lt;img src="/img/aiml/amazon-customer-reviews.png" alt="Amazon customer reviews">&lt;/p>
+&lt;p>&lt;strong>Sentiment analysis&lt;/strong> là một chủ đề thách thức trong Machine Learning. Người nói thể hiện cảm nhận của mình thông qua ngôn ngữ tự nhiên có bản chất &lt;code>nhập nhằng&lt;/code>, &lt;code>mơ hồ&lt;/code> đã gây không ít khó khăn để làm cho máy tính có thể hiểu được. Chưa kể, họ sử dụng các cách chơi chữ, ẩn ý hay các kí hiệu thể hiện cảm xúc như: &lt;strong>&lt;code>:), :(, =)))&lt;/code>&lt;/strong>&lt;/p>
+&lt;h2 id="mc-tiu-kha-hc">Mục tiêu khóa học&lt;/h2>
+&lt;ul>
+&lt;li>Nghiên cứu một vấn đề xuyên suốt nội dung khóa học&lt;/li>
+&lt;li>Tổng quan về lý thuyết và các kỹ thuật thực hiện&lt;/li>
+&lt;li>Sử dụng các kỹ thuật cơ bản nhất, nêu được những lợi ích và hạn chế khi sử dụng, định hướng phát triển&lt;/li>
+&lt;li>Thiết kế dạng top-down để người học có thể hình dung ngay về mục tiêu và triển khai chiến lược&lt;/li>
+&lt;/ul>
+&lt;h2 id="i-tng-kha-hc">Đối tượng khóa học&lt;/h2>
+&lt;ul>
+&lt;li>Là tutorial cơ bản dành cho người mới bắt đầu nghiên cứu về phân tích cảm xúc&lt;/li>
+&lt;li>Người đã có nền tảng hệ thống lại kiến thức, có thể lắp giáp triển khai một dịch vụ&lt;/li>
+&lt;/ul>
+&lt;h2 id="ni-dung-kin-thc">Nội dung kiến thức&lt;/h2>
+&lt;ul>
+&lt;li>Sử dụng tập dữ liệu: &lt;a href="http://snap.stanford.edu/data/web-FineFoods.html">Web data: Amazon Fine Foods reviews&lt;/a>&lt;/li>
+&lt;li>Áp dụng kỹ thuật Sentiment Analysis, như:
+*&lt;/li>
+&lt;/ul>
+&lt;h2 id="cc-thut-ng">Các thuật ngữ&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Brand:&lt;/strong> Ở nghĩa rộng, là một dấu hiệu (hữu hình hoặc vô hình) đặc biệt để nhận biết một sản phẩm hàng hoá hay một dịch vụ nào đó được sản xuất hay được cung cấp bởi một cá nhân hay một tổ chức&lt;/li>
+&lt;li>&lt;strong>Agency&lt;/strong>: là các công ty dịch vụ hay một đơn vị truyền thông quảng cáo cung cấp dịch vụ tiếp thị quảng cáo cho các công ty khác&lt;/li>
+&lt;/ul>
+&lt;h2 id="tham-kho">Tham khảo&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://www.brandsvietnam.com/congdong/topic/1412-Ven-man-bi-mat-cong-nghe-phan-tich-sentiment-cam-xuc-cua-cac-Social-Listening-Tool">Vén màn bí mật công nghệ phân tích cảm xúc của các Social Listening Tool&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://ongxuanhong.wordpress.com/2016/12/03/sentiment-analysis-co-ban/">Sentiment Analysis cơ bản&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://forum.machinelearningcoban.com/t/vnlp-core-3-bai-toan-phan-loai-van-ban-phan-tich-cam-xuc-cua-binh-luan-text-classification/2371">[VNLP Core] [3] Bài toán phân loại văn bản - Phân tích cảm xúc của bình luận&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://viblo.asia/p/phan-loai-van-ban-tieng-viet-tu-dong-phan-1-yMnKM3bal7P">Phân loại văn bản Tiếng Việt tự động - Phần 1&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://techblog.vn/moi-cac-ban-gop-y-project-sentiment-analysis-su-dung-tf-idf-ap-dung-cho-ngon-ngu-tieng-viet">Sentiment Analysis sử dụng Tf-Idf áp dụng cho ngôn ngữ tiếng việt&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://forum.machinelearningcoban.com/search?q=sentiment">Thảo luận trên form Machine Learning&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

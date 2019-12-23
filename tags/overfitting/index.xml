@@ -1,37 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Overfitting on &lt;Vunb /&gt;</title>
-    <link>/tags/overfitting/</link>
-    <description>Recent content in Overfitting on &lt;Vunb /&gt;</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
-    <language>en-us</language>
-    <copyright>Vunb &amp;copy; {year}</copyright>
-    <lastBuildDate>Sat, 01 Jul 2017 00:00:00 +0000</lastBuildDate>
-    
-	    <atom:link href="/tags/overfitting/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Một số phương pháp làm giảm hiện tượng Overfitting</title>
-      <link>/post/2017/07/01/mot-so-phuong-phap-lam-giam-overfitting/</link>
-      <pubDate>Sat, 01 Jul 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2017/07/01/mot-so-phuong-phap-lam-giam-overfitting/</guid>
-      <description>&lt;p&gt;Một số các phương pháp làm giảm hiện tượng quá khớp trong quá trình huấn luyện mạng nơ-ron.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Weight-decay: &amp;hellip;&lt;/li&gt;
-&lt;li&gt;Weight-sharing: &amp;hellip;&lt;/li&gt;
-&lt;li&gt;Early stopping&lt;/li&gt;
-&lt;li&gt;Model averaging&lt;/li&gt;
-&lt;li&gt;Bayesian fitting of neural nets&lt;/li&gt;
-&lt;li&gt;Dropout&lt;/li&gt;
-&lt;li&gt;Generative pre-training&lt;/li&gt;
-&lt;li&gt;Etc&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Overfitting on &lt;Vunb /></title><link>/tags/overfitting/</link><description>Recent content in Overfitting on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Sat, 01 Jul 2017 00:00:00 +0000</lastBuildDate><atom:link href="/tags/overfitting/index.xml" rel="self" type="application/rss+xml"/><item><title>Một số phương pháp làm giảm hiện tượng Overfitting</title><link>/post/2017/07/01/mot-so-phuong-phap-lam-giam-overfitting/</link><pubDate>Sat, 01 Jul 2017 00:00:00 +0000</pubDate><guid>/post/2017/07/01/mot-so-phuong-phap-lam-giam-overfitting/</guid><description>&lt;p>Một số các phương pháp làm giảm hiện tượng quá khớp trong quá trình huấn luyện mạng nơ-ron.&lt;/p>
+&lt;ol>
+&lt;li>Weight-decay: &amp;hellip;&lt;/li>
+&lt;li>Weight-sharing: &amp;hellip;&lt;/li>
+&lt;li>Early stopping&lt;/li>
+&lt;li>Model averaging&lt;/li>
+&lt;li>Bayesian fitting of neural nets&lt;/li>
+&lt;li>Dropout&lt;/li>
+&lt;li>Generative pre-training&lt;/li>
+&lt;li>Etc&lt;/li>
+&lt;/ol></description></item></channel></rss>

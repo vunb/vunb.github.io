@@ -1,113 +1,57 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>GraphQL on &lt;Vunb /&gt;</title>
-    <link>/tags/graphql/</link>
-    <description>Recent content in GraphQL on &lt;Vunb /&gt;</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
-    <language>en-us</language>
-    <copyright>Vunb &amp;copy; {year}</copyright>
-    <lastBuildDate>Thu, 18 Jul 2019 00:00:00 +0000</lastBuildDate>
-    
-	    <atom:link href="/tags/graphql/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Lựa chọn Gatsby hay Nextjs</title>
-      <link>/post/2019/07/lua-chon-gatsby-hay-nextjs/</link>
-      <pubDate>Thu, 18 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2019/07/lua-chon-gatsby-hay-nextjs/</guid>
-      <description>
-
-&lt;p&gt;&lt;img src=&#34;/img/dev/gatsbyvsnext.png&#34; alt=&#34;Gatsby hay Nextjs&#34; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;gatsby-vs-next&#34;&gt;Gatsby vs Next&lt;/h1&gt;
-
-&lt;p&gt;Gatsby và Nexjs gần đây khá hot và được cộng đồng quan tâm. Nhìn qua, thì cả hai có vẻ rất giống nhau, và có một số điểm chung như:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Khởi tạo dự án web rất nhanh&lt;/li&gt;
-&lt;li&gt;Mặc định khởi tạo web SPA&lt;/li&gt;
-&lt;li&gt;Mặc định hỗ trợ SEO&lt;/li&gt;
-&lt;li&gt;Có đội ngũ kinh nghiệm&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Những điều trên khiến bạn có thể thấy khó lựa chọn thằng nào để sử dụng???&lt;/p&gt;
-
-&lt;p&gt;Mặc dù chúng có nhiều điểm tương đồng, xong có một vài điểm khác biệt sau đây để bạn có thể lựa chọn một cách dễ dàng hơn:&lt;/p&gt;
-
-&lt;h1 id=&#34;static-site-generator-vs-server-side-rendered-pages&#34;&gt;Static site generator vs. server side rendered pages&lt;/h1&gt;
-
-&lt;p&gt;Static site generator có nghĩa là ứng dụng được sinh ra ngay trong quá trình &lt;strong&gt;build time&lt;/strong&gt; và nó không sử dụng server. Trái lại, server-side rendering là các trang HTML được sinh ra &lt;em&gt;dynamically&lt;/em&gt; mỗi lần có một request mới đến. Và nó sử dụng server cho việc này.&lt;/p&gt;
-
-&lt;p&gt;Gatsby:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Gatsby là một static site generator tool&lt;/li&gt;
-&lt;li&gt;Gatsby tạo ra các tài liệu HTML/CSS/JS, điều này có nghĩa là bạn có thể host nó ở &lt;code&gt;S3&lt;/code&gt;, &lt;code&gt;Netlify&lt;/code&gt;, &lt;code&gt;Github&lt;/code&gt;, hoặc các dịch vụ hosting khác.&lt;/li&gt;
-&lt;li&gt;Do tính chất tĩnh, nên cực kỳ có thể mở rộng đối với hệ thống có traffic cao.&lt;/li&gt;
-&lt;li&gt;Gatsby không cần server&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Nextjs:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Next render các tài liệu HTML với mỗi request đến trong thời gian chạy&lt;/li&gt;
-&lt;li&gt;Next cũng là một server để kết xuất ra các trạng HTML từ server&lt;/li&gt;
-&lt;li&gt;Next cũng hỗ trợ &lt;strong&gt;&lt;a href=&#34;https://nextjs.org/docs/#static-html-export&#34; target=&#34;_blank&#34;&gt;export ra web tĩnh&lt;/a&gt;&lt;/strong&gt; để chạy trên hosting giống Gatsby.&lt;/li&gt;
-&lt;li&gt;Next cần server để chạy&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Tất nhiên cả hai đều có thể gọi &lt;strong&gt;API&lt;/strong&gt; từ phía client.&lt;/p&gt;
-
-&lt;h1 id=&#34;xử-lý-dữ-liệu-của-gatsby&#34;&gt;Xử lý dữ liệu của Gatsby&lt;/h1&gt;
-
-&lt;p&gt;Một điểm khác biệt lớn khác nữa đó là cách xử lý dữ mà 2 nền tảng này cung cấp.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Tất cả dữ liệu trong ứng dụng Gatsby đưa vào GraphQL. Nếu bạn lấy dữ liệu từ API server, ngay sau đó bạn phải thông báo cho Gatsby để import dữ liệu vào trong db GraphQL.&lt;/li&gt;
-&lt;li&gt;React component sẽ lấy dữ liệu từ GraphQL.&lt;/li&gt;
-&lt;li&gt;Gatsby có nhiều plugins cho việc này để dễ dàng tích hợp với dữ liệu từ nhiều nguồn khác nhau như: &lt;a href=&#34;https://www.gatsbyjs.org/packages/gatsby-source-contentful/?=contentfu#gatsby-source-contentful&#34; target=&#34;_blank&#34;&gt;Contentful&lt;/a&gt;, &lt;a href=&#34;https://www.gatsbyjs.org/packages/gatsby-source-contentful/?=contentfu#gatsby-source-contentful&#34; target=&#34;_blank&#34;&gt;Wordpress&lt;/a&gt;, &lt;a href=&#34;https://www.gatsbyjs.org/packages/gatsby-source-contentful/?=contentfu#gatsby-source-contentful&#34; target=&#34;_blank&#34;&gt;MongoDB&lt;/a&gt;, và &lt;a href=&#34;https://www.gatsbyjs.org/packages/gatsby-source-contentful/?=contentfu#gatsby-source-contentful&#34; target=&#34;_blank&#34;&gt;GraphQL&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Khi build production thì GraphQL không được sử dụng, nhưng dữ liệu thì được lưu trong tệp JSON.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Gatsby chỉ cho bạn cách xử lý dữ liệu trong ứng dụng. Next thì không và việc đó hoàn toàn phụ thuộc vào quyết định của bạn. Bạn phải tự dựng kiến trúc cách xử lý dữ liệu, hoặc GraphQL, hoặc Redux, &amp;hellip;&lt;/p&gt;
-
-&lt;h1 id=&#34;tôi-nên-chọn-gatsby-hay-next&#34;&gt;Tôi nên chọn Gatsby hay Next?&lt;/h1&gt;
-
-&lt;p&gt;Việc lựa chọn vẫn phụ thuộc vào tình huống sử dụng của bạn:&lt;/p&gt;
-
-&lt;h2 id=&#34;trường-hợp-không-nên-sử-dụng-gatsby&#34;&gt;Trường hợp không nên sử dụng Gatsby&lt;/h2&gt;
-
-&lt;p&gt;Nếu hệ thống của bạn muốn xây dựng có rất nhiều content, đặc biệt là sự tăng trưởng của content theo thời gian, khi đó hệ thống sinh web tĩnh như Gatsby không phải là giải pháp tốt cho bạn. Lý do là nó sẽ mất rất nhiều thời gian để build site nếu có có nhiều content.&lt;/p&gt;
-
-&lt;p&gt;Khi tạo một hệ thống rất lớn với hàng nghìn &lt;strong&gt;Pages&lt;/strong&gt; thì nó thực sự trở thành vấn đề, hệ thống build rất chậm. Bạn có thể phải chờ 20 phút để sẵn sàng publish và trạng thái go live của hệ thống không phải là giải pháp tốt!&lt;/p&gt;
-
-&lt;p&gt;Vì vậy, nếu bạn có một trang web có nội dung mà bạn sẽ mong đợi tăng trưởng và phát triển theo thời gian, thì Gatsby có thể không mở rộng được cho bạn. Và bạn không chỉ nghĩ về việc bạn có bao nhiêu nội dung bây giờ, mà còn bạn mong đợi bao nhiêu trong tương lai. Bạn sẽ có bao nhiêu &lt;strong&gt;Pages&lt;/strong&gt; trong 1 năm? 5 năm?&lt;/p&gt;
-
-&lt;h2 id=&#34;trường-hợp-nên-sử-dụng-gatsby&#34;&gt;Trường hợp nên sử dụng Gatsby&lt;/h2&gt;
-
-&lt;p&gt;Ví dụ hệ thống của bạn là một site về thương mại điện tử bán điện thoại? Cửa hàng có &amp;lt; 200 sản phẩm. Bạn có thể chỉ mất vài phút để dựng được một hệ thống lên và không kỳ vọng danh mục sản phẩm nhiều lên trong tương lai. Gatsby hoàn toàn tuyệt vời trong trường hợp này.&lt;/p&gt;
-
-&lt;p&gt;Bạn không bao giờ phải lo lắng hay suy nghĩ về quy mô. Bạn thừa biết rằng hệ thống có thể xử lý được bất kỳ lưu lượng nào vì nó chỉ là dữ liệu tĩnh!!! 😄&lt;/p&gt;
-
-&lt;p&gt;Một tình huống khác nữa đó là lưu được toàn bộ lịch sử của dữ liệu. Ví dụ, định kỳ hàng ngày bạn phải build và deploy hệ thống mỗi khi có dữ liệu thay đổi và dữ liệu cũ được lưu lại trong &lt;strong&gt;S3&lt;/strong&gt;. Điều này có nghĩa là bạn luôn có thể deploy lại hệ thống (cũ) trước đó. Nếu dữ liệu&lt;/p&gt;
-
-&lt;h1 id=&#34;liên-kết-tham-khảo&#34;&gt;Liên kết tham khảo&lt;/h1&gt;
-
-&lt;p&gt;Bài viết tham khảo và tổng hợp lại từ một số nguồn để đưa ra đánh giá riêng cá nhân. Có nghĩa là bạn cần có tư duy độc lập để đưa ra quyết định lựa chọn của bạn! Ngoài ra bạn có thể tham khảo các liên kết ngoài trogn danh sách dưới đây.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://dev.to/giogiordano93/why-we-decided-to-move-tonextjs-28gp&#34; target=&#34;_blank&#34;&gt;Why we decided to move to Next.js&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.freecodecamp.org/news/an-introduction-to-next-js-for-everyone-507d2d90ab54/&#34; target=&#34;_blank&#34;&gt;Nextjs for everyone — with some basic knowledge of React&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.freecodecamp.org/news/why-you-should-use-gatsbyjs-to-build-static-sites-4f90eb6d1a7b/&#34; target=&#34;_blank&#34;&gt;Why you should use GatsbyJS to build static sites&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://ori.solutions/blog/why-choose-gatsby-js-when-developing-your-new-website/&#34; target=&#34;_blank&#34;&gt;Why choose gatsby.js when developing your new website&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.storyblok.com/tp/3-reasons-why-you-should-consider-gatsby-js-for-your-next-project&#34; target=&#34;_blank&#34;&gt;3 reasons why you should consider Gatsby.js for your next project&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blog.jakoblind.no/gatsby-vs-next/&#34; target=&#34;_blank&#34;&gt;Gatsby vs Next&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>GraphQL on &lt;Vunb /></title><link>/tags/graphql/</link><description>Recent content in GraphQL on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Thu, 18 Jul 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/graphql/index.xml" rel="self" type="application/rss+xml"/><item><title>Lựa chọn Gatsby hay Nextjs</title><link>/post/2019/07/lua-chon-gatsby-hay-nextjs/</link><pubDate>Thu, 18 Jul 2019 00:00:00 +0000</pubDate><guid>/post/2019/07/lua-chon-gatsby-hay-nextjs/</guid><description>&lt;p>&lt;img src="/img/dev/gatsbyvsnext.png" alt="Gatsby hay Nextjs">&lt;/p>
+&lt;h1 id="gatsby-vs-next">Gatsby vs Next&lt;/h1>
+&lt;p>Gatsby và Nexjs gần đây khá hot và được cộng đồng quan tâm. Nhìn qua, thì cả hai có vẻ rất giống nhau, và có một số điểm chung như:&lt;/p>
+&lt;ul>
+&lt;li>Khởi tạo dự án web rất nhanh&lt;/li>
+&lt;li>Mặc định khởi tạo web SPA&lt;/li>
+&lt;li>Mặc định hỗ trợ SEO&lt;/li>
+&lt;li>Có đội ngũ kinh nghiệm&lt;/li>
+&lt;/ul>
+&lt;p>Những điều trên khiến bạn có thể thấy khó lựa chọn thằng nào để sử dụng???&lt;/p>
+&lt;p>Mặc dù chúng có nhiều điểm tương đồng, xong có một vài điểm khác biệt sau đây để bạn có thể lựa chọn một cách dễ dàng hơn:&lt;/p>
+&lt;h1 id="static-site-generator-vs-server-side-rendered-pages">Static site generator vs. server side rendered pages&lt;/h1>
+&lt;p>Static site generator có nghĩa là ứng dụng được sinh ra ngay trong quá trình &lt;strong>build time&lt;/strong> và nó không sử dụng server. Trái lại, server-side rendering là các trang HTML được sinh ra &lt;em>dynamically&lt;/em> mỗi lần có một request mới đến. Và nó sử dụng server cho việc này.&lt;/p>
+&lt;p>Gatsby:&lt;/p>
+&lt;ul>
+&lt;li>Gatsby là một static site generator tool&lt;/li>
+&lt;li>Gatsby tạo ra các tài liệu HTML/CSS/JS, điều này có nghĩa là bạn có thể host nó ở &lt;code>S3&lt;/code>, &lt;code>Netlify&lt;/code>, &lt;code>Github&lt;/code>, hoặc các dịch vụ hosting khác.&lt;/li>
+&lt;li>Do tính chất tĩnh, nên cực kỳ có thể mở rộng đối với hệ thống có traffic cao.&lt;/li>
+&lt;li>Gatsby không cần server&lt;/li>
+&lt;/ul>
+&lt;p>Nextjs:&lt;/p>
+&lt;ul>
+&lt;li>Next render các tài liệu HTML với mỗi request đến trong thời gian chạy&lt;/li>
+&lt;li>Next cũng là một server để kết xuất ra các trạng HTML từ server&lt;/li>
+&lt;li>Next cũng hỗ trợ &lt;strong>&lt;a href="https://nextjs.org/docs/#static-html-export">export ra web tĩnh&lt;/a>&lt;/strong> để chạy trên hosting giống Gatsby.&lt;/li>
+&lt;li>Next cần server để chạy&lt;/li>
+&lt;/ul>
+&lt;p>Tất nhiên cả hai đều có thể gọi &lt;strong>API&lt;/strong> từ phía client.&lt;/p>
+&lt;h1 id="x-l-d-liu-ca-gatsby">Xử lý dữ liệu của Gatsby&lt;/h1>
+&lt;p>Một điểm khác biệt lớn khác nữa đó là cách xử lý dữ mà 2 nền tảng này cung cấp.&lt;/p>
+&lt;ul>
+&lt;li>Tất cả dữ liệu trong ứng dụng Gatsby đưa vào GraphQL. Nếu bạn lấy dữ liệu từ API server, ngay sau đó bạn phải thông báo cho Gatsby để import dữ liệu vào trong db GraphQL.&lt;/li>
+&lt;li>React component sẽ lấy dữ liệu từ GraphQL.&lt;/li>
+&lt;li>Gatsby có nhiều plugins cho việc này để dễ dàng tích hợp với dữ liệu từ nhiều nguồn khác nhau như: &lt;a href="https://www.gatsbyjs.org/packages/gatsby-source-contentful/?=contentfu#gatsby-source-contentful">Contentful&lt;/a>, &lt;a href="https://www.gatsbyjs.org/packages/gatsby-source-contentful/?=contentfu#gatsby-source-contentful">Wordpress&lt;/a>, &lt;a href="https://www.gatsbyjs.org/packages/gatsby-source-contentful/?=contentfu#gatsby-source-contentful">MongoDB&lt;/a>, và &lt;a href="https://www.gatsbyjs.org/packages/gatsby-source-contentful/?=contentfu#gatsby-source-contentful">GraphQL&lt;/a>.&lt;/li>
+&lt;li>Khi build production thì GraphQL không được sử dụng, nhưng dữ liệu thì được lưu trong tệp JSON.&lt;/li>
+&lt;/ul>
+&lt;p>Gatsby chỉ cho bạn cách xử lý dữ liệu trong ứng dụng. Next thì không và việc đó hoàn toàn phụ thuộc vào quyết định của bạn. Bạn phải tự dựng kiến trúc cách xử lý dữ liệu, hoặc GraphQL, hoặc Redux, &amp;hellip;&lt;/p>
+&lt;h1 id="ti-nn-chn-gatsby-hay-next">Tôi nên chọn Gatsby hay Next?&lt;/h1>
+&lt;p>Việc lựa chọn vẫn phụ thuộc vào tình huống sử dụng của bạn:&lt;/p>
+&lt;h2 id="trng-hp-khng-nn-s-dng-gatsby">Trường hợp không nên sử dụng Gatsby&lt;/h2>
+&lt;p>Nếu hệ thống của bạn muốn xây dựng có rất nhiều content, đặc biệt là sự tăng trưởng của content theo thời gian, khi đó hệ thống sinh web tĩnh như Gatsby không phải là giải pháp tốt cho bạn. Lý do là nó sẽ mất rất nhiều thời gian để build site nếu có có nhiều content.&lt;/p>
+&lt;p>Khi tạo một hệ thống rất lớn với hàng nghìn &lt;strong>Pages&lt;/strong> thì nó thực sự trở thành vấn đề, hệ thống build rất chậm. Bạn có thể phải chờ 20 phút để sẵn sàng publish và trạng thái go live của hệ thống không phải là giải pháp tốt!&lt;/p>
+&lt;p>Vì vậy, nếu bạn có một trang web có nội dung mà bạn sẽ mong đợi tăng trưởng và phát triển theo thời gian, thì Gatsby có thể không mở rộng được cho bạn. Và bạn không chỉ nghĩ về việc bạn có bao nhiêu nội dung bây giờ, mà còn bạn mong đợi bao nhiêu trong tương lai. Bạn sẽ có bao nhiêu &lt;strong>Pages&lt;/strong> trong 1 năm? 5 năm?&lt;/p>
+&lt;h2 id="trng-hp-nn-s-dng-gatsby">Trường hợp nên sử dụng Gatsby&lt;/h2>
+&lt;p>Ví dụ hệ thống của bạn là một site về thương mại điện tử bán điện thoại? Cửa hàng có &amp;lt; 200 sản phẩm. Bạn có thể chỉ mất vài phút để dựng được một hệ thống lên và không kỳ vọng danh mục sản phẩm nhiều lên trong tương lai. Gatsby hoàn toàn tuyệt vời trong trường hợp này.&lt;/p>
+&lt;p>Bạn không bao giờ phải lo lắng hay suy nghĩ về quy mô. Bạn thừa biết rằng hệ thống có thể xử lý được bất kỳ lưu lượng nào vì nó chỉ là dữ liệu tĩnh!!! 😄&lt;/p>
+&lt;p>Một tình huống khác nữa đó là lưu được toàn bộ lịch sử của dữ liệu. Ví dụ, định kỳ hàng ngày bạn phải build và deploy hệ thống mỗi khi có dữ liệu thay đổi và dữ liệu cũ được lưu lại trong &lt;strong>S3&lt;/strong>. Điều này có nghĩa là bạn luôn có thể deploy lại hệ thống (cũ) trước đó. Nếu dữ liệu&lt;/p>
+&lt;h1 id="lin-kt-tham-kho">Liên kết tham khảo&lt;/h1>
+&lt;p>Bài viết tham khảo và tổng hợp lại từ một số nguồn để đưa ra đánh giá riêng cá nhân. Có nghĩa là bạn cần có tư duy độc lập để đưa ra quyết định lựa chọn của bạn! Ngoài ra bạn có thể tham khảo các liên kết ngoài trogn danh sách dưới đây.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://dev.to/giogiordano93/why-we-decided-to-move-tonextjs-28gp">Why we decided to move to Next.js&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.freecodecamp.org/news/an-introduction-to-next-js-for-everyone-507d2d90ab54/">Nextjs for everyone — with some basic knowledge of React&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.freecodecamp.org/news/why-you-should-use-gatsbyjs-to-build-static-sites-4f90eb6d1a7b/">Why you should use GatsbyJS to build static sites&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://ori.solutions/blog/why-choose-gatsby-js-when-developing-your-new-website/">Why choose gatsby.js when developing your new website&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.storyblok.com/tp/3-reasons-why-you-should-consider-gatsby-js-for-your-next-project">3 reasons why you should consider Gatsby.js for your next project&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://blog.jakoblind.no/gatsby-vs-next/">Gatsby vs Next&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

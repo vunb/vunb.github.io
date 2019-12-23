@@ -1,72 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Hugo on &lt;Vunb /&gt;</title>
-    <link>/tags/hugo/</link>
-    <description>Recent content in Hugo on &lt;Vunb /&gt;</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
-    <language>en-us</language>
-    <copyright>Vunb &amp;copy; {year}</copyright>
-    <lastBuildDate>Wed, 10 Jul 2019 00:00:00 +0000</lastBuildDate>
-    
-	    <atom:link href="/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Katex</title>
-      <link>/post/2019/07/katex/</link>
-      <pubDate>Wed, 10 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2019/07/katex/</guid>
-      <description>&lt;p&gt;Cấu hình Hugo sử dụng &lt;code&gt;katex&lt;/code&gt; và &lt;code&gt;mmark&lt;/code&gt;. Không khó lắm, mất khoảng 15 phút là làm được. Sau khi cài đặt xong thì giờ quan tâm tới cách sử dụng thôi 😄&lt;/p&gt;
-
-&lt;h3 id=&#34;display-block&#34;&gt;Display Block&lt;/h3&gt;
-
-&lt;p&gt;Type equation on a single line, with top and bottom spaces. Use double dollar signs as delimiter.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-md&#34;&gt;The following
-
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hugo on &lt;Vunb /></title><link>/tags/hugo/</link><description>Recent content in Hugo on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Wed, 10 Jul 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/hugo/index.xml" rel="self" type="application/rss+xml"/><item><title>Katex</title><link>/post/2019/07/katex/</link><pubDate>Wed, 10 Jul 2019 00:00:00 +0000</pubDate><guid>/post/2019/07/katex/</guid><description>&lt;p>Cấu hình Hugo sử dụng &lt;code>katex&lt;/code> và &lt;code>mmark&lt;/code>. Không khó lắm, mất khoảng 15 phút là làm được. Sau khi cài đặt xong thì giờ quan tâm tới cách sử dụng thôi 😄&lt;/p>
+&lt;h3 id="display-block">Display Block&lt;/h3>
+&lt;p>Type equation on a single line, with top and bottom spaces. Use double dollar signs as delimiter.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">The following
 $$\int_{a}^{b} x^2 dx$$
-
-Is an integral
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The following&lt;/p&gt;
-
-&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[\int_{a}^{b} x^2 dx\]&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Is an integral&lt;/p&gt;
-
-&lt;h3 id=&#34;display-inline&#34;&gt;Display Inline&lt;/h3&gt;
-
-&lt;p&gt;Type the equation as per usual, nothing extra needed. Use double dollar signs as delimiter.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-md&#34;&gt;Integrate $$\int x^3 dx$$
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Integrate &lt;span  class=&#34;math&#34;&gt;\(\int x^3 dx\)&lt;/span&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;notice&#34;&gt;Notice&lt;/h3&gt;
-
-&lt;p&gt;Để đoạn mã trên hoạt động được, thêm cấu hình vào từng bài post cấu hình sau:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
-katex: true
-markup: &amp;quot;mmark&amp;quot;
----
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;liên-kết-tham-khảo&#34;&gt;Liên kết tham khảo&lt;/h1&gt;
-
-&lt;p&gt;Một vài hướng dẫn cấu hình&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://eankeen.github.io/blog/render-latex-with-katex-in-hugo-blog/&#34;&gt;https://eankeen.github.io/blog/render-latex-with-katex-in-hugo-blog/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://katex.org/docs/browser.html&#34;&gt;https://katex.org/docs/browser.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://katex.org/docs/autorender.html&#34;&gt;https://katex.org/docs/autorender.html&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-  </channel>
-</rss>
+Is an integral&lt;/code>&lt;/pre>&lt;/div>
+&lt;p>The following&lt;/p>
+&lt;p>&lt;span class="math">\[\int_{a}^{b} x^2 dx\]&lt;/span>&lt;/p>
+&lt;p>Is an integral&lt;/p>
+&lt;h3 id="display-inline">Display Inline&lt;/h3>
+&lt;p>Type the equation as per usual, nothing extra needed. Use double dollar signs as delimiter.&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">Integrate $$\int x^3 dx$$&lt;/code>&lt;/pre>&lt;/div>
+&lt;p>Integrate &lt;span class="math">\(\int x^3 dx\)&lt;/span>&lt;/p>
+&lt;h3 id="notice">Notice&lt;/h3>
+&lt;p>Để đoạn mã trên hoạt động được, thêm cấu hình vào từng bài post cấu hình sau:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">---
+katex: &lt;span style="color:#66d9ef">true&lt;/span>
+markup: &lt;span style="color:#e6db74">&amp;#34;mmark&amp;#34;&lt;/span>
+---&lt;/code>&lt;/pre>&lt;/div>
+&lt;h1 id="liên-kết-tham-khảo">Liên kết tham khảo&lt;/h1>
+&lt;p>Một vài hướng dẫn cấu hình&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://eankeen.github.io/blog/render-latex-with-katex-in-hugo-blog/">https://eankeen.github.io/blog/render-latex-with-katex-in-hugo-blog/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://katex.org/docs/browser.html">https://katex.org/docs/browser.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://katex.org/docs/autorender.html">https://katex.org/docs/autorender.html&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

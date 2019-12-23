@@ -1,139 +1,81 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>NLP on &lt;Vunb /&gt;</title>
-    <link>/categories/nlp/</link>
-    <description>Recent content in NLP on &lt;Vunb /&gt;</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
-    <language>en-us</language>
-    <copyright>Vunb &amp;copy; {year}</copyright>
-    <lastBuildDate>Wed, 10 Jul 2019 00:00:00 +0000</lastBuildDate>
-    
-	    <atom:link href="/categories/nlp/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Tìm hiểu về độ đo BLEU</title>
-      <link>/post/2019/07/tim-hieu-bleu/</link>
-      <pubDate>Wed, 10 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2019/07/tim-hieu-bleu/</guid>
-      <description>&lt;p&gt;BLEU là viết tắt của &lt;strong&gt;Bilingual Evaluation Understudy&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;BLEU thường được sử dụng trong bài toàn dịch máy (&lt;strong&gt;Machine Translation&lt;/strong&gt;) như một độ đo hay một hệ số điểm khi so sánh một bản dịch (candidate translation) với một hay nhiều bản dịch tham khảo (reference translation). Mặc dù vậy, BLEU cũng có thể được sử dụng để đánh giá cho các bài toán sinh văn bản (text generation) như:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Language generation&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Image caption generation&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Text summarization&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Speech recognition&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Nói một cách nôm na thì bạn cần chấm điểm một câu, biết trước một câu mẫu thì bạn dùng BLEU. BLEU có giá trị trong khoảng &lt;span  class=&#34;math&#34;&gt;\( (0.0, 1.0) \)&lt;/span&gt;. &lt;span  class=&#34;math&#34;&gt;\( 1.0 \)&lt;/span&gt; tức là perfect match, đúng hoàn toàn, còn &lt;span  class=&#34;math&#34;&gt;\( 0.0 \)&lt;/span&gt; tức là perfect mismatch, bạn không đúng tí nào cả.&lt;/p&gt;
-
-&lt;p&gt;Các ưu điểm của BLEU có thể kể đến là:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Nhanh và chi phí tính toán thấp&lt;/li&gt;
-&lt;li&gt;Dễ hiểu&lt;/li&gt;
-&lt;li&gt;Không phụ thuộc vào ngôn ngữ&lt;/li&gt;
-&lt;li&gt;Có độ tương đồng cao với cách đánh giá của con người&lt;/li&gt;
-&lt;li&gt;Được sử dụng rộng rãi&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;phương-pháp-tính&#34;&gt;Phương pháp tính&lt;/h2&gt;
-
-&lt;p&gt;Cách tính của BLEU cũng khá đơn giản. Phương pháp đếm số matching &lt;strong&gt;n-grams&lt;/strong&gt; của candidate và reference (hoặc match trên bất kỳ reference nào nếu như có nhiều reference), kết quả sẽ là số match chia cho số từ của candidate. Các match này không phụ thuộc vào vị trí, do vậy BLEU không sử dụng word order. Càng match nhiều tức là càng tốt.&lt;/p&gt;
-
-&lt;p&gt;Tuy nhiên, nếu chỉ đếm số từ match thông thường sẽ nảy sinh ra việc một từ match với reference nhưng được lặp lại nhiều lần trong candidate (gọi là overgenerate &amp;quot;resonable&amp;quot; words trong paper &lt;a href=&#34;http://www.aclweb.org/anthology/P02-1040.pdf&#34;&gt;BLEU: a Method for Automatic Evaluation of Machine Translation&lt;/a&gt;).&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# overgenerated example
-reference = &#39;this is an example&#39;
-candidiate = &#39;this this this this&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Do đó, khi đếm matching &lt;strong&gt;n-grams&lt;/strong&gt; cần chú ý cả số lần xuất hiện của từ trong reference, một từ trong reference khi được match rồi thì không nên match nữa.&lt;/p&gt;
-
-&lt;p&gt;BLEU còn được dùng để đánh giá một &lt;strong&gt;corpus&lt;/strong&gt; (tập hợp của các sentence, hay một đoạn văn) khá là tốt. Đầu tiên là tính số match với từng câu. Cộng các số này rồi chia cho tổng số n-gram từ các câu là ra &lt;strong&gt;modified precision score&lt;/strong&gt; cho test corpus&lt;/p&gt;
-
-&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[ \frac{\sum_{C \epsilon \{Candidates\}} \sum_{\textit{n-gram} \epsilon C} Count_{clip}(\textit{n-gram})}{\sum_{C&#39; \epsilon \{Candidates\}} \sum_{\textit{n-gram&#39;} \epsilon C&#39;} Count(\textit{n-gram&#39;})} \]&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Không có gì là hoàn hảo nên cũng không có bản dịch hoàn hảo. Điểm của người dịch cũng không phải lúc nào cũng là &lt;span  class=&#34;math&#34;&gt;\(1.0\)&lt;/span&gt;. Điểm BLEU phụ thuộc vào số lượng cũng như chất lượng của của các reference, đây cũng là những yếu tố có thể gây ra khó khăn cho việc tính điểm trên dataset.&lt;/p&gt;
-
-&lt;h2 id=&#34;tính-bleu-với-nltk&#34;&gt;Tính BLEU với NLTK&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;Python Natural Language Toolkit library (NLTK)&lt;/strong&gt; cung cấp cho bạn một số hàm để tính toán BLEU bao gồm cả sentence và corpus&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# two references for one sentence
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>NLP on &lt;Vunb /></title><link>/categories/nlp/</link><description>Recent content in NLP on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Wed, 10 Jul 2019 00:00:00 +0000</lastBuildDate><atom:link href="/categories/nlp/index.xml" rel="self" type="application/rss+xml"/><item><title>Tìm hiểu về độ đo BLEU</title><link>/post/2019/07/tim-hieu-bleu/</link><pubDate>Wed, 10 Jul 2019 00:00:00 +0000</pubDate><guid>/post/2019/07/tim-hieu-bleu/</guid><description>&lt;p>BLEU là viết tắt của &lt;strong>Bilingual Evaluation Understudy&lt;/strong>.&lt;/p>
+&lt;p>BLEU thường được sử dụng trong bài toàn dịch máy (&lt;strong>Machine Translation&lt;/strong>) như một độ đo hay một hệ số điểm khi so sánh một bản dịch (candidate translation) với một hay nhiều bản dịch tham khảo (reference translation). Mặc dù vậy, BLEU cũng có thể được sử dụng để đánh giá cho các bài toán sinh văn bản (text generation) như:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Language generation&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Image caption generation&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Text summarization&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>Speech recognition&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>Nói một cách nôm na thì bạn cần chấm điểm một câu, biết trước một câu mẫu thì bạn dùng BLEU. BLEU có giá trị trong khoảng &lt;span class="math">\( (0.0, 1.0) \)&lt;/span>. &lt;span class="math">\( 1.0 \)&lt;/span> tức là perfect match, đúng hoàn toàn, còn &lt;span class="math">\( 0.0 \)&lt;/span> tức là perfect mismatch, bạn không đúng tí nào cả.&lt;/p>
+&lt;p>Các ưu điểm của BLEU có thể kể đến là:&lt;/p>
+&lt;ul>
+&lt;li>Nhanh và chi phí tính toán thấp&lt;/li>
+&lt;li>Dễ hiểu&lt;/li>
+&lt;li>Không phụ thuộc vào ngôn ngữ&lt;/li>
+&lt;li>Có độ tương đồng cao với cách đánh giá của con người&lt;/li>
+&lt;li>Được sử dụng rộng rãi&lt;/li>
+&lt;/ul>
+&lt;h2 id="phương-pháp-tính">Phương pháp tính&lt;/h2>
+&lt;p>Cách tính của BLEU cũng khá đơn giản. Phương pháp đếm số matching &lt;strong>n-grams&lt;/strong> của candidate và reference (hoặc match trên bất kỳ reference nào nếu như có nhiều reference), kết quả sẽ là số match chia cho số từ của candidate. Các match này không phụ thuộc vào vị trí, do vậy BLEU không sử dụng word order. Càng match nhiều tức là càng tốt.&lt;/p>
+&lt;p>Tuy nhiên, nếu chỉ đếm số từ match thông thường sẽ nảy sinh ra việc một từ match với reference nhưng được lặp lại nhiều lần trong candidate (gọi là overgenerate &amp;quot;resonable&amp;quot; words trong paper &lt;a href="http://www.aclweb.org/anthology/P02-1040.pdf">BLEU: a Method for Automatic Evaluation of Machine Translation&lt;/a>).&lt;/p>
+&lt;pre>&lt;code># overgenerated example
+reference = 'this is an example'
+candidiate = 'this this this this'&lt;/code>&lt;/pre>
+&lt;p>Do đó, khi đếm matching &lt;strong>n-grams&lt;/strong> cần chú ý cả số lần xuất hiện của từ trong reference, một từ trong reference khi được match rồi thì không nên match nữa.&lt;/p>
+&lt;p>BLEU còn được dùng để đánh giá một &lt;strong>corpus&lt;/strong> (tập hợp của các sentence, hay một đoạn văn) khá là tốt. Đầu tiên là tính số match với từng câu. Cộng các số này rồi chia cho tổng số n-gram từ các câu là ra &lt;strong>modified precision score&lt;/strong> cho test corpus&lt;/p>
+&lt;p>&lt;span class="math">\[ \frac{\sum_{C \epsilon \{Candidates\}} \sum_{\textit{n-gram} \epsilon C} Count_{clip}(\textit{n-gram})}{\sum_{C' \epsilon \{Candidates\}} \sum_{\textit{n-gram'} \epsilon C'} Count(\textit{n-gram'})} \]&lt;/span>&lt;/p>
+&lt;p>Không có gì là hoàn hảo nên cũng không có bản dịch hoàn hảo. Điểm của người dịch cũng không phải lúc nào cũng là &lt;span class="math">\(1.0\)&lt;/span>. Điểm BLEU phụ thuộc vào số lượng cũng như chất lượng của của các reference, đây cũng là những yếu tố có thể gây ra khó khăn cho việc tính điểm trên dataset.&lt;/p>
+&lt;h2 id="tính-bleu-với-nltk">Tính BLEU với NLTK&lt;/h2>
+&lt;p>&lt;strong>Python Natural Language Toolkit library (NLTK)&lt;/strong> cung cấp cho bạn một số hàm để tính toán BLEU bao gồm cả sentence và corpus&lt;/p>
+&lt;pre>&lt;code># two references for one sentence
 from nltk.translate.bleu_score import sentence_bleu
-reference = [[&#39;this&#39;, &#39;is&#39;, &#39;a&#39;, &#39;test&#39;], [&#39;this&#39;, &#39;is&#39; &#39;test&#39;]]
-candidate = [&#39;this&#39;, &#39;is&#39;, &#39;a&#39;, &#39;test&#39;]
+reference = [['this', 'is', 'a', 'test'], ['this', 'is' 'test']]
+candidate = ['this', 'is', 'a', 'test']
 score = sentence_bleu(reference, candidate)
 print(score) # output: 1.0
-
 # two references for the 1st sentence and one reference for the 2nd sentence
 from nltk.translate.bleu_score import corpus_bleu
-references = [[[&#39;this&#39;, &#39;is&#39;, &#39;a&#39;, &#39;test&#39;], [&#39;this&#39;, &#39;is&#39; &#39;test&#39;]], [[&#39;this&#39;, &#39;is&#39;, &#39;my&#39;, &#39;blog&#39;]]]
-candidates = [[&#39;this&#39;, &#39;is&#39;, &#39;a&#39;, &#39;test&#39;], [&#39;this&#39;, &#39;is&#39;, &#39;my&#39;, &#39;house&#39;]]
+references = [[['this', 'is', 'a', 'test'], ['this', 'is' 'test']], [['this', 'is', 'my', 'blog']]]
+candidates = [['this', 'is', 'a', 'test'], ['this', 'is', 'my', 'house']]
 score = corpus_bleu(references, candidates)
-print(score) # output: 0.7231269021297695
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;cumulative-and-individual-bleu&#34;&gt;Cumulative and Individual BLEU&lt;/h2&gt;
-
-&lt;p&gt;NLTK cho phép bạn có thể đặt các trọng số  (&lt;strong&gt;weights&lt;/strong&gt;) khác nhau cho các &lt;strong&gt;n-grams&lt;/strong&gt; khác nhau để tính điểm BLEU cuối cùng. Dựa và trọng số này ta chia ra cumulative và individual BLEU.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# n-gram individual BLEU
+print(score) # output: 0.7231269021297695&lt;/code>&lt;/pre>
+&lt;h2 id="cumulative-and-individual-bleu">Cumulative and Individual BLEU&lt;/h2>
+&lt;p>NLTK cho phép bạn có thể đặt các trọng số (&lt;strong>weights&lt;/strong>) khác nhau cho các &lt;strong>n-grams&lt;/strong> khác nhau để tính điểm BLEU cuối cùng. Dựa và trọng số này ta chia ra cumulative và individual BLEU.&lt;/p>
+&lt;pre>&lt;code># n-gram individual BLEU
 from nltk.translate.bleu_score import sentence_bleu
-reference = [[&#39;this&#39;, &#39;is&#39;, &#39;a&#39;, &#39;test&#39;]]
-candidate = [&#39;this&#39;, &#39;is&#39;, &#39;a&#39;, &#39;test&#39;]
-print(&#39;Individual 1-gram: %f&#39; % sentence_bleu(reference, candidate, weights=(1, 0, 0, 0)))
-print(&#39;Individual 2-gram: %f&#39; % sentence_bleu(reference, candidate, weights=(0, 1, 0, 0)))
-print(&#39;Individual 3-gram: %f&#39; % sentence_bleu(reference, candidate, weights=(0, 0, 1, 0)))
-print(&#39;Individual 4-gram: %f&#39; % sentence_bleu(reference, candidate, weights=(0, 0, 0, 1)))
+reference = [['this', 'is', 'a', 'test']]
+candidate = ['this', 'is', 'a', 'test']
+print('Individual 1-gram: %f' % sentence_bleu(reference, candidate, weights=(1, 0, 0, 0)))
+print('Individual 2-gram: %f' % sentence_bleu(reference, candidate, weights=(0, 1, 0, 0)))
+print('Individual 3-gram: %f' % sentence_bleu(reference, candidate, weights=(0, 0, 1, 0)))
+print('Individual 4-gram: %f' % sentence_bleu(reference, candidate, weights=(0, 0, 0, 1)))
 # Individual 1-gram: 1.000000
 # Individual 2-gram: 1.000000
 # Individual 3-gram: 1.000000
-# Individual 4-gram: 1.000000
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;weights&lt;/strong&gt; là 1 tuple thể hiện trọng số tương ứng với từng i-gram score ở vị trí i-th.&lt;/p&gt;
-
-&lt;p&gt;Thông thường, trong các bài báo nghiên cứu, để so sánh các kiến trúc khác nhau trên một benchmark dataset, &lt;strong&gt;cumulative BLEU-1, BLUE-2, BLEU-3, BLEU-4&lt;/strong&gt; được sử dụng với các weight như sau:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# cumulative BLEU scores
+# Individual 4-gram: 1.000000&lt;/code>&lt;/pre>
+&lt;p>&lt;strong>weights&lt;/strong> là 1 tuple thể hiện trọng số tương ứng với từng i-gram score ở vị trí i-th.&lt;/p>
+&lt;p>Thông thường, trong các bài báo nghiên cứu, để so sánh các kiến trúc khác nhau trên một benchmark dataset, &lt;strong>cumulative BLEU-1, BLUE-2, BLEU-3, BLEU-4&lt;/strong> được sử dụng với các weight như sau:&lt;/p>
+&lt;pre>&lt;code># cumulative BLEU scores
 from nltk.translate.bleu_score import sentence_bleu
-reference = [[&#39;this&#39;, &#39;is&#39;, &#39;small&#39;, &#39;test&#39;]]
-candidate = [&#39;this&#39;, &#39;is&#39;, &#39;a&#39;, &#39;test&#39;]
-print(&#39;Cumulative 1-gram: %f&#39; % sentence_bleu(reference, candidate, weights=(1, 0, 0, 0)))
-print(&#39;Cumulative 2-gram: %f&#39; % sentence_bleu(reference, candidate, weights=(0.5, 0.5, 0, 0)))
-print(&#39;Cumulative 3-gram: %f&#39; % sentence_bleu(reference, candidate, weights=(0.33, 0.33, 0.33, 0)))
-print(&#39;Cumulative 4-gram: %f&#39; % sentence_bleu(reference, candidate, weights=(0.25, 0.25, 0.25, 0.25)))
+reference = [['this', 'is', 'small', 'test']]
+candidate = ['this', 'is', 'a', 'test']
+print('Cumulative 1-gram: %f' % sentence_bleu(reference, candidate, weights=(1, 0, 0, 0)))
+print('Cumulative 2-gram: %f' % sentence_bleu(reference, candidate, weights=(0.5, 0.5, 0, 0)))
+print('Cumulative 3-gram: %f' % sentence_bleu(reference, candidate, weights=(0.33, 0.33, 0.33, 0)))
+print('Cumulative 4-gram: %f' % sentence_bleu(reference, candidate, weights=(0.25, 0.25, 0.25, 0.25)))
 # Cumulative 1-gram: 0.750000
 # Cumulative 2-gram: 0.500000
 # Cumulative 3-gram: 0.632878
-# Cumulative 4-gram: 0.707107
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Bạn có thể đọc thêm paper &lt;a href=&#34;http://www.aclweb.org/anthology/P02-1040.pdf&#34;&gt;BLEU: a Method for Automatic Evaluation of Machine Translation&lt;/a&gt;, Work examples trong &lt;a href=&#34;https://machinelearningmastery.com/calculate-bleu-score-for-text-python/&#34;&gt;bài gốc&lt;/a&gt; để hiểu rõ hơn về BLEU.&lt;/p&gt;
-
-&lt;h2 id=&#34;acknowledgment&#34;&gt;Acknowledgment&lt;/h2&gt;
-
-&lt;p&gt;Nguồn bài viết của: &lt;a href=&#34;https://github.com/lego1st&#34;&gt;Trung Nghĩa&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Source: &lt;a href=&#34;https://lego1st.github.io/nlp/mlearning/2019/02/16/bleu-101.html&#34;&gt;101 BLEU score trong Xử lý văn bản&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://machinelearningmastery.com/calculate-bleu-score-for-text-python/&#34;&gt;A Gentle Introduction to Calculating the BLEU Score for Text in Python&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/BLEU&#34;&gt;BLEU - Wikipedia&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.aclweb.org/anthology/P02-1040.pdf&#34;&gt;BLEU: a Method for Automatic Evaluation of Machine Translation&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-  </channel>
-</rss>
+# Cumulative 4-gram: 0.707107&lt;/code>&lt;/pre>
+&lt;p>Bạn có thể đọc thêm paper &lt;a href="http://www.aclweb.org/anthology/P02-1040.pdf">BLEU: a Method for Automatic Evaluation of Machine Translation&lt;/a>, Work examples trong &lt;a href="https://machinelearningmastery.com/calculate-bleu-score-for-text-python/">bài gốc&lt;/a> để hiểu rõ hơn về BLEU.&lt;/p>
+&lt;h2 id="acknowledgment">Acknowledgment&lt;/h2>
+&lt;p>Nguồn bài viết của: &lt;a href="https://github.com/lego1st">Trung Nghĩa&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>Source: &lt;a href="https://lego1st.github.io/nlp/mlearning/2019/02/16/bleu-101.html">101 BLEU score trong Xử lý văn bản&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://machinelearningmastery.com/calculate-bleu-score-for-text-python/">A Gentle Introduction to Calculating the BLEU Score for Text in Python&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://en.wikipedia.org/wiki/BLEU">BLEU - Wikipedia&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://www.aclweb.org/anthology/P02-1040.pdf">BLEU: a Method for Automatic Evaluation of Machine Translation&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>
