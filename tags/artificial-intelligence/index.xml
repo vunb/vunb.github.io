@@ -8,7 +8,7 @@
 &lt;li>Dropout&lt;/li>
 &lt;li>Generative pre-training&lt;/li>
 &lt;li>Etc&lt;/li>
-&lt;/ol></description></item><item><title>Lộ trình 8 bước để bắt đầu học AI</title><link>/post/2017/06/26/8-buoc-hoc-ai/</link><pubDate>Mon, 26 Jun 2017 00:00:00 +0000</pubDate><guid>/post/2017/06/26/8-buoc-hoc-ai/</guid><description>&lt;p>Đến giờ tôi vẫn mù mờ rất nhiều về AI và các chương trình học máy, mặc dù năm cuối đại học, kỳ &lt;code>20121&lt;/code> đã tự tay cài đặt mạng nơ-ron từ đầu bằng &lt;code>C#&lt;/code> và tham gia một dự án thực tế ở 1 trường ĐH Việt Nam, với đề tài: Dự báo tỉ lệ &lt;strong>NGHỈ HỌC&lt;/strong> của học viên chương trình đào tạo từ xa.&lt;/p>
+&lt;/ol></description></item><item><title>Lộ trình 8 bước để bắt đầu học AI</title><link>/post/2017/06/26/8-buoc-hoc-ai/</link><pubDate>Mon, 26 Jun 2017 00:00:00 +0000</pubDate><guid>/post/2017/06/26/8-buoc-hoc-ai/</guid><description>&lt;p>Đến giờ tôi vẫn mù mờ rất nhiều về AI và các chương trình học máy, mặc dù năm cuối đại học, kỳ &lt;strong>01/2012&lt;/strong> đã tự tay cài đặt mạng nơ-ron từ đầu bằng &lt;strong>C#&lt;/strong> và tham gia một dự án thực tế ở 1 trường ĐH Việt Nam, với đề tài: Dự báo tỉ lệ &lt;strong>NGHỈ HỌC&lt;/strong> của học viên chương trình đào tạo từ xa.&lt;/p>
 &lt;p>Kết quả chính mà nhóm chúng tôi đã đạt được bao gồm 2 mô hình và các nhân tố chính ảnh hưởng đến khả năng &lt;strong>NGHỈ HỌC&lt;/strong> của học viên, căn cứ dựa trên hồ sơ thông tin.&lt;/p>
 &lt;blockquote>
 &lt;ol>
