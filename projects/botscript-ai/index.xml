@@ -1,1 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>BotScript.AI - A Chatbot Platform on &lt;Vunb /></title><link>/projects/botscript-ai/</link><description>Recent content in BotScript.AI - A Chatbot Platform on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Thu, 05 Mar 2020 22:27:52 +0700</lastBuildDate><atom:link href="/projects/botscript-ai/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>BotScript.AI - A Chatbot Platform on &lt;Vunb /></title><link>/projects/botscript-ai/</link><description>Recent content in BotScript.AI - A Chatbot Platform on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Thu, 05 Mar 2020 22:27:52 +0700</lastBuildDate><atom:link href="/projects/botscript-ai/index.xml" rel="self" type="application/rss+xml"/><item><title>🔊 Release Notes - v1.2.0</title><link>/projects/botscript-ai/release-notes-v1.2.0/</link><pubDate>Mon, 16 Mar 2020 12:05:52 +0700</pubDate><guid>/projects/botscript-ai/release-notes-v1.2.0/</guid><description>&lt;p>Tôi rất vui mừng gửi thông báo phát hành phiên bản &lt;strong>1.2.0&lt;/strong> tới các bạn với một số tính năng mới và cập nhật mới như sau đây:&lt;/p>
+&lt;h2 id="new-features">New Features&lt;/h2>
+&lt;ul>
+&lt;li>Add Bot NLU System for NER labeling and Intent detection&lt;/li>
+&lt;li>add nlp, nlu services&lt;/li>
+&lt;li>add user configuration&lt;/li>
+&lt;li>add custom menu system&lt;/li>
+&lt;li>add multiple language site for english and vietnamese&lt;/li>
+&lt;li>add upload drop zone&lt;/li>
+&lt;li>add basic ui to train bot NLU&lt;/li>
+&lt;li>add message chat to nlp samples&lt;/li>
+&lt;li>config mocha &amp;amp; webpack support typescript relative paths&lt;/li>
+&lt;/ul>
+&lt;h2 id="improvement">Improvement&lt;/h2>
+&lt;ul>
+&lt;li>refactor nlp core features&lt;/li>
+&lt;li>refactor text selection comp&lt;/li>
+&lt;li>update nlp samples editor&lt;/li>
+&lt;/ul>
+&lt;h2 id="summary-notes">Summary Notes&lt;/h2>
+&lt;p>Về lần phát hành này các thay đổi tập trung chủ yếu phía Backend, với cơ sở là xây dựng được bộ NLU để tổng hợp dữ liệu phục vụ cho việc đào tạo training cho Bot.&lt;/p>
+&lt;p>Sự huấn luyện sự thông minh cho bot ở việc từ một câu nói đầu vào (bằng văn bản), hệ thống sẽ định danh và chuyển giao tới Bot tiếp nhận, bóc tách thông tin như: Ý định của người nói và các thông tin có đề cập trong câu nói đó.&lt;/p>
+&lt;p>Bằng hệ thống NLU xây dựng được, bot sẽ từng bước tách và trích xuất các thông tin phục vụ cho việc quyết định nội dung nào sẽ được trả lời (reply).&lt;/p>
+&lt;p>Như vậy, phiên bản &lt;strong>1.2.0&lt;/strong> là cơ sở quyết định để các phiên bản sau hoàn thiện hơn, tích hợp hoàn thiện một dòng chảy hội thoại: &lt;strong>Input&lt;/strong> -&amp;gt; NLU -&amp;gt; Dialogue Engine -&amp;gt; Commands Unit -&amp;gt; NLG -&amp;gt; &lt;strong>Response&lt;/strong>.&lt;/p>
+&lt;h2 id="references">References&lt;/h2>
+&lt;p>Ref: &lt;a href="https://github.com/vunb/botscript.ai/pull/16">#16&lt;/a>&lt;/p></description></item></channel></rss>
