@@ -6,12 +6,13 @@
 &lt;p>Với dự án BotScript.AI mình tin là một hướng đi rất cụ thể và rõ ràng để hiện thực hóa được mục tiêu đó.&lt;/p>
 &lt;p>Như đã chia sẻ lộ trình thử nghiệm hệ thống này đầu tháng 03/2020 này thì mình rất mong muốn các bạn dùng thử và góp ý cho mình về ý tưởng, những điều hợp lý hoặc chưa hợp lý.&lt;/p>
 &lt;p>Những đóng góp của bạn chắc chắn giúp phát triển hệ thống thông minh này.&lt;/p>
-&lt;p>Về mục đích dự án:&lt;/p>
+&lt;h2 id="v-mc-ch-d-n">Về mục đích dự án:&lt;/h2>
 &lt;ul>
 &lt;li>Tạo ra một hệ sinh thái kết nối các ứng dụng dựa trên tương tác hội thoại&lt;/li>
 &lt;li>Tạo ra một chương trình quản lý hội thoại (mã nguồn mở)&lt;/li>
 &lt;li>Đối với hệ thống BotScript.AI đang xem xét mở mã nguồn nếu thực sự có ích cho cộng đồng&lt;/li>
 &lt;/ul>
+&lt;h2 id="c-s-ca-d-n">Cơ sở của dự án&lt;/h2>
 &lt;p>Như các bạn đã biết, để tạo ra một chatbot thông minh thực sự thì nó phải giải quyết được các vấn đề sau:&lt;/p>
 &lt;ol>
 &lt;li>Trích lục thông tin và tra cứu lịch sử&lt;/li>
@@ -19,10 +20,11 @@
 &lt;li>Có tri thức cơ bản về sự vật hiện tượng&lt;/li>
 &lt;li>Có khả năng học tự nhiên để tạo ra tri thức mới&lt;/li>
 &lt;li>Có khả năng hòa giải hoặc đàm phán&lt;/li>
-&lt;li>Quản lý được trạng thái quan hệ&lt;/li>
+&lt;li>Quản lý được trạng thái quan hệ người - bot&lt;/li>
 &lt;li>Quản lý được hội thoại và các ngoại lệ&lt;/li>
 &lt;/ol>
 &lt;p>Để dự án có được lộ trình đi đến thành công, mình rất mong muốn được hợp tác với các đơn vị hoặc cá nhân có nhu cầu sử dụng, hoặc nhu cầu đóng góp vào sự phát triển của dự án&lt;/p>
+&lt;h2 id="-xut-hp-tc">Đề xuất hợp tác&lt;/h2>
 &lt;p>Các hình thức hợp tác như:&lt;/p>
 &lt;ul>
 &lt;li>Sử dụng như một khách hàng thân thiết (có phản hồi tích cực cho hệ thống)&lt;/li>
@@ -30,17 +32,19 @@
 &lt;li>Trở thành cộng tác viên viết các hướng dẫn, lập trình để hoàn thiện các chức năng tối thiểu.&lt;/li>
 &lt;li>Trở thành cộng tác viên làm dữ liệu, tinh chỉnh hệ thống&lt;/li>
 &lt;/ul>
-&lt;p>Các bạn có thể liên hệ với mình bằng cách:&lt;/p>
-&lt;ul>
-&lt;li>Email: vunb (at) nodejs (dot) vn hoặc nhubaovu (at) gmail (dot) com&lt;/li>
-&lt;li>Github: &lt;a href="https://github.com/vunb">https://github.com/vunb&lt;/a>&lt;/li>
-&lt;li>Issue Tracking: &lt;a href="https://github.com/yeuai/botscript">https://github.com/yeuai/botscript&lt;/a>&lt;/li>
-&lt;li>Facebook group: &lt;a href="https://facebook.com/groups/BotScript">https://facebook.com/groups/BotScript&lt;/a>&lt;/li>
-&lt;/ul>
+&lt;h2 id="tri-nghim">Trải nghiệm&lt;/h2>
 &lt;p>Để có được cái nhìn đầu tiên, mời các bạn đăng nhập vào hệ thống.&lt;/p>
 &lt;ul>
 &lt;li>Địa chỉ: &lt;a href="https://botscript.ai">https://botscript.ai&lt;/a>&lt;/li>
 &lt;li>Tài khoản: demo/demo&lt;/li>
 &lt;li>Hoặc đăng ký sử dụng email của bạn tại: &lt;a href="https://botscript.ai/#/register">https://botscript.ai/#/register&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;p>Trong quá trình trải nghiệm: Rất mong nhận được sự phản hồi của các bạn!&lt;/p></description></item></channel></rss>
+&lt;p>Trong quá trình trải nghiệm: Rất mong nhận được sự phản hồi của các bạn!&lt;/p>
+&lt;h2 id="lin-h">Liên hệ&lt;/h2>
+&lt;p>Các bạn có thể liên hệ với mình bằng cách:&lt;/p>
+&lt;ul>
+&lt;li>Email: vunb (at) nodejs (dot) vn hoặc nhubaovu (at) gmail (dot) com&lt;/li>
+&lt;li>Github: &lt;a href="https://github.com/vunb">https://github.com/vunb&lt;/a>&lt;/li>
+&lt;li>Issue Tracking: &lt;a href="https://github.com/yeuai/botscript">https://github.com/yeuai/botscript&lt;/a>&lt;/li>
+&lt;li>Facebook group: &lt;a href="https://facebook.com/groups/BotScript">https://facebook.com/groups/BotScript&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>
