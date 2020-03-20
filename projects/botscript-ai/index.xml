@@ -60,13 +60,22 @@
 &lt;p>Ngay từ thiết kế ban đầu của &lt;strong>BSD&lt;/strong> cho phép các hệ thống riêng có thể mở rộng và hỗ trợ các cú pháp mới để phù hợp với năng lực cũng như nhu cầu mới, hay đơn giản sở thích của nhà thiết kế tạo ra cú pháp thân thiệt nhất với người dùng.&lt;/p>
 &lt;p>Để dùng được cú pháp mới hỗ trợ NLP, thì người dùng phải khai báo sử dụng plugin &lt;code>&amp;gt; nlp&lt;/code> trong tài liệu kịch bản BSD của chatbot. Sau đó soạn một hộp thoại với trigger bắt đầu với từ khóa &lt;code>+ intent: buy some thing&lt;/code>&lt;/p>
 &lt;p>Ví dụ: Một kịch bản bsd được soạn như sau:&lt;/p>
-&lt;!-- raw HTML omitted -->
-&lt;!-- raw HTML omitted -->
+&lt;pre>
+> nlp
++ intent: mua_dien_thoai
+- Bạn muốn lấy điện thoại hãng nào?
+&lt;/pre>
 &lt;p>Như vậy, khi người dùng nhập: &lt;em>Tôi muốn mua điện thoại&lt;/em> hoặc &lt;em>bạn có bán điện thoại không?&lt;/em> thì bot sẽ trả lời là: &lt;em>Bạn muốn lấy điện thoại hãng nào?&lt;/em>&lt;/p>
 &lt;p>Kết hợp với &lt;strong>Flows&lt;/strong> người dùng có thể thiết kế kịch bản bot nâng cao hơn, bằng việc hỏi chi tiết thêm các nội dung đơn hàng mà khách hàng họ đang có mục tiêu &lt;strong>mua một chiếc điện thoại&lt;/strong>.&lt;/p>
 &lt;p>Ví dụ:&lt;/p>
-&lt;!-- raw HTML omitted -->
-&lt;!-- raw HTML omitted -->
+&lt;pre>
+> nlp
++ intent: mua_dien_thoai
+~ ask product_name
+~ ask product_color
+~ ask product_amount
+- Đơn hàng của bạn đã xử lý, bạn đã chọn: $product_name, $product_color, $product_amount với giá $product_price
+&lt;/pre>
 &lt;h2 id="thut-ng">Thuật ngữ&lt;/h2>
 &lt;p>Các thuật ngữ về người sử dụng và vai trò của họ khi tương tác với BotScript Platform:&lt;/p>
 &lt;ul>
