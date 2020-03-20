@@ -19,32 +19,7 @@
 &lt;li>Có tri thức cơ bản về sự vật hiện tượng&lt;/li>
 &lt;li>Có khả năng học tự nhiên để tạo ra tri thức mới&lt;/li>
 &lt;li>Có khả năng hòa giải hoặc đàm phán&lt;/li>
-&lt;/ul></description></item><item><title>🔊 Release Notes - v1.2.0</title><link>/projects/botscript-ai/release-notes-v1.2.0/</link><pubDate>Mon, 16 Mar 2020 12:05:52 +0700</pubDate><guid>/projects/botscript-ai/release-notes-v1.2.0/</guid><description>&lt;p>Tôi rất vui mừng gửi thông báo phát hành phiên bản &lt;strong>1.2.0&lt;/strong> tới các bạn với một số tính năng mới và cập nhật mới như sau đây:&lt;/p>
-&lt;h2 id="new-features">New Features&lt;/h2>
-&lt;ul>
-&lt;li>Add Bot NLU System for NER labeling and Intent detection&lt;/li>
-&lt;li>add nlp, nlu services&lt;/li>
-&lt;li>add user configuration&lt;/li>
-&lt;li>add custom menu system&lt;/li>
-&lt;li>add multiple language site for english and vietnamese&lt;/li>
-&lt;li>add upload drop zone&lt;/li>
-&lt;li>add basic ui to train bot NLU&lt;/li>
-&lt;li>add message chat to nlp samples&lt;/li>
-&lt;li>config mocha &amp;amp; webpack support typescript relative paths&lt;/li>
-&lt;/ul>
-&lt;h2 id="improvement">Improvement&lt;/h2>
-&lt;ul>
-&lt;li>refactor nlp core features&lt;/li>
-&lt;li>refactor text selection comp&lt;/li>
-&lt;li>update nlp samples editor&lt;/li>
-&lt;/ul>
-&lt;h2 id="summary-notes">Summary Notes&lt;/h2>
-&lt;p>Về lần phát hành này các thay đổi tập trung chủ yếu phía Backend, với cơ sở là xây dựng được bộ NLU để tổng hợp dữ liệu phục vụ cho việc đào tạo training cho Bot.&lt;/p>
-&lt;p>Sự huấn luyện sự thông minh cho bot ở việc từ một câu nói đầu vào (bằng văn bản), hệ thống sẽ định danh và chuyển giao tới Bot tiếp nhận, bóc tách thông tin như: Ý định của người nói và các thông tin có đề cập trong câu nói đó.&lt;/p>
-&lt;p>Bằng hệ thống NLU xây dựng được, bot sẽ từng bước tách và trích xuất các thông tin phục vụ cho việc quyết định nội dung nào sẽ được trả lời (reply).&lt;/p>
-&lt;p>Như vậy, phiên bản &lt;strong>1.2.0&lt;/strong> là cơ sở quyết định để các phiên bản sau hoàn thiện hơn, tích hợp hoàn thiện một dòng chảy hội thoại: &lt;strong>Input&lt;/strong> -&amp;gt; NLU -&amp;gt; Dialogue Engine -&amp;gt; Commands Unit -&amp;gt; NLG -&amp;gt; &lt;strong>Response&lt;/strong>.&lt;/p>
-&lt;h2 id="references">References&lt;/h2>
-&lt;p>Ref: &lt;a href="https://github.com/vunb/botscript.ai/pull/16">#16&lt;/a>&lt;/p></description></item><item><title>Tích hợp hoàn thiện NLU, ngày 18/03/2020</title><link>/projects/botscript-ai/logs/nlu-integration/</link><pubDate>Wed, 18 Mar 2020 12:05:52 +0700</pubDate><guid>/projects/botscript-ai/logs/nlu-integration/</guid><description>&lt;h2 id="kt-qu-t-c">Kết quả đạt được&lt;/h2>
+&lt;/ul></description></item><item><title>Tích hợp hoàn thiện NLU, ngày 18/03/2020</title><link>/projects/botscript-ai/logs/nlu-integration/</link><pubDate>Wed, 18 Mar 2020 12:05:52 +0700</pubDate><guid>/projects/botscript-ai/logs/nlu-integration/</guid><description>&lt;h2 id="kt-qu-t-c">Kết quả đạt được&lt;/h2>
 &lt;p>Việc tích hợp thành công thành phần NLU vào trong BotScript Platform là một phần rất quan trọng. NLU giúp cho bot hiểu được văn bản đầu vào, qua đó cho phép bot quyết định chính xác thông tin cần trả lời cho khách hàng.&lt;/p>
 &lt;p>Về cốt lõi thì NLU là thành phần trong đó có nhiều kỹ thuật xử lý ngôn ngữ tự nhiên (NLP) được áp dụng.&lt;/p>
 &lt;ol>
@@ -88,4 +63,73 @@
 &lt;li>BSP: &lt;strong>BotScript Platform&lt;/strong> - nền tảng cung cấp dịch vụ, sân chơi cho người thiết kế bot&lt;/li>
 &lt;li>BSD: &lt;strong>BotScript Document&lt;/strong> - tài liệu đặc tả BotScript, tiêu chuẩn để cho người dùng xây dựng kịch bản, tạo ra dịch vụ chatbot&lt;/li>
 &lt;li>BSE: &lt;strong>BotScript Engine&lt;/strong> - chương trình lõi quản lý hội thoại của một chatbot.&lt;/li>
+&lt;/ul></description></item><item><title>🔊 Release Notes - v1.2.0</title><link>/projects/botscript-ai/release-notes-v1.2.0/</link><pubDate>Mon, 16 Mar 2020 12:05:52 +0700</pubDate><guid>/projects/botscript-ai/release-notes-v1.2.0/</guid><description>&lt;p>Tôi rất vui mừng gửi thông báo phát hành phiên bản &lt;strong>1.2.0&lt;/strong> tới các bạn với một số tính năng mới và cập nhật mới như sau đây:&lt;/p>
+&lt;h2 id="new-features">New Features&lt;/h2>
+&lt;ul>
+&lt;li>Add Bot NLU System for NER labeling and Intent detection&lt;/li>
+&lt;li>add nlp, nlu services&lt;/li>
+&lt;li>add user configuration&lt;/li>
+&lt;li>add custom menu system&lt;/li>
+&lt;li>add multiple language site for english and vietnamese&lt;/li>
+&lt;li>add upload drop zone&lt;/li>
+&lt;li>add basic ui to train bot NLU&lt;/li>
+&lt;li>add message chat to nlp samples&lt;/li>
+&lt;li>config mocha &amp;amp; webpack support typescript relative paths&lt;/li>
+&lt;/ul>
+&lt;h2 id="improvement">Improvement&lt;/h2>
+&lt;ul>
+&lt;li>refactor nlp core features&lt;/li>
+&lt;li>refactor text selection comp&lt;/li>
+&lt;li>update nlp samples editor&lt;/li>
+&lt;/ul>
+&lt;h2 id="summary-notes">Summary Notes&lt;/h2>
+&lt;p>Về lần phát hành này các thay đổi tập trung chủ yếu phía Backend, với cơ sở là xây dựng được bộ NLU để tổng hợp dữ liệu phục vụ cho việc đào tạo training cho Bot.&lt;/p>
+&lt;p>Sự huấn luyện sự thông minh cho bot ở việc từ một câu nói đầu vào (bằng văn bản), hệ thống sẽ định danh và chuyển giao tới Bot tiếp nhận, bóc tách thông tin như: Ý định của người nói và các thông tin có đề cập trong câu nói đó.&lt;/p>
+&lt;p>Bằng hệ thống NLU xây dựng được, bot sẽ từng bước tách và trích xuất các thông tin phục vụ cho việc quyết định nội dung nào sẽ được trả lời (reply).&lt;/p>
+&lt;p>Như vậy, phiên bản &lt;strong>1.2.0&lt;/strong> là cơ sở quyết định để các phiên bản sau hoàn thiện hơn, tích hợp hoàn thiện một dòng chảy hội thoại: &lt;strong>Input&lt;/strong> -&amp;gt; NLU -&amp;gt; Dialogue Engine -&amp;gt; Commands Unit -&amp;gt; NLG -&amp;gt; &lt;strong>Response&lt;/strong>.&lt;/p>
+&lt;h2 id="references">References&lt;/h2>
+&lt;p>Ref: &lt;a href="https://github.com/vunb/botscript.ai/pull/16">#16&lt;/a>&lt;/p></description></item><item><title>🔊 Release Notes - v1.3.0</title><link>/projects/botscript-ai/release-notes-v1.3.0/</link><pubDate>Fri, 20 Mar 2020 12:05:52 +0700</pubDate><guid>/projects/botscript-ai/release-notes-v1.3.0/</guid><description>&lt;p>Tôi rất vui mừng gửi thông báo phát hành phiên bản &lt;strong>1.3.0&lt;/strong> tới các bạn với một số tính năng mới và cập nhật mới sau đây:&lt;/p>
+&lt;h2 id="new-features">New Features&lt;/h2>
+&lt;ul>
+&lt;li>Extend pattern capability to capture user intent, entity information, &amp;hellip;&lt;/li>
+&lt;li>Upgrade NLP Core, refactor data types&lt;/li>
+&lt;li>Add bot plugin pipeline: nlp&lt;/li>
+&lt;/ul>
+&lt;h2 id="changes--improvement">Changes &amp;amp; Improvement&lt;/h2>
+&lt;ul>
+&lt;li>add ui button to delete bot scripts&lt;/li>
+&lt;li>refactor features engineering data types&lt;/li>
+&lt;li>add iob entity definition&lt;/li>
+&lt;li>fix plugin nlp extractor&lt;/li>
+&lt;li>fix nlp pattern to detect intent&lt;/li>
+&lt;li>remove intent from variables&lt;/li>
+&lt;/ul>
+&lt;h2 id="summary-notes">Summary Notes&lt;/h2>
+&lt;p>Lần phát hành &lt;strong>1.3.0&lt;/strong> các thay đổi tập trung chủ yếu phía Backend, cải tiến khả năng bóc tách thông tin và phát hiện ý định của câu nói của khách hàng.&lt;/p>
+&lt;ul>
+&lt;li>Tích hợp mới plugin: &lt;code>nlp&lt;/code>&lt;/li>
+&lt;li>Bổ sung thêm cú pháp để bắt ý định người dùng, từ đó, cho phép người dùng thiết kế kịch bản phù hợp với ý định đó.&lt;/li>
+&lt;li>Cho phép bot trả lời chính xác mong muốn của người dùng, hoặc yêu cầu bot theo dõi và xử lý nhiệm vụ phục vụ khách hàng.&lt;/li>
+&lt;/ul>
+&lt;p>Để dùng được cú pháp mới hỗ trợ NLP, thì người dùng phải khai báo sử dụng plugin &lt;code>&amp;gt; nlp&lt;/code> trong tài liệu kịch bản BSD của chatbot. Sau đó soạn một hộp thoại với trigger bắt đầu với từ khóa &lt;code>+ intent: buy some thing&lt;/code>&lt;/p>
+&lt;p>Ví dụ: Một kịch bản bsd được soạn như sau:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># khai báo sử dụng plugin&lt;/span>
+&amp;gt; nlp
+&lt;span style="color:#75715e"># kịch bản hỏi khách hàng mua sản phẩm gì?&lt;/span>
++ intent: mua_dien_thoai
+~ ask $product_name
+~ ask $product_amount
+* true &lt;span style="color:#f92672">=&lt;/span>&amp;gt; @ get_price
+- Đơn hàng của bạn đã được ghi nhận, bạn đã chọn: $product_name, $product_amount với giá $product_price
+~ ask $product_name
+- Bạn muốn lấy điện thoại hãng nào?
++ ner: product_name
+~ ask $product_amount
+- Bạn muốn lấy mấy chiếc
++ ner: product_amount
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Như vậy, khi người dùng nhập: &lt;em>Tôi muốn mua điện thoại&lt;/em> hoặc &lt;em>bạn có bán điện thoại không?&lt;/em> thì bot sẽ dẫn nhập và hỏi thêm khách hàng muốn lấy sản phẩm tên là gì, số lượng bao nhiêu, &amp;hellip; kiểm tra đơn giá của giỏ hàng và sau đó phản hồi thông tin về đơn hàng mới cho khách hàng.&lt;/p>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>PR: &lt;a href="https://github.com/vunb/botscript.ai/pull/19">#19&lt;/a>&lt;/li>
+&lt;li>Release Tags: &lt;a href="https://github.com/vunb/botscript.ai/releases/tag/1.3.0">v1.3.0&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>
