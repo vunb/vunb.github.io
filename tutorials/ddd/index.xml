@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Domain-Driven Design on &lt;Vunb /></title><link>/tutorials/ddd/</link><description>Recent content in Domain-Driven Design on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Wed, 25 Mar 2020 22:27:52 +0700</lastBuildDate><atom:link href="/tutorials/ddd/index.xml" rel="self" type="application/rss+xml"/><item><title>Giới thiệu Domain-Driven Design</title><link>/tutorials/ddd/introduction/</link><pubDate>Thu, 26 Mar 2020 12:05:52 +0700</pubDate><guid>/tutorials/ddd/introduction/</guid><description>&lt;h2 id="nh-ngha">Định nghĩa&lt;/h2>
+&lt;p>Theo Wikipedia:&lt;/p>
+&lt;blockquote>
+&lt;p>Domain-driven design is an approach to software development for complex needs by connecting the implementation to an evolving model.&lt;/p>
+&lt;/blockquote>
+&lt;p>Theo đó, cơ bản mình đã có hình dung đầu tiên về sự bám sát chặt chẽ việc cài đặt các chức năng trong hệ thống phần mềm mà nghiệp vụ có mức độ phức tạp cao.&lt;/p>
+&lt;p>Theo hướng nhìn khác mình mô tả lại bằng ngôn ngữ tiếng Việt để hiểu cho đúng về DDD như thế này:&lt;/p>
+&lt;blockquote>
+&lt;p>Domain-Driven Design (DDD) là một hướng tiếp cận để phát triển phần mềm cho khách hàng mà có nghiệp vụ phức tạp cao, bằng cách kết nối chặt chẽ việc lập trình chức năng với một quy trình hoạt động cốt lõi của doanh nghiệp.&lt;/p>
+&lt;/blockquote></description></item></channel></rss>
