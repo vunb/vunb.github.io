@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>LibSVM on &lt;Vunb /></title><link>/categories/libsvm/</link><description>Recent content in LibSVM on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Tue, 13 Oct 2020 16:36:52 +0700</lastBuildDate><atom:link href="/categories/libsvm/index.xml" rel="self" type="application/rss+xml"/><item><title>Hướng dẫn sử dụng LibSVM cơ bản</title><link>/post/2020/10/13/huong-dan-libsvm-co-ban/</link><pubDate>Tue, 13 Oct 2020 16:36:52 +0700</pubDate><guid>/post/2020/10/13/huong-dan-libsvm-co-ban/</guid><description>&lt;p>LibSVM là công cụ hỗ trợ giải bài toán phân lớp theo phương pháp SVM.&lt;/p>
+&lt;p>Để sử dụng được thư viện LIBSVM, chúng ta phải đưa dữ liệu huấn luyện và kiểm tra theo cấu trúc tiêu chuẩn mà bộ thư viện quy định như sau:&lt;/p>
+&lt;blockquote>
+&lt;p>[Indexlabel] [index1]:[value1] [index2]:[value2] &amp;hellip;
+[Indexlabel] [index1]:[value1] [index2]:[value2] &amp;hellip;&lt;/p>
+&lt;/blockquote>
+&lt;p>Trong đó:&lt;/p>
+&lt;ul>
+&lt;li>Mỗi dòng là một dữ liệu quan sát&lt;/li>
+&lt;li>&lt;strong>Indexlabel&lt;/strong>: nhãn lớp câu hỏi, là giá trị đích của tập huấn luyện, vì SVM chỉ hiểu được số liệu số nên mỗi nhãn phải &amp;ldquo;số hóa&amp;rdquo; nó bằng cách đặt cho các giá trị số khác nhau.&lt;/li>
+&lt;li>&lt;strong>index1&lt;/strong>, &lt;strong>index2&lt;/strong>,&amp;hellip; là các chỉ số đại diện của các đặc trưng có trong từ điển. Là một số nguyên bắt đầu từ 1.&lt;/li>
+&lt;li>&lt;strong>value1&lt;/strong>,&lt;strong>value2&lt;/strong>,&amp;hellip; là giá trị kiểu số thực ứng với các vị trí của các đặc trưng. Giá trị này thể hiện mức độ liên quan của đặc trưng đối với một phân loại nằm trong khoảng [-1,1]. Do các đặc trưng trong phân loại câu hỏi đều là đặc trưng nhị phân nên lúc huấn luyện giá trị này sẽ là 1.&lt;/li>
+&lt;/ul></description></item></channel></rss>
