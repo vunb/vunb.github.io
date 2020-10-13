@@ -1,13 +1,36 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>classification on &lt;Vunb /></title><link>/tags/classification/</link><description>Recent content in classification on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Tue, 13 Oct 2020 16:36:52 +0700</lastBuildDate><atom:link href="/tags/classification/index.xml" rel="self" type="application/rss+xml"/><item><title>Hướng dẫn sử dụng LibSVM cơ bản</title><link>/post/2020/10/13/huong-dan-libsvm-co-ban/</link><pubDate>Tue, 13 Oct 2020 16:36:52 +0700</pubDate><guid>/post/2020/10/13/huong-dan-libsvm-co-ban/</guid><description>&lt;p>LibSVM là công cụ hỗ trợ giải bài toán phân lớp theo phương pháp SVM.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>classification on &lt;Vunb /></title><link>/tags/classification/</link><description>Recent content in classification on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Tue, 13 Oct 2020 16:36:52 +0700</lastBuildDate><atom:link href="/tags/classification/index.xml" rel="self" type="application/rss+xml"/><item><title>Hướng dẫn sử dụng LibSVM cơ bản</title><link>/post/2020/10/13/huong-dan-libsvm-co-ban/</link><pubDate>Tue, 13 Oct 2020 16:36:52 +0700</pubDate><guid>/post/2020/10/13/huong-dan-libsvm-co-ban/</guid><description>&lt;p>LibSVM là công cụ hỗ trợ giải bài toán phân lớp SVM và hồi quy, một số bài toán như: Phân lớp C-SVM, nu-SVM, hồi qui epsilon-SVM và hồi qui nu-SVM. Thư viện này, cung cấp một công cụ lựa chọn mô hình tự động đối với phân lớp C-SVM.&lt;/p>
+&lt;p>Một số chương trình có trong bộ thư viện này:&lt;/p>
+&lt;ul>
+&lt;li>svm-scale: Đây là một công cụ đối với việc xác định file dữ liệu vào.&lt;/li>
+&lt;li>svm-toy: Đây là một giao diện đồ họa đơn giản thể hiện dữ liệu phân tách SVM trong mặt phẳng. Ta có thể kích vào cửa sổ để vẽ các điểm dữ liệu. Sử dụng nút “change” để chọn lớp 1 hoặc 2, nút “load” để đọc dữ liệu từ một file, nút “save” để lưu dữ liệu vào file, nút “run” để thu được một mô hình SVM và nút “clear” để xóa cửa sổ. Chú ý rằng, nút “load” và “save” chỉ áp dụng cho truờng hợp phân lớp, không áp dụng cho trường hợp hồi qui.&lt;/li>
+&lt;li>svm-train: Chương trình được sử dụng để train dữ liệu trên tập dữ liệu quan sát được&lt;/li>
+&lt;li>svm-predict: Chương trình được sử dụng để predict dữ liệu quan sát mới&lt;/li>
+&lt;/ul>
 &lt;p>Để sử dụng được thư viện LIBSVM, chúng ta phải đưa dữ liệu huấn luyện và kiểm tra theo cấu trúc tiêu chuẩn mà bộ thư viện quy định như sau:&lt;/p>
-&lt;blockquote>
-&lt;p>[Indexlabel] [index1]:[value1] [index2]:[value2] &amp;hellip;
-[Indexlabel] [index1]:[value1] [index2]:[value2] &amp;hellip;&lt;/p>
-&lt;/blockquote>
-&lt;p>Trong đó:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#75715e"># mỗi quan sát là một dòng dữ liệu&lt;/span>
+&lt;span style="color:#f92672">[&lt;/span>label1&lt;span style="color:#f92672">]&lt;/span> &lt;span style="color:#f92672">[&lt;/span>index1&lt;span style="color:#f92672">]&lt;/span>:&lt;span style="color:#f92672">[&lt;/span>value1&lt;span style="color:#f92672">]&lt;/span> &lt;span style="color:#f92672">[&lt;/span>index2&lt;span style="color:#f92672">]&lt;/span>:&lt;span style="color:#f92672">[&lt;/span>value2&lt;span style="color:#f92672">]&lt;/span> ...
+...
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Trong đó:&lt;/p>
 &lt;ul>
 &lt;li>Mỗi dòng là một dữ liệu quan sát&lt;/li>
-&lt;li>&lt;strong>Indexlabel&lt;/strong>: nhãn lớp câu hỏi, là giá trị đích của tập huấn luyện, vì SVM chỉ hiểu được số liệu số nên mỗi nhãn phải &amp;ldquo;số hóa&amp;rdquo; nó bằng cách đặt cho các giá trị số khác nhau.&lt;/li>
+&lt;li>&lt;strong>label1&lt;/strong>: nhãn lớp quan sát được, là giá trị đích của tập huấn luyện, vì SVM chỉ hiểu được số liệu số nên mỗi nhãn phải &amp;ldquo;số hóa&amp;rdquo; nó bằng cách đặt cho các giá trị số khác nhau.&lt;/li>
 &lt;li>&lt;strong>index1&lt;/strong>, &lt;strong>index2&lt;/strong>,&amp;hellip; là các chỉ số đại diện của các đặc trưng có trong từ điển. Là một số nguyên bắt đầu từ 1.&lt;/li>
-&lt;li>&lt;strong>value1&lt;/strong>,&lt;strong>value2&lt;/strong>,&amp;hellip; là giá trị kiểu số thực ứng với các vị trí của các đặc trưng. Giá trị này thể hiện mức độ liên quan của đặc trưng đối với một phân loại nằm trong khoảng [-1,1]. Do các đặc trưng trong phân loại câu hỏi đều là đặc trưng nhị phân nên lúc huấn luyện giá trị này sẽ là 1.&lt;/li>
-&lt;/ul></description></item></channel></rss>
+&lt;li>&lt;strong>value1&lt;/strong>,&lt;strong>value2&lt;/strong>,&amp;hellip; là giá trị kiểu số thực ứng với các vị trí của các đặc trưng. Giá trị này thể hiện mức độ liên quan của đặc trưng đối với một phân loại nằm trong khoảng [-1, 1].&lt;/li>
+&lt;/ul>
+&lt;p>Ví dụ:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#ae81ff">1&lt;/span> 1:0 2:3
+&lt;span style="color:#ae81ff">2&lt;/span> 1:5 2:8
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Chú ý: tại các quá sát có giá trị bằng 0 ta có thể bỏ đi luôn, ví dụ trên trở thành:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">&lt;span style="color:#ae81ff">1&lt;/span> 2:3
+&lt;span style="color:#ae81ff">2&lt;/span> 1:5 2:8
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="svm-train">svm-train&lt;/h1>
+&lt;p>Đây là chương trình được sử dụng để train dữ liệu đầu vào với những quan sát thu thập được. Đầu ra của chương trình cho phép chúng ta thu được tệp mô hình (file .model)&lt;/p>
+&lt;p>Lệnh:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">svm-train.exe &amp;lt;data_file.txt&amp;gt;
+&lt;span style="color:#75715e"># 1 file có tên giống tên file &amp;lt;train&amp;gt;.model được tạo ra sau khi train thành công&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="svm-predict">svm-predict&lt;/h1>
+&lt;p>Sử dụng mô hình và tập test để kiểm tra hiệu quả phân lớp.&lt;/p>
+&lt;p>Lệnh:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-bash" data-lang="bash">svm-predict.exe &amp;lt;file test&amp;gt; &amp;lt;file model&amp;gt; &amp;lt;file output&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div></description></item></channel></rss>
