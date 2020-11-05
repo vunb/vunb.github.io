@@ -1,4 +1,38 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>regression on &lt;Vunb /></title><link>/tags/regression/</link><description>Recent content in regression on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Tue, 13 Oct 2020 16:36:52 +0700</lastBuildDate><atom:link href="/tags/regression/index.xml" rel="self" type="application/rss+xml"/><item><title>Hướng dẫn sử dụng LibSVM cơ bản</title><link>/post/2020/10/13/huong-dan-libsvm-co-ban/</link><pubDate>Tue, 13 Oct 2020 16:36:52 +0700</pubDate><guid>/post/2020/10/13/huong-dan-libsvm-co-ban/</guid><description>&lt;p>LibSVM là công cụ hỗ trợ giải bài toán phân lớp SVM và hồi quy, một số bài toán như: Phân lớp C-SVM, nu-SVM, hồi qui epsilon-SVM và hồi qui nu-SVM. Thư viện này, cung cấp một công cụ lựa chọn mô hình tự động đối với phân lớp C-SVM.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>regression on &lt;Vunb /></title><link>/tags/regression/</link><description>Recent content in regression on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Tue, 13 Oct 2020 17:36:52 +0700</lastBuildDate><atom:link href="/tags/regression/index.xml" rel="self" type="application/rss+xml"/><item><title>Chuẩn bị dữ liệu cho bài toán phân loại văn bản SVM</title><link>/post/2020/10/13/chuan-bi-du-lieu-cho-bai-toan-phan-loai-svm/</link><pubDate>Tue, 13 Oct 2020 17:36:52 +0700</pubDate><guid>/post/2020/10/13/chuan-bi-du-lieu-cho-bai-toan-phan-loai-svm/</guid><description>&lt;h1 id="1-hiu-cch-d-liu-c-biu-din-nh-th-no">1. Hiểu cách dữ liệu được biểu diễn như thế nào?&lt;/h1>
+&lt;p>Đối với bài toán phân loại văn bản, dữ liệu mà chúng ta thường có là tập dữ liệu văn bản ngôn ngữ tự nhiên, hoặc là Tiếng Việt hoặc một ngôn ngữ khác như tiếng Anh chẳng hạn. Và chúng ta cần phải phân loại chúng vào các nhóm giả định trước. Ví dụ, bạn có một tập các câu Trích dẫn và muốn tìm những câu trích dẫn về tình yêu, hay bạn có những emails và muốn lọc ra nhưng email rác và bỏ chúng vào thùng rác.&lt;/p>
+&lt;p>SVM là một thuật toán học có giám sát. Nó có nghĩa là bạn cần phải gắn nhãn cho dữ liệu một cách thủ công với những gì bạn đánh giá đó là lựa chọn chính xác. Sau đó, SVM sẽ được sử dụng để huấn luyện mô hình với tập dữ liệu đã được gắn nhãn. Cuối cùng là bạn có thể sử dụng mô hình SVM thu được để dự đoán dữ liệu chưa được gắn nhãn.&lt;/p>
+&lt;p>Theo thứ tự, để huấn luyện một mô hình SVM, bạn cần phải chuẩn bị dữ liệu theo các bước sau:&lt;/p>
+&lt;ol>
+&lt;li>Gán nhãn dữ liệu&lt;/li>
+&lt;li>Sinh tập từ điển chứa các từ vừng trong miền dữ liệu&lt;/li>
+&lt;li>Tạo một ma trận tần suất (toán học) &lt;a href="http://en.wikipedia.org/wiki/Document-term_matrix">document-term&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;p>Nếu bạn chưa có tập dữ liệu nào, hãy tải xuống một vài &lt;a href="http://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/">bộ dữ liệu mẫu tại đây&lt;/a>, được công bố miễn phí cho cộng đồng.&lt;/p>
+&lt;p>Tuy nhiên, nó trông như thế này và khá khó hiểu bởi cái nhìn đầu tiên.&lt;/p>
+&lt;p>&lt;img src="/img/svm/libsvm_dataset.png" alt="svm datasets" title="Tập dữ liệu không dễ để đọc">&lt;/p>
+&lt;p>Cái chúng ta cần là phân loại văn bản, nhưng dữ liệu để huấn luyện trong file này chỉ chứa những con số.&lt;/p>
+&lt;h1 id="2-bin-i-d-liu-theo-cch-ca-bn">2. Biến đổi dữ liệu theo cách của bạn&lt;/h1>
+&lt;p>Như vậy chúng ta cần phải chuyển đổi dữ liệu văn bản, sang tập dữ liệu mà thuật toán học máy có thể hiểu được, ở đây, cụ thể là SVM. Hãy xem xét một ví dụ đơn giản về dữ liệu thời tiết sau đây.&lt;/p>
+&lt;p>Mục tiêu của chúng ta là dự đoán được theo dữ kiện văn bản đó đang nói về nắng (sunny) hay mưa (rainy).
+Để đơn giản hơn thì mỗi cấu sẽ được viết bởi 2 từ: sunny ở rainy.&lt;/p>
+&lt;p>&lt;img src="/img/svm/SVM_Tutorial_unlabeled_data.png" alt="SVM_Tutorial_unlabeled_data" title="Tập dữ liệu chưa được gắn nhãn">&lt;/p>
+&lt;p>Đối với mỗi dòng, chúng ta ghi như sau:&lt;/p>
+&lt;ul>
+&lt;li>+1 nếu chúng ta nghĩ rằng nó nên được phân loại vào lớp &amp;ldquo;sunny&amp;rdquo;&lt;/li>
+&lt;li>-1 nếu chúng ta nghĩ rằng nó nên được phân loại vào lớp &amp;ldquo;rainy&amp;rdquo;&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="/img/svm/SVM_Tutorial_initial_dataset.png" alt="SVM_Tutorial_initial_dataset" title="Tập dữ liệu khởi tạo được gắn nhãn">&lt;/p>
+&lt;p>Sau đó, chúng ta sẽ xem xét từng từ trong tập dữ liệu đó, và tạo ra một từ vựng và đưa vào tập từ điển của miền dữ liệu thời tiết.&lt;/p>
+&lt;p>Như vậy, từ điển mà chúng ta sẽ có 2 từ vựng và được sắp xếp theo thứ tự Alphabet (an pha bê) như sau:&lt;/p>
+&lt;p>&lt;img src="/img/svm/SVM_Tutorial_vocabulary.png" alt="SVM_Tutorial_vocabulary.png" title="Tập từ điển từ vựng">&lt;/p>
+&lt;p>Tới đây, cuối cùng là chúng ta tạo ra một ma trận tần suất document-term.&lt;/p>
+&lt;ul>
+&lt;li>Dòng dữ liệu được ghi bắt đầu bởi lớp đại diện (+1 hoặc -1)&lt;/li>
+&lt;li>Tiếp theo sau là chỉ số index của từ vựng đó trong tập từ điển. Đối với từ sunny, có chỉ số là 2.&lt;/li>
+&lt;li>Theo sau từ vựng đó là số lần nó xuất hiện trong câu, và được phân tách bởi dấu hai chấm (:).&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="/img/svm/SVM_Tutorial_Document_Term_Matrix.png" alt="SVM_Tutorial_Document_Term_Matrix.png" title="Ma trận tần suất document-term">&lt;/p>
+&lt;p>Như bạn có thể thấy, bây giờ chúng ta đã có một tập dữ liệu trông giống như tập dữ liệu mẫu đã tải xuống ở mục 1. Theo phương thức như trên, bạn đã có thể tự tạo cho mình tập dữ liệu riêng theo mục đích và bài toán cụ thể của mình rồi đấy.&lt;/p></description></item><item><title>Hướng dẫn sử dụng LibSVM cơ bản</title><link>/post/2020/10/13/huong-dan-libsvm-co-ban/</link><pubDate>Tue, 13 Oct 2020 16:36:52 +0700</pubDate><guid>/post/2020/10/13/huong-dan-libsvm-co-ban/</guid><description>&lt;p>LibSVM là công cụ hỗ trợ giải bài toán phân lớp SVM và hồi quy, một số bài toán như: Phân lớp C-SVM, nu-SVM, hồi qui epsilon-SVM và hồi qui nu-SVM. Thư viện này, cung cấp một công cụ lựa chọn mô hình tự động đối với phân lớp C-SVM.&lt;/p>
 &lt;p>Một số chương trình có trong bộ thư viện này:&lt;/p>
 &lt;ul>
 &lt;li>svm-scale: Đây là một công cụ đối với việc xác định file dữ liệu vào.&lt;/li>
