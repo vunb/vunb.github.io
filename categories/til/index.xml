@@ -1,4 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TIL on &lt;Vunb /></title><link>/categories/til/</link><description>Recent content in TIL on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Wed, 10 Jul 2019 00:00:00 +0000</lastBuildDate><atom:link href="/categories/til/index.xml" rel="self" type="application/rss+xml"/><item><title>Katex</title><link>/post/2019/07/katex/</link><pubDate>Wed, 10 Jul 2019 00:00:00 +0000</pubDate><guid>/post/2019/07/katex/</guid><description>&lt;p>Cấu hình Hugo sử dụng &lt;code>katex&lt;/code> và &lt;code>mmark&lt;/code>. Không khó lắm, mất khoảng 15 phút là làm được. Sau khi cài đặt xong thì giờ quan tâm tới cách sử dụng thôi 😄&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TIL on &lt;Vunb /></title><link>/categories/til/</link><description>Recent content in TIL on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Fri, 27 Nov 2020 17:30:52 +0700</lastBuildDate><atom:link href="/categories/til/index.xml" rel="self" type="application/rss+xml"/><item><title>Ít tiền, nhiều tiền</title><link>/post/2020/11/28/it-tien-nhieu-tien/</link><pubDate>Fri, 27 Nov 2020 17:30:52 +0700</pubDate><guid>/post/2020/11/28/it-tien-nhieu-tien/</guid><description>&lt;p>Đại ca tôi thường nói:&lt;/p>
+&lt;ul>
+&lt;li>Thà nhiều tiền quản lý lỏng lẻo còn hơn quản lý chặt mà ít tiền&lt;/li>
+&lt;/ul>
+&lt;p>Câu nói khá thâm cay để tôi phải xem lại các phương hướng hoạt động, cải tổ và bố trận hiện tại. Vậy còn quản lý có nguyên tắc, điều lệ mà giúp đem lại nhiều tiền hơn thì sao?&lt;/p>
+&lt;p>Cũng tùy vào góc độ và hiện trạng hiện thời để đánh giá và thực hiện lại, nhất là những ngày cuối năm.&lt;/p>
+&lt;ul>
+&lt;li>Thiếu ở đâu&lt;/li>
+&lt;li>Thừa ở đâu&lt;/li>
+&lt;li>Ở đâu có mà thừa&lt;/li>
+&lt;li>Ở đâu thiếu mà không nhận ra&lt;/li>
+&lt;/ul>
+&lt;p>Ít tiền với nhiều tiền, nhiều tiền với ít tiền không biết thế nào, cứ nhiều tiền là mọi người đều vui, đều hạnh phúc rồi.&lt;/p></description></item><item><title>Katex</title><link>/post/2019/07/katex/</link><pubDate>Wed, 10 Jul 2019 00:00:00 +0000</pubDate><guid>/post/2019/07/katex/</guid><description>&lt;p>Cấu hình Hugo sử dụng &lt;code>katex&lt;/code> và &lt;code>mmark&lt;/code>. Không khó lắm, mất khoảng 15 phút là làm được. Sau khi cài đặt xong thì giờ quan tâm tới cách sử dụng thôi 😄&lt;/p>
 &lt;h3 id="display-block">Display Block&lt;/h3>
 &lt;p>Type equation on a single line, with top and bottom spaces. Use double dollar signs as delimiter.&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-md" data-lang="md">The following
