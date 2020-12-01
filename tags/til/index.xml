@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>TIL on &lt;Vunb /></title><link>/tags/til/</link><description>Recent content in TIL on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Tue, 01 Dec 2020 16:30:52 +0700</lastBuildDate><atom:link href="/tags/til/index.xml" rel="self" type="application/rss+xml"/><item><title>Một số thư viện xử lý Excel - Dotnet Core</title><link>/post/2020/12/01/mot-so-thu-vien-xu-ly-excel/</link><pubDate>Tue, 01 Dec 2020 16:30:52 +0700</pubDate><guid>/post/2020/12/01/mot-so-thu-vien-xu-ly-excel/</guid><description>&lt;h1 id="1-exceldatareader">1. ExcelDataReader&lt;/h1>
+&lt;p>Lightweight and fast library written in C# for reading Microsoft Excel files&lt;/p>
+&lt;h2 id="main-features">Main Features&lt;/h2>
+&lt;ul>
+&lt;li>Support Excel file format: OpenXml, BIFF8, BIFF5, BIFF4, BIFF3, BIFF2, CSV&lt;/li>
+&lt;/ul>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/ExcelDataReader/ExcelDataReader">https://github.com/ExcelDataReader/ExcelDataReader&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.nuget.org/packages/ExcelDataReader">https://www.nuget.org/packages/ExcelDataReader&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="2-npoi">2. NPOI&lt;/h1>
+&lt;p>This project is the .NET version of POI Java project. With NPOI, you can read/write Office 2003/2007 files very easily.&lt;/p>
+&lt;h2 id="main-features-1">Main Features&lt;/h2>
+&lt;ul>
+&lt;li>It's totally free to use&lt;/li>
+&lt;li>Cover most features of Excel (cell style, data format, formula and so on)&lt;/li>
+&lt;li>Supported formats: xls, xlsx, docx.&lt;/li>
+&lt;li>Designed to be interface-oriented (take a look at NPOI.SS namespace)&lt;/li>
+&lt;li>Support not only export but also import&lt;/li>
+&lt;li>Real successful cases all over the world&lt;/li>
+&lt;li>huge amout of basic examples&lt;/li>
+&lt;li>Works on both Windows and Linux How to use NPOI in Linux&lt;/li>
+&lt;/ul>
+&lt;h2 id="system-requirements">System Requirements&lt;/h2>
+&lt;ul>
+&lt;li>.NET Standard 2.0 (.NET Core)&lt;/li>
+&lt;li>.NET Framework 4.0 and above&lt;/li>
+&lt;/ul>
+&lt;h2 id="references-1">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/tonyqus/npoi/wiki/Getting-Started-with-NPOI">https://github.com/tonyqus/npoi/wiki/Getting-Started-with-NPOI&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/nissl-lab/npoi">https://github.com/nissl-lab/npoi&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/nissl-lab/npoi-examples">https://github.com/nissl-lab/npoi-examples&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="3-epplus">3. EPPlus&lt;/h1>
+&lt;p>EPPlus 5-Excel spreadsheets for .NET&lt;/p>
+&lt;h2 id="main-features-2">Main Features&lt;/h2>
+&lt;ul>
+&lt;li>Support all Excel 2019 chart types with the new, modern styling&lt;/li>
+&lt;li>Insert/Delete ranges in worksheets and rows/cols in tables&lt;/li>
+&lt;li>Extended support for Pivot tables - Filters, calculated columns and support for shared caches&lt;/li>
+&lt;li>Pivot table- and table- slicers&lt;/li>
+&lt;li>Improvements of the formula calculation engine and over 100 new supported functions&lt;/li>
+&lt;li>Threaded comments with support for mentions&lt;/li>
+&lt;li>Support for importing dynamic/ExpandoObject to worksheets&lt;/li>
+&lt;li>Support for exporting data from worksheets to files and DataTable&lt;/li>
+&lt;li>Async methods for I/O operations&lt;/li>
+&lt;li>Themes, Filters, Ignore errors&lt;/li>
+&lt;/ul>
+&lt;h2 id="system-requirements-1">System Requirements&lt;/h2>
+&lt;ul>
+&lt;li>N/A&lt;/li>
+&lt;/ul>
+&lt;h2 id="references-2">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/EPPlusSoftware/EPPlus">https://github.com/EPPlusSoftware/EPPlus&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.epplussoftware.com/Developers/Features">https://www.epplussoftware.com/Developers/Features&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

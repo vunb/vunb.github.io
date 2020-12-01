@@ -1,4 +1,62 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog Posts on &lt;Vunb /></title><link>/post/</link><description>Recent content in Blog Posts on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Fri, 27 Nov 2020 17:30:52 +0700</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Ít tiền, nhiều tiền</title><link>/post/2020/11/28/it-tien-nhieu-tien/</link><pubDate>Fri, 27 Nov 2020 17:30:52 +0700</pubDate><guid>/post/2020/11/28/it-tien-nhieu-tien/</guid><description>&lt;p>Đại ca tôi thường nói:&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog Posts on &lt;Vunb /></title><link>/post/</link><description>Recent content in Blog Posts on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Tue, 01 Dec 2020 16:30:52 +0700</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Một số thư viện xử lý Excel - Dotnet Core</title><link>/post/2020/12/01/mot-so-thu-vien-xu-ly-excel/</link><pubDate>Tue, 01 Dec 2020 16:30:52 +0700</pubDate><guid>/post/2020/12/01/mot-so-thu-vien-xu-ly-excel/</guid><description>&lt;h1 id="1-exceldatareader">1. ExcelDataReader&lt;/h1>
+&lt;p>Lightweight and fast library written in C# for reading Microsoft Excel files&lt;/p>
+&lt;h2 id="main-features">Main Features&lt;/h2>
+&lt;ul>
+&lt;li>Support Excel file format: OpenXml, BIFF8, BIFF5, BIFF4, BIFF3, BIFF2, CSV&lt;/li>
+&lt;/ul>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/ExcelDataReader/ExcelDataReader">https://github.com/ExcelDataReader/ExcelDataReader&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.nuget.org/packages/ExcelDataReader">https://www.nuget.org/packages/ExcelDataReader&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="2-npoi">2. NPOI&lt;/h1>
+&lt;p>This project is the .NET version of POI Java project. With NPOI, you can read/write Office 2003/2007 files very easily.&lt;/p>
+&lt;h2 id="main-features-1">Main Features&lt;/h2>
+&lt;ul>
+&lt;li>It's totally free to use&lt;/li>
+&lt;li>Cover most features of Excel (cell style, data format, formula and so on)&lt;/li>
+&lt;li>Supported formats: xls, xlsx, docx.&lt;/li>
+&lt;li>Designed to be interface-oriented (take a look at NPOI.SS namespace)&lt;/li>
+&lt;li>Support not only export but also import&lt;/li>
+&lt;li>Real successful cases all over the world&lt;/li>
+&lt;li>huge amout of basic examples&lt;/li>
+&lt;li>Works on both Windows and Linux How to use NPOI in Linux&lt;/li>
+&lt;/ul>
+&lt;h2 id="system-requirements">System Requirements&lt;/h2>
+&lt;ul>
+&lt;li>.NET Standard 2.0 (.NET Core)&lt;/li>
+&lt;li>.NET Framework 4.0 and above&lt;/li>
+&lt;/ul>
+&lt;h2 id="references-1">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/tonyqus/npoi/wiki/Getting-Started-with-NPOI">https://github.com/tonyqus/npoi/wiki/Getting-Started-with-NPOI&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/nissl-lab/npoi">https://github.com/nissl-lab/npoi&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/nissl-lab/npoi-examples">https://github.com/nissl-lab/npoi-examples&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="3-epplus">3. EPPlus&lt;/h1>
+&lt;p>EPPlus 5-Excel spreadsheets for .NET&lt;/p>
+&lt;h2 id="main-features-2">Main Features&lt;/h2>
+&lt;ul>
+&lt;li>Support all Excel 2019 chart types with the new, modern styling&lt;/li>
+&lt;li>Insert/Delete ranges in worksheets and rows/cols in tables&lt;/li>
+&lt;li>Extended support for Pivot tables - Filters, calculated columns and support for shared caches&lt;/li>
+&lt;li>Pivot table- and table- slicers&lt;/li>
+&lt;li>Improvements of the formula calculation engine and over 100 new supported functions&lt;/li>
+&lt;li>Threaded comments with support for mentions&lt;/li>
+&lt;li>Support for importing dynamic/ExpandoObject to worksheets&lt;/li>
+&lt;li>Support for exporting data from worksheets to files and DataTable&lt;/li>
+&lt;li>Async methods for I/O operations&lt;/li>
+&lt;li>Themes, Filters, Ignore errors&lt;/li>
+&lt;/ul>
+&lt;h2 id="system-requirements-1">System Requirements&lt;/h2>
+&lt;ul>
+&lt;li>N/A&lt;/li>
+&lt;/ul>
+&lt;h2 id="references-2">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/EPPlusSoftware/EPPlus">https://github.com/EPPlusSoftware/EPPlus&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.epplussoftware.com/Developers/Features">https://www.epplussoftware.com/Developers/Features&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Ít tiền, nhiều tiền</title><link>/post/2020/11/28/it-tien-nhieu-tien/</link><pubDate>Fri, 27 Nov 2020 17:30:52 +0700</pubDate><guid>/post/2020/11/28/it-tien-nhieu-tien/</guid><description>&lt;p>Đại ca tôi thường nói:&lt;/p>
 &lt;ul>
 &lt;li>Thà nhiều tiền quản lý lỏng lẻo còn hơn quản lý chặt mà ít tiền&lt;/li>
 &lt;/ul>
@@ -10,7 +68,18 @@
 &lt;li>Ở đâu có mà thừa&lt;/li>
 &lt;li>Ở đâu thiếu mà không nhận ra&lt;/li>
 &lt;/ul>
-&lt;p>Ít tiền với nhiều tiền, nhiều tiền với ít tiền không biết thế nào, cứ nhiều tiền là mọi người đều vui, đều hạnh phúc rồi.&lt;/p></description></item><item><title>Mạng lưới cơ sở điện tử</title><link>/post/2020/11/01/mang-luoi-co-so-dien-tu/</link><pubDate>Sun, 01 Nov 2020 11:30:52 +0700</pubDate><guid>/post/2020/11/01/mang-luoi-co-so-dien-tu/</guid><description>&lt;h1 id="1-nh-ngha-mng-li">1. Định nghĩa mạng lưới&lt;/h1>
+&lt;p>Ít tiền với nhiều tiền, nhiều tiền với ít tiền không biết thế nào, cứ nhiều tiền là mọi người đều vui, đều hạnh phúc rồi.&lt;/p></description></item><item><title>Tư duy về tổ chức</title><link>/post/2020/11/18/tu-duy-ve-to-chuc/</link><pubDate>Wed, 18 Nov 2020 14:30:52 +0700</pubDate><guid>/post/2020/11/18/tu-duy-ve-to-chuc/</guid><description>&lt;h1 id="-nim-ban-u-v-t-chc">Ý niệm ban đầu về tổ chức&lt;/h1>
+&lt;p>Nói đến một tổ chức dù là cơ quan nhà nước, doanh nghiệp hoặc hay một hiệp hội đồng nghĩa là nói đến CƠ CẤU và QUẢN TRỊ, đây là 2 yếu tố quyết định sống còn của hệ thống tổ chức. Các phần ẩn khác nữa mà ta thường không nhìn thấy bên trong hệ thống đó hoạt động như thế nào, hoặc có ở bên trong nó bạn chưa chắc đã nhận ra.&lt;/p>
+&lt;p>Một vài trong những phần ẩn đó có thể kể đến đó là HUYẾT MẠCH và LINH HỒN của hệ thống đó. Ai là chủ nhân của Linh hồn đó? Câu trả lời ngắn gọn là KHÔNG một ai cả. Nó được hình thành dựa trên sự chọn lọc cái tốt đẹp của tự nhiên, phần mạnh sẽ lấn át phần yếu, nó hấp thụ ý chí của người tạo dựng nên nó.&lt;/p>
+&lt;ul>
+&lt;li>Huyết mạch giống như một dạng năng lượng duy trì sự sống, duy trì sự vận động và duy trì sự tồn tại&lt;/li>
+&lt;li>Linh hồn là một ý niệm phi vật chất, mà con người cảm tưởng được sự tồn tại của nó. Nó có ý thức hệ riêng, nó biết buồn vui, đau khổ, có nụ cười và tiếng khóc riêng.&lt;/li>
+&lt;/ul>
+&lt;p>Cả huyết mạch và linh hồn này có thể hiện: xấu - đẹp, khỏe mạnh - yếu ớt hay quyến rũ - ghê tởm đều do ý chí của những con người trong tổ chức đó cấu thành nên, mỗi một con người trong tổ chức đó giống như một tế bào của cơ thể sống.&lt;/p>
+&lt;h1 id="c-cu-t-chc">Cơ cấu tổ chức&lt;/h1>
+&lt;p>Cơ cấu là một phạm trù triết học dùng để biểu thị cấu trúc bên trong, tỷ lệ và mối quan hệ giữa các bộ phận hợp thành hệ thống. Cơ cấu được biểu hiện như là tập hợp những mối quan hệ liên kết hữu cơ, các yếu tố khác nhau của một hệ thống nhất định. Nó biểu hiện ra như là một thuộc tính của sự vật hiện tượng, nó biến đổi cùng với sự biến đổi sự vật, hiện tượng. Vì thế khi nghiên cứu cơ cấu phải đứng trên quan điểm hệ thống của tổ chức.&lt;/p>
+&lt;h1 id="qun-tr-t-chc">Quản trị tổ chức&lt;/h1>
+&lt;p>Hệ thống tổ chức&lt;/p></description></item><item><title>Mạng lưới cơ sở điện tử</title><link>/post/2020/11/01/mang-luoi-co-so-dien-tu/</link><pubDate>Sun, 01 Nov 2020 11:30:52 +0700</pubDate><guid>/post/2020/11/01/mang-luoi-co-so-dien-tu/</guid><description>&lt;h1 id="1-nh-ngha-mng-li">1. Định nghĩa mạng lưới&lt;/h1>
 &lt;p>Theo từ điển mở &lt;em>&lt;a href="https://vi.wiktionary.org/wiki/m%E1%BA%A1ng_l%C6%B0%E1%BB%9Bi#Ti%E1%BA%BFng_Vi%E1%BB%87t">Wiktionary&lt;/a>&lt;/em> thì mạng lưới được định nghĩa như sau:&lt;/p>
 &lt;ol>
 &lt;li>Hệ thống dây hoặc đường nối với nhau, hình dung ra như một cái lưới&lt;/li>
