@@ -1,4 +1,48 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog Posts on &lt;Vunb /></title><link>/post/</link><description>Recent content in Blog Posts on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Tue, 01 Dec 2020 16:30:52 +0700</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Một số thư viện xử lý Excel - Dotnet Core</title><link>/post/2020/12/01/mot-so-thu-vien-xu-ly-excel/</link><pubDate>Tue, 01 Dec 2020 16:30:52 +0700</pubDate><guid>/post/2020/12/01/mot-so-thu-vien-xu-ly-excel/</guid><description>&lt;h1 id="1-exceldatareader">1. ExcelDataReader&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog Posts on &lt;Vunb /></title><link>/post/</link><description>Recent content in Blog Posts on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Tue, 23 Feb 2021 08:03:52 +0700</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Angular - Phương án cấu hình động thành phần component</title><link>/post/2021/02/23/angular-phuong-an-cau-hinh-component-dong/</link><pubDate>Tue, 23 Feb 2021 08:03:52 +0700</pubDate><guid>/post/2021/02/23/angular-phuong-an-cau-hinh-component-dong/</guid><description>&lt;h1 id="1-nguyn-c">1. Nguyên cớ&lt;/h1>
+&lt;p>Với sức mạnh của TypeScript và sự hoàn thiện của JavaScript nó đã cho phép chúng ta làm được nhiều thứ. Kể đến hệ thống Decorators mới nhất của TypeScript, đây là một tính năng hữu ích cho phép chúng ta khai báo, chỉnh sửa các thành phần của class, method, constructors, properties, hay parameters.&lt;/p>
+&lt;p>Một phương diện ngày nay nếu giao diện web hay giao diện một chức năng người dùng có thể chỉnh sửa và cấu hình động theo cấu hình hoặc cài đặt riêng của cá nhân thì quả là những tiện ích tuyệt với; nâng cao trải nghiệm riêng của người dùng và khách hàng của các bạn.&lt;/p>
+&lt;h2 id="mong-mun-v-nhu-cu">Mong muốn và nhu cầu&lt;/h2>
+&lt;p>Khi ứng dụng một công nghệ như Angular, chắc hẳn chúng ta cũng có nhưng nhu cầu này, tức là cấu hình động các thành phần giao diện, không những thay đổi về sự nhìn, mà còn thay đổi về hành vi của chức năng component đó.&lt;/p>
+&lt;h2 id="s-p-ng-ca-cng-ngh-angular">Sự đáp ứng của công nghệ (Angular)&lt;/h2>
+&lt;p>Đã rất lâu từ sau khi sự ra đời của Angular, quả thật từ 2016 cho đến nay thì Angular đã bước sang tuổi thứ 6. Do vậy đã có hàng loạt giải pháp đưa ra để đáp ứng nhu cầu trên, cho đến thời điểm hiện tại thì tôi thấy có 2 phương án khả thi nhất:&lt;/p>
+&lt;ol>
+&lt;li>&lt;a href="https://github.com/angular/angular/issues/15275">Dynamically load template for a component #15275&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://indepth.dev/posts/1400/components-by-selector-name-angular">Dynamic Components by selector with Ivy&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/angular/angular/issues/33715">Provide a service to find component by name #33715&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;h2 id="dynamically-load-template-for-a-component">Dynamically load template for a component&lt;/h2>
+&lt;p>Đây là phương án đưa trình biên dịch lên browser. Tuy đáp ứng được yêu cầu, xong một số tình huống không thể nạp được component mà không rõ nguyên nhân do phiên bản trình duyệt hay do chính cách xử lý của Compiler.&lt;/p>
+&lt;p>Ref:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://stackoverflow.com/q/46576727/1896897">https://stackoverflow.com/q/46576727/1896897&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/angular/angular/issues/15275">https://github.com/angular/angular/issues/15275&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Demo:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://www.linkedin.com/pulse/compiling-angular-templates-runtime-dima-slivin/">https://www.linkedin.com/pulse/compiling-angular-templates-runtime-dima-slivin/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/CharlesElGriego/angular-aot-dynamic-components">https://github.com/CharlesElGriego/angular-aot-dynamic-components&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Trong khi các công nghệ khác support việc render component một cách native và đơn giản thì tôi cho rằng phương án này khá cồng kềnh và không phù hợp trong môi trường Production với số lượng lớn components.&lt;/p>
+&lt;h2 id="provide-a-service-to-find-component-by-name">Provide a service to find component by name&lt;/h2>
+&lt;p>Phương án này sử dụng kỹ thuật khai báo Decorator, tức là đánh dấu component nào là Dynamic/Động để cho phép nạp thành phần trong Runtime. Kỹ thuật này được khai báo và sử dụng như sau:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-ts" data-lang="ts">&lt;span style="color:#75715e">// type-manager.decorator.ts
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">TYPE_MAP&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">Map&lt;/span>&lt;span style="color:#f92672">&amp;lt;&lt;/span>&lt;span style="color:#66d9ef">string&lt;/span>, &lt;span style="color:#a6e22e">any&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span>(); &lt;span style="color:#75715e">// any should reactor to IDynamicComponent
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>
+&lt;span style="color:#66d9ef">export&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">TypeManagerDecorator&lt;/span>(&lt;span style="color:#a6e22e">aType&lt;/span>: &lt;span style="color:#66d9ef">string&lt;/span>) {
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">_TypeManagerDecorator&lt;/span>&lt;span style="color:#f92672">&amp;lt;&lt;/span>&lt;span style="color:#a6e22e">T&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> { &lt;span style="color:#66d9ef">new&lt;/span>(...&lt;span style="color:#a6e22e">args&lt;/span>: &lt;span style="color:#66d9ef">any&lt;/span>[])&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">TypeManager&lt;/span>}&lt;span style="color:#f92672">&amp;gt;&lt;/span>(&lt;span style="color:#a6e22e">constr&lt;/span>: &lt;span style="color:#66d9ef">T&lt;/span>) {
+&lt;span style="color:#a6e22e">TYPE_MAP&lt;/span>.&lt;span style="color:#a6e22e">set&lt;/span>(&lt;span style="color:#a6e22e">aType&lt;/span>, &lt;span style="color:#a6e22e">constr&lt;/span>);
+};
+}
+&lt;span style="color:#66d9ef">export&lt;/span> &lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">getComponent&lt;/span>(&lt;span style="color:#a6e22e">aType&lt;/span>: &lt;span style="color:#66d9ef">string&lt;/span>) {
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">TYPE_MAP&lt;/span>.&lt;span style="color:#a6e22e">get&lt;/span>(&lt;span style="color:#a6e22e">aType&lt;/span>);
+}
+&lt;span style="color:#75715e">// main.component.ts
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#75715e">// ...
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">getComponent&lt;/span>(&lt;span style="color:#a6e22e">aType&lt;/span>);
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="dynamic-components-by-selector-with-ivy">Dynamic Components by selector with Ivy&lt;/h2>
+&lt;p>To be update&lt;/p>
+&lt;h2 id="nh-gi-v-kt-lun">Đánh giá và kết luận&lt;/h2>
+&lt;p>To be update&lt;/p></description></item><item><title>Một số thư viện xử lý Excel - Dotnet Core</title><link>/post/2020/12/01/mot-so-thu-vien-xu-ly-excel/</link><pubDate>Tue, 01 Dec 2020 16:30:52 +0700</pubDate><guid>/post/2020/12/01/mot-so-thu-vien-xu-ly-excel/</guid><description>&lt;h1 id="1-exceldatareader">1. ExcelDataReader&lt;/h1>
 &lt;p>Lightweight and fast library written in C# for reading Microsoft Excel files&lt;/p>
 &lt;h2 id="main-features">Main Features&lt;/h2>
 &lt;ul>
