@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>BotScript.AI - A Chatbot Platform on &lt;Vunb /></title><link>/projects/botscript-ai/</link><description>Recent content in BotScript.AI - A Chatbot Platform on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Thu, 05 Mar 2020 22:27:52 +0700</lastBuildDate><atom:link href="/projects/botscript-ai/index.xml" rel="self" type="application/rss+xml"/><item><title>Giới thiệu tổng quan</title><link>/projects/botscript-ai/overview/introduction/</link><pubDate>Mon, 16 Mar 2020 12:05:52 +0700</pubDate><guid>/projects/botscript-ai/overview/introduction/</guid><description>&lt;p>&lt;strong>BotScript.AI&lt;/strong> là một dự án mã nguồn mở (*), với mục tiêu là tạo ra nền tảng dịch vụ cung cấp các trợ lý ảo riêng cho cá nhân và doanh nghiệp.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>BotScript.AI - A Chatbot Platform on &lt;Vunb /></title><link>https://vunb.github.io/projects/botscript-ai/</link><description>Recent content in BotScript.AI - A Chatbot Platform on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Thu, 05 Mar 2020 22:27:52 +0700</lastBuildDate><atom:link href="https://vunb.github.io/projects/botscript-ai/index.xml" rel="self" type="application/rss+xml"/><item><title>Giới thiệu tổng quan</title><link>https://vunb.github.io/projects/botscript-ai/overview/introduction/</link><pubDate>Mon, 16 Mar 2020 12:05:52 +0700</pubDate><guid>https://vunb.github.io/projects/botscript-ai/overview/introduction/</guid><description>&lt;p>&lt;strong>BotScript.AI&lt;/strong> là một dự án mã nguồn mở (*), với mục tiêu là tạo ra nền tảng dịch vụ cung cấp các trợ lý ảo riêng cho cá nhân và doanh nghiệp.&lt;/p>
 &lt;blockquote>
 &lt;p>Dự án đang trong giai đoạn thử nghiệm và hoàn thiện các tính năng cơ bản nhất của một trợ lý ảo riêng. Rất cần sự quan tâm của các cá nhân và các doanh nghiệp, người có quan tâm đến lĩnh vực trí tuệ nhân tạo, đặc biệt là trợ lý ảo, cùng đóng góp để tạo ra một nền tảng mở, đem đến trải nghiệm tốt nhất cho người dùng cuối.&lt;/p>
 &lt;/blockquote>
@@ -19,11 +19,11 @@
 &lt;li>Có tri thức cơ bản về sự vật hiện tượng&lt;/li>
 &lt;li>Có khả năng học tự nhiên để tạo ra tri thức mới&lt;/li>
 &lt;li>Có khả năng hòa giải hoặc đàm phán&lt;/li>
-&lt;/ul></description></item><item><title>Tích hợp chạy trên trình duyệt web, ngày 02/02/2021</title><link>/projects/botscript-ai/logs/browser-support/</link><pubDate>Tue, 02 Feb 2021 12:05:52 +0700</pubDate><guid>/projects/botscript-ai/logs/browser-support/</guid><description>&lt;h2 id="m-u-v-cm-tng-ct-mc-ny">Mở đầu và cảm tưởng cột mốc này&lt;/h2>
+&lt;/ul></description></item><item><title>Tích hợp chạy trên trình duyệt web, ngày 02/02/2021</title><link>https://vunb.github.io/projects/botscript-ai/logs/browser-support/</link><pubDate>Tue, 02 Feb 2021 12:05:52 +0700</pubDate><guid>https://vunb.github.io/projects/botscript-ai/logs/browser-support/</guid><description>&lt;h2 id="m-u-v-cm-tng-ct-mc-ny">Mở đầu và cảm tưởng cột mốc này&lt;/h2>
 &lt;p>Trí thông minh (nhân tạo) cơ bản nhất của một robot tương tác với con người nằm ở chỗ nó có khả năng: Trích rút thông tin; Khai phá thông tin và Truy xuất thông tin phản hồi.&lt;/p>
 &lt;p>Ở đây, chúng ta tập trung vào thuật ngữ &lt;strong>nhân tạo&lt;/strong> để hiểu rõ thêm rằng, con người chúng ta đang cố gắng tạo ra hệ thống thông minh có khả năng bắt chước khả năng &amp;ldquo;nhận thức&amp;rdquo; của con người và có khả năng liên kết với trí thức (trí tuệ + nhận thức), thể hiện ở khả năng &amp;ldquo;học tập&amp;rdquo; và &amp;ldquo;giải quyết vấn đề&amp;rdquo;. Hệ thống thông minh hay trí thông minh mà tôi đang cố gắng tạo ra, đó chính là BotScript.&lt;/p>
 &lt;p>Ngày nay, ngoài Turing test ra thì chúng ta đã có thước đo sự lúng túng (Perplexity), trung bình độ nhạy cá tính (SSA) và khả năng giao tiếp tự nhiên của đội quân robot thông minh này; Kể đến như: Meena (Google), Mitsuku, Cleverbot, XiaoIce, and DialoGPT. Tất nhiên, để tiệm cận được với con người thì còn chặng đường rất dài nữa.&lt;/p>
-&lt;p>&lt;img src="/img/botscript-ai/perplexity.png" alt="Perplexity">&lt;/p>
+&lt;p>&lt;img src="https://vunb.github.io/img/botscript-ai/perplexity.png" alt="Perplexity">&lt;/p>
 &lt;p>[Source: &lt;a href="https://ai.googleblog.com/2020/01/towards-conversational-agent-that-can.html">https://ai.googleblog.com/2020/01/towards-conversational-agent-that-can.html&lt;/a>]&lt;/p>
 &lt;p>Trong khi &lt;a href="https://github.com/amrisi/amr-guidelines/blob/master/amr.md">AMR&lt;/a> còn đang được soạn thảo, cho đến khi nó ready thì còn rất nhiều việc phải làm.&lt;/p>
 &lt;p>BotScript không cố gắng vượt qua Meena hay những robot kể trên về khả năng giao tiếp. Xong, BotScript cũng đặt ra một mục tiêu to lớn đó là khả năng giải quyết vấn đề của con người, vấn đề của tổ chức. Tức là một hệ thống thông minh hướng nhiệm vụ.&lt;/p>
@@ -46,7 +46,7 @@
 &lt;h2 id="chng-trnh-mu-html">Chương trình mẫu HTML&lt;/h2>
 &lt;p>Bạn có thể truy cập và trải nghiệm tại đây: &lt;a href="https://play.botscript.ai/">play.botscript.ai/&lt;/a>&lt;/p>
 &lt;p>Phiên bản trình diễn (demo) ban đầu chỉ đơn giản là nhập sẵn các câu giao tiếp và trả lời, kết quả như hình sau:&lt;/p>
-&lt;p>&lt;img src="/img/botscript-ai/bs-browser-demo.png" alt="BotScript browser demo">&lt;/p>
+&lt;p>&lt;img src="https://vunb.github.io/img/botscript-ai/bs-browser-demo.png" alt="BotScript browser demo">&lt;/p>
 &lt;p>Chương trình cài đặt cho kết quả trên:&lt;/p>
 &lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">&lt;span style="color:#75715e">&amp;lt;!DOCTYPE html&amp;gt;&lt;/span>
 &amp;lt;&lt;span style="color:#f92672">html&lt;/span>&amp;gt;
@@ -109,7 +109,7 @@
 &lt;ul>
 &lt;li>Demo: &lt;a href="https://play.botscript.ai/">https://play.botscript.ai/&lt;/a>&lt;/li>
 &lt;li>Source: &lt;a href="https://github.com/yeuai/botscript">https://github.com/yeuai/botscript&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Tích hợp hoàn thiện NLU, ngày 18/03/2020</title><link>/projects/botscript-ai/logs/nlu-integration/</link><pubDate>Wed, 18 Mar 2020 12:05:52 +0700</pubDate><guid>/projects/botscript-ai/logs/nlu-integration/</guid><description>&lt;h2 id="kt-qu-t-c">Kết quả đạt được&lt;/h2>
+&lt;/ul></description></item><item><title>Tích hợp hoàn thiện NLU, ngày 18/03/2020</title><link>https://vunb.github.io/projects/botscript-ai/logs/nlu-integration/</link><pubDate>Wed, 18 Mar 2020 12:05:52 +0700</pubDate><guid>https://vunb.github.io/projects/botscript-ai/logs/nlu-integration/</guid><description>&lt;h2 id="kt-qu-t-c">Kết quả đạt được&lt;/h2>
 &lt;p>Việc tích hợp thành công thành phần NLU vào trong BotScript Platform là một phần rất quan trọng. NLU giúp cho bot hiểu được văn bản đầu vào, qua đó cho phép bot quyết định chính xác thông tin cần trả lời cho khách hàng.&lt;/p>
 &lt;p>Về cốt lõi thì NLU là thành phần trong đó có nhiều kỹ thuật xử lý ngôn ngữ tự nhiên (NLP) được áp dụng.&lt;/p>
 &lt;ol>
@@ -117,7 +117,7 @@
 &lt;li>Trích xuất thông tin&lt;/li>
 &lt;li>Quản lý hội thoại&lt;/li>
 &lt;/ol>
-&lt;p>&lt;img src="/img/botscript-ai/nlu-integration.jpg" alt="NLU Integration Testing">&lt;/p>
+&lt;p>&lt;img src="https://vunb.github.io/img/botscript-ai/nlu-integration.jpg" alt="NLU Integration Testing">&lt;/p>
 &lt;p>BotScript bản thân nó đã là một chương trình quản lý hội thoại, việc cần thiết mà tôi vừa làm là đã tích hợp xong thêm 2 đơn vị nhỏ còn lại trong bộ phận NLU này, qua kinh nghiệm xây dựng mã nguồn mở &lt;a href="https://github.com/yeuai/rivebot-ce">Rivebot CE&lt;/a> thì việc triển khai cho BotScript dễ dàng hơn rất nhiều.&lt;/p>
 &lt;p>Một điểm thách thức là cả BotScript Platform (&lt;strong>BSP&lt;/strong>) và ngôn ngữ đặc tả BotScript Document (&lt;strong>BSD&lt;/strong>) đều rất mới, đang ở trong giai đoạn sơ khai nên việc thay đổi và cập nhật khả năng cho nó là rất nhiều. Ví dụ như để làm sao Bot hiểu được lệnh đang đưa vào là một câu nói ở một hình thái khác, tức là bot chỉ có thể hiểu được qua ý định của câu nói mà thôi? BotScript sẽ không thể bắt chính xác được từng chữ cái của người dùng, điều đó sẽ khiến người thiết kế bot phải quan tâm đến rất nhiều tình huống.&lt;/p>
 &lt;p>Tuy nhiên, tính mới, tính non trẻ đó cũng là một lợi thế để BotScript có thể điều chỉnh thay đổi phù hợp với các kịch bản từ thực tiễn. Nhưng phải đảm bảo được tính tổng quát chức năng của ngôn ngữ đặc tả &lt;strong>BSD&lt;/strong>, hay các api của BotScript Engine (&lt;strong>BSE&lt;/strong>).&lt;/p>
@@ -153,7 +153,7 @@
 &lt;li>BSP: &lt;strong>BotScript Platform&lt;/strong> - nền tảng cung cấp dịch vụ, sân chơi cho người thiết kế bot&lt;/li>
 &lt;li>BSD: &lt;strong>BotScript Document&lt;/strong> - tài liệu đặc tả BotScript, tiêu chuẩn để cho người dùng xây dựng kịch bản, tạo ra dịch vụ chatbot&lt;/li>
 &lt;li>BSE: &lt;strong>BotScript Engine&lt;/strong> - chương trình lõi quản lý hội thoại của một chatbot.&lt;/li>
-&lt;/ul></description></item><item><title>🔊 Release Notes - v1.2.0</title><link>/projects/botscript-ai/release-notes-v1.2.0/</link><pubDate>Mon, 16 Mar 2020 12:05:52 +0700</pubDate><guid>/projects/botscript-ai/release-notes-v1.2.0/</guid><description>&lt;p>Tôi rất vui mừng gửi thông báo phát hành phiên bản &lt;strong>1.2.0&lt;/strong> tới các bạn với một số tính năng mới và cập nhật mới như sau đây:&lt;/p>
+&lt;/ul></description></item><item><title>🔊 Release Notes - v1.2.0</title><link>https://vunb.github.io/projects/botscript-ai/release-notes-v1.2.0/</link><pubDate>Mon, 16 Mar 2020 12:05:52 +0700</pubDate><guid>https://vunb.github.io/projects/botscript-ai/release-notes-v1.2.0/</guid><description>&lt;p>Tôi rất vui mừng gửi thông báo phát hành phiên bản &lt;strong>1.2.0&lt;/strong> tới các bạn với một số tính năng mới và cập nhật mới như sau đây:&lt;/p>
 &lt;h2 id="new-features">New Features&lt;/h2>
 &lt;ul>
 &lt;li>Add Bot NLU System for NER labeling and Intent detection&lt;/li>
@@ -178,7 +178,7 @@
 &lt;p>Bằng hệ thống NLU xây dựng được, bot sẽ từng bước tách và trích xuất các thông tin phục vụ cho việc quyết định nội dung nào sẽ được trả lời (reply).&lt;/p>
 &lt;p>Như vậy, phiên bản &lt;strong>1.2.0&lt;/strong> là cơ sở quyết định để các phiên bản sau hoàn thiện hơn, tích hợp hoàn thiện một dòng chảy hội thoại: &lt;strong>Input&lt;/strong> -&amp;gt; NLU -&amp;gt; Dialogue Engine -&amp;gt; Commands Unit -&amp;gt; NLG -&amp;gt; &lt;strong>Response&lt;/strong>.&lt;/p>
 &lt;h2 id="references">References&lt;/h2>
-&lt;p>Ref: &lt;a href="https://github.com/vunb/botscript.ai/pull/16">#16&lt;/a>&lt;/p></description></item><item><title>🔊 Release Notes - v1.3.0</title><link>/projects/botscript-ai/release-notes-v1.3.0/</link><pubDate>Fri, 20 Mar 2020 12:05:52 +0700</pubDate><guid>/projects/botscript-ai/release-notes-v1.3.0/</guid><description>&lt;p>Tôi rất vui mừng gửi thông báo phát hành phiên bản &lt;strong>1.3.0&lt;/strong> tới các bạn với một số tính năng mới và cập nhật mới sau đây:&lt;/p>
+&lt;p>Ref: &lt;a href="https://github.com/vunb/botscript.ai/pull/16">#16&lt;/a>&lt;/p></description></item><item><title>🔊 Release Notes - v1.3.0</title><link>https://vunb.github.io/projects/botscript-ai/release-notes-v1.3.0/</link><pubDate>Fri, 20 Mar 2020 12:05:52 +0700</pubDate><guid>https://vunb.github.io/projects/botscript-ai/release-notes-v1.3.0/</guid><description>&lt;p>Tôi rất vui mừng gửi thông báo phát hành phiên bản &lt;strong>1.3.0&lt;/strong> tới các bạn với một số tính năng mới và cập nhật mới sau đây:&lt;/p>
 &lt;h2 id="new-features">New Features&lt;/h2>
 &lt;ul>
 &lt;li>Extend pattern capability to capture user intent, entity information, &amp;hellip;&lt;/li>
@@ -223,7 +223,7 @@
 &lt;ul>
 &lt;li>PR: &lt;a href="https://github.com/vunb/botscript.ai/pull/19">#19&lt;/a>&lt;/li>
 &lt;li>Release Tags: &lt;a href="https://github.com/vunb/botscript.ai/releases/tag/1.3.0">v1.3.0&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>🔊 Release Notes - v1.4.0</title><link>/projects/botscript-ai/release-notes-v1.4.0/</link><pubDate>Thu, 18 Feb 2021 12:05:52 +0700</pubDate><guid>/projects/botscript-ai/release-notes-v1.4.0/</guid><description>&lt;p>Vui mừng gửi thông báo phát hành phiên bản &lt;strong>1.4.0&lt;/strong> tới các bạn với một số tính năng mới và cập nhật mới sau đây:&lt;/p>
+&lt;/ul></description></item><item><title>🔊 Release Notes - v1.4.0</title><link>https://vunb.github.io/projects/botscript-ai/release-notes-v1.4.0/</link><pubDate>Thu, 18 Feb 2021 12:05:52 +0700</pubDate><guid>https://vunb.github.io/projects/botscript-ai/release-notes-v1.4.0/</guid><description>&lt;p>Vui mừng gửi thông báo phát hành phiên bản &lt;strong>1.4.0&lt;/strong> tới các bạn với một số tính năng mới và cập nhật mới sau đây:&lt;/p>
 &lt;h2 id="new-features">New Features&lt;/h2>
 &lt;ul>
 &lt;li>Add new directive system
