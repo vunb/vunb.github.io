@@ -1,4 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Projects on &lt;Vunb /></title><link>https://vunb.github.io/projects/</link><description>Recent content in Projects on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><atom:link href="https://vunb.github.io/projects/index.xml" rel="self" type="application/rss+xml"/><item><title>BotScript.AI - A Chatbot Platform</title><link>https://vunb.github.io/projects/botscript-ai/</link><pubDate>Thu, 05 Mar 2020 22:27:52 +0700</pubDate><guid>https://vunb.github.io/projects/botscript-ai/</guid><description>&lt;p>&lt;img src="https://vunb.github.io/img/botscript-ai/botscript.gif" alt="BotScript.AI Project">&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Projects on &lt;Vunb /></title><link>https://vunb.github.io/projects/</link><description>Recent content in Projects on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><atom:link href="https://vunb.github.io/projects/index.xml" rel="self" type="application/rss+xml"/><item><title>Kites.js</title><link>https://vunb.github.io/projects/kites.js/</link><pubDate>Tue, 07 Apr 2020 22:27:52 +0700</pubDate><guid>https://vunb.github.io/projects/kites.js/</guid><description>&lt;p>Kites là một dự án mã nguồn mở với mục tiêu là tạo ra các ứng dụng Web dựa trên các bản mẫu một cách nhanh chóng và dễ dàng.&lt;/p>
+&lt;h1 id="mc-tiu-ca-d-n">Mục tiêu của dự án&lt;/h1>
+&lt;ul>
+&lt;li>Là 1 framework tạo ra các ứng dụng web đầy tham vọng&lt;/li>
+&lt;li>Là 1 công cụ dòng lệnh, hỗ trợ khởi tạo nhanh dự án&lt;/li>
+&lt;li>Kết nối với nhiều loại cơ sở dữ liệu: MongoDB, Cassandra, MySQL, Postgres, Redis, &amp;hellip;&lt;/li>
+&lt;li>Mô-đun hóa các thành phần, tiện ích tái sử dụng thành các phần mở rộng (extensions)&lt;/li>
+&lt;li>Phân tách tầng ứng dụng: device access layer, database access layer, cron jobs, &amp;hellip;&lt;/li>
+&lt;li>Đóng gói các dự án cơ sở thành khuôn mẫu (templates)&lt;/li>
+&lt;li>Mỗi một khuôn mẫu đều có Dockerfile và docker-compose&lt;/li>
+&lt;li>Tích hợp với các dự án, module khác mà không gây ra xung đột&lt;/li>
+&lt;/ul></description></item><item><title>BotScript.AI - A Chatbot Platform</title><link>https://vunb.github.io/projects/botscript-ai/</link><pubDate>Thu, 05 Mar 2020 22:27:52 +0700</pubDate><guid>https://vunb.github.io/projects/botscript-ai/</guid><description>&lt;p>&lt;img src="https://vunb.github.io/img/botscript-ai/botscript.gif" alt="BotScript.AI Project">&lt;/p>
 &lt;p>Chào bạn,&lt;/p>
 &lt;p>Mình là Vũ – Founder của dự án &lt;strong>BotScript.AI&lt;/strong> và ngôn ngữ lập trình chatbot (BotScript).&lt;/p>
 &lt;p>Đầu tiên mình xin cảm ơn các bạn đã quan tâm dự án và đăng ký trải nghiệm sử dụng hệ thống nền tảng BotScript.AI&lt;/p>
@@ -46,5 +57,5 @@
 &lt;li>Email: vunb (at) nodejs (dot) vn hoặc nhubaovu (at) gmail (dot) com&lt;/li>
 &lt;li>Github: &lt;a href="https://github.com/vunb">https://github.com/vunb&lt;/a>&lt;/li>
 &lt;li>Issue Tracking: &lt;a href="https://github.com/yeuai/botscript">https://github.com/yeuai/botscript&lt;/a>&lt;/li>
-&lt;li>Facebook group: &lt;a href="https://facebook.com/groups/BotScript">https://facebook.com/groups/BotScript&lt;/a>&lt;/li>
+&lt;li>Facebook group: &lt;a href="https://facebook.com/groups/BotScriptAI">https://facebook.com/groups/BotScriptAI&lt;/a>&lt;/li>
 &lt;/ul></description></item></channel></rss>
