@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Phiếu trắc nghiệm vòng tròn</title>
+<style>
+  body{font-family: Arial, Helvetica, sans-serif; margin:16px}
+  label,input,button{font-size:14px}
+  .controls{margin-bottom:12px}
+  svg{border:1px solid #ddd; background:#fff}
+  .num{font-size:10px; text-anchor:middle; dominant-baseline:central}
+  .choice-letter{font-size:6px; text-anchor:middle; dominant-baseline:central}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <label>Số câu: <input id="qCount" type="number" value="40" min="1" max="360" /></label>
+  <label style="margin-left:8px">Lựa chọn: <input id="choices" type="text" value="A,B,C,D" /></label>
+  <button id="draw">Vẽ SVG</button>
+  <button id="download-svg">Tải SVG</button>
+  <button id="download-png">Tải PNG</button>
+</div>
+
+<div>
+  <svg id="sheet" width="700" height="700" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg"></svg>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById('sheet');
+  const drawBtn = document.getElementById('draw');
+  const downloadSvgBtn = document.getElementById('download-svg');
+  const downloadPngBtn = document.getElementById('download-png');
+
+  function clearSVG() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+  }
+
+  function createText(x,y,text,cls,attrs={}){
+    const t = document.createElementNS('http://www.w3.org/2000/svg','text');
+    t.setAttribute('x', x);
+    t.setAttribute('y', y);
+    t.setAttribute('class', cls);
+    t.textContent = text;
+    for(const k in attrs) t.setAttribute(k, attrs[k]);
+    return t;
+  }
+
+  function createCircle(x,y,r,attrs={}){
+    const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx', x);
+    c.setAttribute('cy', y);
+    c.setAttribute('r', r);
+    for(const k in attrs) c.setAttribute(k, attrs[k]);
+    return c;
+  }
+
+  function draw(numQuestions, choices){
+    clearSVG();
+
+    const W = 700, H = 700;
+    const cx = W/2, cy = H/2;
+    const outerNumRadius = 250;
+    const choicesBaseRadius = 210;
+    const choiceSpacing = 17; // tăng thêm 3px so với 14
+    const dotRadius = 7;
+    const startAngleDeg = -90;
+    const angleStep = (2*Math.PI) / numQuestions;
+
+    svg.appendChild(createText(cx, 40, 'PHIẾU TRẢ LỜI TRẮC NGHIỆM', '', { 'font-size': 20, 'text-anchor': 'middle' }));
+    svg.appendChild(createCircle(cx, cy, outerNumRadius + 50, { fill: 'none', stroke: '#bbb', 'stroke-width': 1 }));
+
+    for(let i=0;i<numQuestions;i++){
+      const angle = (startAngleDeg * Math.PI/180) + i * angleStep;
+
+      const nx = cx + outerNumRadius * Math.cos(angle);
+      const ny = cy + outerNumRadius * Math.sin(angle);
+      svg.appendChild(createText(nx, ny, String(i+1), 'num'));
+
+      for(let j=0;j<choices.length;j++){
+        const r = choicesBaseRadius - j * choiceSpacing;
+        const x = cx + r * Math.cos(angle);
+        const y = cy + r * Math.sin(angle);
+        svg.appendChild(createCircle(x, y, dotRadius, { fill: 'white', stroke: '#000', 'stroke-width': 1 }));
+        svg.appendChild(createText(x, y+0.8, choices[j], 'choice-letter'));
+      }
+    }
+
+    svg.appendChild(createCircle(cx, cy, choicesBaseRadius - choices.length*choiceSpacing - 18, { fill: 'none', stroke: '#ddd', 'stroke-width': 1 }));
+    svg.appendChild(createText(80, H-30, `Câu: ${numQuestions} | Lựa chọn: ${choices.join(', ')}`, '', { 'font-size':12, 'text-anchor':'start' }));
+  }
+
+  function downloadSVG(){
+    const serializer = new XMLSerializer();
+    const source = serializer.serializeToString(svg);
+    const blob = new Blob([source], {type:'image/svg+xml;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'answer_sheet.svg';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function downloadPNG(){
+    const serializer = new XMLSerializer();
+    const svgData = serializer.serializeToString(svg);
+    const canvas = document.createElement('canvas');
+    canvas.width = svg.width.baseVal.value;
+    canvas.height = svg.height.baseVal.value;
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    const svgBlob = new Blob([svgData], {type:'image/svg+xml;charset=utf-8'});
+    const url = URL.createObjectURL(svgBlob);
+
+    img.onload = function(){
+      ctx.drawImage(img, 0, 0);
+      URL.revokeObjectURL(url);
+      const a = document.createElement('a');
+      a.download = 'answer_sheet.png';
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+    };
+    img.src = url;
+  }
+
+  drawBtn.addEventListener('click', ()=>{
+    const n = Math.max(1, Math.min(360, parseInt(document.getElementById('qCount').value||0)));
+    const choicesRaw = (document.getElementById('choices').value||'A,B,C,D');
+    const choices = choicesRaw.split(',').map(s=>s.trim()).filter(Boolean);
+    draw(n, choices);
+  });
+
+  downloadSvgBtn.addEventListener('click', downloadSVG);
+  downloadPngBtn.addEventListener('click', downloadPNG);
+
+  // mặc định 40 câu
+  draw(40, ['A','B','C','D']);
+})();
+</script>
+
+</body>
+</html>
