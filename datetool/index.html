@@ -35,6 +35,7 @@
           <th>Lunar Date</th>
           <th>Lunar Day Number</th>
           <th>Lunar Days Remaining</th>
+          <th>Lunar Week Numer</th>
         </tr>
       </thead>
       <tbody>
@@ -47,6 +48,7 @@
           <td>{{ d.lunarDate }}</td>
           <td>{{ d.lunarDayNumber }}</td>
           <td>{{ d.lunarDaysRemaining }}</td>
+          <td>{{ d.weekNumberLunar }}</td>
         </tr>
       </tbody>
     </table>
@@ -78,6 +80,34 @@
             const lunar = Lunar.fromDate(d)
             const lunarYearDays = LunarYear.fromYear(lunar.getYear()).getDayCount()
 
+const lunarYear = lunar.getYear();            // năm âm
+
+// 1) Ngày bắt đầu năm âm (Tết) dưới dạng Solar -> chuyển sang Date()
+const lunarNewYearSolar = Lunar.fromYmd(lunarYear, 1, 1).getSolar();
+const lunarYearStart = new Date(
+  lunarNewYearSolar.getYear(),
+  lunarNewYearSolar.getMonth() - 1,
+  lunarNewYearSolar.getDay()
+);
+
+// 2) Ngày bắt đầu năm âm kế tiếp
+const nextLunarNewYearSolar = Lunar.fromYmd(lunarYear + 1, 1, 1).getSolar();
+const nextLunarYearStart = new Date(
+  nextLunarNewYearSolar.getYear(),
+  nextLunarNewYearSolar.getMonth() - 1,
+  nextLunarNewYearSolar.getDay()
+);
+
+// 3) Tính lunarDayNumber (1-based) và lunarDaysRemaining
+const MS_PER_DAY = 86400000;
+const lunarDayNumber = Math.floor((d - lunarYearStart) / MS_PER_DAY) + 1;
+
+// Nếu d < lunarYearStart (thường không xảy ra vì lunar.getYear() đã phản ánh điều này),
+// cần điều chỉnh; nhưng với cách lấy lunar.getYear() thông thường, công thức trên hợp lệ.
+
+const lunarYearLength = Math.floor((nextLunarYearStart - lunarYearStart) / MS_PER_DAY);
+const lunarDaysRemaining = lunarYearLength - lunarDayNumber;
+
             this.days.push({
               date: d.toISOString().split('T')[0],
               dayNumber: i + 1,
@@ -86,6 +116,10 @@
               lunarDate: `${lunar.getDay()} / ${lunar.getMonth()} (${lunar.getYear()})`,
               //lunarDayNumber: lunar.getDayOfYear(),
               //lunarDaysRemaining: lunarYearDays - lunar.getDayOfYear()
+              lunarDayNumber,
+              lunarDaysRemaining,
+              weekNumberLunar: lunar.getWeek()
+
             })
           }
         },
