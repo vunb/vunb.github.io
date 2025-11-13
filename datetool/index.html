@@ -15,7 +15,7 @@
 </head>
 <body>
   <div id="app">
-    <h2>Date Tool (Vue.js No Build)</h2>
+    <h2>Date Tool (Gematria)</h2>
     <label>Chọn năm: 
       <select v-model="year" @change="generateDays">
         <option v-for="y in years" :key="y" :value="y">{{ y }}</option>
@@ -84,8 +84,8 @@
               daysRemaining: totalDays - (i + 1),
               weekNumber: this.getWeekNumber(d),
               lunarDate: `${lunar.getDay()} / ${lunar.getMonth()} (${lunar.getYear()})`,
-              lunarDayNumber: lunar.getDayOfYear(),
-              lunarDaysRemaining: lunarYearDays - lunar.getDayOfYear()
+              //lunarDayNumber: lunar.getDayOfYear(),
+              //lunarDaysRemaining: lunarYearDays - lunar.getDayOfYear()
             })
           }
         },
