@@ -109,7 +109,7 @@ const lunarYearLength = Math.floor((nextLunarYearStart - lunarYearStart) / MS_PE
 const lunarDaysRemaining = lunarYearLength - lunarDayNumber;
 
             this.days.push({
-              date: d.toISOString().split('T')[0],
+              date: d.toString().split('T')[0],
               dayNumber: i + 1,
               daysRemaining: totalDays - (i + 1),
               weekNumber: this.getWeekNumber(d),
