@@ -106,7 +106,7 @@ const lunarDayNumber = Math.floor((d - lunarYearStart) / MS_PER_DAY) + 1;
 // cần điều chỉnh; nhưng với cách lấy lunar.getYear() thông thường, công thức trên hợp lệ.
 
 const lunarYearLength = Math.floor((nextLunarYearStart - lunarYearStart) / MS_PER_DAY);
-const lunarDaysRemaining = lunarYearLength - lunarDayNumber;
+const lunarDaysRemaining = lunarYearLength - lunarDayNumber + 1;
 
             this.days.push({
               date: this.formatDate(d),
