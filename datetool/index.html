@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Date Tool Vue (No Build)</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.min.js"></script>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    table { border-collapse: collapse; width: 100%; font-size: 14px; }
+    th, td { border: 1px solid #ccc; padding: 4px 8px; text-align: center; }
+    th { background: #f2f2f2; }
+    select { padding: 4px; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h2>Date Tool (Vue.js No Build)</h2>
+    <label>Chọn năm: 
+      <select v-model="year" @change="generateDays">
+        <option v-for="y in years" :key="y" :value="y">{{ y }}</option>
+      </select>
+    </label>
+
+    <p>Tổng số ngày: {{ days.length }}</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Date</th>
+          <th>Day Number</th>
+          <th>Days Remaining</th>
+          <th>Week Number</th>
+          <th>Lunar Date</th>
+          <th>Lunar Day Number</th>
+          <th>Lunar Days Remaining</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(d, i) in days" :key="i">
+          <td>{{ i + 1 }}</td>
+          <td>{{ d.date }}</td>
+          <td>{{ d.dayNumber }}</td>
+          <td>{{ d.daysRemaining }}</td>
+          <td>{{ d.weekNumber }}</td>
+          <td>{{ d.lunarDate }}</td>
+          <td>{{ d.lunarDayNumber }}</td>
+          <td>{{ d.lunarDaysRemaining }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const { createApp } = Vue
+    createApp({
+      data() {
+        const currentYear = new Date().getFullYear()
+        return {
+          year: currentYear,
+          years: Array.from({ length: 21 }, (_, i) => currentYear - 10 + i),
+          days: []
+        }
+      },
+      mounted() {
+        this.generateDays()
+      },
+      methods: {
+        generateDays() {
+          this.days = []
+          const start = new Date(this.year, 0, 1)
+          const end = new Date(this.year + 1, 0, 0)
+          const totalDays = Math.floor((end - start) / 86400000) + 1
+
+          for (let i = 0; i < totalDays; i++) {
+            const d = new Date(this.year, 0, i + 1)
+            const lunar = Lunar.fromDate(d)
+            const lunarYearDays = LunarYear.fromYear(lunar.getYear()).getDayCount()
+
+            this.days.push({
+              date: d.toISOString().split('T')[0],
+              dayNumber: i + 1,
+              daysRemaining: totalDays - (i + 1),
+              weekNumber: this.getWeekNumber(d),
+              lunarDate: `${lunar.getDay()} / ${lunar.getMonth()} (${lunar.getYear()})`,
+              lunarDayNumber: lunar.getDayOfYear(),
+              lunarDaysRemaining: lunarYearDays - lunar.getDayOfYear()
+            })
+          }
+        },
+        getWeekNumber(date) {
+          const firstDay = new Date(date.getFullYear(), 0, 1)
+          const diff = (date - firstDay + (firstDay.getTimezoneOffset() - date.getTimezoneOffset()) * 60000)
+          const oneDay = 86400000
+          return Math.floor(diff / oneDay / 7) + 1
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>
