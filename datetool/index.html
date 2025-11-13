@@ -111,7 +111,7 @@ const lunarDaysRemaining = lunarYearLength - lunarDayNumber;
             this.days.push({
               date: this.formatDate(d),
               dayNumber: i + 1,
-              daysRemaining: totalDays - (i + 1),
+              daysRemaining: totalDays - i,
               weekNumber: this.getWeekNumber(d),
               lunarDate: `${lunar.getDay()} / ${lunar.getMonth()} (${lunar.getYear()})`,
               //lunarDayNumber: lunar.getDayOfYear(),
