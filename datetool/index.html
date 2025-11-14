@@ -1,169 +1,213 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-  <meta charset="UTF-8" />
-  <title>Date Tool Vue (No Build)</title>
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.min.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Date Tool Vue (No Build)</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.min.js"></script>
 
-<!-- Thêm Bootstrap 5 -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
+    <!-- Thêm Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
-  <style>
-    body { font-family: sans-serif; margin: 20px; }
-    table { border-collapse: collapse; width: 100%; font-size: 14px; }
-    th, td { border: 1px solid #ccc; padding: 4px 8px; text-align: center; }
-    th { background: #f2f2f2; }
-  </style>
-</head>
-<body>
-  <div id="app" class="container">
-
-    <h2 class="mb-3">Date Tool (Gematria)</h2>
-
-    <label class="form-label">Chọn năm:</label>
-    <select class="form-select w-auto mb-3" v-model="year" @change="generateDays">
-      <option v-for="y in years" :key="y" :value="y">{{ y }}</option>
-    </select>
-
-    <p class="fw-bold">Tổng số ngày: {{ days.length }}</p>
-
-    <table class="table table-bordered table-hover">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Date</th>
-          <th>Day Number</th>
-          <th>Days Remaining</th>
-          <th>Week Number</th>
-          <th>Lunar Date</th>
-          <th>Lunar Day Number</th>
-          <th>Lunar Days Remaining</th>
-          <th>Lunar Week Numer</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(d, i) in days" :key="i"
-          :class="getRowClass(d)"
-          >
-          <td>{{ i + 1 }}</td>
-          <td>{{ d.date }}</td>
-          <td>{{ d.dayNumber }}</td>
-          <td>{{ d.daysRemaining }}</td>
-          <td>{{ d.weekNumber }}</td>
-          <td>{{ d.lunarDate }}</td>
-          <td>{{ d.lunarDayNumber }}</td>
-          <td>{{ d.lunarDaysRemaining }}</td>
-          <td>{{ d.weekNumberLunar }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <script>
-    const { createApp } = Vue
-    createApp({
-      data() {
-        const currentYear = new Date().getFullYear()
-        return {
-          year: currentYear,
-          years: Array.from({ length: 21 }, (_, i) => currentYear - 10 + i),
-          days: [],
-          
-          dangerValues: [39, 93, 34, 43, 22, 222, 322, 113, 114],
-          successValues: [27, 72, 37, 127, 227]
-        }
-      },
-      mounted() {
-        this.generateDays()
-      },
-      methods: {
-        getRowClass(d) {
-          const v1 = d.dayNumber;
-          const v2 = d.daysRemaining;
-
-          if (this.dangerValues.includes(v1) || this.dangerValues.includes(v2))
-            return "text-danger fw-bold";
-
-          if (this.successValues.includes(v1) || this.successValues.includes(v2))
-            return "text-success fw-bold";
-
-          return "";
-        },
-        generateDays() {
-          this.days = []
-          const start = new Date(this.year, 0, 1)
-          const end = new Date(this.year + 1, 0, 0)
-          const totalDays = Math.floor((end - start) / 86400000) + 1
-
-          for (let i = 0; i < totalDays; i++) {
-            const d = new Date(this.year, 0, i + 1)
-            const lunar = Lunar.fromDate(d)
-            const lunarYearDays = LunarYear.fromYear(lunar.getYear()).getDayCount()
-
-const lunarYear = lunar.getYear();            // năm âm
-
-// 1) Ngày bắt đầu năm âm (Tết) dưới dạng Solar -> chuyển sang Date()
-const lunarNewYearSolar = Lunar.fromYmd(lunarYear, 1, 1).getSolar();
-const lunarYearStart = new Date(
-  lunarNewYearSolar.getYear(),
-  lunarNewYearSolar.getMonth() - 1,
-  lunarNewYearSolar.getDay()
-);
-
-// 2) Ngày bắt đầu năm âm kế tiếp
-const nextLunarNewYearSolar = Lunar.fromYmd(lunarYear + 1, 1, 1).getSolar();
-const nextLunarYearStart = new Date(
-  nextLunarNewYearSolar.getYear(),
-  nextLunarNewYearSolar.getMonth() - 1,
-  nextLunarNewYearSolar.getDay()
-);
-
-// 3) Tính lunarDayNumber (1-based) và lunarDaysRemaining
-const MS_PER_DAY = 86400000;
-const lunarDayNumber = Math.floor((d - lunarYearStart) / MS_PER_DAY) + 1;
-
-// Nếu d < lunarYearStart (thường không xảy ra vì lunar.getYear() đã phản ánh điều này),
-// cần điều chỉnh; nhưng với cách lấy lunar.getYear() thông thường, công thức trên hợp lệ.
-
-const lunarYearLength = Math.floor((nextLunarYearStart - lunarYearStart) / MS_PER_DAY);
-const lunarDaysRemaining = lunarYearLength - lunarDayNumber + 1;
-
-            this.days.push({
-              date: this.formatDate(d),
-              dayNumber: i + 1,
-              daysRemaining: totalDays - i,
-              weekNumber: this.getWeekNumber(d),
-              lunarDate: `${lunar.getDay()} / ${lunar.getMonth()} (${lunar.getYear()})`,
-              //lunarDayNumber: lunar.getDayOfYear(),
-              //lunarDaysRemaining: lunarYearDays - lunar.getDayOfYear()
-              lunarDayNumber,
-              lunarDaysRemaining,
-              weekNumberLunar: lunar.getWeek()
-
-            })
-          }
-        },
-        getWeekNumber(date) {
-          const firstDay = new Date(date.getFullYear(), 0, 1)
-          const diff = (date - firstDay + (firstDay.getTimezoneOffset() - date.getTimezoneOffset()) * 60000)
-          const oneDay = 86400000
-          return Math.floor(diff / oneDay / 7) + 1
-        },
-        formatDate(date) {
-          
-const year = date.getFullYear();
-const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Add 1 as month is 0-indexed
-const day = date.getDate().toString().padStart(2, '0');
-const customFormat = `${day} / ${month} (${year})`;
-return customFormat; // Output example: "2025-11-14"
-
-        }
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 20px;
       }
-    }).mount('#app')
-  </script>
-</body>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 14px;
+      }
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 4px 8px;
+        text-align: center;
+      }
+      th {
+        background: #f2f2f2;
+      }
+      .table tr.bg-success,
+      .table tr.bg-success > td {
+        color: var(--bs-white) !important;
+        background-color: var(--bs-success) !important;
+      }
+      .table tr.bg-danger,
+      .table tr.bg-danger > td {
+        color: var(--bs-white) !important;
+        background-color: var(--bs-danger) !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" class="container">
+      <h2 class="mb-3">Date Tool (Gematria)</h2>
+
+      <label class="form-label">Chọn năm:</label>
+      <select
+        class="form-select w-auto mb-3"
+        v-model="year"
+        @change="generateDays"
+      >
+        <option v-for="y in years" :key="y" :value="y">{{ y }}</option>
+      </select>
+
+      <p class="fw-bold">Tổng số ngày: {{ days.length }}</p>
+
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Day Number</th>
+            <th>Days Remaining</th>
+            <th>Week Number</th>
+            <th>Lunar Date</th>
+            <th>Lunar Day Number</th>
+            <th>Lunar Days Remaining</th>
+            <th>Lunar Week Numer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(d, i) in days" :key="i" :class="getRowClass(d)">
+            <td>{{ i + 1 }}</td>
+            <td>{{ d.date }}</td>
+            <td>{{ d.dayNumber }}</td>
+            <td>{{ d.daysRemaining }}</td>
+            <td>{{ d.weekNumber }}</td>
+            <td>{{ d.lunarDate }}</td>
+            <td>{{ d.lunarDayNumber }}</td>
+            <td>{{ d.lunarDaysRemaining }}</td>
+            <td>{{ d.weekNumberLunar }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+      createApp({
+        data() {
+          const currentYear = new Date().getFullYear();
+          return {
+            year: currentYear,
+            years: Array.from({ length: 21 }, (_, i) => currentYear - 10 + i),
+            days: [],
+
+            dangerValues: [39, 93, 34, 43, 22, 222, 322, 113, 114],
+            successValues: [27, 72, 37, 127, 227],
+          };
+        },
+        mounted() {
+          this.generateDays();
+        },
+        methods: {
+          getRowClass(d) {
+            const v1 = d.dayNumber;
+            const v2 = d.daysRemaining;
+
+            if (
+              this.dangerValues.includes(v1) ||
+              this.dangerValues.includes(v2)
+            )
+              return 'bg-danger fw-bold';
+
+            if (
+              this.successValues.includes(v1) ||
+              this.successValues.includes(v2)
+            )
+              return 'bg-success fw-bold';
+
+            return '';
+          },
+          generateDays() {
+            this.days = [];
+            const start = new Date(this.year, 0, 1);
+            const end = new Date(this.year + 1, 0, 0);
+            const totalDays = Math.floor((end - start) / 86400000) + 1;
+
+            for (let i = 0; i < totalDays; i++) {
+              const d = new Date(this.year, 0, i + 1);
+              const lunar = Lunar.fromDate(d);
+              const lunarYearDays = LunarYear.fromYear(
+                lunar.getYear()
+              ).getDayCount();
+
+              const lunarYear = lunar.getYear(); // năm âm
+
+              // 1) Ngày bắt đầu năm âm (Tết) dưới dạng Solar -> chuyển sang Date()
+              const lunarNewYearSolar = Lunar.fromYmd(
+                lunarYear,
+                1,
+                1
+              ).getSolar();
+              const lunarYearStart = new Date(
+                lunarNewYearSolar.getYear(),
+                lunarNewYearSolar.getMonth() - 1,
+                lunarNewYearSolar.getDay()
+              );
+
+              // 2) Ngày bắt đầu năm âm kế tiếp
+              const nextLunarNewYearSolar = Lunar.fromYmd(
+                lunarYear + 1,
+                1,
+                1
+              ).getSolar();
+              const nextLunarYearStart = new Date(
+                nextLunarNewYearSolar.getYear(),
+                nextLunarNewYearSolar.getMonth() - 1,
+                nextLunarNewYearSolar.getDay()
+              );
+
+              // 3) Tính lunarDayNumber (1-based) và lunarDaysRemaining
+              const MS_PER_DAY = 86400000;
+              const lunarDayNumber =
+                Math.floor((d - lunarYearStart) / MS_PER_DAY) + 1;
+
+              // Nếu d < lunarYearStart (thường không xảy ra vì lunar.getYear() đã phản ánh điều này),
+              // cần điều chỉnh; nhưng với cách lấy lunar.getYear() thông thường, công thức trên hợp lệ.
+
+              const lunarYearLength = Math.floor(
+                (nextLunarYearStart - lunarYearStart) / MS_PER_DAY
+              );
+              const lunarDaysRemaining = lunarYearLength - lunarDayNumber + 1;
+
+              this.days.push({
+                date: this.formatDate(d),
+                dayNumber: i + 1,
+                daysRemaining: totalDays - i,
+                weekNumber: this.getWeekNumber(d),
+                lunarDate: `${lunar.getDay()} / ${lunar.getMonth()} (${lunar.getYear()})`,
+                //lunarDayNumber: lunar.getDayOfYear(),
+                //lunarDaysRemaining: lunarYearDays - lunar.getDayOfYear()
+                lunarDayNumber,
+                lunarDaysRemaining,
+                weekNumberLunar: lunar.getWeek(),
+              });
+            }
+          },
+          getWeekNumber(date) {
+            const firstDay = new Date(date.getFullYear(), 0, 1);
+            const diff =
+              date -
+              firstDay +
+              (firstDay.getTimezoneOffset() - date.getTimezoneOffset()) * 60000;
+            const oneDay = 86400000;
+            return Math.floor(diff / oneDay / 7) + 1;
+          },
+          formatDate(date) {
+            const year = date.getFullYear();
+            const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Add 1 as month is 0-indexed
+            const day = date.getDate().toString().padStart(2, '0');
+            const customFormat = `${day} / ${month} (${year})`;
+            return customFormat; // Output example: "2025-11-14"
+          },
+        },
+      }).mount('#app');
+    </script>
+  </body>
 </html>
