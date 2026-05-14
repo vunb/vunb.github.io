@@ -60,6 +60,11 @@
 &lt;td>&lt;a href="./chatbot-faq-huong-dan-thiet-ke-va-xay-dung">Hướng dẫn thiết kế &amp;amp; xây dựng Chatbot FAQ&lt;/a>&lt;/td>
 &lt;td>System prompt, tài liệu mẫu, checklist, lộ trình triển khai&lt;/td>
 &lt;/tr>
+&lt;tr>
+&lt;td>2&lt;/td>
+&lt;td>&lt;a href="./xay-dung-ai-agent-da-nhiem-tu-faq-den-automation-workflow">Xây dựng AI Agent đa nhiệm — Từ FAQ đến Automation Workflow&lt;/a>&lt;/td>
+&lt;td>Kiến trúc đa agent, orchestration workflow, roadmap triển khai, KPI/ROI&lt;/td>
+&lt;/tr>
 &lt;/tbody>
 &lt;/table>
 &lt;hr>
