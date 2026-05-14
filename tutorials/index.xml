@@ -34,4 +34,35 @@
 &lt;span style="color:#a6e22e">url&lt;/span> = &lt;span style="color:#e6db74">&amp;#34;docs/&amp;#34;&lt;/span>
 &lt;span style="color:#a6e22e">weight&lt;/span> = &lt;span style="color:#ae81ff">50&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="update-the-docs-menu">Update the docs menu&lt;/h2>
-&lt;p>If you use the &lt;em>docs&lt;/em> layout, note that the name of the menu in the front matter should be in the form &lt;code>[menu.X]&lt;/code> where &lt;code>X&lt;/code> is the folder name. Hence, if you rename the &lt;code>courses/example/&lt;/code> folder, you should also rename the menu definitions in the front matter of files within &lt;code>courses/example/&lt;/code> from &lt;code>[menu.example]&lt;/code> to &lt;code>[menu.&amp;lt;NewFolderName&amp;gt;]&lt;/code>.&lt;/p></description></item></channel></rss>
+&lt;p>If you use the &lt;em>docs&lt;/em> layout, note that the name of the menu in the front matter should be in the form &lt;code>[menu.X]&lt;/code> where &lt;code>X&lt;/code> is the folder name. Hence, if you rename the &lt;code>courses/example/&lt;/code> folder, you should also rename the menu definitions in the front matter of files within &lt;code>courses/example/&lt;/code> from &lt;code>[menu.example]&lt;/code> to &lt;code>[menu.&amp;lt;NewFolderName&amp;gt;]&lt;/code>.&lt;/p></description></item><item><title>AI Agent</title><link>https://vunb.github.io/tutorials/ai-agent/</link><pubDate>Thu, 14 May 2026 00:00:00 +0700</pubDate><guid>https://vunb.github.io/tutorials/ai-agent/</guid><description>&lt;h2 id="gii-thiu">Giới thiệu&lt;/h2>
+&lt;p>Chuyên mục &lt;strong>AI Agent&lt;/strong> tập hợp các bài viết hướng dẫn thực chiến về thiết kế, xây dựng và triển khai các hệ thống AI Agent cho doanh nghiệp — từ chatbot hỏi đáp FAQ đơn giản đến các agent đa nhiệm, tích hợp đa kênh.&lt;/p>
+&lt;h2 id="mc-tiu">Mục tiêu&lt;/h2>
+&lt;p>Qua loạt bài này, bạn sẽ:&lt;/p>
+&lt;ol>
+&lt;li>Hiểu được AI Agent là gì và khi nào nên áp dụng.&lt;/li>
+&lt;li>Biết cách thiết kế &lt;strong>system prompt&lt;/strong> hiệu quả.&lt;/li>
+&lt;li>Xây dựng được tài liệu tri thức (knowledge base) chuẩn cho chatbot.&lt;/li>
+&lt;li>Triển khai chatbot FAQ từ A đến Z theo lộ trình rõ ràng.&lt;/li>
+&lt;li>Đo lường và tối ưu hiệu quả hoạt động của AI Agent.&lt;/li>
+&lt;/ol>
+&lt;h2 id="danh-sch-bi-vit">Danh sách bài viết&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>#&lt;/th>
+&lt;th>Chủ đề&lt;/th>
+&lt;th>Mô tả&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>1&lt;/td>
+&lt;td>&lt;a href="./chatbot-faq-huong-dan-thiet-ke-va-xay-dung">Hướng dẫn thiết kế &amp;amp; xây dựng Chatbot FAQ&lt;/a>&lt;/td>
+&lt;td>System prompt, tài liệu mẫu, checklist, lộ trình triển khai&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;blockquote>
+&lt;p>💡 &lt;strong>Tip:&lt;/strong> Mỗi bài viết đều kèm theo template, checklist và ví dụ thực tế để bạn có thể áp dụng ngay vào dự án của mình.&lt;/p>
+&lt;/blockquote></description></item></channel></rss>
