@@ -43,7 +43,14 @@
 &lt;li>Biết cách thiết kế &lt;strong>system prompt&lt;/strong> hiệu quả.&lt;/li>
 &lt;li>Xây dựng được tài liệu tri thức (knowledge base) chuẩn cho chatbot.&lt;/li>
 &lt;li>Triển khai chatbot FAQ từ A đến Z theo lộ trình rõ ràng.&lt;/li>
+&lt;li>Mở rộng lên AI Agent đa nhiệm kết hợp automation workflow.&lt;/li>
+&lt;li>Xây dựng kho tri thức RAG chuẩn sản xuất — chunking, embedding, vector DB và pipeline cập nhật.&lt;/li>
 &lt;li>Đo lường và tối ưu hiệu quả hoạt động của AI Agent.&lt;/li>
+&lt;li>Thiết kế và triển khai Tool Use &amp;amp; Function Calling — trang bị cho AI Agent khả năng hành động thực tế.&lt;/li>
+&lt;li>Xây dựng hệ thống Memory &amp;amp; Context Management — giúp AI Agent ghi nhớ và cá nhân hóa trải nghiệm người dùng.&lt;/li>
+&lt;li>Triển khai Guardrails &amp;amp; Evaluation — đảm bảo AI Agent hoạt động an toàn, đúng phạm vi và có thể kiểm chứng.&lt;/li>
+&lt;li>Xây dựng hệ thống Monitoring &amp;amp; Observability — vận hành AI Agent trong production với đầy đủ metrics, tracing, alerting và cost management.&lt;/li>
+&lt;li>Áp dụng AI Agent vào 8 use case thực chiến trong doanh nghiệp Việt Nam — từ Ngân hàng, Y tế, ERP đến Chính phủ Điện tử.&lt;/li>
 &lt;/ol>
 &lt;h2 id="danh-sch-bi-vit">Danh sách bài viết&lt;/h2>
 &lt;table>
@@ -65,9 +72,39 @@
 &lt;td>&lt;a href="./xay-dung-ai-agent-da-nhiem-tu-faq-den-automation-workflow">Xây dựng AI Agent đa nhiệm — Từ FAQ đến Automation Workflow&lt;/a>&lt;/td>
 &lt;td>Kiến trúc đa agent, orchestration workflow, roadmap triển khai, KPI/ROI&lt;/td>
 &lt;/tr>
+&lt;tr>
+&lt;td>3&lt;/td>
+&lt;td>&lt;a href="./rag-va-knowledge-base-xay-dung-kho-tri-thuc-cho-ai-agent">RAG &amp;amp; Knowledge Base — Xây dựng kho tri thức cho AI Agent&lt;/a>&lt;/td>
+&lt;td>Chunking, embedding, so sánh vector DB, ingestion pipeline, checklist, KPI/ROI&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>4&lt;/td>
+&lt;td>&lt;a href="./tool-use-va-function-calling-trang-bi-cong-cu-cho-ai-agent">Tool Use &amp;amp; Function Calling — Trang bị công cụ cho AI Agent&lt;/a>&lt;/td>
+&lt;td>Function calling flow, JSON schema tool design, MCP, Semantic Kernel C#, LangChain Python, bảo mật, checklist, KPI/ROI&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>5&lt;/td>
+&lt;td>&lt;a href="./memory-va-context-management-giup-ai-agent-ghi-nho-va-hieu-ngu-canh">Memory &amp;amp; Context Management — Giúp AI Agent ghi nhớ và hiểu ngữ cảnh&lt;/a>&lt;/td>
+&lt;td>4 loại bộ nhớ, Redis session, PostgreSQL long-term, Semantic Memory (Qdrant), hybrid retrieval, user profiling, GDPR, checklist, KPI/ROI&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>6&lt;/td>
+&lt;td>&lt;a href="./guardrails-va-evaluation-an-toan-kiem-soat-danh-gia-ai-agent">Guardrails &amp;amp; Evaluation — An toàn, Kiểm soát và Đánh giá AI Agent&lt;/a>&lt;/td>
+&lt;td>Guardrails kiến trúc, input/output filters, LLM-as-a-Judge, Ragas evaluation, HITL, so sánh 6 công cụ, checklist, KPI/ROI&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>7&lt;/td>
+&lt;td>&lt;a href="./monitoring-va-observability-van-hanh-ai-agent-trong-production">Monitoring &amp;amp; Observability — Vận hành AI Agent trong Production&lt;/a>&lt;/td>
+&lt;td>LLMOps vs DevOps, 4 pillars observability, distributed tracing, Grafana dashboard, Elasticsearch logging, alerting, A/B test prompt, model routing, checklist, KPI/ROI&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>8&lt;/td>
+&lt;td>&lt;a href="./use-case-thuc-chien-ai-agent-trong-doanh-nghiep-viet-nam">Use Case Thực chiến — AI Agent trong Doanh nghiệp Việt Nam&lt;/a>&lt;/td>
+&lt;td>8 use case thực chiến: Ngân hàng, HIS Bệnh viện, ERP, CRM BDS, HR, LGSP, Logistics, Education; platform AI Hub, Build vs Buy, roadmap 4 giai đoạn, checklist, KPI/ROI&lt;/td>
+&lt;/tr>
 &lt;/tbody>
 &lt;/table>
 &lt;hr>
 &lt;blockquote>
-&lt;p>💡 &lt;strong>Tip:&lt;/strong> Mỗi bài viết đều kèm theo template, checklist và ví dụ thực tế để bạn có thể áp dụng ngay vào dự án của mình.&lt;/p>
+&lt;p>💡 &lt;strong>Tip:&lt;/strong> Mỗi bài viết đều kèm theo template, checklist và ví dụ thực tế để bạn có thể áp dụng ngay vào dự án của mình. Đây là bài cuối của series — chúc bạn triển khai thành công!&lt;/p>
 &lt;/blockquote></description></item></channel></rss>

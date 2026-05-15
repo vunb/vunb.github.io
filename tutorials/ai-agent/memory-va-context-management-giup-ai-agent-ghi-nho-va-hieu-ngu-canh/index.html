@@ -1,0 +1,1129 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=generator content="Source Themes Academic 4.3.1"><meta name=author content="Vu Bao Nhu"><meta name=description content="1. Vì sao AI Agent cần bộ nhớ? Ở bài trước, chúng ta đã trang bị cho AI Agent khả năng hành động thông qua Tool Use & Function Calling. Tuy nhiên, ngay cả khi agent đã biết gọi đúng tool, vẫn tồn tại một vấn đề căn bản khiến trải nghiệm người dùng còn rời rạc:
+ &ldquo;Tôi đã báo với chatbot tuần trước rằng tôi dị ứng latex — sao hôm nay nó lại gợi ý sản phẩm có latex cho tôi?"><link rel=alternate hreflang=en-us href=https://vunb.github.io/tutorials/ai-agent/memory-va-context-management-giup-ai-agent-ghi-nho-va-hieu-ngu-canh/><meta name=theme-color content="#2962ff"><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin=anonymous><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.6.0/css/all.css integrity=sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css crossorigin=anonymous title=hl-light><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css crossorigin=anonymous title=hl-dark disabled><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:400,400italic,700|Roboto+Mono&display=swap"><link rel=stylesheet href=/css/academic.min.2f3ad830d0a64bf8a36a9a54cc63fcc3.css><script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-48010057-5','auto');ga('require','eventTracker');ga('require','outboundLinkTracker');ga('require','urlChangeTracker');ga('send','pageview');</script><script async src=//www.google-analytics.com/analytics.js></script><script async src=https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin=anonymous></script><link rel=manifest href=/site.webmanifest><link rel=icon type=image/png href=/img/icon.png><link rel=apple-touch-icon type=image/png href=/img/icon-192.png><link rel=canonical href=https://vunb.github.io/tutorials/ai-agent/memory-va-context-management-giup-ai-agent-ghi-nho-va-hieu-ngu-canh/><meta property="twitter:card" content="summary"><meta property="twitter:site" content="@nhubaovu"><meta property="twitter:creator" content="@nhubaovu"><meta property="og:site_name" content="<Vunb />"><meta property="og:url" content="https://vunb.github.io/tutorials/ai-agent/memory-va-context-management-giup-ai-agent-ghi-nho-va-hieu-ngu-canh/"><meta property="og:title" content="Memory & Context Management — Giúp AI Agent ghi nhớ và hiểu ngữ cảnh | <Vunb />"><meta property="og:description" content="1. Vì sao AI Agent cần bộ nhớ? Ở bài trước, chúng ta đã trang bị cho AI Agent khả năng hành động thông qua Tool Use & Function Calling. Tuy nhiên, ngay cả khi agent đã biết gọi đúng tool, vẫn tồn tại một vấn đề căn bản khiến trải nghiệm người dùng còn rời rạc:
+ &ldquo;Tôi đã báo với chatbot tuần trước rằng tôi dị ứng latex — sao hôm nay nó lại gợi ý sản phẩm có latex cho tôi?"><meta property="og:image" content="https://vunb.github.io/img/icon-192.png"><meta property="twitter:image" content="https://vunb.github.io/img/icon-192.png"><meta property="og:locale" content="en-us"><meta property="article:published_time" content="2026-05-14T00:00:00+07:00"><meta property="article:modified_time" content="2026-05-14T00:00:00+07:00"><title>Memory & Context Management — Giúp AI Agent ghi nhớ và hiểu ngữ cảnh | &lt;Vunb /></title></head><body id=top data-spy=scroll data-target=#TableOfContents data-offset=71><aside class=search-results id=search><div class=container><section class=search-header><div class="row no-gutters justify-content-between mb-3"><div class=col-6><h1>Search</h1></div><div class="col-6 col-search-close"><a class=js-search href=#><i class="fas fa-times-circle text-muted" aria-hidden=true></i></a></div></div><div id=search-box><input name=q id=search-query placeholder=Search... autocapitalize=off autocomplete=off autocorrect=off role=textbox spellcheck=false type=search></div></section><section class=section-search-results><div id=search-hits></div></section></div></aside><nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id=navbar-main><div class=container><a class=navbar-brand href=/>&lt;Vunb /></a>
+<button type=button class=navbar-toggler data-toggle=collapse data-target=#navbar aria-controls=navbar aria-expanded=false aria-label="Toggle navigation">
+<span><i class="fas fa-bars"></i></span></button><div class="collapse navbar-collapse" id=navbar><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=/#about><span>Home</span></a></li><li class=nav-item><a class=nav-link href=/#posts><span>Posts</span></a></li><li class=nav-item><a class=nav-link href=/projects/><span>Projects</span></a></li><li class=nav-item><a class=nav-link href=/courses/><span>Courses</span></a></li><li class=nav-item><a class="nav-link active" href=/tutorials/><span>Tutorials</span></a></li><li class=nav-item><a class=nav-link href=/#contact><span>Contact</span></a></li></ul><ul class="navbar-nav ml-auto"><li class=nav-item><a class="nav-link js-search" href=#><i class="fas fa-search" aria-hidden=true></i></a></li><li class=nav-item><a class="nav-link js-dark-toggle" href=#><i class="fas fa-moon" aria-hidden=true></i></a></li></ul></div></div></nav><div class="container-fluid docs"><div class="row flex-xl-nowrap"><div class="col-12 col-md-3 col-xl-2 docs-sidebar"><form class="docs-search d-flex align-items-center"><button class="btn docs-toggle d-md-none p-0 mr-3" type=button data-toggle=collapse data-target=#docs-nav aria-controls=docs-nav aria-expanded=false aria-label="Toggle section navigation">
+<span><i class="fas fa-bars"></i></span></button>
+<input name=q type=search class=form-control id=search-query placeholder=Search... autocomplete=off></form><nav class="collapse docs-links" id=docs-nav><div class=docs-toc-item><a class=docs-toc-link href=/tutorials/ai-agent/>Tổng quan</a><ul class="nav docs-sidenav"><li><a href=/tutorials/ai-agent/chatbot-faq-huong-dan-thiet-ke-va-xay-dung/>Chatbot FAQ — Hướng dẫn Thiết kế & Xây dựng</a></li><li><a href=/tutorials/ai-agent/xay-dung-ai-agent-da-nhiem-tu-faq-den-automation-workflow/>AI Agent đa nhiệm — Từ FAQ đến Automation Workflow</a></li><li><a href=/tutorials/ai-agent/rag-va-knowledge-base-xay-dung-kho-tri-thuc-cho-ai-agent/>RAG & Knowledge Base — Kho tri thức cho AI Agent</a></li><li><a href=/tutorials/ai-agent/tool-use-va-function-calling-trang-bi-cong-cu-cho-ai-agent/>Tool Use & Function Calling — Trang bị công cụ cho AI Agent</a></li><li class=active><a href=/tutorials/ai-agent/memory-va-context-management-giup-ai-agent-ghi-nho-va-hieu-ngu-canh/>Memory & Context Management — Giúp AI Agent ghi nhớ và hiểu ngữ cảnh</a></li><li><a href=/tutorials/ai-agent/guardrails-va-evaluation-an-toan-kiem-soat-danh-gia-ai-agent/>Guardrails & Evaluation — An toàn, Kiểm soát và Đánh giá AI Agent</a></li><li><a href=/tutorials/ai-agent/monitoring-va-observability-van-hanh-ai-agent-trong-production/>Monitoring & Observability — Vận hành AI Agent trong Production</a></li><li><a href=/tutorials/ai-agent/use-case-thuc-chien-ai-agent-trong-doanh-nghiep-viet-nam/>Use Case Thực chiến — AI Agent trong Doanh nghiệp Việt Nam</a></li></ul></div></nav></div><div class="d-none d-xl-block col-xl-2 docs-toc"><ul class="nav toc-top"><li><a href=# id=back_to_top class=docs-toc-title>Contents</a></li></ul><nav id=TableOfContents><ul><li><a href=#1-v-sao-ai-agent-cn-b-nh>1. Vì sao AI Agent cần bộ nhớ?</a><ul><li><a href=#11-gii-hn-context-window>1.1. Giới hạn Context Window</a></li><li><a href=#12-stateless-vs-stateful-agent>1.2. Stateless vs Stateful Agent</a></li><li><a href=#13-pain-point-thc-t>1.3. Pain Point thực tế</a></li></ul></li><li><a href=#2-taxonomy-b-nh-ai-agent-4-loi>2. Taxonomy bộ nhớ AI Agent: 4 loại</a><ul><li><a href=#21-khi-no-dng-loi-no>2.1. Khi nào dùng loại nào?</a></li></ul></li><li><a href=#3-in-context-memory--k-thut-qun-l-conversation-history>3. In-Context Memory — Kỹ thuật quản lý Conversation History</a><ul><li><a href=#31-k-thut-1-sliding-window>3.1. Kỹ thuật 1: Sliding Window</a></li><li><a href=#32-k-thut-2-token-budget-management>3.2. Kỹ thuật 2: Token Budget Management</a></li><li><a href=#33-k-thut-3-message-summarization-khi-gn-t-limit>3.3. Kỹ thuật 3: Message Summarization khi gần đạt limit</a></li></ul></li><li><a href=#4-session-memory--lu-tr-ngn-hn-vi-redisvalkey>4. Session Memory — Lưu trữ ngắn hạn với Redis/Valkey</a><ul><li><a href=#41-session-schema-json>4.1. Session Schema (JSON)</a></li><li><a href=#42-c--semantic-kernel-vi-redis-session-memory>4.2. C# — Semantic Kernel với Redis Session Memory</a></li><li><a href=#43-cu-hnh-redis-cho-session-memory>4.3. Cấu hình Redis cho Session Memory</a></li></ul></li><li><a href=#5-persistent-long-term-memory--postgresql-schema>5. Persistent Long-term Memory — PostgreSQL Schema</a><ul><li><a href=#51-schema-postgresql>5.1. Schema PostgreSQL</a></li><li><a href=#52-migration-strategy>5.2. Migration Strategy</a></li></ul></li><li><a href=#6-semantic-memory--vector-store-cho-k-c-ng-ngha>6. Semantic Memory — Vector Store cho ký ức ngữ nghĩa</a><ul><li><a href=#61-kin-trc-semantic-memory--rag>6.1. Kiến trúc Semantic Memory + RAG</a></li><li><a href=#62-python--langchain--qdrant-semantic-memory>6.2. Python — LangChain + Qdrant Semantic Memory</a></li></ul></li><li><a href=#7-memory-retrieval-strategy-khi-no-dng-loi-no>7. Memory Retrieval Strategy: Khi nào dùng loại nào</a><ul><li><a href=#71-decision-tree--chn-loi-memory-ph-hp>7.1. Decision Tree — Chọn loại Memory phù hợp</a></li><li><a href=#72-hybrid-retrieval--kt-hp-session--semantic>7.2. Hybrid Retrieval — Kết hợp Session + Semantic</a></li></ul></li><li><a href=#8-context-window-management-nng-cao>8. Context Window Management nâng cao</a><ul><li><a href=#81-bn-chin-lc-chnh>8.1. Bốn chiến lược chính</a></li><li><a href=#82-bng-so-snh-chi-tit>8.2. Bảng so sánh chi tiết</a></li><li><a href=#83-khuyn-ngh-la-chn-theo-use-case>8.3. Khuyến nghị lựa chọn theo use case</a></li></ul></li><li><a href=#9-user-profiling--personalization>9. User Profiling & Personalization</a><ul><li><a href=#91-xy-dng-h-s-ngi-dng-tch-ly>9.1. Xây dựng hồ sơ người dùng tích lũy</a></li><li><a href=#92-privacy-considerations>9.2. Privacy Considerations</a></li></ul></li><li><a href=#10-memory-write-policy--khi-no-ghi-khi-no-b-qua>10. Memory Write Policy — Khi nào ghi, khi nào bỏ qua</a><ul><li><a href=#101-importance-scoring>10.1. Importance Scoring</a></li><li><a href=#102-memory-write-decision-flow>10.2. Memory Write Decision Flow</a></li><li><a href=#103-memory-decay--ttl-cho-long-term-memory>10.3. Memory Decay — TTL cho Long-term Memory</a></li></ul></li><li><a href=#11-multi-session-continuity>11. Multi-session Continuity</a><ul><li><a href=#111-cho-n-ngi-dng-quay-li>11.1. Chào đón người dùng quay lại</a></li><li><a href=#112-prompt-augmentation-template>11.2. Prompt Augmentation Template</a></li></ul></li><li><a href=#12-bo-mt--privacy-cho-memory>12. Bảo mật & Privacy cho Memory</a><ul><li><a href=#121-cc-nguyn-tc-ct-li>12.1. Các nguyên tắc cốt lõi</a></li><li><a href=#122-gdpr--right-to-forget>12.2. GDPR / Right-to-Forget</a></li><li><a href=#123-cu-hnh-bo-mt-memory-yaml>12.3. Cấu hình bảo mật Memory (YAML)</a></li></ul></li><li><a href=#13-checklist-trin-khai-memory-system>13. Checklist triển khai Memory System</a><ul><li><a href=#-cp-1-in-context-memory-tun-12>✅ Cấp 1: In-Context Memory (Tuần 1–2)</a></li><li><a href=#-cp-2-session-memory-tun-24>✅ Cấp 2: Session Memory (Tuần 2–4)</a></li><li><a href=#-cp-3-long-term-memory-tun-48>✅ Cấp 3: Long-term Memory (Tuần 4–8)</a></li></ul></li><li><a href=#14-kpi-chi-ph-v-roi>14. KPI, Chi phí và ROI</a><ul><li><a href=#141-kpi-cho-memory-system>14.1. KPI cho Memory System</a></li><li><a href=#142-c-lng-chi-ph-quy-m-smb-10000-sessionsngy>14.2. Ước lượng chi phí (Quy mô SMB, 10.000 sessions/ngày)</a></li><li><a href=#143-roi-tham-chiu>14.3. ROI tham chiếu</a></li></ul></li><li><a href=#15-bng-ri-ro-v-phng-n-gim-thiu>15. Bảng Rủi ro và Phương án Giảm Thiểu</a></li><li><a href=#16-roadmap-trin-khai-3-giai-on>16. Roadmap Triển Khai 3 Giai Đoạn</a><ul><li><a href=#giai-on-1-tun-13-in-context--session-memory>Giai đoạn 1 (Tuần 1–3): In-Context + Session Memory</a></li><li><a href=#giai-on-2-tun-48-long-term-memory--user-profiling>Giai đoạn 2 (Tuần 4–8): Long-term Memory + User Profiling</a></li><li><a href=#giai-on-3-tun-912-ti-u--c-nhn-ha-nng-cao>Giai đoạn 3 (Tuần 9–12): Tối ưu & Cá nhân hóa nâng cao</a></li></ul></li><li><a href=#17-kt-lun-v-kt-ni-sang-bi-6>17. Kết luận và Kết nối sang Bài 6</a></li></ul></nav></div><main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role=main><article class=article itemscope itemtype=http://schema.org/Article><div class=docs-article-container><h1 itemprop=name>Memory & Context Management — Giúp AI Agent ghi nhớ và hiểu ngữ cảnh</h1><div class=article-style itemprop=articleBody><h2 id=1-v-sao-ai-agent-cn-b-nh>1. Vì sao AI Agent cần bộ nhớ?</h2><p>Ở bài trước, chúng ta đã trang bị cho AI Agent khả năng <strong>hành động</strong> thông qua Tool Use & Function Calling. Tuy nhiên, ngay cả khi agent đã biết gọi đúng tool, vẫn tồn tại một vấn đề căn bản khiến trải nghiệm người dùng còn rời rạc:</p><blockquote><p>&ldquo;Tôi đã báo với chatbot tuần trước rằng tôi dị ứng latex — sao hôm nay nó lại gợi ý sản phẩm có latex cho tôi?&rdquo;</p></blockquote><blockquote><p>&ldquo;Mỗi lần mở chat mới tôi phải giải thích lại toàn bộ context từ đầu. Mệt mỏi lắm.&rdquo;</p></blockquote><p>Đây là <strong>giới hạn cốt lõi của LLM thuần</strong>: mô hình ngôn ngữ là <strong>stateless</strong> — nó không tự động nhớ gì giữa các lần gọi API. Mỗi request là một trang giấy trắng.</p><h3 id=11-gii-hn-context-window>1.1. Giới hạn Context Window</h3><table><thead><tr><th>Mô hình</th><th>Context Window</th><th>Tương đương</th></tr></thead><tbody><tr><td>GPT-4o-mini</td><td>128.000 tokens</td><td>~96.000 từ tiếng Anh (~100 trang A4)</td></tr><tr><td>GPT-4o</td><td>128.000 tokens</td><td>~96.000 từ</td></tr><tr><td>Claude 3.5 Sonnet</td><td>200.000 tokens</td><td>~150.000 từ</td></tr><tr><td>Gemini 1.5 Pro</td><td>1.000.000 tokens</td><td>~750.000 từ</td></tr><tr><td>Llama 3.1 70B</td><td>128.000 tokens</td><td>~96.000 từ</td></tr></tbody></table><p>Context window lớn không giải quyết được vấn đề:</p><ul><li><strong>Chi phí</strong>: gửi 100.000 token mỗi request = chi phí API tăng tuyến tính</li><li><strong>Latency</strong>: context dài → TTFT (time-to-first-token) tăng đáng kể</li><li><strong>Lost-in-the-middle</strong>: nghiên cứu cho thấy LLM xử lý thông tin ở đầu và cuối context tốt hơn phần giữa</li><li><strong>Vẫn stateless</strong>: đóng browser tab là mất hết, không có khái niệm &ldquo;lần sau nhớ lại&rdquo;</li></ul><h3 id=12-stateless-vs-stateful-agent>1.2. Stateless vs Stateful Agent</h3><table><thead><tr><th>Đặc điểm</th><th>Stateless Agent</th><th>Stateful Agent</th></tr></thead><tbody><tr><td><strong>Nhớ hội thoại</strong></td><td>Chỉ trong session</td><td>Qua nhiều session</td></tr><tr><td><strong>Nhớ sở thích người dùng</strong></td><td>❌</td><td>✅</td></tr><tr><td><strong>Cá nhân hóa</strong></td><td>❌</td><td>✅</td></tr><tr><td><strong>Chi phí token</strong></td><td>Cao (phải gửi lại history)</td><td>Tối ưu hơn (chỉ gửi phần relevant)</td></tr><tr><td><strong>Độ phức tạp triển khai</strong></td><td>Thấp</td><td>Trung bình–Cao</td></tr><tr><td><strong>Ứng dụng phù hợp</strong></td><td>FAQ đơn giản</td><td>CRM AI, Healthcare AI, Trợ lý cá nhân</td></tr></tbody></table><h3 id=13-pain-point-thc-t>1.3. Pain Point thực tế</h3><p><strong>E-commerce</strong>: Chatbot gợi ý lại sản phẩm khách đã từ chối 3 lần trước.</p><p><strong>Healthcare</strong>: Bệnh nhân phải khai lại tiền sử bệnh mỗi lần tương tác với AI assistant của phòng khám.</p><p><strong>HR Automation</strong>: Nhân viên phải giải thích lại quy trình đã được AI hướng dẫn cách đây 2 tuần.</p><p><strong>Kết luận</strong>: Bộ nhớ không phải tính năng &ldquo;nice-to-have&rdquo; — đây là <strong>điều kiện cần</strong> để AI Agent tạo ra giá trị bền vững cho doanh nghiệp.</p><hr><h2 id=2-taxonomy-b-nh-ai-agent-4-loi>2. Taxonomy bộ nhớ AI Agent: 4 loại</h2><p>Không có một loại bộ nhớ nào phù hợp cho tất cả. Hệ thống memory hiệu quả kết hợp <strong>4 loại</strong> theo tầng:</p><pre><code>┌─────────────────────────────────────────────────────────────────┐
+│                    AI AGENT MEMORY TAXONOMY                     │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │  LOẠI 1: IN-CONTEXT MEMORY (Working Memory)              │   │
+│  │  • Nằm trong context window của LLM                      │   │
+│  │  • Hội thoại hiện tại, system prompt, tool results       │   │
+│  │  • Tốc độ: Rất nhanh (đã trong RAM của LLM)             │   │
+│  │  • Giới hạn: Bị xóa khi hết session / hết context       │   │
+│  └──────────────────────────────────────────────────────────┘   │
+│                                                                 │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │  LOẠI 2: SESSION MEMORY (External Short-term)            │   │
+│  │  • Lưu ngoài LLM, trong Redis/Valkey                     │   │
+│  │  • Toàn bộ lịch sử hội thoại trong một phiên làm việc   │   │
+│  │  • TTL: vài giờ đến vài ngày                             │   │
+│  │  • Tốc độ: Nhanh (~1–5ms)                               │   │
+│  └──────────────────────────────────────────────────────────┘   │
+│                                                                 │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │  LOẠI 3: PERSISTENT MEMORY (External Long-term)          │   │
+│  │  • Lưu trong PostgreSQL / SQL Server                     │   │
+│  │  • Hồ sơ người dùng, sở thích, tóm tắt lịch sử dài hạn │   │
+│  │  • TTL: Không giới hạn (hoặc theo policy)               │   │
+│  │  • Tốc độ: Trung bình (~5–50ms)                         │   │
+│  └──────────────────────────────────────────────────────────┘   │
+│                                                                 │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │  LOẠI 4: SEMANTIC MEMORY (Vector Store)                  │   │
+│  │  • Lưu embeddings của ký ức quan trọng                   │   │
+│  │  • Truy vấn bằng semantic similarity (không cần key)     │   │
+│  │  • Kết hợp với RAG pipeline                              │   │
+│  │  • Qdrant / Weaviate / pgvector / Chroma                 │   │
+│  └──────────────────────────────────────────────────────────┘   │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+         Tốc độ truy cập: Loại 1 &gt; 2 &gt; 4 &gt; 3
+         Dung lượng lưu trữ: Loại 3 &gt; 4 &gt; 2 &gt; 1
+         Chi phí lưu trữ: Loại 1 &lt; 2 &lt; 3 ≈ 4
+</code></pre><h3 id=21-khi-no-dng-loi-no>2.1. Khi nào dùng loại nào?</h3><table><thead><tr><th>Loại</th><th>Use Case điển hình</th><th>Ví dụ</th></tr></thead><tbody><tr><td><strong>In-Context</strong></td><td>Hội thoại đang diễn ra, tool results tức thì</td><td>&ldquo;Đơn hàng vừa tra là ORD-001, đang giao&rdquo;</td></tr><tr><td><strong>Session</strong></td><td>Chuyển tab, F5 trang, reconnect WebSocket</td><td>Tiếp tục hội thoại sau khi mạng bị ngắt</td></tr><tr><td><strong>Persistent</strong></td><td>Sở thích cá nhân, lịch sử mua hàng, thông tin hợp đồng</td><td>&ldquo;Khách này thích giao hàng sáng sớm&rdquo;</td></tr><tr><td><strong>Semantic</strong></td><td>&ldquo;Nhớ lại&rdquo; ngữ nghĩa không theo thứ tự thời gian</td><td>&ldquo;Lần nào đó khách đề cập vấn đề với sản phẩm X&rdquo;</td></tr></tbody></table><hr><h2 id=3-in-context-memory--k-thut-qun-l-conversation-history>3. In-Context Memory — Kỹ thuật quản lý Conversation History</h2><p>In-Context Memory là lớp bộ nhớ <strong>đơn giản nhất</strong> nhưng cần quản lý thận trọng nhất vì ảnh hưởng trực tiếp đến chi phí API và chất lượng câu trả lời.</p><h3 id=31-k-thut-1-sliding-window>3.1. Kỹ thuật 1: Sliding Window</h3><p>Giữ lại <strong>N tin nhắn gần nhất</strong>, bỏ đi tin nhắn cũ:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> collections <span style=color:#f92672>import</span> deque
+<span style=color:#f92672>from</span> dataclasses <span style=color:#f92672>import</span> dataclass, field
+<span style=color:#f92672>from</span> typing <span style=color:#f92672>import</span> Literal
+
+<span style=color:#a6e22e>@dataclass</span>
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>Message</span>:
+    role: Literal[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>user</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>assistant</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>system</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>tool</span><span style=color:#e6db74>&#34;</span>]
+    content: str
+    token_count: int <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>SlidingWindowMemory</span>:
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Sliding window giữ lại N tin nhắn gần nhất.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    System prompt luôn được giữ nguyên (không tính vào window).</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    </span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    <span style=color:#66d9ef>def</span> __init__(self, max_messages: int <span style=color:#f92672>=</span> <span style=color:#ae81ff>20</span>, system_prompt: str <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>&#34;</span>):
+        self<span style=color:#f92672>.</span>max_messages <span style=color:#f92672>=</span> max_messages
+        self<span style=color:#f92672>.</span>system_prompt <span style=color:#f92672>=</span> system_prompt
+        self<span style=color:#f92672>.</span>_history: deque[Message] <span style=color:#f92672>=</span> deque(maxlen<span style=color:#f92672>=</span>max_messages)
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>add</span>(self, role: str, content: str) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> None:
+        self<span style=color:#f92672>.</span>_history<span style=color:#f92672>.</span>append(Message(role<span style=color:#f92672>=</span>role, content<span style=color:#f92672>=</span>content))
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_context</span>(self) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> list[dict]:
+        messages <span style=color:#f92672>=</span> [{<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>role</span><span style=color:#e6db74>&#34;</span>: <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>system</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>content</span><span style=color:#e6db74>&#34;</span>: self<span style=color:#f92672>.</span>system_prompt}]
+        messages<span style=color:#f92672>.</span>extend(
+            {<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>role</span><span style=color:#e6db74>&#34;</span>: m<span style=color:#f92672>.</span>role, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>content</span><span style=color:#e6db74>&#34;</span>: m<span style=color:#f92672>.</span>content}
+            <span style=color:#66d9ef>for</span> m <span style=color:#f92672>in</span> self<span style=color:#f92672>.</span>_history
+        )
+        <span style=color:#66d9ef>return</span> messages
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>clear</span>(self) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> None:
+        self<span style=color:#f92672>.</span>_history<span style=color:#f92672>.</span>clear()
+</code></pre></div><p><strong>Ưu điểm</strong>: Đơn giản, dễ triển khai.<br><strong>Nhược điểm</strong>: Mất thông tin quan trọng nếu xảy ra ở đầu cuộc hội thoại.</p><h3 id=32-k-thut-2-token-budget-management>3.2. Kỹ thuật 2: Token Budget Management</h3><p>Kiểm soát chính xác theo <strong>số token</strong> thay vì số tin nhắn:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> tiktoken
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>TokenBudgetMemory</span>:
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Quản lý history theo token budget.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Khi vượt ngưỡng, tự động drop tin nhắn cũ nhất (trừ system prompt).</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    </span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    <span style=color:#66d9ef>def</span> __init__(
+        self,
+        max_tokens: int <span style=color:#f92672>=</span> <span style=color:#ae81ff>4</span>_000,       <span style=color:#75715e># Token dành cho history</span>
+        model: str <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>gpt-4o-mini</span><span style=color:#e6db74>&#34;</span>,
+        system_prompt: str <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>&#34;</span>
+    ):
+        self<span style=color:#f92672>.</span>max_tokens <span style=color:#f92672>=</span> max_tokens
+        self<span style=color:#f92672>.</span>system_prompt <span style=color:#f92672>=</span> system_prompt
+        self<span style=color:#f92672>.</span>_history: list[Message] <span style=color:#f92672>=</span> []
+        self<span style=color:#f92672>.</span>_encoder <span style=color:#f92672>=</span> tiktoken<span style=color:#f92672>.</span>encoding_for_model(model)
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_count_tokens</span>(self, text: str) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> int:
+        <span style=color:#66d9ef>return</span> len(self<span style=color:#f92672>.</span>_encoder<span style=color:#f92672>.</span>encode(text))
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_total_history_tokens</span>(self) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> int:
+        <span style=color:#66d9ef>return</span> sum(self<span style=color:#f92672>.</span>_count_tokens(m<span style=color:#f92672>.</span>content) <span style=color:#66d9ef>for</span> m <span style=color:#f92672>in</span> self<span style=color:#f92672>.</span>_history)
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>add</span>(self, role: str, content: str) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> None:
+        new_tokens <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>_count_tokens(content)
+        <span style=color:#75715e># Trim cũ nếu cần</span>
+        <span style=color:#66d9ef>while</span> (
+            self<span style=color:#f92672>.</span>_history
+            <span style=color:#f92672>and</span> self<span style=color:#f92672>.</span>_total_history_tokens() <span style=color:#f92672>+</span> new_tokens <span style=color:#f92672>&gt;</span> self<span style=color:#f92672>.</span>max_tokens
+        ):
+            self<span style=color:#f92672>.</span>_history<span style=color:#f92672>.</span>pop(<span style=color:#ae81ff>0</span>)  <span style=color:#75715e># Bỏ tin nhắn cũ nhất</span>
+        self<span style=color:#f92672>.</span>_history<span style=color:#f92672>.</span>append(Message(role<span style=color:#f92672>=</span>role, content<span style=color:#f92672>=</span>content,
+                                     token_count<span style=color:#f92672>=</span>new_tokens))
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_context</span>(self) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> list[dict]:
+        messages <span style=color:#f92672>=</span> [{<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>role</span><span style=color:#e6db74>&#34;</span>: <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>system</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>content</span><span style=color:#e6db74>&#34;</span>: self<span style=color:#f92672>.</span>system_prompt}]
+        messages<span style=color:#f92672>.</span>extend({<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>role</span><span style=color:#e6db74>&#34;</span>: m<span style=color:#f92672>.</span>role, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>content</span><span style=color:#e6db74>&#34;</span>: m<span style=color:#f92672>.</span>content}
+                        <span style=color:#66d9ef>for</span> m <span style=color:#f92672>in</span> self<span style=color:#f92672>.</span>_history)
+        <span style=color:#66d9ef>return</span> messages
+
+    <span style=color:#a6e22e>@property</span>
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>used_tokens</span>(self) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> int:
+        <span style=color:#66d9ef>return</span> self<span style=color:#f92672>.</span>_total_history_tokens()
+</code></pre></div><h3 id=33-k-thut-3-message-summarization-khi-gn-t-limit>3.3. Kỹ thuật 3: Message Summarization khi gần đạt limit</h3><p>Khi history đầy, <strong>tóm tắt các tin cũ</strong> thay vì xóa hẳn — giữ lại thông tin quan trọng với ít token hơn:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>class</span> <span style=color:#a6e22e>SummarizingMemory</span>:
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Khi token vượt ngưỡng, gọi LLM để tóm tắt nửa đầu lịch sử.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Kết quả tóm tắt được lưu lại như một tin nhắn </span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>system</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74> đặc biệt.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    </span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    SUMMARY_THRESHOLD <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.80</span>  <span style=color:#75715e># Tóm tắt khi đạt 80% token budget</span>
+
+    <span style=color:#66d9ef>def</span> __init__(self, max_tokens: int <span style=color:#f92672>=</span> <span style=color:#ae81ff>6</span>_000, llm_client<span style=color:#f92672>=</span>None):
+        self<span style=color:#f92672>.</span>max_tokens <span style=color:#f92672>=</span> max_tokens
+        self<span style=color:#f92672>.</span>_history: list[Message] <span style=color:#f92672>=</span> []
+        self<span style=color:#f92672>.</span>_summary: str <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>&#34;</span>
+        self<span style=color:#f92672>.</span>_llm <span style=color:#f92672>=</span> llm_client
+
+    async <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_summarize_older_half</span>(self) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> None:
+        midpoint <span style=color:#f92672>=</span> len(self<span style=color:#f92672>.</span>_history) <span style=color:#f92672>/</span><span style=color:#f92672>/</span> <span style=color:#ae81ff>2</span>
+        to_summarize <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>_history[:midpoint]
+        self<span style=color:#f92672>.</span>_history <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>_history[midpoint:]
+
+        conversation_text <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span><span style=color:#f92672>.</span>join(
+            f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>{m.role.upper()}: {m.content}</span><span style=color:#e6db74>&#34;</span> <span style=color:#66d9ef>for</span> m <span style=color:#f92672>in</span> to_summarize
+        )
+        prompt <span style=color:#f92672>=</span> (
+            <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Tóm tắt ngắn gọn cuộc hội thoại sau, giữ lại </span><span style=color:#e6db74>&#34;</span>
+            <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>các thông tin quan trọng như: thông tin đơn hàng, </span><span style=color:#e6db74>&#34;</span>
+            <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>vấn đề người dùng đã báo, quyết định đã đưa ra:</span><span style=color:#ae81ff>\n</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>
+            f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>{conversation_text}</span><span style=color:#e6db74>&#34;</span>
+        )
+        response <span style=color:#f92672>=</span> await self<span style=color:#f92672>.</span>_llm<span style=color:#f92672>.</span>complete(prompt)
+        self<span style=color:#f92672>.</span>_summary <span style=color:#f92672>=</span> (
+            f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>[TÓM TẮT HỘI THOẠI TRƯỚC]: {response}</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>
+            <span style=color:#f92672>+</span> (f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>[TÓM TẮT TRƯỚC ĐÓ]: {self._summary}</span><span style=color:#e6db74>&#34;</span> <span style=color:#66d9ef>if</span> self<span style=color:#f92672>.</span>_summary <span style=color:#66d9ef>else</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>&#34;</span>)
+        )
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_context</span>(self) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> list[dict]:
+        messages <span style=color:#f92672>=</span> []
+        <span style=color:#66d9ef>if</span> self<span style=color:#f92672>.</span>_summary:
+            messages<span style=color:#f92672>.</span>append({<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>role</span><span style=color:#e6db74>&#34;</span>: <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>system</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>content</span><span style=color:#e6db74>&#34;</span>: self<span style=color:#f92672>.</span>_summary})
+        messages<span style=color:#f92672>.</span>extend({<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>role</span><span style=color:#e6db74>&#34;</span>: m<span style=color:#f92672>.</span>role, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>content</span><span style=color:#e6db74>&#34;</span>: m<span style=color:#f92672>.</span>content}
+                        <span style=color:#66d9ef>for</span> m <span style=color:#f92672>in</span> self<span style=color:#f92672>.</span>_history)
+        <span style=color:#66d9ef>return</span> messages
+</code></pre></div><hr><h2 id=4-session-memory--lu-tr-ngn-hn-vi-redisvalkey>4. Session Memory — Lưu trữ ngắn hạn với Redis/Valkey</h2><p>Session Memory giải quyết vấn đề <strong>mất hội thoại khi reconnect</strong> mà không cần lưu trữ mãi mãi.</p><h3 id=41-session-schema-json>4.1. Session Schema (JSON)</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+  <span style=color:#f92672>&#34;session_id&#34;</span>: <span style=color:#e6db74>&#34;sess_abc123xyz&#34;</span>,
+  <span style=color:#f92672>&#34;user_id&#34;</span>: <span style=color:#e6db74>&#34;usr_456&#34;</span>,
+  <span style=color:#f92672>&#34;tenant_id&#34;</span>: <span style=color:#e6db74>&#34;tenant_healthcare_01&#34;</span>,
+  <span style=color:#f92672>&#34;created_at&#34;</span>: <span style=color:#e6db74>&#34;2026-05-14T08:30:00+07:00&#34;</span>,
+  <span style=color:#f92672>&#34;last_active&#34;</span>: <span style=color:#e6db74>&#34;2026-05-14T09:15:42+07:00&#34;</span>,
+  <span style=color:#f92672>&#34;ttl_seconds&#34;</span>: <span style=color:#ae81ff>86400</span>,
+  <span style=color:#f92672>&#34;metadata&#34;</span>: {
+    <span style=color:#f92672>&#34;channel&#34;</span>: <span style=color:#e6db74>&#34;web&#34;</span>,
+    <span style=color:#f92672>&#34;agent_id&#34;</span>: <span style=color:#e6db74>&#34;support-agent-v2&#34;</span>,
+    <span style=color:#f92672>&#34;language&#34;</span>: <span style=color:#e6db74>&#34;vi&#34;</span>
+  },
+  <span style=color:#f92672>&#34;context&#34;</span>: {
+    <span style=color:#f92672>&#34;current_topic&#34;</span>: <span style=color:#e6db74>&#34;đơn hàng ORD-78901&#34;</span>,
+    <span style=color:#f92672>&#34;entities_mentioned&#34;</span>: [<span style=color:#e6db74>&#34;ORD-78901&#34;</span>, <span style=color:#e6db74>&#34;sản phẩm laptop X1&#34;</span>],
+    <span style=color:#f92672>&#34;user_intent&#34;</span>: <span style=color:#e6db74>&#34;track_order&#34;</span>
+  },
+  <span style=color:#f92672>&#34;messages&#34;</span>: [
+    {
+      <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;msg_001&#34;</span>,
+      <span style=color:#f92672>&#34;role&#34;</span>: <span style=color:#e6db74>&#34;user&#34;</span>,
+      <span style=color:#f92672>&#34;content&#34;</span>: <span style=color:#e6db74>&#34;Đơn hàng ORD-78901 của tôi đến chưa?&#34;</span>,
+      <span style=color:#f92672>&#34;timestamp&#34;</span>: <span style=color:#e6db74>&#34;2026-05-14T08:30:05+07:00&#34;</span>,
+      <span style=color:#f92672>&#34;token_count&#34;</span>: <span style=color:#ae81ff>18</span>
+    },
+    {
+      <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;msg_002&#34;</span>,
+      <span style=color:#f92672>&#34;role&#34;</span>: <span style=color:#e6db74>&#34;assistant&#34;</span>,
+      <span style=color:#f92672>&#34;content&#34;</span>: <span style=color:#e6db74>&#34;Đơn hàng ORD-78901 hiện đang trong quá trình giao, dự kiến đến ngày 15/05.&#34;</span>,
+      <span style=color:#f92672>&#34;timestamp&#34;</span>: <span style=color:#e6db74>&#34;2026-05-14T08:30:08+07:00&#34;</span>,
+      <span style=color:#f92672>&#34;token_count&#34;</span>: <span style=color:#ae81ff>32</span>,
+      <span style=color:#f92672>&#34;tool_calls_used&#34;</span>: [<span style=color:#e6db74>&#34;get_order_status&#34;</span>]
+    }
+  ],
+  <span style=color:#f92672>&#34;summary&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+  <span style=color:#f92672>&#34;total_tokens_used&#34;</span>: <span style=color:#ae81ff>50</span>
+}
+</code></pre></div><h3 id=42-c--semantic-kernel-vi-redis-session-memory>4.2. C# — Semantic Kernel với Redis Session Memory</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-csharp data-lang=csharp><span style=color:#66d9ef>using</span> Microsoft.SemanticKernel;
+<span style=color:#66d9ef>using</span> Microsoft.SemanticKernel.ChatCompletion;
+<span style=color:#66d9ef>using</span> StackExchange.Redis;
+<span style=color:#66d9ef>using</span> System.Text.Json;
+
+<span style=color:#75715e>// ============================================================
+</span><span style=color:#75715e></span><span style=color:#75715e>// Bước 1: RedisSessionStore — CRUD session lên Redis
+</span><span style=color:#75715e></span><span style=color:#75715e>// ============================================================
+</span><span style=color:#75715e></span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>RedisSessionStore</span>
+{
+    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>readonly</span> IDatabase _redis;
+    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>readonly</span> TimeSpan _defaultTtl = TimeSpan.FromHours(<span style=color:#ae81ff>2</span><span style=color:#ae81ff>4</span>);
+
+    <span style=color:#66d9ef>public</span> RedisSessionStore(IConnectionMultiplexer redis)
+    {
+        _redis = redis.GetDatabase();
+    }
+
+    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>string</span> Key(<span style=color:#66d9ef>string</span> sessionId) =&gt; <span style=color:#e6db74>$&#34;session:{sessionId}&#34;</span>;
+
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>async</span> Task&lt;SessionData?&gt; GetAsync(<span style=color:#66d9ef>string</span> sessionId)
+    {
+        <span style=color:#66d9ef>var</span> raw = <span style=color:#66d9ef>await</span> _redis.StringGetAsync(Key(sessionId));
+        <span style=color:#66d9ef>if</span> (raw.IsNullOrEmpty) <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>null</span>;
+
+        <span style=color:#75715e>// Làm mới TTL mỗi khi truy cập (sliding expiry)
+</span><span style=color:#75715e></span>        <span style=color:#66d9ef>await</span> _redis.KeyExpireAsync(Key(sessionId), _defaultTtl);
+        <span style=color:#66d9ef>return</span> JsonSerializer.Deserialize&lt;SessionData&gt;(raw!);
+    }
+
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>async</span> Task SaveAsync(SessionData session)
+    {
+        <span style=color:#66d9ef>var</span> json = JsonSerializer.Serialize(session);
+        <span style=color:#66d9ef>await</span> _redis.StringSetAsync(
+            Key(session.SessionId),
+            json,
+            _defaultTtl);
+    }
+
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>async</span> Task DeleteAsync(<span style=color:#66d9ef>string</span> sessionId)
+        =&gt; <span style=color:#66d9ef>await</span> _redis.KeyDeleteAsync(Key(sessionId));
+
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>async</span> Task AppendMessageAsync(
+        <span style=color:#66d9ef>string</span> sessionId,
+        <span style=color:#66d9ef>string</span> role,
+        <span style=color:#66d9ef>string</span> content)
+    {
+        <span style=color:#66d9ef>var</span> session = <span style=color:#66d9ef>await</span> GetAsync(sessionId)
+            ?? <span style=color:#66d9ef>new</span> SessionData { SessionId = sessionId };
+
+        session.Messages.Add(<span style=color:#66d9ef>new</span> SessionMessage
+        {
+            Id = <span style=color:#e6db74>$&#34;msg_{Guid.NewGuid():N}&#34;</span>,
+            Role = role,
+            Content = content,
+            Timestamp = DateTimeOffset.UtcNow
+        });
+        session.LastActive = DateTimeOffset.UtcNow;
+        session.TotalTokensUsed += EstimateTokens(content);
+
+        <span style=color:#66d9ef>await</span> SaveAsync(session);
+    }
+
+    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>int</span> EstimateTokens(<span style=color:#66d9ef>string</span> text)
+        =&gt; (<span style=color:#66d9ef>int</span>)Math.Ceiling(text.Length / <span style=color:#ae81ff>4.0</span>); <span style=color:#75715e>// Ước lượng đơn giản
+</span><span style=color:#75715e></span>}
+
+<span style=color:#75715e>// ============================================================
+</span><span style=color:#75715e></span><span style=color:#75715e>// Bước 2: AgentWithSessionMemory — tích hợp Semantic Kernel
+</span><span style=color:#75715e></span><span style=color:#75715e>// ============================================================
+</span><span style=color:#75715e></span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AgentWithSessionMemory</span>
+{
+    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>readonly</span> Kernel _kernel;
+    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>readonly</span> RedisSessionStore _sessionStore;
+    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>readonly</span> IChatCompletionService _chat;
+
+    <span style=color:#66d9ef>public</span> AgentWithSessionMemory(
+        Kernel kernel,
+        RedisSessionStore sessionStore)
+    {
+        _kernel = kernel;
+        _sessionStore = sessionStore;
+        _chat = kernel.GetRequiredService&lt;IChatCompletionService&gt;();
+    }
+
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>async</span> Task&lt;<span style=color:#66d9ef>string</span>&gt; ChatAsync(
+        <span style=color:#66d9ef>string</span> sessionId,
+        <span style=color:#66d9ef>string</span> userId,
+        <span style=color:#66d9ef>string</span> userMessage)
+    {
+        <span style=color:#75715e>// 1. Load session từ Redis
+</span><span style=color:#75715e></span>        <span style=color:#66d9ef>var</span> session = <span style=color:#66d9ef>await</span> _sessionStore.GetAsync(sessionId)
+            ?? <span style=color:#66d9ef>new</span> SessionData
+            {
+                SessionId = sessionId,
+                UserId = userId,
+                CreatedAt = DateTimeOffset.UtcNow,
+                LastActive = DateTimeOffset.UtcNow
+            };
+
+        <span style=color:#75715e>// 2. Rebuild ChatHistory từ session
+</span><span style=color:#75715e></span>        <span style=color:#66d9ef>var</span> history = <span style=color:#66d9ef>new</span> ChatHistory(BuildSystemPrompt(session));
+        <span style=color:#66d9ef>foreach</span> (<span style=color:#66d9ef>var</span> msg <span style=color:#66d9ef>in</span> TrimToTokenBudget(session.Messages, maxTokens: <span style=color:#ae81ff>3</span><span style=color:#ae81ff>0</span><span style=color:#ae81ff>0</span><span style=color:#ae81ff>0</span>))
+        {
+            <span style=color:#66d9ef>if</span> (msg.Role == <span style=color:#e6db74>&#34;user&#34;</span>)
+                history.AddUserMessage(msg.Content);
+            <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (msg.Role == <span style=color:#e6db74>&#34;assistant&#34;</span>)
+                history.AddAssistantMessage(msg.Content);
+        }
+        history.AddUserMessage(userMessage);
+
+        <span style=color:#75715e>// 3. Gọi LLM
+</span><span style=color:#75715e></span>        <span style=color:#66d9ef>var</span> settings = <span style=color:#66d9ef>new</span> OpenAIPromptExecutionSettings
+        {
+            ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions,
+            MaxTokens = <span style=color:#ae81ff>1</span><span style=color:#ae81ff>0</span><span style=color:#ae81ff>2</span><span style=color:#ae81ff>4</span>
+        };
+
+        <span style=color:#66d9ef>var</span> response = <span style=color:#66d9ef>await</span> _chat.GetChatMessageContentAsync(
+            history, settings, _kernel);
+        <span style=color:#66d9ef>var</span> assistantReply = response.Content
+            ?? <span style=color:#e6db74>&#34;Xin lỗi, tôi chưa xử lý được yêu cầu này.&#34;</span>;
+
+        <span style=color:#75715e>// 4. Lưu cả 2 lượt vào session
+</span><span style=color:#75715e></span>        <span style=color:#66d9ef>await</span> _sessionStore.AppendMessageAsync(sessionId, <span style=color:#e6db74>&#34;user&#34;</span>, userMessage);
+        <span style=color:#66d9ef>await</span> _sessionStore.AppendMessageAsync(sessionId, <span style=color:#e6db74>&#34;assistant&#34;</span>, assistantReply);
+
+        <span style=color:#66d9ef>return</span> assistantReply;
+    }
+
+    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> <span style=color:#66d9ef>string</span> BuildSystemPrompt(SessionData session)
+        =&gt; <span style=color:#e6db74>$&#34;&#34;&#34;
+</span><span style=color:#e6db74>            Bạn là trợ lý AI hỗ trợ khách hàng. 
+</span><span style=color:#e6db74>            ID phiên: {session.SessionId}
+</span><span style=color:#e6db74>            ID người dùng: {session.UserId}
+</span><span style=color:#e6db74>            Ngày tạo phiên: {session.CreatedAt:dd/MM/yyyy HH:mm}
+</span><span style=color:#e6db74>            Hãy trả lời ngắn gọn, chuyên nghiệp bằng tiếng Việt.
+</span><span style=color:#e6db74>            &#34;&#34;&#34;</span>;
+
+    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>static</span> IEnumerable&lt;SessionMessage&gt; TrimToTokenBudget(
+        List&lt;SessionMessage&gt; messages,
+        <span style=color:#66d9ef>int</span> maxTokens)
+    {
+        <span style=color:#75715e>// Lấy tin từ cuối về đầu cho đến khi đủ budget
+</span><span style=color:#75715e></span>        <span style=color:#66d9ef>var</span> result = <span style=color:#66d9ef>new</span> List&lt;SessionMessage&gt;();
+        <span style=color:#66d9ef>int</span> used = <span style=color:#ae81ff>0</span>;
+        <span style=color:#66d9ef>foreach</span> (<span style=color:#66d9ef>var</span> msg <span style=color:#66d9ef>in</span> messages.AsEnumerable().Reverse())
+        {
+            <span style=color:#66d9ef>int</span> t = (<span style=color:#66d9ef>int</span>)Math.Ceiling(msg.Content.Length / <span style=color:#ae81ff>4.0</span>);
+            <span style=color:#66d9ef>if</span> (used + t &gt; maxTokens) <span style=color:#66d9ef>break</span>;
+            result.Insert(<span style=color:#ae81ff>0</span>, msg);
+            used += t;
+        }
+        <span style=color:#66d9ef>return</span> result;
+    }
+}
+
+<span style=color:#75715e>// ============================================================
+</span><span style=color:#75715e></span><span style=color:#75715e>// Bước 3: Data models
+</span><span style=color:#75715e></span><span style=color:#75715e>// ============================================================
+</span><span style=color:#75715e></span><span style=color:#66d9ef>public</span> record SessionData
+{
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>string</span> SessionId { <span style=color:#66d9ef>get</span>; <span style=color:#66d9ef>set</span>; } = <span style=color:#e6db74>&#34;&#34;</span>;
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>string</span> UserId { <span style=color:#66d9ef>get</span>; <span style=color:#66d9ef>set</span>; } = <span style=color:#e6db74>&#34;&#34;</span>;
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>string</span> TenantId { <span style=color:#66d9ef>get</span>; <span style=color:#66d9ef>set</span>; } = <span style=color:#e6db74>&#34;&#34;</span>;
+    <span style=color:#66d9ef>public</span> DateTimeOffset CreatedAt { <span style=color:#66d9ef>get</span>; <span style=color:#66d9ef>set</span>; }
+    <span style=color:#66d9ef>public</span> DateTimeOffset LastActive { <span style=color:#66d9ef>get</span>; <span style=color:#66d9ef>set</span>; }
+    <span style=color:#66d9ef>public</span> List&lt;SessionMessage&gt; Messages { <span style=color:#66d9ef>get</span>; <span style=color:#66d9ef>set</span>; } = <span style=color:#66d9ef>new</span>();
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>string</span> Summary { <span style=color:#66d9ef>get</span>; <span style=color:#66d9ef>set</span>; } = <span style=color:#e6db74>&#34;&#34;</span>;
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>int</span> TotalTokensUsed { <span style=color:#66d9ef>get</span>; <span style=color:#66d9ef>set</span>; }
+}
+
+<span style=color:#66d9ef>public</span> record SessionMessage
+{
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>string</span> Id { <span style=color:#66d9ef>get</span>; <span style=color:#66d9ef>set</span>; } = <span style=color:#e6db74>&#34;&#34;</span>;
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>string</span> Role { <span style=color:#66d9ef>get</span>; <span style=color:#66d9ef>set</span>; } = <span style=color:#e6db74>&#34;&#34;</span>;
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>string</span> Content { <span style=color:#66d9ef>get</span>; <span style=color:#66d9ef>set</span>; } = <span style=color:#e6db74>&#34;&#34;</span>;
+    <span style=color:#66d9ef>public</span> DateTimeOffset Timestamp { <span style=color:#66d9ef>get</span>; <span style=color:#66d9ef>set</span>; }
+}
+</code></pre></div><h3 id=43-cu-hnh-redis-cho-session-memory>4.3. Cấu hình Redis cho Session Memory</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e># redis-session.yml — cấu hình khuyến nghị cho production</span>
+redis:
+  connection: <span style=color:#e6db74>&#34;redis://redis-host:6379&#34;</span>
+  database: <span style=color:#ae81ff>1</span>               <span style=color:#75715e># Dùng DB riêng cho sessions</span>
+  key_prefix: <span style=color:#e6db74>&#34;session:&#34;</span>
+  default_ttl: <span style=color:#ae81ff>86400</span>         <span style=color:#75715e># 24 giờ (sliding)</span>
+  max_memory: <span style=color:#e6db74>&#34;2gb&#34;</span>
+  max_memory_policy: <span style=color:#e6db74>&#34;allkeys-lru&#34;</span>  <span style=color:#75715e># Tự xóa key cũ khi hết RAM</span>
+  
+  <span style=color:#75715e># Cluster mode cho production scale</span>
+  cluster:
+    enabled: <span style=color:#66d9ef>true</span>
+    nodes:
+      - <span style=color:#e6db74>&#34;redis-1:6379&#34;</span>
+      - <span style=color:#e6db74>&#34;redis-2:6379&#34;</span>
+      - <span style=color:#e6db74>&#34;redis-3:6379&#34;</span>
+</code></pre></div><hr><h2 id=5-persistent-long-term-memory--postgresql-schema>5. Persistent Long-term Memory — PostgreSQL Schema</h2><p>Long-term memory lưu trữ thông tin <strong>không bị xóa</strong> — hồ sơ người dùng, sở thích, lịch sử tương tác tích lũy qua nhiều session và nhiều tháng.</p><h3 id=51-schema-postgresql>5.1. Schema PostgreSQL</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#75715e>-- ============================================================
+</span><span style=color:#75715e></span><span style=color:#75715e>-- Schema: ai_memory
+</span><span style=color:#75715e></span><span style=color:#75715e>-- Mô tả: Long-term memory cho AI Agent
+</span><span style=color:#75715e></span><span style=color:#75715e>-- ============================================================
+</span><span style=color:#75715e></span>
+<span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>SCHEMA</span> <span style=color:#66d9ef>IF</span> <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>EXISTS</span> ai_memory;
+
+<span style=color:#75715e>-- Hồ sơ người dùng tích lũy
+</span><span style=color:#75715e></span><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>TABLE</span> ai_memory.user_profiles (
+    id              UUID <span style=color:#66d9ef>PRIMARY</span> <span style=color:#66d9ef>KEY</span> <span style=color:#66d9ef>DEFAULT</span> gen_random_uuid(),
+    user_id         VARCHAR(<span style=color:#ae81ff>128</span>) <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span> <span style=color:#66d9ef>UNIQUE</span>,
+    tenant_id       VARCHAR(<span style=color:#ae81ff>128</span>) <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span>,
+    display_name    VARCHAR(<span style=color:#ae81ff>256</span>),
+    <span style=color:#66d9ef>language</span>        VARCHAR(<span style=color:#ae81ff>10</span>)  <span style=color:#66d9ef>DEFAULT</span> <span style=color:#e6db74>&#39;</span><span style=color:#e6db74>vi</span><span style=color:#e6db74>&#39;</span>,
+    timezone        VARCHAR(<span style=color:#ae81ff>64</span>)  <span style=color:#66d9ef>DEFAULT</span> <span style=color:#e6db74>&#39;</span><span style=color:#e6db74>Asia/Ho_Chi_Minh</span><span style=color:#e6db74>&#39;</span>,
+    
+    <span style=color:#75715e>-- Sở thích và hành vi tích lũy (JSONB cho linh hoạt)
+</span><span style=color:#75715e></span>    preferences     JSONB <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span> <span style=color:#66d9ef>DEFAULT</span> <span style=color:#e6db74>&#39;</span><span style=color:#e6db74>{}</span><span style=color:#e6db74>&#39;</span>::jsonb,
+    <span style=color:#75715e>/*</span><span style=color:#75715e>
+</span><span style=color:#75715e>      Ví dụ preferences:
+</span><span style=color:#75715e>      {
+</span><span style=color:#75715e>        &#34;communication_style&#34;: &#34;formal&#34;,
+</span><span style=color:#75715e>        &#34;preferred_channel&#34;: &#34;email&#34;,
+</span><span style=color:#75715e>        &#34;product_interests&#34;: [&#34;laptop&#34;, &#34;phụ kiện&#34;],
+</span><span style=color:#75715e>        &#34;delivery_preference&#34;: &#34;morning&#34;,
+</span><span style=color:#75715e>        &#34;language_level&#34;: &#34;technical&#34;
+</span><span style=color:#75715e>      }
+</span><span style=color:#75715e>    </span><span style=color:#75715e>*/</span>
+    
+    <span style=color:#75715e>-- Tóm tắt ngữ cảnh từ các session trước
+</span><span style=color:#75715e></span>    context_summary TEXT,
+    
+    <span style=color:#75715e>-- Metadata
+</span><span style=color:#75715e></span>    first_seen_at   TIMESTAMPTZ <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span> <span style=color:#66d9ef>DEFAULT</span> NOW(),
+    last_seen_at    TIMESTAMPTZ <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span> <span style=color:#66d9ef>DEFAULT</span> NOW(),
+    total_sessions  INT         <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span> <span style=color:#66d9ef>DEFAULT</span> <span style=color:#ae81ff>0</span>,
+    total_messages  INT         <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span> <span style=color:#66d9ef>DEFAULT</span> <span style=color:#ae81ff>0</span>,
+    created_at      TIMESTAMPTZ <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span> <span style=color:#66d9ef>DEFAULT</span> NOW(),
+    updated_at      TIMESTAMPTZ <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span> <span style=color:#66d9ef>DEFAULT</span> NOW()
+);
+
+<span style=color:#75715e>-- Log tương tác dài hạn (chỉ lưu sự kiện quan trọng, không lưu mọi tin nhắn)
+</span><span style=color:#75715e></span><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>TABLE</span> ai_memory.interaction_logs (
+    id              UUID <span style=color:#66d9ef>PRIMARY</span> <span style=color:#66d9ef>KEY</span> <span style=color:#66d9ef>DEFAULT</span> gen_random_uuid(),
+    user_id         VARCHAR(<span style=color:#ae81ff>128</span>) <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span> <span style=color:#66d9ef>REFERENCES</span> ai_memory.user_profiles(user_id),
+    tenant_id       VARCHAR(<span style=color:#ae81ff>128</span>) <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span>,
+    session_id      VARCHAR(<span style=color:#ae81ff>256</span>),
+    
+    event_type      VARCHAR(<span style=color:#ae81ff>64</span>)  <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span>,
+    <span style=color:#75715e>-- Các event_type mẫu:
+</span><span style=color:#75715e></span>    <span style=color:#75715e>-- &#39;preference_update&#39;, &#39;issue_reported&#39;, &#39;purchase_intent&#39;,
+</span><span style=color:#75715e></span>    <span style=color:#75715e>-- &#39;complaint&#39;, &#39;compliment&#39;, &#39;topic_discussed&#39;, &#39;goal_achieved&#39;
+</span><span style=color:#75715e></span>    
+    summary         TEXT         <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span>,  <span style=color:#75715e>-- Tóm tắt ngắn sự kiện
+</span><span style=color:#75715e></span>    detail          JSONB,                  <span style=color:#75715e>-- Chi tiết đầy đủ nếu cần
+</span><span style=color:#75715e></span>    importance      SMALLINT     <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span> <span style=color:#66d9ef>DEFAULT</span> <span style=color:#ae81ff>3</span> <span style=color:#66d9ef>CHECK</span> (importance <span style=color:#66d9ef>BETWEEN</span> <span style=color:#ae81ff>1</span> <span style=color:#66d9ef>AND</span> <span style=color:#ae81ff>5</span>),
+    <span style=color:#75715e>-- 1=trivial, 2=low, 3=medium, 4=high, 5=critical
+</span><span style=color:#75715e></span>    
+    tags            TEXT[]       <span style=color:#66d9ef>DEFAULT</span> <span style=color:#e6db74>&#39;</span><span style=color:#e6db74>{}</span><span style=color:#e6db74>&#39;</span>,
+    
+    <span style=color:#75715e>-- Memory decay: tự xóa sau thời gian nếu importance thấp
+</span><span style=color:#75715e></span>    expires_at      TIMESTAMPTZ,
+    
+    created_at      TIMESTAMPTZ <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span> <span style=color:#66d9ef>DEFAULT</span> NOW()
+);
+
+<span style=color:#75715e>-- Key-value store cho memory ngắn hơn long-term nhưng cần persist (không muốn dùng Redis)
+</span><span style=color:#75715e></span><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>TABLE</span> ai_memory.memory_items (
+    id              UUID <span style=color:#66d9ef>PRIMARY</span> <span style=color:#66d9ef>KEY</span> <span style=color:#66d9ef>DEFAULT</span> gen_random_uuid(),
+    user_id         VARCHAR(<span style=color:#ae81ff>128</span>) <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span>,
+    tenant_id       VARCHAR(<span style=color:#ae81ff>128</span>) <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span>,
+    
+    memory_key      VARCHAR(<span style=color:#ae81ff>256</span>) <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span>,
+    memory_value    TEXT         <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span>,
+    memory_type     VARCHAR(<span style=color:#ae81ff>64</span>)  <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span> <span style=color:#66d9ef>DEFAULT</span> <span style=color:#e6db74>&#39;</span><span style=color:#e6db74>fact</span><span style=color:#e6db74>&#39;</span>,
+    <span style=color:#75715e>-- &#39;fact&#39;, &#39;preference&#39;, &#39;goal&#39;, &#39;constraint&#39;, &#39;skill&#39;, &#39;relationship&#39;
+</span><span style=color:#75715e></span>    
+    <span style=color:#66d9ef>source</span>          VARCHAR(<span style=color:#ae81ff>128</span>),           <span style=color:#75715e>-- Session ID nguồn gốc
+</span><span style=color:#75715e></span>    confidence      DECIMAL(<span style=color:#ae81ff>3</span>,<span style=color:#ae81ff>2</span>) <span style=color:#66d9ef>DEFAULT</span> <span style=color:#ae81ff>1</span>.<span style=color:#ae81ff>0</span> <span style=color:#66d9ef>CHECK</span> (confidence <span style=color:#66d9ef>BETWEEN</span> <span style=color:#ae81ff>0</span> <span style=color:#66d9ef>AND</span> <span style=color:#ae81ff>1</span>),
+    importance      SMALLINT     <span style=color:#66d9ef>DEFAULT</span> <span style=color:#ae81ff>3</span>  <span style=color:#66d9ef>CHECK</span> (importance <span style=color:#66d9ef>BETWEEN</span> <span style=color:#ae81ff>1</span> <span style=color:#66d9ef>AND</span> <span style=color:#ae81ff>5</span>),
+    
+    <span style=color:#75715e>-- Deduplication
+</span><span style=color:#75715e></span>    content_hash    VARCHAR(<span style=color:#ae81ff>64</span>)  <span style=color:#66d9ef>GENERATED</span> ALWAYS <span style=color:#66d9ef>AS</span> (
+        encode(sha256(user_id::bytea <span style=color:#f92672>|</span><span style=color:#f92672>|</span> memory_key::bytea <span style=color:#f92672>|</span><span style=color:#f92672>|</span> memory_value::bytea), <span style=color:#e6db74>&#39;</span><span style=color:#e6db74>hex</span><span style=color:#e6db74>&#39;</span>)
+    ) STORED,
+    
+    access_count    INT          <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span> <span style=color:#66d9ef>DEFAULT</span> <span style=color:#ae81ff>0</span>,
+    last_accessed   TIMESTAMPTZ,
+    expires_at      TIMESTAMPTZ,
+    created_at      TIMESTAMPTZ <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span> <span style=color:#66d9ef>DEFAULT</span> NOW(),
+    updated_at      TIMESTAMPTZ <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span> <span style=color:#66d9ef>DEFAULT</span> NOW(),
+    
+    <span style=color:#66d9ef>UNIQUE</span>(user_id, tenant_id, memory_key)
+);
+
+<span style=color:#75715e>-- Indexes cho hiệu suất
+</span><span style=color:#75715e></span><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>INDEX</span> idx_user_profiles_tenant  <span style=color:#66d9ef>ON</span> ai_memory.user_profiles(tenant_id);
+<span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>INDEX</span> idx_user_profiles_last    <span style=color:#66d9ef>ON</span> ai_memory.user_profiles(last_seen_at <span style=color:#66d9ef>DESC</span>);
+<span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>INDEX</span> idx_interaction_logs_user <span style=color:#66d9ef>ON</span> ai_memory.interaction_logs(user_id, created_at <span style=color:#66d9ef>DESC</span>);
+<span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>INDEX</span> idx_interaction_logs_type <span style=color:#66d9ef>ON</span> ai_memory.interaction_logs(event_type, tenant_id);
+<span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>INDEX</span> idx_interaction_logs_tags <span style=color:#66d9ef>ON</span> ai_memory.interaction_logs <span style=color:#66d9ef>USING</span> GIN(tags);
+<span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>INDEX</span> idx_memory_items_user     <span style=color:#66d9ef>ON</span> ai_memory.memory_items(user_id, tenant_id);
+<span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>INDEX</span> idx_memory_items_type     <span style=color:#66d9ef>ON</span> ai_memory.memory_items(memory_type, user_id);
+<span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>INDEX</span> idx_memory_items_expires  <span style=color:#66d9ef>ON</span> ai_memory.memory_items(expires_at)
+    <span style=color:#66d9ef>WHERE</span> expires_at <span style=color:#66d9ef>IS</span> <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>NULL</span>;
+
+<span style=color:#75715e>-- Trigger cập nhật updated_at tự động
+</span><span style=color:#75715e></span><span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>OR</span> <span style=color:#66d9ef>REPLACE</span> <span style=color:#66d9ef>FUNCTION</span> ai_memory.set_updated_at()
+<span style=color:#66d9ef>RETURNS</span> <span style=color:#66d9ef>TRIGGER</span> <span style=color:#66d9ef>AS</span> <span style=color:#960050;background-color:#1e0010>$</span><span style=color:#960050;background-color:#1e0010>$</span>
+<span style=color:#66d9ef>BEGIN</span> <span style=color:#66d9ef>NEW</span>.updated_at <span style=color:#f92672>=</span> NOW(); <span style=color:#66d9ef>RETURN</span> <span style=color:#66d9ef>NEW</span>; <span style=color:#66d9ef>END</span>;
+<span style=color:#960050;background-color:#1e0010>$</span><span style=color:#960050;background-color:#1e0010>$</span> <span style=color:#66d9ef>LANGUAGE</span> plpgsql;
+
+<span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>TRIGGER</span> trg_user_profiles_updated
+    <span style=color:#66d9ef>BEFORE</span> <span style=color:#66d9ef>UPDATE</span> <span style=color:#66d9ef>ON</span> ai_memory.user_profiles
+    <span style=color:#66d9ef>FOR</span> <span style=color:#66d9ef>EACH</span> <span style=color:#66d9ef>ROW</span> <span style=color:#66d9ef>EXECUTE</span> <span style=color:#66d9ef>FUNCTION</span> ai_memory.set_updated_at();
+
+<span style=color:#66d9ef>CREATE</span> <span style=color:#66d9ef>TRIGGER</span> trg_memory_items_updated
+    <span style=color:#66d9ef>BEFORE</span> <span style=color:#66d9ef>UPDATE</span> <span style=color:#66d9ef>ON</span> ai_memory.memory_items
+    <span style=color:#66d9ef>FOR</span> <span style=color:#66d9ef>EACH</span> <span style=color:#66d9ef>ROW</span> <span style=color:#66d9ef>EXECUTE</span> <span style=color:#66d9ef>FUNCTION</span> ai_memory.set_updated_at();
+</code></pre></div><h3 id=52-migration-strategy>5.2. Migration Strategy</h3><p>Khi cần thay đổi schema trong production:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sql data-lang=sql><span style=color:#75715e>-- Migration V2: Thêm cột emotion_profile vào user_profiles
+</span><span style=color:#75715e></span><span style=color:#75715e>-- File: migrations/V2__add_emotion_profile.sql
+</span><span style=color:#75715e></span>
+<span style=color:#66d9ef>ALTER</span> <span style=color:#66d9ef>TABLE</span> ai_memory.user_profiles
+    <span style=color:#66d9ef>ADD</span> <span style=color:#66d9ef>COLUMN</span> <span style=color:#66d9ef>IF</span> <span style=color:#66d9ef>NOT</span> <span style=color:#66d9ef>EXISTS</span> emotion_profile JSONB <span style=color:#66d9ef>DEFAULT</span> <span style=color:#e6db74>&#39;</span><span style=color:#e6db74>{}</span><span style=color:#e6db74>&#39;</span>::jsonb;
+
+<span style=color:#66d9ef>COMMENT</span> <span style=color:#66d9ef>ON</span> <span style=color:#66d9ef>COLUMN</span> ai_memory.user_profiles.emotion_profile <span style=color:#66d9ef>IS</span>
+    <span style=color:#e6db74>&#39;</span><span style=color:#e6db74>Xu hướng cảm xúc tích lũy: { &#34;avg_sentiment&#34;: 0.7, &#34;frustration_signals&#34;: 2 }</span><span style=color:#e6db74>&#39;</span>;
+
+<span style=color:#75715e>-- Backfill: giá trị mặc định cho các bản ghi cũ đã được handle bởi DEFAULT
+</span><span style=color:#75715e></span><span style=color:#75715e>-- Không cần UPDATE toàn bộ bảng nếu đã có DEFAULT.
+</span></code></pre></div><hr><h2 id=6-semantic-memory--vector-store-cho-k-c-ng-ngha>6. Semantic Memory — Vector Store cho ký ức ngữ nghĩa</h2><p>Semantic Memory cho phép agent <strong>tìm lại ký ức liên quan</strong> mà không cần nhớ key hay thứ tự thời gian — chỉ cần mô tả ngữ nghĩa gần với nội dung cần tìm.</p><h3 id=61-kin-trc-semantic-memory--rag>6.1. Kiến trúc Semantic Memory + RAG</h3><pre><code>Người dùng: &quot;Tôi đã từng phàn nàn về vấn đề gì với sản phẩm này chưa?&quot;
+                │
+                ▼
+    ┌───────────────────────┐
+    │  Semantic Memory      │
+    │  Retrieval Pipeline   │
+    └────────┬──────────────┘
+             │
+    ┌────────▼──────────────────────────────────────────┐
+    │  1. Embed câu hỏi → query vector [0.12, -0.34...] │
+    └────────┬──────────────────────────────────────────┘
+             │
+    ┌────────▼──────────────────────────────────────────┐
+    │  2. Similarity search trong Qdrant/pgvector        │
+    │     Filter: user_id = &quot;usr_456&quot;                   │
+    │     Top-K: 5 ký ức liên quan nhất                 │
+    └────────┬──────────────────────────────────────────┘
+             │
+    ┌────────▼──────────────────────────────────────────┐
+    │  3. Re-rank theo:                                 │
+    │     - Similarity score                            │
+    │     - Importance (1-5)                            │
+    │     - Recency (gần đây hơn = ưu tiên hơn)        │
+    └────────┬──────────────────────────────────────────┘
+             │
+    ┌────────▼──────────────────────────────────────────┐
+    │  4. Inject vào context window:                    │
+    │     [RELEVANT MEMORIES]:                          │
+    │     - 12/03: Phàn nàn pin laptop hao nhanh        │
+    │     - 05/04: Báo lỗi bàn phím phím Space kẹt      │
+    └────────┬──────────────────────────────────────────┘
+             │
+             ▼
+    LLM sinh câu trả lời có ngữ cảnh đầy đủ
+</code></pre><h3 id=62-python--langchain--qdrant-semantic-memory>6.2. Python — LangChain + Qdrant Semantic Memory</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> langchain_openai <span style=color:#f92672>import</span> OpenAIEmbeddings, ChatOpenAI
+<span style=color:#f92672>from</span> langchain_qdrant <span style=color:#f92672>import</span> QdrantVectorStore
+<span style=color:#f92672>from</span> langchain.memory <span style=color:#f92672>import</span> VectorStoreRetrieverMemory
+<span style=color:#f92672>from</span> langchain.chains <span style=color:#f92672>import</span> ConversationChain
+<span style=color:#f92672>from</span> langchain.prompts <span style=color:#f92672>import</span> PromptTemplate
+<span style=color:#f92672>from</span> qdrant_client <span style=color:#f92672>import</span> QdrantClient
+<span style=color:#f92672>from</span> qdrant_client.models <span style=color:#f92672>import</span> Distance, VectorParams
+<span style=color:#f92672>from</span> datetime <span style=color:#f92672>import</span> datetime
+<span style=color:#f92672>import</span> uuid
+
+
+<span style=color:#75715e># ============================================================</span>
+<span style=color:#75715e># Bước 1: Khởi tạo Qdrant collection cho semantic memory</span>
+<span style=color:#75715e># ============================================================</span>
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>init_semantic_memory_store</span>(
+    qdrant_url: str,
+    collection_name: str <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>agent_memories</span><span style=color:#e6db74>&#34;</span>,
+    vector_size: int <span style=color:#f92672>=</span> <span style=color:#ae81ff>1536</span>  <span style=color:#75715e># OpenAI text-embedding-3-small</span>
+) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> QdrantVectorStore:
+    client <span style=color:#f92672>=</span> QdrantClient(url<span style=color:#f92672>=</span>qdrant_url)
+
+    <span style=color:#75715e># Tạo collection nếu chưa tồn tại</span>
+    existing <span style=color:#f92672>=</span> [c<span style=color:#f92672>.</span>name <span style=color:#66d9ef>for</span> c <span style=color:#f92672>in</span> client<span style=color:#f92672>.</span>get_collections()<span style=color:#f92672>.</span>collections]
+    <span style=color:#66d9ef>if</span> collection_name <span style=color:#f92672>not</span> <span style=color:#f92672>in</span> existing:
+        client<span style=color:#f92672>.</span>create_collection(
+            collection_name<span style=color:#f92672>=</span>collection_name,
+            vectors_config<span style=color:#f92672>=</span>VectorParams(
+                size<span style=color:#f92672>=</span>vector_size,
+                distance<span style=color:#f92672>=</span>Distance<span style=color:#f92672>.</span>COSINE
+            )
+        )
+
+    embeddings <span style=color:#f92672>=</span> OpenAIEmbeddings(model<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>text-embedding-3-small</span><span style=color:#e6db74>&#34;</span>)
+    <span style=color:#66d9ef>return</span> QdrantVectorStore(
+        client<span style=color:#f92672>=</span>client,
+        collection_name<span style=color:#f92672>=</span>collection_name,
+        embedding<span style=color:#f92672>=</span>embeddings
+    )
+
+
+<span style=color:#75715e># ============================================================</span>
+<span style=color:#75715e># Bước 2: SemanticMemoryManager — lưu và truy vấn ký ức</span>
+<span style=color:#75715e># ============================================================</span>
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>SemanticMemoryManager</span>:
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Quản lý semantic memory cho một user cụ thể.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Mỗi ký ức là một đoạn text có metadata: user_id, importance, timestamp.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    </span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+
+    IMPORTANCE_THRESHOLD <span style=color:#f92672>=</span> <span style=color:#ae81ff>3</span>  <span style=color:#75715e># Chỉ lưu ký ức có importance &gt;= 3</span>
+
+    <span style=color:#66d9ef>def</span> __init__(self, vector_store: QdrantVectorStore, user_id: str):
+        self<span style=color:#f92672>.</span>_store <span style=color:#f92672>=</span> vector_store
+        self<span style=color:#f92672>.</span>_user_id <span style=color:#f92672>=</span> user_id
+        self<span style=color:#f92672>.</span>_embeddings <span style=color:#f92672>=</span> OpenAIEmbeddings(model<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>text-embedding-3-small</span><span style=color:#e6db74>&#34;</span>)
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>save_memory</span>(
+        self,
+        content: str,
+        memory_type: str <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>fact</span><span style=color:#e6db74>&#34;</span>,
+        importance: int <span style=color:#f92672>=</span> <span style=color:#ae81ff>3</span>,
+        tags: list[str] <span style=color:#f92672>|</span> None <span style=color:#f92672>=</span> None
+    ) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> str <span style=color:#f92672>|</span> None:
+        <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>        Lưu một ký ức vào vector store.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>        Chỉ lưu nếu importance &gt;= ngưỡng.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>        Trả về memory_id nếu lưu thành công, None nếu bỏ qua.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>        </span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+        <span style=color:#66d9ef>if</span> importance <span style=color:#f92672>&lt;</span> self<span style=color:#f92672>.</span>IMPORTANCE_THRESHOLD:
+            <span style=color:#66d9ef>return</span> None  <span style=color:#75715e># Không đủ quan trọng để ghi nhớ lâu dài</span>
+
+        memory_id <span style=color:#f92672>=</span> str(uuid<span style=color:#f92672>.</span>uuid4())
+        metadata <span style=color:#f92672>=</span> {
+            <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>user_id</span><span style=color:#e6db74>&#34;</span>: self<span style=color:#f92672>.</span>_user_id,
+            <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>memory_id</span><span style=color:#e6db74>&#34;</span>: memory_id,
+            <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>memory_type</span><span style=color:#e6db74>&#34;</span>: memory_type,
+            <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>importance</span><span style=color:#e6db74>&#34;</span>: importance,
+            <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>tags</span><span style=color:#e6db74>&#34;</span>: tags <span style=color:#f92672>or</span> [],
+            <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>created_at</span><span style=color:#e6db74>&#34;</span>: datetime<span style=color:#f92672>.</span>utcnow()<span style=color:#f92672>.</span>isoformat(),
+        }
+
+        self<span style=color:#f92672>.</span>_store<span style=color:#f92672>.</span>add_texts(
+            texts<span style=color:#f92672>=</span>[content],
+            metadatas<span style=color:#f92672>=</span>[metadata],
+            ids<span style=color:#f92672>=</span>[memory_id]
+        )
+        <span style=color:#66d9ef>return</span> memory_id
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>recall</span>(
+        self,
+        query: str,
+        top_k: int <span style=color:#f92672>=</span> <span style=color:#ae81ff>5</span>,
+        memory_type: str <span style=color:#f92672>|</span> None <span style=color:#f92672>=</span> None
+    ) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> list[dict]:
+        <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>        Tìm kiếm ký ức liên quan theo ngữ nghĩa.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>        Có thể filter theo memory_type.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>        </span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+        filter_condition <span style=color:#f92672>=</span> {<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>user_id</span><span style=color:#e6db74>&#34;</span>: self<span style=color:#f92672>.</span>_user_id}
+        <span style=color:#66d9ef>if</span> memory_type:
+            filter_condition[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>memory_type</span><span style=color:#e6db74>&#34;</span>] <span style=color:#f92672>=</span> memory_type
+
+        results <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>_store<span style=color:#f92672>.</span>similarity_search_with_score(
+            query<span style=color:#f92672>=</span>query,
+            k<span style=color:#f92672>=</span>top_k,
+            filter<span style=color:#f92672>=</span>filter_condition
+        )
+
+        <span style=color:#75715e># Re-rank: kết hợp similarity score + importance</span>
+        memories <span style=color:#f92672>=</span> []
+        <span style=color:#66d9ef>for</span> doc, score <span style=color:#f92672>in</span> results:
+            importance <span style=color:#f92672>=</span> doc<span style=color:#f92672>.</span>metadata<span style=color:#f92672>.</span>get(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>importance</span><span style=color:#e6db74>&#34;</span>, <span style=color:#ae81ff>3</span>)
+            <span style=color:#75715e># Công thức re-rank đơn giản: 0.7 * similarity + 0.3 * (importance/5)</span>
+            combined_score <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.7</span> <span style=color:#f92672>*</span> score <span style=color:#f92672>+</span> <span style=color:#ae81ff>0.3</span> <span style=color:#f92672>*</span> (importance <span style=color:#f92672>/</span> <span style=color:#ae81ff>5</span>)
+            memories<span style=color:#f92672>.</span>append({
+                <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>content</span><span style=color:#e6db74>&#34;</span>: doc<span style=color:#f92672>.</span>page_content,
+                <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>metadata</span><span style=color:#e6db74>&#34;</span>: doc<span style=color:#f92672>.</span>metadata,
+                <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>similarity</span><span style=color:#e6db74>&#34;</span>: round(score, <span style=color:#ae81ff>4</span>),
+                <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>combined_score</span><span style=color:#e6db74>&#34;</span>: round(combined_score, <span style=color:#ae81ff>4</span>)
+            })
+
+        <span style=color:#75715e># Sắp xếp theo combined_score giảm dần</span>
+        memories<span style=color:#f92672>.</span>sort(key<span style=color:#f92672>=</span><span style=color:#66d9ef>lambda</span> x: x[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>combined_score</span><span style=color:#e6db74>&#34;</span>], reverse<span style=color:#f92672>=</span>True)
+        <span style=color:#66d9ef>return</span> memories
+
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>format_for_context</span>(self, memories: list[dict]) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> str:
+        <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>Định dạng ký ức để inject vào context window.</span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+        <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> memories:
+            <span style=color:#66d9ef>return</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>&#34;</span>
+        lines <span style=color:#f92672>=</span> [<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>[KÝ ỨC LIÊN QUAN CỦA NGƯỜI DÙNG]:</span><span style=color:#e6db74>&#34;</span>]
+        <span style=color:#66d9ef>for</span> m <span style=color:#f92672>in</span> memories:
+            date <span style=color:#f92672>=</span> m[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>metadata</span><span style=color:#e6db74>&#34;</span>]<span style=color:#f92672>.</span>get(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>created_at</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>&#34;</span>)[:<span style=color:#ae81ff>10</span>]
+            mtype <span style=color:#f92672>=</span> m[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>metadata</span><span style=color:#e6db74>&#34;</span>]<span style=color:#f92672>.</span>get(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>memory_type</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>fact</span><span style=color:#e6db74>&#34;</span>)
+            lines<span style=color:#f92672>.</span>append(f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>- [{date}][{mtype}] {m[</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>content</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>]}</span><span style=color:#e6db74>&#34;</span>)
+        <span style=color:#66d9ef>return</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span><span style=color:#f92672>.</span>join(lines)
+
+
+<span style=color:#75715e># ============================================================</span>
+<span style=color:#75715e># Bước 3: Tích hợp với LangChain ConversationChain</span>
+<span style=color:#75715e># ============================================================</span>
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>build_agent_with_semantic_memory</span>(
+    qdrant_url: str,
+    user_id: str
+) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> tuple[ConversationChain, SemanticMemoryManager]:
+    vector_store <span style=color:#f92672>=</span> init_semantic_memory_store(qdrant_url)
+    memory_mgr <span style=color:#f92672>=</span> SemanticMemoryManager(vector_store, user_id)
+
+    retriever <span style=color:#f92672>=</span> vector_store<span style=color:#f92672>.</span>as_retriever(
+        search_kwargs<span style=color:#f92672>=</span>{
+            <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>k</span><span style=color:#e6db74>&#34;</span>: <span style=color:#ae81ff>4</span>,
+            <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>filter</span><span style=color:#e6db74>&#34;</span>: {<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>user_id</span><span style=color:#e6db74>&#34;</span>: user_id}
+        }
+    )
+
+    lc_memory <span style=color:#f92672>=</span> VectorStoreRetrieverMemory(retriever<span style=color:#f92672>=</span>retriever)
+
+    prompt <span style=color:#f92672>=</span> PromptTemplate(
+        input_variables<span style=color:#f92672>=</span>[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>history</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>input</span><span style=color:#e6db74>&#34;</span>],
+        template<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>Bạn là trợ lý AI hỗ trợ khách hàng thông minh.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>Thông tin từ các tương tác trước đây:</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>{history}</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>Hội thoại hiện tại:</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>Người dùng: {input}</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>Trợ lý:</span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    )
+
+    llm <span style=color:#f92672>=</span> ChatOpenAI(model<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>gpt-4o-mini</span><span style=color:#e6db74>&#34;</span>, temperature<span style=color:#f92672>=</span><span style=color:#ae81ff>0.1</span>)
+    chain <span style=color:#f92672>=</span> ConversationChain(
+        llm<span style=color:#f92672>=</span>llm,
+        prompt<span style=color:#f92672>=</span>prompt,
+        memory<span style=color:#f92672>=</span>lc_memory,
+        verbose<span style=color:#f92672>=</span>False
+    )
+    <span style=color:#66d9ef>return</span> chain, memory_mgr
+</code></pre></div><hr><h2 id=7-memory-retrieval-strategy-khi-no-dng-loi-no>7. Memory Retrieval Strategy: Khi nào dùng loại nào</h2><h3 id=71-decision-tree--chn-loi-memory-ph-hp>7.1. Decision Tree — Chọn loại Memory phù hợp</h3><pre><code>Bắt đầu: Agent nhận một yêu cầu mới từ người dùng
+                        │
+                        ▼
+        ┌───────────────────────────────┐
+        │  Thông tin có trong context   │
+        │  window hiện tại không?       │
+        └──────────┬────────────────────┘
+                   │
+         ┌─────────┴─────────┐
+        YES                  NO
+         │                   │
+         ▼                   ▼
+   Dùng IN-CONTEXT     Cần tìm ở đâu?
+   MEMORY trực tiếp          │
+                    ┌────────┴─────────────────────┐
+                    │                              │
+         ┌──────────▼──────────┐      ┌────────────▼──────────┐
+         │  Thông tin từ cùng  │      │  Thông tin từ nhiều   │
+         │  phiên làm việc     │      │  phiên trước?         │
+         │  hôm nay?           │      └────────────┬──────────┘
+         └──────────┬──────────┘                   │
+                    │                    ┌──────────┴──────────┐
+                   YES                  │                     │
+                    │            Tìm theo KEY         Tìm theo NGỮ NGHĨA
+                    ▼            (user_id, type)      (không biết key cụ thể)
+              SESSION MEMORY            │                     │
+              (Redis, ~1ms)             ▼                     ▼
+                               PERSISTENT MEMORY       SEMANTIC MEMORY
+                               (PostgreSQL, ~20ms)     (Qdrant, ~30-50ms)
+</code></pre><h3 id=72-hybrid-retrieval--kt-hp-session--semantic>7.2. Hybrid Retrieval — Kết hợp Session + Semantic</h3><p>Chiến lược tối ưu nhất cho production: <strong>luôn truy vấn cả 2 nguồn song song</strong>, merge kết quả:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> asyncio
+<span style=color:#f92672>from</span> dataclasses <span style=color:#f92672>import</span> dataclass
+
+<span style=color:#a6e22e>@dataclass</span>
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MemoryContext</span>:
+    session_messages: list[dict]
+    semantic_memories: list[dict]
+    user_profile: dict <span style=color:#f92672>|</span> None
+
+async <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>hybrid_memory_retrieval</span>(
+    session_id: str,
+    user_id: str,
+    current_query: str,
+    session_store: RedisSessionStore,      <span style=color:#75715e># type: ignore</span>
+    semantic_mgr: SemanticMemoryManager,
+    profile_repo: object                    <span style=color:#75715e># type: ignore</span>
+) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> MemoryContext:
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>Truy vấn song song cả session memory và semantic memory.</span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+
+    session_task <span style=color:#f92672>=</span> session_store<span style=color:#f92672>.</span>get_async(session_id)
+    semantic_task <span style=color:#f92672>=</span> asyncio<span style=color:#f92672>.</span>to_thread(
+        semantic_mgr<span style=color:#f92672>.</span>recall, current_query, top_k<span style=color:#f92672>=</span><span style=color:#ae81ff>4</span>
+    )
+    profile_task <span style=color:#f92672>=</span> asyncio<span style=color:#f92672>.</span>to_thread(
+        profile_repo<span style=color:#f92672>.</span>get_by_user_id, user_id  <span style=color:#75715e># type: ignore</span>
+    )
+
+    session_data, semantic_results, profile <span style=color:#f92672>=</span> await asyncio<span style=color:#f92672>.</span>gather(
+        session_task, semantic_task, profile_task
+    )
+
+    <span style=color:#66d9ef>return</span> MemoryContext(
+        session_messages<span style=color:#f92672>=</span>session_data<span style=color:#f92672>.</span>messages <span style=color:#66d9ef>if</span> session_data <span style=color:#66d9ef>else</span> [],
+        semantic_memories<span style=color:#f92672>=</span>semantic_results,
+        user_profile<span style=color:#f92672>=</span>profile
+    )
+</code></pre></div><hr><h2 id=8-context-window-management-nng-cao>8. Context Window Management nâng cao</h2><h3 id=81-bn-chin-lc-chnh>8.1. Bốn chiến lược chính</h3><table><thead><tr><th>Chiến lược</th><th>Mô tả</th><th>Ưu điểm</th><th>Nhược điểm</th><th>Phù hợp với</th></tr></thead><tbody><tr><td><strong>Sliding Window</strong></td><td>Giữ N tin nhắn gần nhất</td><td>Đơn giản, dễ implement</td><td>Mất thông tin quan trọng đầu session</td><td>FAQ bot, session ngắn</td></tr><tr><td><strong>Summary Buffer</strong></td><td>Tóm tắt phần cũ khi đầy</td><td>Giữ thông tin key, token hiệu quả</td><td>Cần gọi LLM thêm để tóm tắt</td><td>CS bot, session trung bình</td></tr><tr><td><strong>Entity Memory</strong></td><td>Track entities (tên, mã đơn, sản phẩm) được đề cập</td><td>Giữ facts quan trọng, ít token</td><td>Cần NER pipeline</td><td>Sales bot, healthcare bot</td></tr><tr><td><strong>ConversationKG</strong></td><td>Knowledge Graph từ hội thoại</td><td>Biểu diễn quan hệ phức tạp</td><td>Phức tạp triển khai</td><td>Research agent, phân tích hợp đồng</td></tr></tbody></table><h3 id=82-bng-so-snh-chi-tit>8.2. Bảng so sánh chi tiết</h3><table><thead><tr><th>Tiêu chí</th><th>Sliding Window</th><th>Summary Buffer</th><th>Entity Memory</th><th>ConversationKG</th></tr></thead><tbody><tr><td><strong>Độ phức tạp implement</strong></td><td>★☆☆☆☆</td><td>★★★☆☆</td><td>★★★☆☆</td><td>★★★★★</td></tr><tr><td><strong>Token efficiency</strong></td><td>★★☆☆☆</td><td>★★★★☆</td><td>★★★★★</td><td>★★★☆☆</td></tr><tr><td><strong>Giữ thông tin long-term</strong></td><td>★☆☆☆☆</td><td>★★★☆☆</td><td>★★★★☆</td><td>★★★★★</td></tr><tr><td><strong>Tốc độ</strong></td><td>★★★★★</td><td>★★★☆☆</td><td>★★★★☆</td><td>★★☆☆☆</td></tr><tr><td><strong>Chi phí API</strong></td><td>Thấp</td><td>Trung bình</td><td>Thấp</td><td>Cao</td></tr><tr><td><strong>Hỗ trợ LangChain</strong></td><td>✅</td><td>✅</td><td>✅</td><td>✅ (beta)</td></tr><tr><td><strong>Hỗ trợ Semantic Kernel</strong></td><td>✅</td><td>Tự implement</td><td>Tự implement</td><td>❌</td></tr></tbody></table><h3 id=83-khuyn-ngh-la-chn-theo-use-case>8.3. Khuyến nghị lựa chọn theo use case</h3><pre><code>Use case               │ Chiến lược khuyến nghị
+───────────────────────┼──────────────────────────────────────────
+FAQ chatbot đơn giản   │ Sliding Window (20 tin nhắn)
+Customer Support AI    │ Summary Buffer + Entity Memory
+Healthcare AI          │ Entity Memory + Persistent Memory
+Sales/CRM AI           │ Entity Memory + Semantic Memory
+Contract analysis      │ ConversationKG + Semantic Memory
+Personal Assistant     │ Summary Buffer + Semantic Memory + Profile
+</code></pre><hr><h2 id=9-user-profiling--personalization>9. User Profiling & Personalization</h2><h3 id=91-xy-dng-h-s-ngi-dng-tch-ly>9.1. Xây dựng hồ sơ người dùng tích lũy</h3><p>Hồ sơ người dùng không được tạo ra một lần — nó <strong>tích lũy</strong> và <strong>tự cập nhật</strong> qua từng tương tác:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+  <span style=color:#f92672>&#34;user_id&#34;</span>: <span style=color:#e6db74>&#34;usr_456&#34;</span>,
+  <span style=color:#f92672>&#34;tenant_id&#34;</span>: <span style=color:#e6db74>&#34;tenant_ecommerce_01&#34;</span>,
+  <span style=color:#f92672>&#34;display_name&#34;</span>: <span style=color:#e6db74>&#34;Nguyễn Văn An&#34;</span>,
+  <span style=color:#f92672>&#34;language&#34;</span>: <span style=color:#e6db74>&#34;vi&#34;</span>,
+  <span style=color:#f92672>&#34;timezone&#34;</span>: <span style=color:#e6db74>&#34;Asia/Ho_Chi_Minh&#34;</span>,
+  
+  <span style=color:#f92672>&#34;preferences&#34;</span>: {
+    <span style=color:#f92672>&#34;communication_style&#34;</span>: <span style=color:#e6db74>&#34;casual&#34;</span>,
+    <span style=color:#f92672>&#34;response_length&#34;</span>: <span style=color:#e6db74>&#34;concise&#34;</span>,
+    <span style=color:#f92672>&#34;preferred_channel&#34;</span>: <span style=color:#e6db74>&#34;zalo&#34;</span>,
+    <span style=color:#f92672>&#34;delivery_time&#34;</span>: <span style=color:#e6db74>&#34;morning&#34;</span>,
+    <span style=color:#f92672>&#34;payment_method&#34;</span>: <span style=color:#e6db74>&#34;momo&#34;</span>,
+    <span style=color:#f92672>&#34;product_categories&#34;</span>: [<span style=color:#e6db74>&#34;laptop&#34;</span>, <span style=color:#e6db74>&#34;phụ kiện gaming&#34;</span>],
+    <span style=color:#f92672>&#34;price_sensitivity&#34;</span>: <span style=color:#e6db74>&#34;medium&#34;</span>,
+    <span style=color:#f92672>&#34;brand_preferences&#34;</span>: [<span style=color:#e6db74>&#34;Dell&#34;</span>, <span style=color:#e6db74>&#34;ASUS&#34;</span>]
+  },
+  
+  <span style=color:#f92672>&#34;behavioral_patterns&#34;</span>: {
+    <span style=color:#f92672>&#34;avg_session_duration_minutes&#34;</span>: <span style=color:#ae81ff>12.5</span>,
+    <span style=color:#f92672>&#34;peak_active_hours&#34;</span>: [<span style=color:#e6db74>&#34;08:00-10:00&#34;</span>, <span style=color:#e6db74>&#34;20:00-22:00&#34;</span>],
+    <span style=color:#f92672>&#34;typical_query_types&#34;</span>: [<span style=color:#e6db74>&#34;order_tracking&#34;</span>, <span style=color:#e6db74>&#34;product_comparison&#34;</span>],
+    <span style=color:#f92672>&#34;escalation_rate&#34;</span>: <span style=color:#ae81ff>0.05</span>,
+    <span style=color:#f92672>&#34;satisfaction_trend&#34;</span>: <span style=color:#e6db74>&#34;improving&#34;</span>
+  },
+  
+  <span style=color:#f92672>&#34;known_issues&#34;</span>: [
+    {
+      <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;allergy&#34;</span>,
+      <span style=color:#f92672>&#34;detail&#34;</span>: <span style=color:#e6db74>&#34;dị ứng latex&#34;</span>,
+      <span style=color:#f92672>&#34;recorded_at&#34;</span>: <span style=color:#e6db74>&#34;2026-03-12&#34;</span>,
+      <span style=color:#f92672>&#34;source_session&#34;</span>: <span style=color:#e6db74>&#34;sess_xyz789&#34;</span>
+    }
+  ],
+  
+  <span style=color:#f92672>&#34;interaction_summary&#34;</span>: <span style=color:#e6db74>&#34;Khách hàng thân thiết, thường mua laptop gaming. Đã từng phàn nàn về thời gian giao hàng chậm vào tháng 3. Ưa phong cách giao tiếp thân mật, không thích câu trả lời dài dòng.&#34;</span>,
+  
+  <span style=color:#f92672>&#34;metrics&#34;</span>: {
+    <span style=color:#f92672>&#34;total_sessions&#34;</span>: <span style=color:#ae81ff>28</span>,
+    <span style=color:#f92672>&#34;total_messages&#34;</span>: <span style=color:#ae81ff>312</span>,
+    <span style=color:#f92672>&#34;purchases_assisted&#34;</span>: <span style=color:#ae81ff>4</span>,
+    <span style=color:#f92672>&#34;tickets_raised&#34;</span>: <span style=color:#ae81ff>2</span>,
+    <span style=color:#f92672>&#34;last_purchase_date&#34;</span>: <span style=color:#e6db74>&#34;2026-04-20&#34;</span>,
+    <span style=color:#f92672>&#34;lifetime_value_vnd&#34;</span>: <span style=color:#ae81ff>18500000</span>
+  },
+  
+  <span style=color:#f92672>&#34;privacy&#34;</span>: {
+    <span style=color:#f92672>&#34;consent_given&#34;</span>: <span style=color:#66d9ef>true</span>,
+    <span style=color:#f92672>&#34;consent_date&#34;</span>: <span style=color:#e6db74>&#34;2026-01-15&#34;</span>,
+    <span style=color:#f92672>&#34;data_retention_until&#34;</span>: <span style=color:#e6db74>&#34;2029-01-15&#34;</span>,
+    <span style=color:#f92672>&#34;pii_masked&#34;</span>: <span style=color:#66d9ef>false</span>
+  }
+}
+</code></pre></div><h3 id=92-privacy-considerations>9.2. Privacy Considerations</h3><ul><li><strong>Tách biệt PII</strong>: Email, số điện thoại, CCCD không lưu trong profile summary</li><li><strong>Consent tracking</strong>: Ghi nhận rõ thời điểm người dùng đồng ý lưu dữ liệu</li><li><strong>Data minimization</strong>: Chỉ lưu những gì thực sự cần để cá nhân hóa</li><li><strong>Right to forget</strong>: Xem mục 12 — cơ chế xóa toàn bộ memory theo yêu cầu</li><li><strong>Tenant isolation</strong>: Mỗi tenant có namespace riêng, không thể cross-query</li></ul><hr><h2 id=10-memory-write-policy--khi-no-ghi-khi-no-b-qua>10. Memory Write Policy — Khi nào ghi, khi nào bỏ qua</h2><p>Không phải mọi tin nhắn đều đáng ghi vào long-term memory. Ghi không chọn lọc sẽ làm <strong>nhiễu</strong> bộ nhớ và tăng chi phí.</p><h3 id=101-importance-scoring>10.1. Importance Scoring</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> enum <span style=color:#f92672>import</span> IntEnum
+
+<span style=color:#66d9ef>class</span> <span style=color:#a6e22e>MemoryImportance</span>(IntEnum):
+    TRIVIAL   <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>   <span style=color:#75715e># &#34;Ok&#34;, &#34;Cảm ơn&#34;, lời chào</span>
+    LOW       <span style=color:#f92672>=</span> <span style=color:#ae81ff>2</span>   <span style=color:#75715e># Câu hỏi chung, không cá nhân</span>
+    MEDIUM    <span style=color:#f92672>=</span> <span style=color:#ae81ff>3</span>   <span style=color:#75715e># Thông tin hữu ích nhưng không critical</span>
+    HIGH      <span style=color:#f92672>=</span> <span style=color:#ae81ff>4</span>   <span style=color:#75715e># Sở thích rõ ràng, vấn đề đã xảy ra</span>
+    CRITICAL  <span style=color:#f92672>=</span> <span style=color:#ae81ff>5</span>   <span style=color:#75715e># Dị ứng, yêu cầu đặc biệt, khiếu nại quan trọng</span>
+
+<span style=color:#75715e># Bảng quy tắc đơn giản để scoring</span>
+IMPORTANCE_RULES <span style=color:#f92672>=</span> [
+    <span style=color:#75715e># (pattern, importance)</span>
+    ([<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>dị ứng</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>không dùng được</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>cấm</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>tuyệt đối không</span><span style=color:#e6db74>&#34;</span>], MemoryImportance<span style=color:#f92672>.</span>CRITICAL),
+    ([<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>thích</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>muốn</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>ưa</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>hay dùng</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>thường xuyên</span><span style=color:#e6db74>&#34;</span>],     MemoryImportance<span style=color:#f92672>.</span>HIGH),
+    ([<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>từng</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>lần trước</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>hôm qua</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>tuần trước</span><span style=color:#e6db74>&#34;</span>],          MemoryImportance<span style=color:#f92672>.</span>HIGH),
+    ([<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>phàn nàn</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>tức</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>bực</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>thất vọng</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>tệ</span><span style=color:#e6db74>&#34;</span>],          MemoryImportance<span style=color:#f92672>.</span>HIGH),
+    ([<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>hỏi về</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>muốn biết</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>giá bao nhiêu</span><span style=color:#e6db74>&#34;</span>],                MemoryImportance<span style=color:#f92672>.</span>LOW),
+    ([<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>ok</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>được</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>cảm ơn</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>bye</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>tạm biệt</span><span style=color:#e6db74>&#34;</span>],            MemoryImportance<span style=color:#f92672>.</span>TRIVIAL),
+]
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>score_importance</span>(message: str) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> MemoryImportance:
+    message_lower <span style=color:#f92672>=</span> message<span style=color:#f92672>.</span>lower()
+    best_score <span style=color:#f92672>=</span> MemoryImportance<span style=color:#f92672>.</span>LOW
+
+    <span style=color:#66d9ef>for</span> keywords, importance <span style=color:#f92672>in</span> IMPORTANCE_RULES:
+        <span style=color:#66d9ef>if</span> any(kw <span style=color:#f92672>in</span> message_lower <span style=color:#66d9ef>for</span> kw <span style=color:#f92672>in</span> keywords):
+            <span style=color:#66d9ef>if</span> importance <span style=color:#f92672>&gt;</span> best_score:
+                best_score <span style=color:#f92672>=</span> importance
+
+    <span style=color:#66d9ef>return</span> best_score
+</code></pre></div><h3 id=102-memory-write-decision-flow>10.2. Memory Write Decision Flow</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>async <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>decide_and_write_memory</span>(
+    user_id: str,
+    message: str,
+    session_context: dict,
+    memory_mgr: SemanticMemoryManager,
+    pg_repo: object  <span style=color:#75715e># type: ignore</span>
+) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> None:
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Quyết định có lưu vào long-term memory không, và lưu ở đâu.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    </span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    importance <span style=color:#f92672>=</span> score_importance(message)
+
+    <span style=color:#75715e># Quy tắc 1: Bỏ qua nếu quá tầm thường</span>
+    <span style=color:#66d9ef>if</span> importance <span style=color:#f92672>&lt;</span><span style=color:#f92672>=</span> MemoryImportance<span style=color:#f92672>.</span>TRIVIAL:
+        <span style=color:#66d9ef>return</span>
+
+    <span style=color:#75715e># Quy tắc 2: Kiểm tra deduplication (đã có memory tương tự chưa)</span>
+    similar <span style=color:#f92672>=</span> memory_mgr<span style=color:#f92672>.</span>recall(message, top_k<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>)
+    <span style=color:#66d9ef>if</span> similar <span style=color:#f92672>and</span> similar[<span style=color:#ae81ff>0</span>][<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>similarity</span><span style=color:#e6db74>&#34;</span>] <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>0.95</span>:
+        <span style=color:#66d9ef>return</span>  <span style=color:#75715e># Đã có ký ức gần như giống hệt, bỏ qua</span>
+
+    <span style=color:#75715e># Quy tắc 3: Ghi vào Semantic Memory nếu importance &gt;= 3</span>
+    <span style=color:#66d9ef>if</span> importance <span style=color:#f92672>&gt;</span><span style=color:#f92672>=</span> MemoryImportance<span style=color:#f92672>.</span>MEDIUM:
+        memory_mgr<span style=color:#f92672>.</span>save_memory(
+            content<span style=color:#f92672>=</span>message,
+            memory_type<span style=color:#f92672>=</span>classify_memory_type(message),
+            importance<span style=color:#f92672>=</span>int(importance)
+        )
+
+    <span style=color:#75715e># Quy tắc 4: Ghi vào PostgreSQL interaction_log nếu importance &gt;= 4</span>
+    <span style=color:#66d9ef>if</span> importance <span style=color:#f92672>&gt;</span><span style=color:#f92672>=</span> MemoryImportance<span style=color:#f92672>.</span>HIGH:
+        await pg_repo<span style=color:#f92672>.</span>log_interaction(  <span style=color:#75715e># type: ignore</span>
+            user_id<span style=color:#f92672>=</span>user_id,
+            event_type<span style=color:#f92672>=</span>classify_event_type(message),
+            summary<span style=color:#f92672>=</span>message[:<span style=color:#ae81ff>500</span>],
+            importance<span style=color:#f92672>=</span>int(importance),
+            <span style=color:#75715e># Memory decay: ký ức LOW tự xóa sau 90 ngày</span>
+            expires_at<span style=color:#f92672>=</span>(
+                None <span style=color:#66d9ef>if</span> importance <span style=color:#f92672>&gt;</span><span style=color:#f92672>=</span> MemoryImportance<span style=color:#f92672>.</span>HIGH
+                <span style=color:#66d9ef>else</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>NOW() + INTERVAL </span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>90 days</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>&#34;</span>
+            )
+        )
+</code></pre></div><h3 id=103-memory-decay--ttl-cho-long-term-memory>10.3. Memory Decay — TTL cho Long-term Memory</h3><p>Không phải mọi ký ức đều cần giữ mãi mãi. Thiết lập TTL theo importance:</p><table><thead><tr><th>Importance Level</th><th>TTL khuyến nghị</th><th>Ví dụ</th></tr></thead><tbody><tr><td><strong>CRITICAL (5)</strong></td><td>Không hết hạn</td><td>Dị ứng, yêu cầu đặc biệt về sức khỏe</td></tr><tr><td><strong>HIGH (4)</strong></td><td>2 năm</td><td>Sở thích mua hàng, khiếu nại đã giải quyết</td></tr><tr><td><strong>MEDIUM (3)</strong></td><td>6 tháng</td><td>Câu hỏi đã được trả lời, sản phẩm đã xem</td></tr><tr><td><strong>LOW (2)</strong></td><td>90 ngày</td><td>Thông tin ngữ cảnh session</td></tr><tr><td><strong>TRIVIAL (1)</strong></td><td>Không lưu</td><td>Lời chào, phản hồi ngắn</td></tr></tbody></table><hr><h2 id=11-multi-session-continuity>11. Multi-session Continuity</h2><h3 id=111-cho-n-ngi-dng-quay-li>11.1. Chào đón người dùng quay lại</h3><p>Khi người dùng bắt đầu session mới, agent cần <strong>pre-load context</strong> và <strong>chào hỏi cá nhân hóa</strong>:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>async <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>build_welcome_context</span>(
+    user_id: str,
+    current_query: str,
+    memory_mgr: SemanticMemoryManager,
+    pg_repo: object  <span style=color:#75715e># type: ignore</span>
+) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> str:
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Xây dựng context phong phú khi người dùng quay lại.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Chạy song song để tối thiểu latency.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    </span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    <span style=color:#f92672>import</span> asyncio
+
+    profile_task <span style=color:#f92672>=</span> asyncio<span style=color:#f92672>.</span>to_thread(pg_repo<span style=color:#f92672>.</span>get_profile, user_id)  <span style=color:#75715e># type: ignore</span>
+    memories_task <span style=color:#f92672>=</span> asyncio<span style=color:#f92672>.</span>to_thread(
+        memory_mgr<span style=color:#f92672>.</span>recall, current_query, top_k<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>
+    )
+
+    profile, relevant_memories <span style=color:#f92672>=</span> await asyncio<span style=color:#f92672>.</span>gather(
+        profile_task, memories_task
+    )
+
+    context_parts <span style=color:#f92672>=</span> []
+
+    <span style=color:#75715e># 1. Thông tin hồ sơ cơ bản</span>
+    <span style=color:#66d9ef>if</span> profile:
+        context_parts<span style=color:#f92672>.</span>append(f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>[HỒ SƠ NGƯỜI DÙNG]:</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>- Tên: {profile.get(</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>display_name</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>, </span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>Khách hàng</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>)}</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>- Số phiên: {profile.get(</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>total_sessions</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>, 0)}</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>- Tóm tắt: {profile.get(</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>interaction_summary</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>, </span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>)}</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>- Sở thích nổi bật: {</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>, </span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>.join(profile.get(</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>preferences</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>, {}).get(</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>product_categories</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>, []))}</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>        </span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#f92672>.</span>strip())
+
+    <span style=color:#75715e># 2. Ký ức liên quan đến câu hỏi hiện tại</span>
+    <span style=color:#66d9ef>if</span> relevant_memories:
+        context_parts<span style=color:#f92672>.</span>append(
+            memory_mgr<span style=color:#f92672>.</span>format_for_context(relevant_memories)
+        )
+
+    <span style=color:#66d9ef>return</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span><span style=color:#f92672>.</span>join(context_parts)
+</code></pre></div><h3 id=112-prompt-augmentation-template>11.2. Prompt Augmentation Template</h3><p>Template để inject memory context vào system prompt:</p><pre><code>SYSTEM PROMPT TEMPLATE (với Memory Augmentation):
+─────────────────────────────────────────────────────────
+Bạn là trợ lý AI của {company_name}.
+
+{user_context}
+━━ Chú ý khi trả lời ━━
+- Nếu người dùng quay lại sau nhiều ngày, hãy chào hỏi ấm áp và đề cập đến
+  tương tác gần nhất nếu phù hợp với câu hỏi hiện tại.
+- Ưu tiên thông tin trong [KÝ ỨC LIÊN QUAN] khi có liên quan đến câu hỏi.
+- KHÔNG đề cập đến ký ức không liên quan — tránh cảm giác &quot;đang bị theo dõi&quot;.
+- Phong cách giao tiếp: {communication_style}
+─────────────────────────────────────────────────────────
+
+Ví dụ kết quả sau khi augment:
+─────────────────────────────────────────────────────────
+[HỒ SƠ NGƯỜI DÙNG]:
+- Tên: Nguyễn Văn An (28 phiên, khách thân thiết)
+- Tóm tắt: Thường mua laptop gaming, thích giao hàng buổi sáng
+
+[KÝ ỨC LIÊN QUAN]:
+- [2026-03-12][constraint] dị ứng latex — KHÔNG gợi ý sản phẩm chứa latex
+- [2026-04-05][complaint] Phàn nàn giao hàng chậm 3 ngày so với cam kết
+
+Chào mừng anh An quay lại! Hôm nay anh cần hỗ trợ gì ạ?
+─────────────────────────────────────────────────────────
+</code></pre><hr><h2 id=12-bo-mt--privacy-cho-memory>12. Bảo mật & Privacy cho Memory</h2><h3 id=121-cc-nguyn-tc-ct-li>12.1. Các nguyên tắc cốt lõi</h3><p><strong>Data Isolation (Multi-tenant)</strong>: Mỗi tenant/organization có namespace riêng trong Redis, schema riêng trong PostgreSQL, collection riêng trong vector store. Tuyệt đối không cross-query giữa các tenant.</p><p><strong>PII Masking trước khi lưu</strong>: Luôn mask PII trước khi lưu vào semantic memory hoặc interaction log:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> re
+
+PII_PATTERNS <span style=color:#f92672>=</span> {
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>email</span><span style=color:#e6db74>&#34;</span>:       <span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>\</span><span style=color:#e6db74>b[A-Za-z0-9._</span><span style=color:#e6db74>%</span><span style=color:#e6db74>+-]+@[A-Za-z0-9.-]+</span><span style=color:#e6db74>\</span><span style=color:#e6db74>.[A-Z|a-z]{2,}</span><span style=color:#e6db74>\</span><span style=color:#e6db74>b</span><span style=color:#e6db74>&#39;</span>,
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>phone_vn</span><span style=color:#e6db74>&#34;</span>:    <span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>\</span><span style=color:#e6db74>b(0[35789]</span><span style=color:#e6db74>\</span><span style=color:#e6db74>d{8}|[+]84[35789]</span><span style=color:#e6db74>\</span><span style=color:#e6db74>d{8})</span><span style=color:#e6db74>\</span><span style=color:#e6db74>b</span><span style=color:#e6db74>&#39;</span>,
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>cccd</span><span style=color:#e6db74>&#34;</span>:        <span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>\</span><span style=color:#e6db74>b</span><span style=color:#e6db74>\</span><span style=color:#e6db74>d{9}(</span><span style=color:#e6db74>\</span><span style=color:#e6db74>d{3})?</span><span style=color:#e6db74>\</span><span style=color:#e6db74>b</span><span style=color:#e6db74>&#39;</span>,  <span style=color:#75715e># 9 hoặc 12 số</span>
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>credit_card</span><span style=color:#e6db74>&#34;</span>: <span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>\</span><span style=color:#e6db74>b</span><span style=color:#e6db74>\</span><span style=color:#e6db74>d{4}[</span><span style=color:#e6db74>\</span><span style=color:#e6db74>s-]?</span><span style=color:#e6db74>\</span><span style=color:#e6db74>d{4}[</span><span style=color:#e6db74>\</span><span style=color:#e6db74>s-]?</span><span style=color:#e6db74>\</span><span style=color:#e6db74>d{4}[</span><span style=color:#e6db74>\</span><span style=color:#e6db74>s-]?</span><span style=color:#e6db74>\</span><span style=color:#e6db74>d{4}</span><span style=color:#e6db74>\</span><span style=color:#e6db74>b</span><span style=color:#e6db74>&#39;</span>,
+}
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>mask_pii</span>(text: str) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> str:
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>Thay thế PII bằng placeholder trước khi lưu vào memory.</span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    masked <span style=color:#f92672>=</span> text
+    <span style=color:#66d9ef>for</span> pii_type, pattern <span style=color:#f92672>in</span> PII_PATTERNS<span style=color:#f92672>.</span>items():
+        placeholder <span style=color:#f92672>=</span> f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>[{pii_type.upper()}_MASKED]</span><span style=color:#e6db74>&#34;</span>
+        masked <span style=color:#f92672>=</span> re<span style=color:#f92672>.</span>sub(pattern, placeholder, masked, flags<span style=color:#f92672>=</span>re<span style=color:#f92672>.</span>IGNORECASE)
+    <span style=color:#66d9ef>return</span> masked
+
+<span style=color:#75715e># Sử dụng:</span>
+<span style=color:#75715e># &#34;Email tôi là abc@gmail.com và SĐT 0912345678&#34;</span>
+<span style=color:#75715e># → &#34;Email tôi là [EMAIL_MASKED] và SĐT [PHONE_VN_MASKED]&#34;</span>
+</code></pre></div><h3 id=122-gdpr--right-to-forget>12.2. GDPR / Right-to-Forget</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>async <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>delete_all_user_memory</span>(
+    user_id: str,
+    tenant_id: str,
+    session_store: object,    <span style=color:#75715e># type: ignore</span>
+    vector_store: object,     <span style=color:#75715e># type: ignore</span>
+    pg_repo: object           <span style=color:#75715e># type: ignore</span>
+) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> dict:
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Xóa toàn bộ memory của người dùng theo yêu cầu GDPR.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Trả về báo cáo xóa để audit.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    </span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    <span style=color:#f92672>import</span> asyncio
+
+    results <span style=color:#f92672>=</span> {}
+
+    <span style=color:#75715e># 1. Xóa tất cả sessions trong Redis</span>
+    session_keys <span style=color:#f92672>=</span> await session_store<span style=color:#f92672>.</span>find_by_user(user_id, tenant_id)  <span style=color:#75715e># type: ignore</span>
+    <span style=color:#66d9ef>for</span> key <span style=color:#f92672>in</span> session_keys:
+        await session_store<span style=color:#f92672>.</span>delete(key)  <span style=color:#75715e># type: ignore</span>
+    results[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>sessions_deleted</span><span style=color:#e6db74>&#34;</span>] <span style=color:#f92672>=</span> len(session_keys)
+
+    <span style=color:#75715e># 2. Xóa semantic memories trong vector store</span>
+    deleted_vectors <span style=color:#f92672>=</span> await asyncio<span style=color:#f92672>.</span>to_thread(
+        vector_store<span style=color:#f92672>.</span>delete,  <span style=color:#75715e># type: ignore</span>
+        filter<span style=color:#f92672>=</span>{<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>user_id</span><span style=color:#e6db74>&#34;</span>: user_id, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>tenant_id</span><span style=color:#e6db74>&#34;</span>: tenant_id}
+    )
+    results[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>vectors_deleted</span><span style=color:#e6db74>&#34;</span>] <span style=color:#f92672>=</span> deleted_vectors
+
+    <span style=color:#75715e># 3. Xóa PostgreSQL records</span>
+    pg_deleted <span style=color:#f92672>=</span> await pg_repo<span style=color:#f92672>.</span>delete_user_data(user_id, tenant_id)  <span style=color:#75715e># type: ignore</span>
+    results<span style=color:#f92672>.</span>update(pg_deleted)
+
+    <span style=color:#75715e># 4. Audit log (bắt buộc, không xóa)</span>
+    await pg_repo<span style=color:#f92672>.</span>log_gdpr_deletion(  <span style=color:#75715e># type: ignore</span>
+        user_id<span style=color:#f92672>=</span>user_id,
+        tenant_id<span style=color:#f92672>=</span>tenant_id,
+        deleted_at<span style=color:#f92672>=</span>datetime<span style=color:#f92672>.</span>utcnow()<span style=color:#f92672>.</span>isoformat(),
+        deletion_report<span style=color:#f92672>=</span>results
+    )
+
+    <span style=color:#66d9ef>return</span> results
+</code></pre></div><h3 id=123-cu-hnh-bo-mt-memory-yaml>12.3. Cấu hình bảo mật Memory (YAML)</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e># memory-security.yml</span>
+memory_security:
+  
+  <span style=color:#75715e># Mã hóa at-rest</span>
+  encryption:
+    redis:
+      enabled: <span style=color:#66d9ef>true</span>
+      algorithm: <span style=color:#e6db74>&#34;AES-256-GCM&#34;</span>
+      key_rotation_days: <span style=color:#ae81ff>90</span>
+    postgresql:
+      tde_enabled: <span style=color:#66d9ef>true</span>          <span style=color:#75715e># Transparent Data Encryption</span>
+      column_encryption:
+        - table: user_profiles
+          columns: [preferences, context_summary, interaction_summary]
+    vector_store:
+      enabled: <span style=color:#66d9ef>true</span>
+      provider: <span style=color:#e6db74>&#34;qdrant-cloud&#34;</span>   <span style=color:#75715e># Qdrant Cloud có built-in encryption</span>
+
+  <span style=color:#75715e># Kiểm soát truy cập</span>
+  access_control:
+    rbac_enabled: <span style=color:#66d9ef>true</span>
+    roles:
+      agent_read:       [<span style=color:#e6db74>&#34;session:read&#34;</span>, <span style=color:#e6db74>&#34;memory:read&#34;</span>]
+      agent_write:      [<span style=color:#e6db74>&#34;session:write&#34;</span>, <span style=color:#e6db74>&#34;memory:write&#34;</span>]
+      admin:            [<span style=color:#e6db74>&#34;session:*&#34;</span>, <span style=color:#e6db74>&#34;memory:*&#34;</span>, <span style=color:#e6db74>&#34;gdpr:*&#34;</span>]
+    tenant_isolation:   strict   <span style=color:#75715e># Không cho phép cross-tenant query</span>
+
+  <span style=color:#75715e># PII</span>
+  pii:
+    mask_before_store:  <span style=color:#66d9ef>true</span>
+    patterns:           [<span style=color:#e6db74>&#34;email&#34;</span>, <span style=color:#e6db74>&#34;phone_vn&#34;</span>, <span style=color:#e6db74>&#34;cccd&#34;</span>, <span style=color:#e6db74>&#34;credit_card&#34;</span>]
+    log_masking_events: <span style=color:#66d9ef>true</span>
+
+  <span style=color:#75715e># Retention policy</span>
+  retention:
+    default_ttl_days:   <span style=color:#ae81ff>180</span>
+    critical_memory:    <span style=color:#e6db74>&#34;no_expiry&#34;</span>
+    gdpr_deletion:      <span style=color:#e6db74>&#34;immediate&#34;</span>
+    audit_logs:         <span style=color:#e6db74>&#34;7_years&#34;</span>   <span style=color:#75715e># Yêu cầu pháp lý Việt Nam</span>
+
+  <span style=color:#75715e># Monitoring</span>
+  monitoring:
+    alert_on_cross_tenant_query: <span style=color:#66d9ef>true</span>
+    alert_on_bulk_read:          <span style=color:#66d9ef>true</span>   <span style=color:#75715e># &gt; 1000 records trong 1 phút</span>
+    alert_on_pii_in_log:         <span style=color:#66d9ef>true</span>
+</code></pre></div><hr><h2 id=13-checklist-trin-khai-memory-system>13. Checklist triển khai Memory System</h2><h3 id=-cp-1-in-context-memory-tun-12>✅ Cấp 1: In-Context Memory (Tuần 1–2)</h3><ul><li><input disabled type=checkbox>Chọn chiến lược context management: Sliding Window / Summary Buffer / Entity Memory</li><li><input disabled type=checkbox>Implement token counting chính xác theo model đang dùng (tiktoken hoặc tương đương)</li><li><input disabled type=checkbox>Thiết lập ngưỡng tóm tắt tự động (khuyến nghị: 80% token budget)</li><li><input disabled type=checkbox>Unit test: đảm bảo system prompt luôn được giữ nguyên</li><li><input disabled type=checkbox>Đo token usage trung bình per request để baseline chi phí</li><li><input disabled type=checkbox>Verify: context không bao giờ vượt quá max_tokens của model</li></ul><h3 id=-cp-2-session-memory-tun-24>✅ Cấp 2: Session Memory (Tuần 2–4)</h3><ul><li><input disabled type=checkbox>Cài đặt Redis/Valkey với persistence (AOF + RDB)</li><li><input disabled type=checkbox>Thiết kế session schema JSON đầy đủ (session_id, user_id, tenant_id, messages, metadata)</li><li><input disabled type=checkbox>Implement sliding TTL (làm mới TTL mỗi khi truy cập)</li><li><input disabled type=checkbox>Thiết lập Redis eviction policy: <code>allkeys-lru</code></li><li><input disabled type=checkbox>Test: reconnect sau khi mạng bị ngắt vẫn load được session</li><li><input disabled type=checkbox>Test: session không bị lẫn giữa các user (tenant isolation)</li><li><input disabled type=checkbox>Monitoring: Redis memory usage, key count, hit rate</li><li><input disabled type=checkbox>Backup: cấu hình Redis persistence cho production</li></ul><h3 id=-cp-3-long-term-memory-tun-48>✅ Cấp 3: Long-term Memory (Tuần 4–8)</h3><ul><li><input disabled type=checkbox>Deploy PostgreSQL schema (<code>ai_memory.user_profiles</code>, <code>interaction_logs</code>, <code>memory_items</code>)</li><li><input disabled type=checkbox>Implement importance scoring cho mọi tin nhắn trước khi lưu</li><li><input disabled type=checkbox>Implement PII masking pipeline (email, phone, CCCD)</li><li><input disabled type=checkbox>Thiết lập memory decay TTL theo importance level</li><li><input disabled type=checkbox>Implement deduplication bằng content_hash</li><li><input disabled type=checkbox>Thiết lập vector store (Qdrant hoặc pgvector) và indexing pipeline</li><li><input disabled type=checkbox>Implement hybrid retrieval (session + semantic, chạy song song)</li><li><input disabled type=checkbox>GDPR: implement <code>delete_all_user_memory</code> API endpoint</li><li><input disabled type=checkbox>Encrypt sensitive columns trong PostgreSQL</li><li><input disabled type=checkbox>Load test: hybrid retrieval &lt; 100ms P95 với 100K users</li><li><input disabled type=checkbox>Audit log: mọi write operation vào long-term memory</li></ul><hr><h2 id=14-kpi-chi-ph-v-roi>14. KPI, Chi phí và ROI</h2><h3 id=141-kpi-cho-memory-system>14.1. KPI cho Memory System</h3><table><thead><tr><th>KPI</th><th>Định nghĩa</th><th>Mục tiêu MVP</th><th>Mục tiêu Production</th></tr></thead><tbody><tr><td><strong>Session Continuity Rate</strong></td><td>% session được restore thành công sau reconnect</td><td>≥ 95%</td><td>≥ 99.5%</td></tr><tr><td><strong>Memory Retrieval Latency (P95)</strong></td><td>Thời gian hybrid retrieval P95</td><td>≤ 200ms</td><td>≤ 80ms</td></tr><tr><td><strong>Memory Relevance Score</strong></td><td>% ký ức được retrieve có liên quan thực sự</td><td>≥ 70%</td><td>≥ 85%</td></tr><tr><td><strong>Context Token Efficiency</strong></td><td>Giảm token gửi lên LLM vs không có memory</td><td>≥ 20%</td><td>≥ 40%</td></tr><tr><td><strong>Personalization Acceptance Rate</strong></td><td>% khi agent dùng memory, user không phàn nàn &ldquo;sai&rdquo;</td><td>≥ 90%</td><td>≥ 97%</td></tr><tr><td><strong>Memory Write Noise Rate</strong></td><td>% bản ghi lưu vào long-term nhưng không bao giờ được truy vấn lại</td><td>≤ 30%</td><td>≤ 10%</td></tr><tr><td><strong>GDPR Deletion SLA</strong></td><td>Thời gian hoàn thành right-to-forget từ khi nhận yêu cầu</td><td>≤ 72 giờ</td><td>≤ 24 giờ</td></tr></tbody></table><h3 id=142-c-lng-chi-ph-quy-m-smb-10000-sessionsngy>14.2. Ước lượng chi phí (Quy mô SMB, 10.000 sessions/ngày)</h3><table><thead><tr><th>Hạng mục</th><th>Chi phí thiết lập</th><th>Chi phí vận hành/tháng</th><th>Ghi chú</th></tr></thead><tbody><tr><td><strong>Redis (2 GB, HA)</strong></td><td>$0 (self-hosted)</td><td>$30–80</td><td>Hoặc Upstash Redis ~$20/tháng</td></tr><tr><td><strong>PostgreSQL (memory schema)</strong></td><td>$0 (add to existing)</td><td>$10–30</td><td>~50GB storage cho 1M users</td></tr><tr><td><strong>Qdrant Cloud (1M vectors)</strong></td><td>$0</td><td>$25–75</td><td>Phụ thuộc vào số ký ức/user</td></tr><tr><td><strong>Embedding API</strong></td><td>—</td><td>$20–60</td><td>10K sessions × avg 10 memories × $0.0001/embed</td></tr><tr><td><strong>LLM cho summarization</strong></td><td>—</td><td>$15–40</td><td>Chỉ khi trigger tóm tắt context</td></tr><tr><td><strong>Engineering (thiết kế + triển khai)</strong></td><td>$3.000–8.000</td><td>$500–1.500</td><td>Bảo trì, cải tiến</td></tr><tr><td><strong>Tổng ước lượng</strong></td><td><strong>$3.000–8.000</strong></td><td><strong>$100–285</strong></td><td>Không tính LLM chính</td></tr></tbody></table><h3 id=143-roi-tham-chiu>14.3. ROI tham chiếu</h3><p><strong>Tình huống</strong>: Công ty TMĐT 50.000 khách hàng hoạt động. Trước khi có Memory:</p><ul><li>Mỗi session mới: khách mất 2–3 phút re-explain context → 30% khách bỏ cuộc</li><li>CS team nhận 20% ticket &ldquo;lặp lại vấn đề đã giải quyết&rdquo; vì agent không nhớ</li></ul><p><strong>Sau khi triển khai Memory System:</strong></p><ul><li>Khách quay lại tiếp tục ngay từ điểm dừng → Giảm abandonment 30% → <strong>+15% conversion</strong></li><li>Giảm lặp ticket: agent tự nhớ context → <strong>-20% ticket volume</strong> → tiết kiệm $2.000–5.000/tháng nhân sự CS</li><li>CSAT tăng từ 3.8 → 4.3/5 (ví dụ tham chiếu từ các dự án CRM AI) → <strong>+18% customer retention</strong></li></ul><p><strong>ROI năm đầu</strong> (ước tính thận trọng):</p><ul><li>Tiết kiệm nhân sự CS: $2.500/tháng × 12 = $30.000/năm</li><li>Tăng conversion: khó đo trực tiếp nhưng ước tính $10.000–30.000/năm</li><li>Chi phí hệ thống: $285/tháng × 12 + $5.000 setup = <strong>$8.420/năm</strong></li><li><strong>ROI ≈ 380–710%</strong> | <strong>Hoàn vốn: 2–3 tháng</strong></li></ul><hr><h2 id=15-bng-ri-ro-v-phng-n-gim-thiu>15. Bảng Rủi ro và Phương án Giảm Thiểu</h2><table><thead><tr><th>Rủi ro</th><th>Mức độ</th><th>Xác suất</th><th>Phương án giảm thiểu</th></tr></thead><tbody><tr><td><strong>Memory contamination</strong>: Agent dùng sai ký ức của user khác</td><td>Rất cao</td><td>Thấp (nếu thiết kế đúng)</td><td>Tenant + user isolation nghiêm ngặt; unit test cross-user query</td></tr><tr><td><strong>Stale memory</strong>: Sở thích cũ không còn phù hợp</td><td>Cao</td><td>Cao</td><td>Memory decay TTL + confidence score giảm dần theo thời gian</td></tr><tr><td><strong>Hallucinated memory</strong>: Agent &ldquo;nhớ&rdquo; thứ không có trong store</td><td>Cao</td><td>Trung bình</td><td>Chỉ inject ký ức đã verified; prompt rõ &ldquo;chỉ dùng ký ức từ [RELEVANT MEMORIES]&rdquo;</td></tr><tr><td><strong>PII leak trong log/memory</strong></td><td>Rất cao</td><td>Trung bình</td><td>PII masking pipeline bắt buộc trước khi lưu; kiểm tra định kỳ</td></tr><tr><td><strong>Redis out-of-memory</strong></td><td>Cao</td><td>Trung bình</td><td>Eviction policy LRU + monitoring alert ở 80% RAM; Redis Cluster</td></tr><tr><td><strong>Latency cao khi cold-start</strong> (pre-load nhiều memory)</td><td>Trung bình</td><td>Trung bình</td><td>Async pre-load; cache top-K profiles; limit recall to top-3</td></tr><tr><td><strong>Ký ức xây dựng sai lệch</strong> (garbage-in-garbage-out)</td><td>Cao</td><td>Trung bình</td><td>Importance scoring nghiêm ngặt; human review với importance=5</td></tr><tr><td><strong>GDPR non-compliance</strong>: Không xóa kịp khi user yêu cầu</td><td>Rất cao</td><td>Thấp</td><td>Automated deletion pipeline; SLA 24h; audit log cho mọi deletion</td></tr></tbody></table><hr><h2 id=16-roadmap-trin-khai-3-giai-on>16. Roadmap Triển Khai 3 Giai Đoạn</h2><h3 id=giai-on-1-tun-13-in-context--session-memory>Giai đoạn 1 (Tuần 1–3): In-Context + Session Memory</h3><p><strong>Mục tiêu</strong>: Agent không bao giờ &ldquo;quên&rdquo; trong cùng một phiên làm việc.</p><ul><li><input disabled type=checkbox>Implement Token Budget Memory với ngưỡng 80% trigger summarization</li><li><input disabled type=checkbox>Cài đặt Redis/Valkey, thiết kế session schema</li><li><input disabled type=checkbox>Implement <code>RedisSessionStore</code> với sliding TTL 24h</li><li><input disabled type=checkbox>Tích hợp session memory vào agent loop hiện tại</li><li><input disabled type=checkbox>Test: reconnect sau 1h, sau 8h vẫn load được session</li><li><input disabled type=checkbox>Monitoring: Redis memory, session hit rate, token usage per session</li><li><input disabled type=checkbox><strong>KPI đo được</strong>: Session Continuity Rate ≥ 95%, Memory Retrieval Latency ≤ 200ms</li></ul><h3 id=giai-on-2-tun-48-long-term-memory--user-profiling>Giai đoạn 2 (Tuần 4–8): Long-term Memory + User Profiling</h3><p><strong>Mục tiêu</strong>: Agent biết khách hàng là ai và nhớ lịch sử quan trọng.</p><ul><li><input disabled type=checkbox>Deploy PostgreSQL memory schema (3 bảng chính)</li><li><input disabled type=checkbox>Implement importance scoring và memory write policy</li><li><input disabled type=checkbox>Build user profile accumulation pipeline (cập nhật sau mỗi session)</li><li><input disabled type=checkbox>Implement PII masking trước khi lưu vào mọi storage</li><li><input disabled type=checkbox>Triển khai Qdrant hoặc pgvector cho semantic memory</li><li><input disabled type=checkbox>Implement hybrid retrieval (session + semantic song song)</li><li><input disabled type=checkbox>Build GDPR deletion endpoint</li><li><input disabled type=checkbox>Test: right-to-forget hoàn thành &lt; 24h</li><li><input disabled type=checkbox><strong>KPI đo được</strong>: Memory Relevance Score ≥ 70%, Context Token Efficiency +20%</li></ul><h3 id=giai-on-3-tun-912-ti-u--c-nhn-ha-nng-cao>Giai đoạn 3 (Tuần 9–12): Tối ưu & Cá nhân hóa nâng cao</h3><p><strong>Mục tiêu</strong>: Trải nghiệm cá nhân hóa thực sự, vận hành ổn định ở scale.</p><ul><li><input disabled type=checkbox>Implement Memory Decay (TTL theo importance)</li><li><input disabled type=checkbox>Build personalization engine: tự động điều chỉnh communication style</li><li><input disabled type=checkbox>A/B test: so sánh agent có/không có long-term memory về CSAT</li><li><input disabled type=checkbox>Tối ưu hybrid retrieval: caching top profiles, async pre-load</li><li><input disabled type=checkbox>Dashboard KPI: memory hit rate, relevance score, noise rate</li><li><input disabled type=checkbox>Thiết lập alert: cross-tenant query, PII in log, bulk read anomaly</li><li><input disabled type=checkbox>Load test: 100K concurrent users, latency P95 &lt; 80ms</li><li><input disabled type=checkbox><strong>KPI đo được</strong>: CSAT +0.3+ điểm, Memory Write Noise Rate ≤ 10%</li></ul><hr><h2 id=17-kt-lun-v-kt-ni-sang-bi-6>17. Kết luận và Kết nối sang Bài 6</h2><p>Memory & Context Management là <strong>nền tảng của trải nghiệm người dùng</strong> — không phải feature phụ mà là điều kiện cần để AI Agent tạo ra giá trị lâu dài:</p><ul><li>Không có Session Memory → Agent quên mọi thứ khi user F5 trang</li><li>Không có Long-term Memory → Agent xử lý khách hàng VIP như người lạ</li><li>Không có Semantic Memory → Agent không thể &ldquo;nhớ lại&rdquo; những gì quan trọng khi cần</li><li>Không có Memory Policy → Garbage in, garbage out; rủi ro PII, chi phí không kiểm soát</li></ul><p><strong>Ba nguyên tắc cốt lõi để Memory System thành công:</strong></p><ol><li><strong>Layer by layer</strong> — Bắt đầu từ Session Memory (đơn giản, ROI rõ ràng), rồi mới đến Long-term và Semantic</li><li><strong>Write less, write right</strong> — Importance scoring nghiêm ngặt: thà bỏ sót 30% ký ức còn hơn lưu 80% rác</li><li><strong>Privacy first</strong> — PII masking và tenant isolation phải là yêu cầu từ ngày đầu, không phải afterthought</li></ol><hr><p>Bài tiếp theo trong series sẽ đi sâu vào <strong>Planning & ReAct Loop</strong> — cách AI Agent không chỉ phản hồi ngay lập tức mà còn biết <strong>lập kế hoạch</strong> và <strong>lý luận nhiều bước</strong> trước khi hành động. Đây là nền tảng để xây dựng các agent phức tạp như: tự động xử lý claim bảo hiểm, phân tích hồ sơ tín dụng hay điều phối quy trình onboarding nhân viên — những bài toán đòi hỏi agent phải &ldquo;suy nghĩ&rdquo; trước khi &ldquo;làm&rdquo;.</p><hr><p><em>Tác giả: AI Agent Series | Cập nhật: 14/05/2026</em></p></div><div class=article-tags><a class="badge badge-light" href=/tags/ai-agent/>AI Agent</a>
+<a class="badge badge-light" href=/tags/memory/>Memory</a>
+<a class="badge badge-light" href=/tags/context-management/>Context Management</a>
+<a class="badge badge-light" href=/tags/llm/>LLM</a>
+<a class="badge badge-light" href=/tags/langchain/>LangChain</a>
+<a class="badge badge-light" href=/tags/semantic-kernel/>Semantic Kernel</a>
+<a class="badge badge-light" href=/tags/redis/>Redis</a>
+<a class="badge badge-light" href=/tags/postgresql/>PostgreSQL</a>
+<a class="badge badge-light" href=/tags/vector-database/>Vector Database</a></div><div class=article-widget><div class=post-nav><div class=post-nav-item><div class=meta-nav>Previous</div><a href=/tutorials/ai-agent/tool-use-va-function-calling-trang-bi-cong-cu-cho-ai-agent/ rel=next>Tool Use & Function Calling — Trang bị công cụ cho AI Agent</a></div><div class=post-nav-item><div class=meta-nav>Next</div><a href=/tutorials/ai-agent/guardrails-va-evaluation-an-toan-kiem-soat-danh-gia-ai-agent/ rel=prev>Guardrails & Evaluation — An toàn, Kiểm soát và Đánh giá AI Agent</a></div></div></div></div><div class=body-footer>Last updated on May 14, 2026</div></article><footer class=site-footer><p class=powered-by>Vunb © 2026 &#183;
+Powered by the
+<a href=https://sourcethemes.com/academic/ target=_blank rel=noopener>Academic theme</a> for
+<a href=https://gohugo.io target=_blank rel=noopener>Hugo</a>.</p></footer></main></div></div><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin=anonymous></script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/typescript.min.js></script><script id=dsq-count-scr src=//vunb.disqus.com/count.js async></script><script>hljs.initHighlightingOnLoad();</script><script>const search_index_filename="/index.json";const i18n={'placeholder':"Search...",'results':"results found",'no_results':"No results found"};const content_type={'post':"Posts",'project':"Projects",'publication':"Publications",'talk':"Talks"};</script><script src=https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js integrity="sha256-pB/deHc9CGfFpJRjC43imB29Rse8tak+5eXqntO94ck=" crossorigin=anonymous></script><script>anchors.add();</script><script id=search-hit-fuse-template type=text/x-template>
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin=anonymous></script><script src=/js/academic.min.9abf4910448e8cdd14f36192b71baff7.js></script><div id=modal class="modal fade" role=dialog><div class=modal-dialog><div class=modal-content><div class=modal-header><h5 class=modal-title>Cite</h5><button type=button class=close data-dismiss=modal aria-label=Close>
+<span aria-hidden=true>&#215;</span></button></div><div class=modal-body><pre><code class="tex hljs"></code></pre></div><div class=modal-footer><a class="btn btn-outline-primary my-1 js-copy-cite" href=# target=_blank><i class="fas fa-copy"></i>Copy</a>
+<a class="btn btn-outline-primary my-1 js-download-cite" href=# target=_blank><i class="fas fa-download"></i>Download</a><div id=modal-error></div></div></div></div></div></body></html>

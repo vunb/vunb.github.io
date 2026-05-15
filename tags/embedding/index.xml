@@ -1,0 +1,751 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Embedding on &lt;Vunb /></title><link>https://vunb.github.io/tags/embedding/</link><description>Recent content in Embedding on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Thu, 14 May 2026 00:00:00 +0700</lastBuildDate><atom:link href="https://vunb.github.io/tags/embedding/index.xml" rel="self" type="application/rss+xml"/><item><title>RAG &amp; Knowledge Base — Xây dựng kho tri thức cho AI Agent</title><link>https://vunb.github.io/tutorials/ai-agent/rag-va-knowledge-base-xay-dung-kho-tri-thuc-cho-ai-agent/</link><pubDate>Thu, 14 May 2026 00:00:00 +0700</pubDate><guid>https://vunb.github.io/tutorials/ai-agent/rag-va-knowledge-base-xay-dung-kho-tri-thuc-cho-ai-agent/</guid><description>&lt;h2 id="1-ti-sao-cn-rag-thay-v-ch-dng-llm-thun">1. Tại sao cần RAG thay vì chỉ dùng LLM thuần?&lt;/h2>
+&lt;p>Khi triển khai AI Agent cho doanh nghiệp, câu hỏi đầu tiên thường gặp là:&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;ldquo;Chúng tôi đã mua API của GPT-4, vì sao chatbot vẫn trả lời sai thông tin nội bộ?&amp;rdquo;&lt;/p>
+&lt;/blockquote>
+&lt;p>Nguyên nhân cốt lõi: &lt;strong>LLM không biết những gì chưa được huấn luyện vào nó&lt;/strong>. Dữ liệu nội bộ — quy trình, chính sách, sản phẩm, bảng giá, hướng dẫn nghiệp vụ — không bao giờ xuất hiện trong tập huấn luyện của bất kỳ LLM đại chúng nào.&lt;/p>
+&lt;p>&lt;strong>RAG (Retrieval-Augmented Generation)&lt;/strong> giải quyết bài toán này: thay vì cố nhét toàn bộ kiến thức vào LLM, bạn &lt;strong>truy xuất đúng đoạn thông tin liên quan&lt;/strong> từ kho tri thức rồi đưa vào ngữ cảnh (context) của LLM trước khi sinh câu trả lời.&lt;/p>
+&lt;h3 id="11-so-snh-3-cch-tip-cn">1.1. So sánh 3 cách tiếp cận&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Phương pháp&lt;/th>
+&lt;th>Cơ chế&lt;/th>
+&lt;th>Ưu điểm&lt;/th>
+&lt;th>Nhược điểm&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>LLM thuần (zero-shot)&lt;/strong>&lt;/td>
+&lt;td>Chỉ dùng kiến thức mô hình&lt;/td>
+&lt;td>Đơn giản, không cần hạ tầng thêm&lt;/td>
+&lt;td>Không biết dữ liệu nội bộ, dễ hallucinate&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Fine-tuning&lt;/strong>&lt;/td>
+&lt;td>Huấn luyện lại mô hình với dữ liệu mới&lt;/td>
+&lt;td>Mô hình &amp;ldquo;hiểu sâu&amp;rdquo; domain&lt;/td>
+&lt;td>Đắt, lâu, khó cập nhật, cần GPU lớn&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>RAG&lt;/strong>&lt;/td>
+&lt;td>Truy xuất + sinh câu trả lời&lt;/td>
+&lt;td>Cập nhật tri thức realtime, kiểm soát nguồn&lt;/td>
+&lt;td>Cần hạ tầng vector DB, pipeline xử lý tài liệu&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>Kết luận thực chiến&lt;/strong>: với 95% dự án doanh nghiệp, RAG là lựa chọn tối ưu về chi phí, tốc độ triển khai và khả năng bảo trì.&lt;/p>
+&lt;hr>
+&lt;h2 id="2-mc-tiu-ca-mt-knowledge-base-hiu-qu">2. Mục tiêu của một Knowledge Base hiệu quả&lt;/h2>
+&lt;p>Trước khi bắt tay xây dựng, cần xác định rõ:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Phạm vi tri thức&lt;/strong>: loại tài liệu nào, bao nhiêu trang, cập nhật tần suất ra sao?&lt;/li>
+&lt;li>&lt;strong>Người dùng cuối&lt;/strong>: nội bộ (nhân viên) hay bên ngoài (khách hàng)?&lt;/li>
+&lt;li>&lt;strong>Ngôn ngữ &amp;amp; chất lượng nguồn&lt;/strong>: tiếng Việt, tiếng Anh hay song ngữ? Văn bản có cấu trúc hay tự do?&lt;/li>
+&lt;li>&lt;strong>Yêu cầu bảo mật&lt;/strong>: tri thức có phân quyền theo bộ phận không?&lt;/li>
+&lt;li>&lt;strong>Kỳ vọng độ chính xác&lt;/strong>: tỷ lệ câu trả lời đúng mục tiêu là bao nhiêu? (gợi ý: ≥ 85% cho MVP)&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="3-kin-trc-rag-tng-th">3. Kiến trúc RAG tổng thể&lt;/h2>
+&lt;pre>&lt;code>┌──────────────────────────────────────────────────────────────┐
+│ OFFLINE PIPELINE (Ingestion) │
+│ │
+│ Nguồn tài liệu Xử lý &amp;amp; Index │
+│ ┌──────────────┐ ┌──────────────────────────────────┐ │
+│ │ PDF / Word │ │ 1. Parse &amp;amp; Clean │ │
+│ │ Excel / CSV │───▶│ 2. Chunk (split văn bản) │ │
+│ │ Web scrape │ │ 3. Embed (chuyển thành vector) │ │
+│ │ Confluence │ │ 4. Index → Vector DB │ │
+│ │ SharePoint │ └──────────────────────────────────┘ │
+│ └──────────────┘ │ │
+└─────────────────────────────────────┼────────────────────────┘
+│
+▼
+┌──────────────────────────────────────────────────────────────┐
+│ Vector Database (Persistent Store) │
+│ pgvector / Qdrant / Weaviate / Milvus │
+└──────────────────────────────┬───────────────────────────────┘
+│
+┌──────────────────────────────┼───────────────────────────────┐
+│ ONLINE PIPELINE (Query-time RAG) │
+│ │ │
+│ Người dùng ▼ │
+│ ┌──────────┐ ┌────────────────────────┐ │
+│ │ Query │──▶│ Embed Query │ │
+│ └──────────┘ │ → Semantic Search │ │
+│ │ → Retrieve Top-K docs │ │
+│ └───────────┬────────────┘ │
+│ │ │
+│ ▼ │
+│ ┌────────────────────────┐ │
+│ │ Augment Prompt │ │
+│ │ (context + question) │ │
+│ └───────────┬────────────┘ │
+│ │ │
+│ ▼ │
+│ ┌────────────────────────┐ │
+│ │ LLM Generate Answer │ │
+│ │ + Cite Source │ │
+│ └────────────────────────┘ │
+└──────────────────────────────────────────────────────────────┘
+&lt;/code>&lt;/pre>&lt;hr>
+&lt;h2 id="4-pipeline-x-l-ti-liu-chunking--embedding--indexing">4. Pipeline xử lý tài liệu: Chunking → Embedding → Indexing&lt;/h2>
+&lt;p>Đây là giai đoạn quyết định chất lượng toàn bộ hệ thống RAG. Làm kém ở đây thì LLM tốt đến đâu cũng vô dụng.&lt;/p>
+&lt;h3 id="41-bc-1--parse--clean">4.1. Bước 1 — Parse &amp;amp; Clean&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Loại tài liệu&lt;/th>
+&lt;th>Công cụ parse gợi ý&lt;/th>
+&lt;th>Lưu ý&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>PDF&lt;/td>
+&lt;td>&lt;code>pdfplumber&lt;/code>, &lt;code>pypdf2&lt;/code>, &lt;code>unstructured&lt;/code>&lt;/td>
+&lt;td>Cẩn thận PDF scan (dùng OCR nếu cần)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Word (.docx)&lt;/td>
+&lt;td>&lt;code>python-docx&lt;/code>, &lt;code>unstructured&lt;/code>&lt;/td>
+&lt;td>Giữ nguyên cấu trúc heading/table&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Excel / CSV&lt;/td>
+&lt;td>&lt;code>pandas&lt;/code>&lt;/td>
+&lt;td>Chuyển bảng thành văn bản có nhãn cột&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>HTML / Web&lt;/td>
+&lt;td>&lt;code>BeautifulSoup&lt;/code>, &lt;code>trafilatura&lt;/code>&lt;/td>
+&lt;td>Loại bỏ navigation, ads, footer&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Confluence&lt;/td>
+&lt;td>Confluence REST API&lt;/td>
+&lt;td>Export sang Markdown trước&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>Làm sạch bắt buộc:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Xóa header/footer lặp lại, số trang, watermark&lt;/li>
+&lt;li>Chuẩn hóa khoảng trắng, ký tự đặc biệt&lt;/li>
+&lt;li>Tách bảng thành văn bản có cấu trúc (đừng bỏ qua dữ liệu trong bảng)&lt;/li>
+&lt;/ul>
+&lt;h3 id="42-bc-2--chunking-chia-on">4.2. Bước 2 — Chunking (Chia đoạn)&lt;/h3>
+&lt;p>Đây là bước kỹ thuật tinh tế nhất. Chunk quá ngắn → mất ngữ cảnh. Chunk quá dài → nhiễu, tốn token.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Chiến lược Chunking&lt;/th>
+&lt;th>Mô tả&lt;/th>
+&lt;th>Phù hợp với&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>Fixed-size&lt;/strong>&lt;/td>
+&lt;td>Chia theo số token/ký tự cố định (VD: 512 token)&lt;/td>
+&lt;td>Tài liệu không có cấu trúc rõ&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Recursive&lt;/strong>&lt;/td>
+&lt;td>Ưu tiên chia theo &lt;code>\n\n&lt;/code>, rồi &lt;code>\n&lt;/code>, rồi &lt;code>.&lt;/code>&lt;/td>
+&lt;td>Văn bản tự do dài&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Semantic&lt;/strong>&lt;/td>
+&lt;td>Chia theo ranh giới nghĩa (dùng embedding)&lt;/td>
+&lt;td>Tài liệu kỹ thuật, quy trình&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Document-based&lt;/strong>&lt;/td>
+&lt;td>Chia theo tiêu đề (H1/H2/H3)&lt;/td>
+&lt;td>Tài liệu có cấu trúc rõ ràng&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Sliding Window&lt;/strong>&lt;/td>
+&lt;td>Chunk chồng lấp (overlap 10–20%)&lt;/td>
+&lt;td>Tránh mất thông tin ở ranh giới&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>Gợi ý thực chiến:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Bắt đầu với chunk size ~512 token, overlap ~10%&lt;/li>
+&lt;li>Đính kèm &lt;strong>metadata&lt;/strong> vào mỗi chunk: tên tài liệu, phần/mục, ngày cập nhật&lt;/li>
+&lt;li>Lưu cả chunk và summary của tài liệu gốc (để hỗ trợ trả lời câu hỏi tổng quan)&lt;/li>
+&lt;/ul>
+&lt;h3 id="43-bc-3--embedding">4.3. Bước 3 — Embedding&lt;/h3>
+&lt;p>Embedding chuyển văn bản thành vector số học để tính toán độ tương đồng ngữ nghĩa.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Model Embedding&lt;/th>
+&lt;th>Chiều vector&lt;/th>
+&lt;th>Ngôn ngữ&lt;/th>
+&lt;th>Chi phí&lt;/th>
+&lt;th>Ghi chú&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>text-embedding-3-small&lt;/code> (OpenAI)&lt;/td>
+&lt;td>1536&lt;/td>
+&lt;td>Đa ngôn ngữ&lt;/td>
+&lt;td>~$0.02/1M token&lt;/td>
+&lt;td>Tốt cho tiếng Việt&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>text-embedding-3-large&lt;/code> (OpenAI)&lt;/td>
+&lt;td>3072&lt;/td>
+&lt;td>Đa ngôn ngữ&lt;/td>
+&lt;td>~$0.13/1M token&lt;/td>
+&lt;td>Độ chính xác cao hơn&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>multilingual-e5-large&lt;/code> (Microsoft)&lt;/td>
+&lt;td>1024&lt;/td>
+&lt;td>Đa ngôn ngữ&lt;/td>
+&lt;td>Miễn phí (self-host)&lt;/td>
+&lt;td>Hiệu quả tiếng Việt khá tốt&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>bge-m3&lt;/code> (BAAI)&lt;/td>
+&lt;td>1024&lt;/td>
+&lt;td>Đa ngôn ngữ&lt;/td>
+&lt;td>Miễn phí (self-host)&lt;/td>
+&lt;td>Mạnh cho tiếng Á&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>nomic-embed-text&lt;/code> (Ollama)&lt;/td>
+&lt;td>768&lt;/td>
+&lt;td>Đa ngôn ngữ&lt;/td>
+&lt;td>Miễn phí (local)&lt;/td>
+&lt;td>Phù hợp môi trường offline&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>Nguyên tắc quan trọng&lt;/strong>: dùng &lt;strong>cùng một model embedding&lt;/strong> cho cả quá trình index tài liệu và embed query người dùng.&lt;/p>
+&lt;h3 id="44-bc-4--indexing-vo-vector-db">4.4. Bước 4 — Indexing vào Vector DB&lt;/h3>
+&lt;p>Mỗi chunk sau khi embed sẽ được lưu kèm:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Vector&lt;/strong>: biểu diễn ngữ nghĩa&lt;/li>
+&lt;li>&lt;strong>Metadata&lt;/strong>: nguồn, ngày, danh mục, quyền truy cập&lt;/li>
+&lt;li>&lt;strong>Nội dung gốc&lt;/strong> (hoặc ID tham chiếu): để trả lại cho LLM&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="5-so-snh-vector-database">5. So sánh Vector Database&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>&lt;/th>
+&lt;th>&lt;strong>pgvector&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Qdrant&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Weaviate&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Milvus&lt;/strong>&lt;/th>
+&lt;th>&lt;strong>Chroma&lt;/strong>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>Loại&lt;/strong>&lt;/td>
+&lt;td>Extension PostgreSQL&lt;/td>
+&lt;td>Standalone DB&lt;/td>
+&lt;td>Standalone DB&lt;/td>
+&lt;td>Standalone DB&lt;/td>
+&lt;td>Embedded/Client&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Self-host&lt;/strong>&lt;/td>
+&lt;td>✅ Dễ&lt;/td>
+&lt;td>✅ Docker&lt;/td>
+&lt;td>✅ Docker&lt;/td>
+&lt;td>✅ Docker/K8s&lt;/td>
+&lt;td>✅ Python lib&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Cloud managed&lt;/strong>&lt;/td>
+&lt;td>✅ (Supabase)&lt;/td>
+&lt;td>✅ Qdrant Cloud&lt;/td>
+&lt;td>✅ WCS&lt;/td>
+&lt;td>✅ Zilliz&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Hiệu suất (10M+ vectors)&lt;/strong>&lt;/td>
+&lt;td>⚠️ Vừa&lt;/td>
+&lt;td>✅ Tốt&lt;/td>
+&lt;td>✅ Tốt&lt;/td>
+&lt;td>✅ Rất tốt&lt;/td>
+&lt;td>❌ Không phù hợp&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Hybrid search&lt;/strong> (vector + keyword)&lt;/td>
+&lt;td>⚠️ Cần cấu hình&lt;/td>
+&lt;td>✅ Có sẵn&lt;/td>
+&lt;td>✅ Có sẵn&lt;/td>
+&lt;td>✅ Có sẵn&lt;/td>
+&lt;td>❌&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Metadata filtering&lt;/strong>&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;td>✅&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Phù hợp cho&lt;/strong>&lt;/td>
+&lt;td>Stack đã có PostgreSQL, tập nhỏ–vừa&lt;/td>
+&lt;td>Production, startup&lt;/td>
+&lt;td>Production, graph-based&lt;/td>
+&lt;td>Scale lớn, enterprise&lt;/td>
+&lt;td>Prototype, lab&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>Khuyến nghị thực chiến:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Dự án mới, stack PostgreSQL&lt;/strong>: bắt đầu với &lt;code>pgvector&lt;/code> trên Supabase → đơn giản, chi phí thấp&lt;/li>
+&lt;li>&lt;strong>Production cần hybrid search&lt;/strong>: chọn &lt;code>Qdrant&lt;/code> — Docker-native, API tốt, tài liệu rõ&lt;/li>
+&lt;li>&lt;strong>Scale lớn (&amp;gt;10M vectors)&lt;/strong>: &lt;code>Milvus&lt;/code> trên Kubernetes&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="6-workflow-ingestion--cp-nht-tri-thc">6. Workflow Ingestion &amp;amp; Cập nhật tri thức&lt;/h2>
+&lt;p>Một Knowledge Base không cập nhật định kỳ sẽ nhanh chóng trở thành gánh nặng thay vì tài sản.&lt;/p>
+&lt;h3 id="61-s--ingestion-pipeline">6.1. Sơ đồ ingestion pipeline&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-yaml" data-lang="yaml">&lt;span style="color:#75715e"># Pseudo workflow: document_ingestion_pipeline&lt;/span>
+name: kb_ingestion_pipeline
+trigger:
+- manual_upload
+- scheduled_sync: &lt;span style="color:#e6db74">&amp;#34;0 2 * * *&amp;#34;&lt;/span> &lt;span style="color:#75715e"># Chạy lúc 2h sáng mỗi ngày&lt;/span>
+- webhook: document_updated
+steps:
+- name: fetch_documents
+action: pull_from_source
+sources:
+- type: sharepoint
+path: /sites/company/Shared Documents/Policies
+- type: confluence
+space: PROD
+- type: local_upload
+bucket: s3://kb-raw-docs
+- name: parse_and_clean
+action: extract_text
+options:
+ocr_fallback: &lt;span style="color:#66d9ef">true&lt;/span>
+remove_duplicates: &lt;span style="color:#66d9ef">true&lt;/span>
+- name: chunk_documents
+action: split_text
+options:
+chunk_size: &lt;span style="color:#ae81ff">512&lt;/span>
+overlap: &lt;span style="color:#ae81ff">50&lt;/span>
+strategy: recursive
+- name: embed_chunks
+action: embed
+model: text-embedding&lt;span style="color:#ae81ff">-3&lt;/span>-small
+batch_size: &lt;span style="color:#ae81ff">100&lt;/span>
+- name: upsert_to_vector_db
+action: upsert
+target: qdrant
+collection: company_kb
+deduplication_key: doc_hash
+- name: notify_completion
+action: send_notification
+channel: slack
+message: &lt;span style="color:#e6db74">&amp;#34;KB sync completed: {{ stats.added }} added, {{ stats.updated }} updated, {{ stats.deleted }} deleted&amp;#34;&lt;/span>
+on_error:
+- log_to: elasticsearch
+- alert: ops_team
+- retry_strategy: exponential_backoff
+max_retries: &lt;span style="color:#ae81ff">3&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="62-chin-lc-cp-nht">6.2. Chiến lược cập nhật&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Tình huống&lt;/th>
+&lt;th>Cách xử lý&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Tài liệu mới&lt;/td>
+&lt;td>Thêm chunk mới, không xóa cũ&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Tài liệu sửa đổi&lt;/td>
+&lt;td>So sánh hash → xóa chunk cũ → index lại&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Tài liệu hết hạn/thu hồi&lt;/td>
+&lt;td>Đánh dấu &lt;code>is_active: false&lt;/code> hoặc xóa hẳn&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Thay đổi policy khẩn cấp&lt;/td>
+&lt;td>Trigger ingestion thủ công ngay lập tức&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h2 id="7-thit-k-query-pipeline-hiu-qu">7. Thiết kế Query Pipeline hiệu quả&lt;/h2>
+&lt;p>Truy xuất tốt đòi hỏi hơn chỉ &amp;ldquo;tìm kiếm vector gần nhất&amp;rdquo;.&lt;/p>
+&lt;h3 id="71-cc-k-thut-tng-cht-lng-retrieval">7.1. Các kỹ thuật tăng chất lượng retrieval&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Kỹ thuật&lt;/th>
+&lt;th>Mô tả&lt;/th>
+&lt;th>Khi nào dùng&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>Hybrid search&lt;/strong>&lt;/td>
+&lt;td>Kết hợp vector search + BM25 keyword&lt;/td>
+&lt;td>Khi người dùng dùng từ khoá chính xác (mã SKU, tên quy định)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Query rewriting&lt;/strong>&lt;/td>
+&lt;td>LLM viết lại query trước khi search&lt;/td>
+&lt;td>Query người dùng mơ hồ hoặc ngắn&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>HyDE&lt;/strong> (Hypothetical Document Embeddings)&lt;/td>
+&lt;td>LLM tạo tài liệu giả định, embed rồi search&lt;/td>
+&lt;td>Query dạng câu hỏi mở&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Re-ranking&lt;/strong>&lt;/td>
+&lt;td>Dùng cross-encoder để re-rank top-K kết quả&lt;/td>
+&lt;td>Cần độ chính xác cao, có ngân sách latency&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Metadata filtering&lt;/strong>&lt;/td>
+&lt;td>Lọc theo phòng ban, ngày, loại tài liệu&lt;/td>
+&lt;td>Hệ thống có phân quyền hoặc nhiều danh mục&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Parent-child chunking&lt;/strong>&lt;/td>
+&lt;td>Truy xuất chunk nhỏ nhưng trả lại đoạn lớn hơn cho context&lt;/td>
+&lt;td>Câu hỏi cần ngữ cảnh rộng&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="72-v-d-prompt-augmentation-chun">7.2. Ví dụ prompt augmentation chuẩn&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-markdown" data-lang="markdown">&lt;span style="color:#75715e">## System
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>Bạn là trợ lý AI của [Tên Công ty]. Nhiệm vụ của bạn là trả lời câu hỏi
+dựa HOÀN TOÀN vào các đoạn thông tin được cung cấp bên dưới.
+Nguyên tắc:
+&lt;span style="color:#66d9ef">-&lt;/span> Chỉ trả lời dựa trên thông tin trong [CONTEXT].
+&lt;span style="color:#66d9ef">-&lt;/span> Nếu không tìm thấy thông tin, hãy nói: &amp;#34;Tôi chưa có thông tin về vấn đề này.
+Vui lòng liên hệ [bộ phận liên quan].&amp;#34;
+&lt;span style="color:#66d9ef">-&lt;/span> Không suy diễn hoặc bịa đặt thông tin.
+&lt;span style="color:#66d9ef">-&lt;/span> Trích dẫn nguồn tài liệu ở cuối câu trả lời khi có thể.
+&lt;span style="color:#75715e">## Context
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>[CONTEXT]
+{{ retrieved_chunks }}
+[/CONTEXT]
+&lt;span style="color:#75715e">## Câu hỏi
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>{{ user_query }}
+&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;h2 id="8-checklist-cht-lng-knowledge-base">8. Checklist chất lượng Knowledge Base&lt;/h2>
+&lt;h3 id="-checklist-chun-b-ti-liu">✅ Checklist chuẩn bị tài liệu&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox">Xác định và liệt kê đầy đủ các nguồn tài liệu&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Loại bỏ tài liệu hết hạn, mâu thuẫn nhau&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Đảm bảo tài liệu có tiêu đề, ngày cập nhật, tác giả rõ ràng&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Tài liệu dạng bảng đã được chuyển sang văn bản có cấu trúc&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">File scan đã được OCR và kiểm tra chất lượng nhận dạng&lt;/li>
+&lt;/ul>
+&lt;h3 id="-checklist-pipeline-k-thut">✅ Checklist pipeline kỹ thuật&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox">Parser xử lý đúng định dạng PDF, Word, Excel của dự án&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Chunk size và overlap đã thử nghiệm với ≥ 20 câu hỏi mẫu&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Metadata đầy đủ: nguồn, ngày, phòng ban, is_active&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Embedding model nhất quán (index và query)&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Vector DB đã thiết lập backup và restore&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Pipeline ingestion có xử lý lỗi và retry&lt;/li>
+&lt;/ul>
+&lt;h3 id="-checklist-cht-lng-retrieval">✅ Checklist chất lượng retrieval&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox">Precision@3: ≥ 80% câu hỏi mẫu có chunk đúng trong top-3&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Câu hỏi về tài liệu đã xóa không trả lời thông tin cũ&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Câu hỏi ngoài phạm vi được từ chối hoặc chuyển hướng đúng&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Hybrid search đã bật nếu dữ liệu có nhiều mã/số/ký hiệu cụ thể&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Thời gian truy xuất &amp;lt; 1 giây ở tải trung bình&lt;/li>
+&lt;/ul>
+&lt;h3 id="-checklist-vn-hnh">✅ Checklist vận hành&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox">Có quy trình cập nhật tài liệu rõ ràng (ai chịu trách nhiệm, tần suất)&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Dashboard theo dõi: số chunk, số câu hỏi/ngày, tỷ lệ không tìm thấy&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Lưu log đủ để trace: câu hỏi → chunk được dùng → câu trả lời&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Quy trình xử lý phản hồi tiêu cực từ người dùng&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="9-stack-cng-ngh-khuyn-ngh">9. Stack công nghệ khuyến nghị&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Thành phần&lt;/th>
+&lt;th>Lựa chọn MVP&lt;/th>
+&lt;th>Lựa chọn Production&lt;/th>
+&lt;th>Ghi chú&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Document parser&lt;/td>
+&lt;td>&lt;code>unstructured&lt;/code> (Python)&lt;/td>
+&lt;td>&lt;code>unstructured&lt;/code> + custom parser&lt;/td>
+&lt;td>Hỗ trợ 25+ định dạng&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Chunking&lt;/td>
+&lt;td>LangChain &lt;code>RecursiveCharacterTextSplitter&lt;/code>&lt;/td>
+&lt;td>Custom theo domain&lt;/td>
+&lt;td>Dễ bắt đầu, tuỳ chỉnh sau&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Embedding&lt;/td>
+&lt;td>&lt;code>text-embedding-3-small&lt;/code> (OpenAI)&lt;/td>
+&lt;td>&lt;code>multilingual-e5-large&lt;/code> (self-host)&lt;/td>
+&lt;td>Self-host tiết kiệm chi phí dài hạn&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Vector DB&lt;/td>
+&lt;td>&lt;code>pgvector&lt;/code> (Supabase)&lt;/td>
+&lt;td>&lt;code>Qdrant&lt;/code>&lt;/td>
+&lt;td>Nâng cấp khi tập &amp;gt; 500k chunks&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Orchestration&lt;/td>
+&lt;td>LangChain / LlamaIndex&lt;/td>
+&lt;td>Semantic Kernel / custom&lt;/td>
+&lt;td>Tuỳ stack .NET hay Python&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LLM&lt;/td>
+&lt;td>OpenAI GPT-4o-mini&lt;/td>
+&lt;td>OpenAI + Ollama hybrid&lt;/td>
+&lt;td>Ollama cho tài liệu nội bộ nhạy cảm&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Pipeline Scheduler&lt;/td>
+&lt;td>n8n&lt;/td>
+&lt;td>n8n + Temporal&lt;/td>
+&lt;td>Temporal nếu pipeline phức tạp&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Storage tài liệu gốc&lt;/td>
+&lt;td>MinIO / S3&lt;/td>
+&lt;td>MinIO cluster&lt;/td>
+&lt;td>Lưu file gốc tách biệt vector&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Monitoring&lt;/td>
+&lt;td>Elasticsearch + Kibana&lt;/td>
+&lt;td>Elasticsearch + Grafana&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h2 id="10-kpi-roi-v-chi-ph-vn-hnh">10. KPI, ROI và chi phí vận hành&lt;/h2>
+&lt;h3 id="101-kpi-cho-knowledge-base-rag">10.1. KPI cho Knowledge Base RAG&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>KPI&lt;/th>
+&lt;th>Định nghĩa&lt;/th>
+&lt;th>Mục tiêu MVP&lt;/th>
+&lt;th>Mục tiêu Production&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>Retrieval Precision@3&lt;/strong>&lt;/td>
+&lt;td>% query có chunk đúng trong top-3&lt;/td>
+&lt;td>≥ 75%&lt;/td>
+&lt;td>≥ 90%&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Answer Accuracy&lt;/strong>&lt;/td>
+&lt;td>% câu trả lời đúng theo đánh giá&lt;/td>
+&lt;td>≥ 80%&lt;/td>
+&lt;td>≥ 90%&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Fallback Rate&lt;/strong>&lt;/td>
+&lt;td>% câu hỏi không tìm được thông tin&lt;/td>
+&lt;td>≤ 20%&lt;/td>
+&lt;td>≤ 8%&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Query Latency (P95)&lt;/strong>&lt;/td>
+&lt;td>Thời gian từ câu hỏi đến câu trả lời&lt;/td>
+&lt;td>≤ 5s&lt;/td>
+&lt;td>≤ 2s&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>KB Freshness&lt;/strong>&lt;/td>
+&lt;td>% tài liệu được cập nhật đúng chu kỳ&lt;/td>
+&lt;td>≥ 90%&lt;/td>
+&lt;td>≥ 98%&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="102-c-lng-chi-ph-quy-m-smb">10.2. Ước lượng chi phí (Quy mô SMB)&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Hạng mục&lt;/th>
+&lt;th>Chi phí thiết lập&lt;/th>
+&lt;th>Chi phí vận hành/tháng&lt;/th>
+&lt;th>Ghi chú&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Embedding (OpenAI)&lt;/td>
+&lt;td>~$5–20 (index lần đầu)&lt;/td>
+&lt;td>~$2–10&lt;/td>
+&lt;td>Tùy số tài liệu và tần suất cập nhật&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Vector DB (Qdrant Cloud)&lt;/td>
+&lt;td>$0 (Free tier)&lt;/td>
+&lt;td>$25–100&lt;/td>
+&lt;td>Tùy số vector và RAM&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LLM API (GPT-4o-mini)&lt;/td>
+&lt;td>—&lt;/td>
+&lt;td>$20–80&lt;/td>
+&lt;td>Tùy lưu lượng query&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Storage (MinIO/S3)&lt;/td>
+&lt;td>—&lt;/td>
+&lt;td>$5–20&lt;/td>
+&lt;td>Tùy dung lượng tài liệu gốc&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Server pipeline (n8n)&lt;/td>
+&lt;td>$0 (self-host)&lt;/td>
+&lt;td>$10–30&lt;/td>
+&lt;td>VPS nhỏ là đủ&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Tổng ước lượng&lt;/strong>&lt;/td>
+&lt;td>&lt;strong>$20–50&lt;/strong>&lt;/td>
+&lt;td>&lt;strong>$60–240&lt;/strong>&lt;/td>
+&lt;td>Có thể giảm 40–60% nếu self-host LLM&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="103-roi-tham-chiu">10.3. ROI tham chiếu&lt;/h3>
+&lt;ul>
+&lt;li>Nhân viên CS hiện xử lý 50 câu hỏi nội bộ/ngày × $0.5/câu = $750/tháng&lt;/li>
+&lt;li>Sau RAG: tự động 70% → tiết kiệm ~$525/tháng&lt;/li>
+&lt;li>Chi phí hệ thống RAG: ~$150/tháng&lt;/li>
+&lt;li>&lt;strong>ROI tháng đầu&lt;/strong>: 250% | &lt;strong>Hoàn vốn&lt;/strong>: &amp;lt; 30 ngày&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="11-ri-ro-v-phng-n-gim-thiu">11. Rủi ro và phương án giảm thiểu&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Rủi ro&lt;/th>
+&lt;th>Mức độ&lt;/th>
+&lt;th>Cách giảm thiểu&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>Tài liệu nguồn chất lượng kém&lt;/strong>&lt;/td>
+&lt;td>Cao&lt;/td>
+&lt;td>Audit tài liệu trước khi index, lập quy trình duyệt nội dung&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Hallucination do retrieval miss&lt;/strong>&lt;/td>
+&lt;td>Cao&lt;/td>
+&lt;td>Prompt nghiêm cấm ngoài context, thêm fallback rõ ràng&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Chunk mất ngữ cảnh ở ranh giới&lt;/strong>&lt;/td>
+&lt;td>Trung bình&lt;/td>
+&lt;td>Dùng overlap chunking + parent-child retrieval&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Tài liệu cũ không được cập nhật&lt;/strong>&lt;/td>
+&lt;td>Trung bình-Cao&lt;/td>
+&lt;td>Đặt TTL, cảnh báo tài liệu sắp hết hạn, phân công owner&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Lộ tài liệu nội bộ nhạy cảm&lt;/strong>&lt;/td>
+&lt;td>Cao&lt;/td>
+&lt;td>Metadata-based ACL, lọc theo role trước khi trả chunk cho LLM&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Chi phí embedding tăng đột biến&lt;/strong>&lt;/td>
+&lt;td>Thấp-Trung bình&lt;/td>
+&lt;td>Batch embedding, cache embedding, tránh re-index không cần thiết&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Latency cao khi KB lớn&lt;/strong>&lt;/td>
+&lt;td>Trung bình&lt;/td>
+&lt;td>Tách collection theo domain, thêm re-ranking có điều kiện&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Vendor lock-in model embedding&lt;/strong>&lt;/td>
+&lt;td>Thấp&lt;/td>
+&lt;td>Thiết kế abstraction layer cho embedding, sẵn sàng chuyển self-host&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h2 id="12-roadmap-trin-khai-3-giai-on">12. Roadmap triển khai 3 giai đoạn&lt;/h2>
+&lt;h3 id="giai-on-1-12-tun-nn-mng--mvp">Giai đoạn 1 (1–2 tuần): Nền móng &amp;amp; MVP&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox">Audit và thu thập tài liệu nguồn (ưu tiên 50–100 tài liệu quan trọng nhất)&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Thiết lập pipeline ingestion cơ bản: PDF/Word → chunk → embed → pgvector&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Triển khai RAG chatbot MVP với prompt chuẩn&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Kiểm thử với 30–50 câu hỏi mẫu, đo Precision@3&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">&lt;strong>Kết quả&lt;/strong>: chatbot có thể trả lời 70%+ câu hỏi từ tài liệu đã index&lt;/li>
+&lt;/ul>
+&lt;h3 id="giai-on-2-24-tun-ti-u-cht-lng">Giai đoạn 2 (2–4 tuần): Tối ưu chất lượng&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox">Phân tích lỗi từ giai đoạn 1, điều chỉnh chunk strategy&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Bật hybrid search (vector + BM25)&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Thêm metadata filtering theo phòng ban/danh mục&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Triển khai pipeline cập nhật tự động (scheduler + webhook)&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Dashboard theo dõi: fallback rate, latency, KB freshness&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">&lt;strong>Kết quả&lt;/strong>: Precision@3 ≥ 85%, fallback rate ≤ 12%&lt;/li>
+&lt;/ul>
+&lt;h3 id="giai-on-3-48-tun-sn-xut--scale">Giai đoạn 3 (4–8 tuần): Sản xuất &amp;amp; Scale&lt;/h3>
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox">Chuyển lên Qdrant hoặc vector DB production-grade&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Triển khai ACL theo role người dùng&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Thêm re-ranking cho query quan trọng&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">Tích hợp KB với AI Agent đa nhiệm (kết nối bài 2)&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">SLA monitoring, alerting và quy trình xử lý sự cố&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox">&lt;strong>Kết quả&lt;/strong>: Answer Accuracy ≥ 90%, hệ thống sẵn sàng production&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="13-kt-lun">13. Kết luận&lt;/h2>
+&lt;p>RAG không chỉ là một kỹ thuật AI — đây là nền tảng để AI Agent &lt;strong>thực sự hiểu doanh nghiệp của bạn&lt;/strong>.&lt;/p>
+&lt;p>Ba điều cốt lõi để RAG thành công:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Chất lượng tài liệu nguồn&lt;/strong> quyết định 50% kết quả. Garbage in → garbage out, dù dùng LLM nào.&lt;/li>
+&lt;li>&lt;strong>Pipeline ingestion kỷ luật&lt;/strong>: chunk đúng chiến lược, embed nhất quán, cập nhật định kỳ.&lt;/li>
+&lt;li>&lt;strong>Đo lường liên tục&lt;/strong>: Precision@3, fallback rate và KB freshness phải được theo dõi như SLA hệ thống.&lt;/li>
+&lt;/ol>
+&lt;p>Khi Knowledge Base được xây đúng, mỗi AI Agent trong hệ thống của bạn sẽ trả lời không chỉ thông minh — mà còn &lt;strong>chính xác, có nguồn gốc và đáng tin cậy&lt;/strong>.&lt;/p>
+&lt;hr>
+&lt;p>&lt;em>Tác giả: AI Agent Series | Cập nhật: 14/05/2026&lt;/em>&lt;/p></description></item></channel></rss>

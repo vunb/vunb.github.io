@@ -1,0 +1,520 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=generator content="Source Themes Academic 4.3.1"><meta name=author content="Vu Bao Nhu"><meta name=description content="1. Từ LLM tĩnh sang Agent có hành động: vì sao cần Tool Use? Ở các bài trước, chúng ta đã xây dựng được một AI Agent biết trả lời dựa trên kho tri thức RAG. Nhưng doanh nghiệp thực tế cần hơn thế:
+ &ldquo;Chatbot đã trả lời đúng rằng đơn hàng đang chờ duyệt — nhưng sao nó không tự tạo ticket hỗ trợ hay gửi email xác nhận luôn được?"><link rel=alternate hreflang=en-us href=https://vunb.github.io/tutorials/ai-agent/tool-use-va-function-calling-trang-bi-cong-cu-cho-ai-agent/><meta name=theme-color content="#2962ff"><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin=anonymous><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.6.0/css/all.css integrity=sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css crossorigin=anonymous title=hl-light><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css crossorigin=anonymous title=hl-dark disabled><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Roboto:400,400italic,700|Roboto+Mono&display=swap"><link rel=stylesheet href=/css/academic.min.2f3ad830d0a64bf8a36a9a54cc63fcc3.css><script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-48010057-5','auto');ga('require','eventTracker');ga('require','outboundLinkTracker');ga('require','urlChangeTracker');ga('send','pageview');</script><script async src=//www.google-analytics.com/analytics.js></script><script async src=https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin=anonymous></script><link rel=manifest href=/site.webmanifest><link rel=icon type=image/png href=/img/icon.png><link rel=apple-touch-icon type=image/png href=/img/icon-192.png><link rel=canonical href=https://vunb.github.io/tutorials/ai-agent/tool-use-va-function-calling-trang-bi-cong-cu-cho-ai-agent/><meta property="twitter:card" content="summary"><meta property="twitter:site" content="@nhubaovu"><meta property="twitter:creator" content="@nhubaovu"><meta property="og:site_name" content="<Vunb />"><meta property="og:url" content="https://vunb.github.io/tutorials/ai-agent/tool-use-va-function-calling-trang-bi-cong-cu-cho-ai-agent/"><meta property="og:title" content="Tool Use & Function Calling — Trang bị công cụ cho AI Agent | <Vunb />"><meta property="og:description" content="1. Từ LLM tĩnh sang Agent có hành động: vì sao cần Tool Use? Ở các bài trước, chúng ta đã xây dựng được một AI Agent biết trả lời dựa trên kho tri thức RAG. Nhưng doanh nghiệp thực tế cần hơn thế:
+ &ldquo;Chatbot đã trả lời đúng rằng đơn hàng đang chờ duyệt — nhưng sao nó không tự tạo ticket hỗ trợ hay gửi email xác nhận luôn được?"><meta property="og:image" content="https://vunb.github.io/img/icon-192.png"><meta property="twitter:image" content="https://vunb.github.io/img/icon-192.png"><meta property="og:locale" content="en-us"><meta property="article:published_time" content="2026-05-14T00:00:00+07:00"><meta property="article:modified_time" content="2026-05-14T00:00:00+07:00"><title>Tool Use & Function Calling — Trang bị công cụ cho AI Agent | &lt;Vunb /></title></head><body id=top data-spy=scroll data-target=#TableOfContents data-offset=71><aside class=search-results id=search><div class=container><section class=search-header><div class="row no-gutters justify-content-between mb-3"><div class=col-6><h1>Search</h1></div><div class="col-6 col-search-close"><a class=js-search href=#><i class="fas fa-times-circle text-muted" aria-hidden=true></i></a></div></div><div id=search-box><input name=q id=search-query placeholder=Search... autocapitalize=off autocomplete=off autocorrect=off role=textbox spellcheck=false type=search></div></section><section class=section-search-results><div id=search-hits></div></section></div></aside><nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id=navbar-main><div class=container><a class=navbar-brand href=/>&lt;Vunb /></a>
+<button type=button class=navbar-toggler data-toggle=collapse data-target=#navbar aria-controls=navbar aria-expanded=false aria-label="Toggle navigation">
+<span><i class="fas fa-bars"></i></span></button><div class="collapse navbar-collapse" id=navbar><ul class="navbar-nav mr-auto"><li class=nav-item><a class=nav-link href=/#about><span>Home</span></a></li><li class=nav-item><a class=nav-link href=/#posts><span>Posts</span></a></li><li class=nav-item><a class=nav-link href=/projects/><span>Projects</span></a></li><li class=nav-item><a class=nav-link href=/courses/><span>Courses</span></a></li><li class=nav-item><a class="nav-link active" href=/tutorials/><span>Tutorials</span></a></li><li class=nav-item><a class=nav-link href=/#contact><span>Contact</span></a></li></ul><ul class="navbar-nav ml-auto"><li class=nav-item><a class="nav-link js-search" href=#><i class="fas fa-search" aria-hidden=true></i></a></li><li class=nav-item><a class="nav-link js-dark-toggle" href=#><i class="fas fa-moon" aria-hidden=true></i></a></li></ul></div></div></nav><div class="container-fluid docs"><div class="row flex-xl-nowrap"><div class="col-12 col-md-3 col-xl-2 docs-sidebar"><form class="docs-search d-flex align-items-center"><button class="btn docs-toggle d-md-none p-0 mr-3" type=button data-toggle=collapse data-target=#docs-nav aria-controls=docs-nav aria-expanded=false aria-label="Toggle section navigation">
+<span><i class="fas fa-bars"></i></span></button>
+<input name=q type=search class=form-control id=search-query placeholder=Search... autocomplete=off></form><nav class="collapse docs-links" id=docs-nav><div class=docs-toc-item><a class=docs-toc-link href=/tutorials/ai-agent/>Tổng quan</a><ul class="nav docs-sidenav"><li><a href=/tutorials/ai-agent/chatbot-faq-huong-dan-thiet-ke-va-xay-dung/>Chatbot FAQ — Hướng dẫn Thiết kế & Xây dựng</a></li><li><a href=/tutorials/ai-agent/xay-dung-ai-agent-da-nhiem-tu-faq-den-automation-workflow/>AI Agent đa nhiệm — Từ FAQ đến Automation Workflow</a></li><li><a href=/tutorials/ai-agent/rag-va-knowledge-base-xay-dung-kho-tri-thuc-cho-ai-agent/>RAG & Knowledge Base — Kho tri thức cho AI Agent</a></li><li class=active><a href=/tutorials/ai-agent/tool-use-va-function-calling-trang-bi-cong-cu-cho-ai-agent/>Tool Use & Function Calling — Trang bị công cụ cho AI Agent</a></li><li><a href=/tutorials/ai-agent/memory-va-context-management-giup-ai-agent-ghi-nho-va-hieu-ngu-canh/>Memory & Context Management — Giúp AI Agent ghi nhớ và hiểu ngữ cảnh</a></li><li><a href=/tutorials/ai-agent/guardrails-va-evaluation-an-toan-kiem-soat-danh-gia-ai-agent/>Guardrails & Evaluation — An toàn, Kiểm soát và Đánh giá AI Agent</a></li><li><a href=/tutorials/ai-agent/monitoring-va-observability-van-hanh-ai-agent-trong-production/>Monitoring & Observability — Vận hành AI Agent trong Production</a></li><li><a href=/tutorials/ai-agent/use-case-thuc-chien-ai-agent-trong-doanh-nghiep-viet-nam/>Use Case Thực chiến — AI Agent trong Doanh nghiệp Việt Nam</a></li></ul></div></nav></div><div class="d-none d-xl-block col-xl-2 docs-toc"><ul class="nav toc-top"><li><a href=# id=back_to_top class=docs-toc-title>Contents</a></li></ul><nav id=TableOfContents><ul><li><a href=#1-t-llm-tnh-sang-agent-c-hnh-ng-v-sao-cn-tool-use>1. Từ LLM tĩnh sang Agent có hành động: vì sao cần Tool Use?</a></li><li><a href=#2-m-hnh-hot-ng-ca-function-calling>2. Mô hình hoạt động của Function Calling</a><ul><li><a href=#21-chi-tit-tng-bc>2.1. Chi tiết từng bước</a></li></ul></li><li><a href=#3-nh-ngha-toolfunction--cch-c-t-ng-chun>3. Định nghĩa Tool/Function — Cách đặc tả đúng chuẩn</a><ul><li><a href=#31-v-d-3-tool-thc-t>3.1. Ví dụ 3 tool thực tế</a></li><li><a href=#32-nguyn-tc-vit-description-hiu-qu>3.2. Nguyên tắc viết description hiệu quả</a></li></ul></li><li><a href=#4-chin-lc-thit-k-b-cng-c-tool-catalog>4. Chiến lược thiết kế bộ công cụ (Tool Catalog)</a><ul><li><a href=#41-phn-loi-tool-theo-tc-ng>4.1. Phân loại tool theo tác động</a></li><li><a href=#42-nguyn-tc-thit-k-tool-catalog>4.2. Nguyên tắc thiết kế Tool Catalog</a></li><li><a href=#43-mu-tool-catalog-cho-d-n-customer-support>4.3. Mẫu Tool Catalog cho dự án Customer Support</a></li></ul></li><li><a href=#5-tool-routing-cch-llm-chn-ng-tool>5. Tool Routing: Cách LLM chọn đúng Tool</a><ul><li><a href=#51-ba-ch--tool-choice>5.1. Ba chế độ tool_choice</a></li><li><a href=#52-parallel-tool-calls>5.2. Parallel Tool Calls</a></li><li><a href=#53-k-thut-ci-thin--chnh-xc-routing>5.3. Kỹ thuật cải thiện độ chính xác routing</a></li></ul></li><li><a href=#6-mcp--model-context-protocol>6. MCP — Model Context Protocol</a><ul><li><a href=#61-mcp-l-g>6.1. MCP là gì?</a></li><li><a href=#62-kin-trc-mcp>6.2. Kiến trúc MCP</a></li><li><a href=#63-so-snh-direct-function-call-vs-mcp>6.3. So sánh Direct Function Call vs MCP</a></li></ul></li><li><a href=#7-so-snh-framework-openai-native-vs-langchain-vs-semantic-kernel>7. So sánh Framework: OpenAI Native vs LangChain vs Semantic Kernel</a></li><li><a href=#8-trin-khai-thc-t>8. Triển khai thực tế</a><ul><li><a href=#81-c--semantic-kernel-plugin>8.1. C# — Semantic Kernel Plugin</a></li><li><a href=#82-python--langchain-tools>8.2. Python — LangChain Tools</a></li></ul></li><li><a href=#9-bo-mt--kim-sot>9. Bảo mật & Kiểm soát</a><ul><li><a href=#91-allow-list-tool-theo-context>9.1. Allow-list Tool theo context</a></li><li><a href=#92-xc-thc-input-trc-khi-execute>9.2. Xác thực input trước khi execute</a></li><li><a href=#93-human-in-the-loop-trc-write-tools>9.3. Human-in-the-Loop trước Write Tools</a></li><li><a href=#94-checklist-bo-mt-tool-use>9.4. Checklist bảo mật Tool Use</a></li></ul></li><li><a href=#10-checklist-thit-k-tool-use>10. Checklist thiết kế Tool Use</a><ul><li><a href=#-checklist-nh-ngha-tool>✅ Checklist định nghĩa Tool</a></li><li><a href=#-checklist-trin-khai>✅ Checklist triển khai</a></li><li><a href=#-checklist-vn-hnh>✅ Checklist vận hành</a></li></ul></li><li><a href=#11-kpi-chi-ph-v-roi>11. KPI, Chi phí và ROI</a><ul><li><a href=#111-kpi-cho-tool-use>11.1. KPI cho Tool Use</a></li><li><a href=#112-c-lng-chi-ph-quy-m-smb-5000-requestsngy>11.2. Ước lượng chi phí (Quy mô SMB, 5.000 requests/ngày)</a></li><li><a href=#113-roi-tham-chiu>11.3. ROI tham chiếu</a></li></ul></li><li><a href=#12-ri-ro-v-phng-n-gim-thiu>12. Rủi ro và Phương án Giảm Thiểu</a></li><li><a href=#13-roadmap-trin-khai-3-giai-on>13. Roadmap Triển Khai 3 Giai Đoạn</a><ul><li><a href=#giai-on-1-tun-13-tool-use-c-bn>Giai đoạn 1 (Tuần 1–3): Tool Use cơ bản</a></li><li><a href=#giai-on-2-tun-48-write-tools--bo-mt>Giai đoạn 2 (Tuần 4–8): Write Tools + Bảo mật</a></li><li><a href=#giai-on-3-tun-912-ti-u--scale>Giai đoạn 3 (Tuần 9–12): Tối ưu & Scale</a></li></ul></li><li><a href=#14-kt-lun-v-kt-ni-sang-bi-5>14. Kết luận và Kết nối sang Bài 5</a></li></ul></nav></div><main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 docs-content" role=main><article class=article itemscope itemtype=http://schema.org/Article><div class=docs-article-container><h1 itemprop=name>Tool Use & Function Calling — Trang bị công cụ cho AI Agent</h1><div class=article-style itemprop=articleBody><h2 id=1-t-llm-tnh-sang-agent-c-hnh-ng-v-sao-cn-tool-use>1. Từ LLM tĩnh sang Agent có hành động: vì sao cần Tool Use?</h2><p>Ở các bài trước, chúng ta đã xây dựng được một AI Agent biết <strong>trả lời</strong> dựa trên kho tri thức RAG. Nhưng doanh nghiệp thực tế cần hơn thế:</p><blockquote><p>&ldquo;Chatbot đã trả lời đúng rằng đơn hàng đang chờ duyệt — nhưng sao nó không <strong>tự tạo ticket hỗ trợ</strong> hay <strong>gửi email xác nhận</strong> luôn được?&rdquo;</p></blockquote><p>Đây là giới hạn cốt lõi của LLM thuần: mô hình ngôn ngữ <strong>chỉ sinh ra văn bản</strong>. Nó không thể tự gọi API, truy vấn CSDL, đọc file thời gian thực hay gửi thông báo — trừ khi bạn trang bị cho nó <strong>công cụ (Tools)</strong>.</p><p><strong>Tool Use</strong> (còn gọi là <strong>Function Calling</strong>) là cơ chế cho phép LLM:</p><ol><li><strong>Nhận diện</strong> khi nào cần dùng một công cụ bên ngoài</li><li><strong>Tạo ra yêu cầu có cấu trúc</strong> (JSON) mô tả công cụ nào cần gọi và với tham số nào</li><li><strong>Nhận kết quả</strong> từ công cụ đó rồi tổng hợp câu trả lời cuối cùng</li></ol><p>Đây là bước chuyển đổi từ LLM &ldquo;biết nói&rdquo; sang AI Agent &ldquo;biết làm&rdquo; — và là nền tảng của mọi hệ thống tự động hóa thông minh.</p><hr><h2 id=2-m-hnh-hot-ng-ca-function-calling>2. Mô hình hoạt động của Function Calling</h2><p>Giao thức Function Calling của OpenAI đã trở thành chuẩn thực tế (de-facto standard) trong ngành. Luồng hoạt động gồm 4 bước rõ ràng:</p><pre><code>Người dùng / Orchestrator
+         │
+         │  [1] User message + danh sách tool definitions (JSON schema)
+         ▼
+    ┌─────────────┐
+    │    LLM      │  Phân tích intent
+    │  (GPT-4o,   │  → Quyết định dùng tool nào
+    │  Claude...) │  → Tạo tool_call JSON có cấu trúc
+    └──────┬──────┘
+           │
+           │  [2] tool_call: { name: &quot;get_order_status&quot;, args: { order_id: &quot;ORD-001&quot; } }
+           ▼
+    ┌─────────────────────┐
+    │   Tool Executor     │  Nhận tool_call từ LLM
+    │  (Application Code) │  → Validate args
+    │                     │  → Gọi API / DB / service thực tế
+    └──────────┬──────────┘
+               │
+               │  [3] tool_response: { status: &quot;pending&quot;, eta: &quot;2026-05-15&quot; }
+               ▼
+    ┌─────────────┐
+    │    LLM      │  Nhận kết quả từ tool
+    │  (lần 2)    │  → Tổng hợp câu trả lời tự nhiên
+    └──────┬──────┘
+           │
+           │  [4] Final answer: &quot;Đơn hàng ORD-001 đang chờ duyệt, dự kiến giao 15/05.&quot;
+           ▼
+    Người dùng / Orchestrator
+</code></pre><h3 id=21-chi-tit-tng-bc>2.1. Chi tiết từng bước</h3><table><thead><tr><th>Bước</th><th>Tên</th><th>Ai thực hiện</th><th>Nội dung</th></tr></thead><tbody><tr><td><strong>[1]</strong></td><td>Request</td><td>App code</td><td>Gửi message + <code>tools[]</code> (JSON schema) lên LLM API</td></tr><tr><td><strong>[2]</strong></td><td>Tool call</td><td>LLM</td><td>Trả về <code>finish_reason: "tool_calls"</code> kèm JSON tham số</td></tr><tr><td><strong>[3]</strong></td><td>Tool response</td><td>App code</td><td>Thực thi tool, gửi kết quả lại API với <code>role: "tool"</code></td></tr><tr><td><strong>[4]</strong></td><td>Final answer</td><td>LLM</td><td>Nhận tool result, sinh câu trả lời tự nhiên cho người dùng</td></tr></tbody></table><blockquote><p><strong>Lưu ý quan trọng</strong>: LLM <strong>không tự gọi tool</strong> — nó chỉ tạo ra <strong>yêu cầu có cấu trúc</strong>. Phần thực thi là do application code của bạn đảm nhiệm. Đây vừa là thiết kế an toàn, vừa là điểm bạn phải tự kiểm soát.</p></blockquote><hr><h2 id=3-nh-ngha-toolfunction--cch-c-t-ng-chun>3. Định nghĩa Tool/Function — Cách đặc tả đúng chuẩn</h2><p>Chất lượng định nghĩa tool quyết định trực tiếp độ chính xác khi LLM chọn và gọi tool. Một tool definition tốt phải có:</p><ul><li><strong>name</strong>: tên ngắn gọn, snake_case, mô tả rõ hành động</li><li><strong>description</strong>: mô tả chi tiết <strong>khi nào dùng</strong> và <strong>không dùng khi nào</strong> — đây là phần quan trọng nhất</li><li><strong>parameters</strong>: JSON Schema đầy đủ, bao gồm type, description, required, enum nếu có</li></ul><h3 id=31-v-d-3-tool-thc-t>3.1. Ví dụ 3 tool thực tế</h3><p><strong>Tool 1 — Truy vấn trạng thái đơn hàng (Read)</strong></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+  <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;function&#34;</span>,
+  <span style=color:#f92672>&#34;function&#34;</span>: {
+    <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;get_order_status&#34;</span>,
+    <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Tra cứu trạng thái đơn hàng theo mã đơn. Dùng khi khách hỏi về tình trạng, tiến độ hoặc thời gian giao hàng. KHÔNG dùng để sửa hay hủy đơn.&#34;</span>,
+    <span style=color:#f92672>&#34;parameters&#34;</span>: {
+      <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;object&#34;</span>,
+      <span style=color:#f92672>&#34;properties&#34;</span>: {
+        <span style=color:#f92672>&#34;order_id&#34;</span>: {
+          <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;string&#34;</span>,
+          <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Mã đơn hàng, định dạng ORD-XXXXXX hoặc số nguyên&#34;</span>
+        },
+        <span style=color:#f92672>&#34;include_history&#34;</span>: {
+          <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;boolean&#34;</span>,
+          <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Có trả về lịch sử trạng thái hay không. Mặc định false.&#34;</span>,
+          <span style=color:#f92672>&#34;default&#34;</span>: <span style=color:#66d9ef>false</span>
+        }
+      },
+      <span style=color:#f92672>&#34;required&#34;</span>: [<span style=color:#e6db74>&#34;order_id&#34;</span>]
+    }
+  }
+}
+</code></pre></div><p><strong>Tool 2 — Tạo ticket hỗ trợ (Write)</strong></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+  <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;function&#34;</span>,
+  <span style=color:#f92672>&#34;function&#34;</span>: {
+    <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;create_support_ticket&#34;</span>,
+    <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Tạo ticket hỗ trợ khi vấn đề không thể giải quyết tự động, hoặc khi khách hàng yêu cầu được hỗ trợ bởi nhân viên. KHÔNG tạo ticket nếu vấn đề đã được giải quyết.&#34;</span>,
+    <span style=color:#f92672>&#34;parameters&#34;</span>: {
+      <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;object&#34;</span>,
+      <span style=color:#f92672>&#34;properties&#34;</span>: {
+        <span style=color:#f92672>&#34;customer_id&#34;</span>: {
+          <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;string&#34;</span>,
+          <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;ID khách hàng trong hệ thống CRM&#34;</span>
+        },
+        <span style=color:#f92672>&#34;subject&#34;</span>: {
+          <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;string&#34;</span>,
+          <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Tiêu đề ngắn gọn mô tả vấn đề, tối đa 100 ký tự&#34;</span>
+        },
+        <span style=color:#f92672>&#34;description&#34;</span>: {
+          <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;string&#34;</span>,
+          <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Mô tả chi tiết vấn đề, bao gồm context từ hội thoại&#34;</span>
+        },
+        <span style=color:#f92672>&#34;priority&#34;</span>: {
+          <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;string&#34;</span>,
+          <span style=color:#f92672>&#34;enum&#34;</span>: [<span style=color:#e6db74>&#34;low&#34;</span>, <span style=color:#e6db74>&#34;medium&#34;</span>, <span style=color:#e6db74>&#34;high&#34;</span>, <span style=color:#e6db74>&#34;urgent&#34;</span>],
+          <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Mức độ ưu tiên. Chọn &#39;urgent&#39; chỉ khi ảnh hưởng đến giao dịch tài chính hoặc sức khỏe.&#34;</span>
+        },
+        <span style=color:#f92672>&#34;category&#34;</span>: {
+          <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;string&#34;</span>,
+          <span style=color:#f92672>&#34;enum&#34;</span>: [<span style=color:#e6db74>&#34;billing&#34;</span>, <span style=color:#e6db74>&#34;shipping&#34;</span>, <span style=color:#e6db74>&#34;technical&#34;</span>, <span style=color:#e6db74>&#34;product&#34;</span>, <span style=color:#e6db74>&#34;other&#34;</span>],
+          <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Danh mục của ticket&#34;</span>
+        }
+      },
+      <span style=color:#f92672>&#34;required&#34;</span>: [<span style=color:#e6db74>&#34;customer_id&#34;</span>, <span style=color:#e6db74>&#34;subject&#34;</span>, <span style=color:#e6db74>&#34;description&#34;</span>, <span style=color:#e6db74>&#34;priority&#34;</span>, <span style=color:#e6db74>&#34;category&#34;</span>]
+    }
+  }
+}
+</code></pre></div><p><strong>Tool 3 — Gửi thông báo (Notify)</strong></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+  <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;function&#34;</span>,
+  <span style=color:#f92672>&#34;function&#34;</span>: {
+    <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;send_notification&#34;</span>,
+    <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Gửi thông báo tới khách hàng qua kênh ưu tiên của họ (email hoặc SMS). Chỉ dùng sau khi đã hoàn thành một hành động cụ thể cần xác nhận. KHÔNG spam — không gửi quá 1 thông báo cho cùng một sự kiện.&#34;</span>,
+    <span style=color:#f92672>&#34;parameters&#34;</span>: {
+      <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;object&#34;</span>,
+      <span style=color:#f92672>&#34;properties&#34;</span>: {
+        <span style=color:#f92672>&#34;customer_id&#34;</span>: {
+          <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;string&#34;</span>,
+          <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;ID khách hàng&#34;</span>
+        },
+        <span style=color:#f92672>&#34;channel&#34;</span>: {
+          <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;string&#34;</span>,
+          <span style=color:#f92672>&#34;enum&#34;</span>: [<span style=color:#e6db74>&#34;email&#34;</span>, <span style=color:#e6db74>&#34;sms&#34;</span>, <span style=color:#e6db74>&#34;zalo&#34;</span>, <span style=color:#e6db74>&#34;push&#34;</span>],
+          <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Kênh gửi thông báo&#34;</span>
+        },
+        <span style=color:#f92672>&#34;template_id&#34;</span>: {
+          <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;string&#34;</span>,
+          <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;ID mẫu thông báo đã được phê duyệt trong hệ thống&#34;</span>
+        },
+        <span style=color:#f92672>&#34;variables&#34;</span>: {
+          <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;object&#34;</span>,
+          <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Các biến điền vào template, ví dụ: { order_id, status, eta }&#34;</span>
+        }
+      },
+      <span style=color:#f92672>&#34;required&#34;</span>: [<span style=color:#e6db74>&#34;customer_id&#34;</span>, <span style=color:#e6db74>&#34;channel&#34;</span>, <span style=color:#e6db74>&#34;template_id&#34;</span>]
+    }
+  }
+}
+</code></pre></div><h3 id=32-nguyn-tc-vit-description-hiu-qu>3.2. Nguyên tắc viết description hiệu quả</h3><table><thead><tr><th>Nguyên tắc</th><th>Ví dụ xấu</th><th>Ví dụ tốt</th></tr></thead><tbody><tr><td>Nói rõ <strong>khi nào</strong> dùng</td><td>&ldquo;Lấy thông tin đơn hàng&rdquo;</td><td>&ldquo;Dùng khi khách hỏi về trạng thái, tiến độ hoặc ETA giao hàng&rdquo;</td></tr><tr><td>Nói rõ <strong>không</strong> dùng khi nào</td><td><em>(bỏ qua)</em></td><td>&ldquo;KHÔNG dùng để sửa hay hủy đơn&rdquo;</td></tr><tr><td>Mô tả <strong>format</strong> tham số</td><td>&ldquo;mã đơn&rdquo;</td><td>&ldquo;mã đơn hàng, định dạng ORD-XXXXXX&rdquo;</td></tr><tr><td>Đặt <strong>enum</strong> cho giá trị giới hạn</td><td><code>"type": "string"</code></td><td><code>"enum": ["low","medium","high","urgent"]</code></td></tr></tbody></table><hr><h2 id=4-chin-lc-thit-k-b-cng-c-tool-catalog>4. Chiến lược thiết kế bộ công cụ (Tool Catalog)</h2><p>Khi hệ thống phát triển, bạn sẽ có hàng chục tool. Cần thiết kế có hệ thống ngay từ đầu.</p><h3 id=41-phn-loi-tool-theo-tc-ng>4.1. Phân loại tool theo tác động</h3><table><thead><tr><th>Nhóm</th><th>Đặc điểm</th><th>Ví dụ</th><th>Yêu cầu bảo mật</th></tr></thead><tbody><tr><td><strong>Read</strong></td><td>Chỉ đọc, không thay đổi trạng thái</td><td><code>get_order_status</code>, <code>search_product</code>, <code>check_stock</code></td><td>Thấp — cần authn</td></tr><tr><td><strong>Write</strong></td><td>Thay đổi dữ liệu/trạng thái hệ thống</td><td><code>create_ticket</code>, <code>update_order</code>, <code>cancel_subscription</code></td><td>Cao — cần authn + authz + audit log</td></tr><tr><td><strong>Notify</strong></td><td>Gửi thông tin ra bên ngoài</td><td><code>send_email</code>, <code>send_sms</code>, <code>push_notification</code></td><td>Trung bình — cần rate limiting</td></tr><tr><td><strong>Compute</strong></td><td>Tính toán, xử lý dữ liệu</td><td><code>calculate_price</code>, <code>generate_report</code>, <code>summarize_data</code></td><td>Thấp — cần timeout</td></tr><tr><td><strong>External</strong></td><td>Gọi API bên thứ ba</td><td><code>call_payment_gateway</code>, <code>query_shipping_api</code></td><td>Cao — cần circuit breaker</td></tr></tbody></table><h3 id=42-nguyn-tc-thit-k-tool-catalog>4.2. Nguyên tắc thiết kế Tool Catalog</h3><p><strong>Scope — Giới hạn rõ phạm vi:</strong></p><ul><li>Mỗi tool chỉ làm <strong>một việc cụ thể</strong>, không làm nhiều thứ trong một lần gọi</li><li>Tên tool phải nói lên hành động: <code>get_</code>, <code>create_</code>, <code>update_</code>, <code>delete_</code>, <code>send_</code>, <code>calculate_</code></li><li>Tránh tool quá generic như <code>do_action</code> hay <code>handle_request</code></li></ul><p><strong>Granularity — Độ chi tiết phù hợp:</strong></p><ul><li>Tool quá nhỏ → LLM phải gọi nhiều bước → tăng latency, tăng chi phí</li><li>Tool quá lớn → khó kiểm soát, khó audit, khó reuse</li><li><strong>Nguyên tắc vàng</strong>: một tool nên hoàn thành một <strong>business unit of work</strong> có thể audit độc lập</li></ul><p><strong>Idempotency — Thiết kế để an toàn khi retry:</strong></p><ul><li>Read tools: luôn idempotent</li><li>Write tools: bắt buộc phải idempotent (dùng idempotency key)</li><li>Notify tools: implement deduplication để tránh gửi trùng</li></ul><h3 id=43-mu-tool-catalog-cho-d-n-customer-support>4.3. Mẫu Tool Catalog cho dự án Customer Support</h3><pre><code>Tool Catalog — Customer Support Agent
+├── READ
+│   ├── get_order_status(order_id)
+│   ├── get_customer_profile(customer_id)
+│   ├── search_faq(query)
+│   └── check_product_availability(sku, quantity)
+├── WRITE
+│   ├── create_support_ticket(customer_id, subject, description, priority, category)
+│   ├── update_ticket_status(ticket_id, status, note)
+│   └── schedule_callback(customer_id, datetime, agent_id?)
+├── NOTIFY
+│   ├── send_notification(customer_id, channel, template_id, variables)
+│   └── escalate_to_human(ticket_id, reason, urgency)
+└── COMPUTE
+    └── calculate_refund_amount(order_id, items, reason)
+</code></pre><hr><h2 id=5-tool-routing-cch-llm-chn-ng-tool>5. Tool Routing: Cách LLM chọn đúng Tool</h2><p>Hiểu rõ cơ chế routing giúp bạn thiết kế tool catalog và điều chỉnh khi agent chọn sai tool.</p><h3 id=51-ba-ch--tool-choice>5.1. Ba chế độ tool_choice</h3><table><thead><tr><th>Chế độ</th><th>Cấu hình</th><th>Khi nào dùng</th></tr></thead><tbody><tr><td><strong>auto</strong></td><td><code>tool_choice: "auto"</code></td><td>Mặc định — LLM tự quyết định có dùng tool không</td></tr><tr><td><strong>required</strong></td><td><code>tool_choice: "required"</code></td><td>Bắt buộc LLM phải gọi ít nhất một tool</td></tr><tr><td><strong>forced</strong></td><td><code>tool_choice: { type: "function", function: { name: "get_order_status" } }</code></td><td>Buộc LLM gọi đúng tool chỉ định</td></tr><tr><td><strong>none</strong></td><td><code>tool_choice: "none"</code></td><td>Tắt tool use — LLM chỉ trả lời bằng text</td></tr></tbody></table><h3 id=52-parallel-tool-calls>5.2. Parallel Tool Calls</h3><p>OpenAI GPT-4o và nhiều mô hình hiện đại hỗ trợ gọi <strong>nhiều tool song song</strong> trong một lần:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=color:#960050;background-color:#1e0010>/</span><span style=color:#960050;background-color:#1e0010>/</span> <span style=color:#960050;background-color:#1e0010>L</span><span style=color:#960050;background-color:#1e0010>L</span><span style=color:#960050;background-color:#1e0010>M</span> <span style=color:#960050;background-color:#1e0010>t</span><span style=color:#960050;background-color:#1e0010>r</span><span style=color:#960050;background-color:#1e0010>ả</span> <span style=color:#960050;background-color:#1e0010>v</span><span style=color:#960050;background-color:#1e0010>ề</span> <span style=color:#960050;background-color:#1e0010>n</span><span style=color:#960050;background-color:#1e0010>h</span><span style=color:#960050;background-color:#1e0010>i</span><span style=color:#960050;background-color:#1e0010>ề</span><span style=color:#960050;background-color:#1e0010>u</span> <span style=color:#960050;background-color:#1e0010>t</span><span style=color:#960050;background-color:#1e0010>o</span><span style=color:#960050;background-color:#1e0010>o</span><span style=color:#960050;background-color:#1e0010>l</span><span style=color:#960050;background-color:#1e0010>_</span><span style=color:#960050;background-color:#1e0010>c</span><span style=color:#960050;background-color:#1e0010>a</span><span style=color:#960050;background-color:#1e0010>l</span><span style=color:#960050;background-color:#1e0010>l</span> <span style=color:#960050;background-color:#1e0010>c</span><span style=color:#960050;background-color:#1e0010>ù</span><span style=color:#960050;background-color:#1e0010>n</span><span style=color:#960050;background-color:#1e0010>g</span> <span style=color:#960050;background-color:#1e0010>l</span><span style=color:#960050;background-color:#1e0010>ú</span><span style=color:#960050;background-color:#1e0010>c</span>
+{
+  <span style=color:#f92672>&#34;tool_calls&#34;</span>: [
+    {
+      <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;call_abc&#34;</span>,
+      <span style=color:#f92672>&#34;function&#34;</span>: { <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;get_order_status&#34;</span>, <span style=color:#f92672>&#34;arguments&#34;</span>: <span style=color:#e6db74>&#34;{\&#34;order_id\&#34;: \&#34;ORD-001\&#34;}&#34;</span> }
+    },
+    {
+      <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;call_def&#34;</span>,
+      <span style=color:#f92672>&#34;function&#34;</span>: { <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;get_customer_profile&#34;</span>, <span style=color:#f92672>&#34;arguments&#34;</span>: <span style=color:#e6db74>&#34;{\&#34;customer_id\&#34;: \&#34;CUS-123\&#34;}&#34;</span> }
+    }
+  ]
+}
+</code></pre></div><p><strong>Lợi ích</strong>: giảm round-trip, giảm latency đáng kể khi cần nhiều dữ liệu độc lập nhau.<br><strong>Lưu ý</strong>: phải xử lý đồng thời ở phía application code (async/await hoặc Task.WhenAll).</p><h3 id=53-k-thut-ci-thin--chnh-xc-routing>5.3. Kỹ thuật cải thiện độ chính xác routing</h3><ol><li><strong>Description rõ ràng</strong> — đây là tín hiệu chính để LLM phân biệt tool nào phù hợp</li><li><strong>Tên tool nhất quán</strong> — prefix theo nhóm (get_, create_, send_) giúp LLM nhận pattern</li><li><strong>Giới hạn số tool</strong> — gửi tối đa 10–15 tool liên quan theo context, không gửi toàn bộ catalog</li><li><strong>Tool examples trong system prompt</strong> — cung cấp ví dụ khi nào dùng tool nào nếu tool catalog phức tạp</li><li><strong>Sử dụng forced tool call</strong> trong các workflow có bước cụ thể (ví dụ: bắt buộc verify trước khi write)</li></ol><hr><h2 id=6-mcp--model-context-protocol>6. MCP — Model Context Protocol</h2><h3 id=61-mcp-l-g>6.1. MCP là gì?</h3><p><strong>MCP (Model Context Protocol)</strong> là giao thức mở do Anthropic đề xuất (2024) và được nhiều công ty áp dụng, nhằm <strong>chuẩn hóa cách LLM tương tác với tool/resource bên ngoài</strong> theo mô hình client–server.</p><p>Nếu Function Calling là cơ chế &ldquo;điện thoại trực tiếp&rdquo; giữa LLM và một tool, thì MCP là &ldquo;tổng đài&rdquo; — một lớp trừu tượng chuẩn hóa, có thể kết nối nhiều tool/resource từ nhiều nguồn.</p><h3 id=62-kin-trc-mcp>6.2. Kiến trúc MCP</h3><pre><code>┌──────────────────────────────────────────────────────────┐
+│                     MCP Host (Application)               │
+│  ┌─────────────┐                                         │
+│  │  LLM / AI   │◀──── tool_call / tool_response          │
+│  │   Engine    │                                         │
+│  └──────┬──────┘                                         │
+│         │ MCP Protocol (JSON-RPC 2.0 over stdio / HTTP)  │
+│  ┌──────▼──────────────────────────────────────────┐     │
+│  │              MCP Client (built-in)              │     │
+│  └──────┬───────────────┬───────────────┬──────────┘     │
+└─────────┼───────────────┼───────────────┼────────────────┘
+          │               │               │
+          ▼               ▼               ▼
+   ┌────────────┐  ┌────────────┐  ┌────────────┐
+   │ MCP Server │  │ MCP Server │  │ MCP Server │
+   │ (Database) │  │ (REST API) │  │ (File Sys) │
+   │            │  │            │  │            │
+   │ Tools:     │  │ Tools:     │  │ Tools:     │
+   │ query_db   │  │ call_crm   │  │ read_file  │
+   │ write_db   │  │ send_email │  │ list_files │
+   └────────────┘  └────────────┘  └────────────┘
+</code></pre><h3 id=63-so-snh-direct-function-call-vs-mcp>6.3. So sánh Direct Function Call vs MCP</h3><table><thead><tr><th>Tiêu chí</th><th>Direct Function Calling</th><th>MCP</th></tr></thead><tbody><tr><td><strong>Độ phức tạp triển khai</strong></td><td>Thấp — code trực tiếp</td><td>Trung bình — cần MCP server</td></tr><tr><td><strong>Tái sử dụng tool</strong></td><td>Thấp — gắn chặt với app</td><td>Cao — server dùng được với nhiều app/LLM</td></tr><tr><td><strong>Tiêu chuẩn hóa</strong></td><td>Mỗi provider khác nhau</td><td>Giao thức chung, vendor-neutral</td></tr><tr><td><strong>Bảo mật</strong></td><td>App tự kiểm soát</td><td>MCP server có thể implement auth riêng</td></tr><tr><td><strong>Phù hợp với</strong></td><td>MVP, tool ít, team nhỏ</td><td>Platform, nhiều app dùng chung tool</td></tr><tr><td><strong>Hỗ trợ streaming</strong></td><td>Có (SSE)</td><td>Có (SSE qua HTTP transport)</td></tr><tr><td><strong>Ecosystem</strong></td><td>OpenAI, Anthropic, Google</td><td>Claude Desktop, Cursor, VS Code, nhiều IDE</td></tr></tbody></table><p><strong>Khuyến nghị thực chiến:</strong></p><ul><li><strong>Bắt đầu với Direct Function Calling</strong> — đơn giản, deploy nhanh, dễ debug</li><li><strong>Chuyển sang MCP</strong> khi có từ 3+ ứng dụng dùng chung tool set, hoặc cần tool marketplace nội bộ</li></ul><hr><h2 id=7-so-snh-framework-openai-native-vs-langchain-vs-semantic-kernel>7. So sánh Framework: OpenAI Native vs LangChain vs Semantic Kernel</h2><table><thead><tr><th>Tiêu chí</th><th>OpenAI Native Function Calling</th><th>LangChain Tools</th><th>Semantic Kernel Plugins</th></tr></thead><tbody><tr><td><strong>Ngôn ngữ</strong></td><td>Any (REST API)</td><td>Python chính, JS beta</td><td>C# / Python / Java</td></tr><tr><td><strong>Độ phức tạp</strong></td><td>Thấp — gần với API thô</td><td>Trung bình</td><td>Trung bình–Cao</td></tr><tr><td><strong>Abstraction</strong></td><td>Tối thiểu</td><td>Cao</td><td>Cao</td></tr><tr><td><strong>Multi-LLM</strong></td><td>Chỉ OpenAI</td><td>✅ Nhiều provider</td><td>✅ Nhiều provider</td></tr><tr><td><strong>Agent loop</strong></td><td>Tự code</td><td>✅ AgentExecutor, LangGraph</td><td>✅ Planner, Agents</td></tr><tr><td><strong>Tool auto-discovery</strong></td><td>❌ Thủ công</td><td>✅ Tool registry</td><td>✅ Plugin auto-import</td></tr><tr><td><strong>Memory/State</strong></td><td>❌ Tự xử lý</td><td>✅ Memory modules</td><td>✅ KernelMemory</td></tr><tr><td><strong>Enterprise .NET</strong></td><td>Trung bình</td><td>Thấp</td><td>✅ Xuất sắc</td></tr><tr><td><strong>Tài liệu/Community</strong></td><td>✅ Rất tốt</td><td>✅ Rất tốt</td><td>✅ Tốt (Microsoft)</td></tr><tr><td><strong>Phù hợp với</strong></td><td>Script nhanh, prototype</td><td>Python AI team</td><td>Enterprise .NET, Azure</td></tr></tbody></table><hr><h2 id=8-trin-khai-thc-t>8. Triển khai thực tế</h2><h3 id=81-c--semantic-kernel-plugin>8.1. C# — Semantic Kernel Plugin</h3><p>Semantic Kernel dùng khái niệm <strong>Plugin</strong> (tương đương Tool Catalog) với attribute-based definition, rất gần với thiết kế .NET:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-csharp data-lang=csharp><span style=color:#66d9ef>using</span> Microsoft.SemanticKernel;
+<span style=color:#66d9ef>using</span> System.ComponentModel;
+
+<span style=color:#75715e>// ============================================================
+</span><span style=color:#75715e></span><span style=color:#75715e>// Bước 1: Định nghĩa Plugin với KernelFunction attributes
+</span><span style=color:#75715e></span><span style=color:#75715e>// ============================================================
+</span><span style=color:#75715e></span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>OrderPlugin</span>
+{
+    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>readonly</span> IOrderService _orderService;
+    <span style=color:#66d9ef>private</span> <span style=color:#66d9ef>readonly</span> ITicketService _ticketService;
+
+    <span style=color:#66d9ef>public</span> OrderPlugin(IOrderService orderService, ITicketService ticketService)
+    {
+        _orderService = orderService;
+        _ticketService = ticketService;
+    }
+<span style=color:#a6e22e>
+</span><span style=color:#a6e22e>    [KernelFunction(&#34;get_order_status&#34;)]</span>
+<span style=color:#a6e22e>    [Description(&#34;Tra cứu trạng thái đơn hàng theo mã đơn. Dùng khi khách hỏi về tình trạng, tiến độ hoặc ETA giao hàng. KHÔNG dùng để sửa hay hủy đơn.&#34;)]</span>
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>async</span> Task&lt;<span style=color:#66d9ef>string</span>&gt; GetOrderStatusAsync(
+<span style=color:#a6e22e>        [Description(&#34;Mã đơn hàng, định dạng ORD-XXXXXX&#34;)]</span> <span style=color:#66d9ef>string</span> orderId,
+<span style=color:#a6e22e>        [Description(&#34;Có trả về lịch sử trạng thái không, mặc định false&#34;)]</span> <span style=color:#66d9ef>bool</span> includeHistory = <span style=color:#66d9ef>false</span>)
+    {
+        <span style=color:#66d9ef>var</span> order = <span style=color:#66d9ef>await</span> _orderService.GetOrderAsync(orderId);
+        <span style=color:#66d9ef>if</span> (order == <span style=color:#66d9ef>null</span>)
+            <span style=color:#66d9ef>return</span> <span style=color:#e6db74>$&#34;Không tìm thấy đơn hàng với mã {orderId}.&#34;</span>;
+
+        <span style=color:#66d9ef>var</span> result = <span style=color:#e6db74>$&#34;Đơn {orderId}: {order.Status} | ETA: {order.EstimatedDelivery:dd/MM/yyyy}&#34;</span>;
+        <span style=color:#66d9ef>if</span> (includeHistory &amp;&amp; order.StatusHistory?.Any() == <span style=color:#66d9ef>true</span>)
+        {
+            <span style=color:#66d9ef>var</span> history = <span style=color:#66d9ef>string</span>.Join(<span style=color:#e6db74>&#34;\n&#34;</span>, order.StatusHistory.Select(h =&gt; <span style=color:#e6db74>$&#34;  - {h.Date:dd/MM} {h.Status}&#34;</span>));
+            result += <span style=color:#e6db74>$&#34;\nLịch sử:\n{history}&#34;</span>;
+        }
+        <span style=color:#66d9ef>return</span> result;
+    }
+<span style=color:#a6e22e>
+</span><span style=color:#a6e22e>    [KernelFunction(&#34;create_support_ticket&#34;)]</span>
+<span style=color:#a6e22e>    [Description(&#34;Tạo ticket hỗ trợ khi vấn đề cần nhân viên xử lý hoặc không thể tự động giải quyết. KHÔNG tạo ticket nếu đã giải quyết xong.&#34;)]</span>
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>async</span> Task&lt;<span style=color:#66d9ef>string</span>&gt; CreateSupportTicketAsync(
+<span style=color:#a6e22e>        [Description(&#34;ID khách hàng trong CRM&#34;)]</span> <span style=color:#66d9ef>string</span> customerId,
+<span style=color:#a6e22e>        [Description(&#34;Tiêu đề ngắn gọn, tối đa 100 ký tự&#34;)]</span> <span style=color:#66d9ef>string</span> subject,
+<span style=color:#a6e22e>        [Description(&#34;Mô tả chi tiết vấn đề&#34;)]</span> <span style=color:#66d9ef>string</span> description,
+<span style=color:#a6e22e>        [Description(&#34;Mức ưu tiên: low, medium, high, urgent&#34;)]</span> <span style=color:#66d9ef>string</span> priority = <span style=color:#e6db74>&#34;medium&#34;</span>)
+    {
+        <span style=color:#75715e>// Human-in-the-loop: log để audit trước khi write
+</span><span style=color:#75715e></span>        Console.WriteLine(<span style=color:#e6db74>$&#34;[AUDIT] Creating ticket for customer {customerId}: {subject}&#34;</span>);
+
+        <span style=color:#66d9ef>var</span> ticket = <span style=color:#66d9ef>await</span> _ticketService.CreateAsync(<span style=color:#66d9ef>new</span> CreateTicketRequest
+        {
+            CustomerId = customerId,
+            Subject = subject,
+            Description = description,
+            Priority = Enum.Parse&lt;TicketPriority&gt;(priority, ignoreCase: <span style=color:#66d9ef>true</span>)
+        });
+
+        <span style=color:#66d9ef>return</span> <span style=color:#e6db74>$&#34;Đã tạo ticket #{ticket.Id}. Nhân viên sẽ liên hệ trong {ticket.SlaHours} giờ.&#34;</span>;
+    }
+}
+
+<span style=color:#75715e>// ============================================================
+</span><span style=color:#75715e></span><span style=color:#75715e>// Bước 2: Đăng ký Plugin và chạy Agent loop
+</span><span style=color:#75715e></span><span style=color:#75715e>// ============================================================
+</span><span style=color:#75715e></span><span style=color:#66d9ef>public</span> <span style=color:#66d9ef>class</span> <span style=color:#a6e22e>AgentService</span>
+{
+    <span style=color:#66d9ef>public</span> <span style=color:#66d9ef>async</span> Task&lt;<span style=color:#66d9ef>string</span>&gt; HandleUserMessageAsync(<span style=color:#66d9ef>string</span> userMessage, <span style=color:#66d9ef>string</span> customerId)
+    {
+        <span style=color:#75715e>// Khởi tạo Kernel
+</span><span style=color:#75715e></span>        <span style=color:#66d9ef>var</span> builder = Kernel.CreateBuilder();
+        builder.AddOpenAIChatCompletion(
+            modelId: <span style=color:#e6db74>&#34;gpt-4o-mini&#34;</span>,
+            apiKey: Environment.GetEnvironmentVariable(<span style=color:#e6db74>&#34;OPENAI_API_KEY&#34;</span>)!);
+
+        <span style=color:#66d9ef>var</span> kernel = builder.Build();
+
+        <span style=color:#75715e>// Đăng ký plugin
+</span><span style=color:#75715e></span>        kernel.Plugins.AddFromObject(
+            <span style=color:#66d9ef>new</span> OrderPlugin(orderService, ticketService),
+            pluginName: <span style=color:#e6db74>&#34;OrderPlugin&#34;</span>);
+
+        <span style=color:#75715e>// Cấu hình auto tool invocation
+</span><span style=color:#75715e></span>        <span style=color:#66d9ef>var</span> executionSettings = <span style=color:#66d9ef>new</span> OpenAIPromptExecutionSettings
+        {
+            ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
+        };
+
+        <span style=color:#75715e>// System prompt
+</span><span style=color:#75715e></span>        <span style=color:#66d9ef>var</span> systemPrompt = <span style=color:#e6db74>$&#34;&#34;&#34;
+</span><span style=color:#e6db74>            Bạn là trợ lý hỗ trợ khách hàng của Công ty ABC.
+</span><span style=color:#e6db74>            ID khách hàng hiện tại: {customerId}
+</span><span style=color:#e6db74>            Nguyên tắc:
+</span><span style=color:#e6db74>            - Chỉ sử dụng tool khi thực sự cần thiết
+</span><span style=color:#e6db74>            - Không tạo ticket nếu đã giải quyết được bằng thông tin có sẵn
+</span><span style=color:#e6db74>            - Luôn xác nhận lại với khách trước khi tạo ticket hoặc gửi thông báo
+</span><span style=color:#e6db74>            &#34;&#34;&#34;</span>;
+
+        <span style=color:#66d9ef>var</span> history = <span style=color:#66d9ef>new</span> ChatHistory(systemPrompt);
+        history.AddUserMessage(userMessage);
+
+        <span style=color:#75715e>// Gọi LLM với auto tool invocation
+</span><span style=color:#75715e></span>        <span style=color:#66d9ef>var</span> chatService = kernel.GetRequiredService&lt;IChatCompletionService&gt;();
+        <span style=color:#66d9ef>var</span> result = <span style=color:#66d9ef>await</span> chatService.GetChatMessageContentAsync(
+            history,
+            executionSettings,
+            kernel);
+
+        <span style=color:#66d9ef>return</span> result.Content ?? <span style=color:#e6db74>&#34;Xin lỗi, tôi không thể xử lý yêu cầu này lúc này.&#34;</span>;
+    }
+}
+</code></pre></div><h3 id=82-python--langchain-tools>8.2. Python — LangChain Tools</h3><p>LangChain dùng decorator <code>@tool</code> để đăng ký function thành tool, rất Pythonic:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>from</span> langchain_core.tools <span style=color:#f92672>import</span> tool
+<span style=color:#f92672>from</span> langchain_openai <span style=color:#f92672>import</span> ChatOpenAI
+<span style=color:#f92672>from</span> langchain.agents <span style=color:#f92672>import</span> AgentExecutor, create_openai_tools_agent
+<span style=color:#f92672>from</span> langchain_core.prompts <span style=color:#f92672>import</span> ChatPromptTemplate, MessagesPlaceholder
+<span style=color:#f92672>from</span> typing <span style=color:#f92672>import</span> Optional
+<span style=color:#f92672>import</span> logging
+
+logger <span style=color:#f92672>=</span> logging<span style=color:#f92672>.</span>getLogger(__name__)
+
+<span style=color:#75715e># ============================================================</span>
+<span style=color:#75715e># Bước 1: Định nghĩa Tools bằng decorator</span>
+<span style=color:#75715e># ============================================================</span>
+
+<span style=color:#a6e22e>@tool</span>
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_order_status</span>(order_id: str, include_history: bool <span style=color:#f92672>=</span> False) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> str:
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>Tra cứu trạng thái đơn hàng theo mã đơn.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Dùng khi khách hỏi về tình trạng, tiến độ hoặc ETA giao hàng.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    KHÔNG dùng để sửa hay hủy đơn.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    </span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Args:</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>        order_id: Mã đơn hàng, định dạng ORD-XXXXXX</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>        include_history: Có trả về lịch sử trạng thái không, mặc định False</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    </span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    <span style=color:#75715e># Gọi service thực tế (minh hoạ)</span>
+    order <span style=color:#f92672>=</span> order_service<span style=color:#f92672>.</span>get(order_id)
+    <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> order:
+        <span style=color:#66d9ef>return</span> f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Không tìm thấy đơn hàng với mã {order_id}.</span><span style=color:#e6db74>&#34;</span>
+    
+    result <span style=color:#f92672>=</span> f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Đơn {order_id}: {order[</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>status</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>]} | ETA: {order[</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>eta</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>]}</span><span style=color:#e6db74>&#34;</span>
+    <span style=color:#66d9ef>if</span> include_history <span style=color:#f92672>and</span> order<span style=color:#f92672>.</span>get(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>history</span><span style=color:#e6db74>&#34;</span>):
+        history_str <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span><span style=color:#f92672>.</span>join(f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>  - {h[</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>date</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>]} {h[</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>status</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>]}</span><span style=color:#e6db74>&#34;</span> <span style=color:#66d9ef>for</span> h <span style=color:#f92672>in</span> order[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>history</span><span style=color:#e6db74>&#34;</span>])
+        result <span style=color:#f92672>+</span><span style=color:#f92672>=</span> f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>Lịch sử:</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>{history_str}</span><span style=color:#e6db74>&#34;</span>
+    <span style=color:#66d9ef>return</span> result
+
+
+<span style=color:#a6e22e>@tool</span>
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>create_support_ticket</span>(
+    customer_id: str,
+    subject: str,
+    description: str,
+    priority: str <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>medium</span><span style=color:#e6db74>&#34;</span>,
+    category: str <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>other</span><span style=color:#e6db74>&#34;</span>
+) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> str:
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>Tạo ticket hỗ trợ khi vấn đề cần nhân viên xử lý.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    KHÔNG tạo ticket nếu đã giải quyết được bằng thông tin có sẵn.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    </span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Args:</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>        customer_id: ID khách hàng trong CRM</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>        subject: Tiêu đề ngắn gọn (tối đa 100 ký tự)</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>        description: Mô tả chi tiết vấn đề</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>        priority: Mức ưu tiên (low/medium/high/urgent)</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>        category: Danh mục (billing/shipping/technical/product/other)</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    </span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    <span style=color:#75715e># Audit log trước khi write</span>
+    logger<span style=color:#f92672>.</span>info(f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>[AUDIT] Creating ticket | customer={customer_id} | priority={priority}</span><span style=color:#e6db74>&#34;</span>)
+    
+    <span style=color:#75715e># Validate priority</span>
+    valid_priorities <span style=color:#f92672>=</span> {<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>low</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>medium</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>high</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>urgent</span><span style=color:#e6db74>&#34;</span>}
+    <span style=color:#66d9ef>if</span> priority <span style=color:#f92672>not</span> <span style=color:#f92672>in</span> valid_priorities:
+        <span style=color:#66d9ef>return</span> f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Priority không hợp lệ. Chọn một trong: {</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>, </span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>.join(valid_priorities)}</span><span style=color:#e6db74>&#34;</span>
+    
+    ticket <span style=color:#f92672>=</span> ticket_service<span style=color:#f92672>.</span>create({
+        <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>customer_id</span><span style=color:#e6db74>&#34;</span>: customer_id,
+        <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>subject</span><span style=color:#e6db74>&#34;</span>: subject[:<span style=color:#ae81ff>100</span>],  <span style=color:#75715e># enforce max length</span>
+        <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>description</span><span style=color:#e6db74>&#34;</span>: description,
+        <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>priority</span><span style=color:#e6db74>&#34;</span>: priority,
+        <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>category</span><span style=color:#e6db74>&#34;</span>: category
+    })
+    
+    sla_map <span style=color:#f92672>=</span> {<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>urgent</span><span style=color:#e6db74>&#34;</span>: <span style=color:#ae81ff>1</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>high</span><span style=color:#e6db74>&#34;</span>: <span style=color:#ae81ff>4</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>medium</span><span style=color:#e6db74>&#34;</span>: <span style=color:#ae81ff>8</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>low</span><span style=color:#e6db74>&#34;</span>: <span style=color:#ae81ff>24</span>}
+    <span style=color:#66d9ef>return</span> f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Đã tạo ticket #{ticket[</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>id</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>]}. Nhân viên sẽ phản hồi trong {sla_map[priority]} giờ.</span><span style=color:#e6db74>&#34;</span>
+
+
+<span style=color:#a6e22e>@tool</span>
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>search_faq</span>(query: str) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> str:
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>Tìm kiếm trong cơ sở tri thức FAQ.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Dùng trước khi tạo ticket để xem có thể tự giải quyết không.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    </span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Args:</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>        query: Câu hỏi hoặc từ khoá cần tìm kiếm</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    </span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    results <span style=color:#f92672>=</span> rag_service<span style=color:#f92672>.</span>search(query, top_k<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>)
+    <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> results:
+        <span style=color:#66d9ef>return</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Không tìm thấy thông tin liên quan trong FAQ.</span><span style=color:#e6db74>&#34;</span>
+    
+    <span style=color:#66d9ef>return</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span><span style=color:#f92672>.</span>join(
+        f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>[{i+1}] {r[</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>title</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>]}</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>{r[</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>content</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>][:300]}...</span><span style=color:#e6db74>&#34;</span>
+        <span style=color:#66d9ef>for</span> i, r <span style=color:#f92672>in</span> enumerate(results)
+    )
+
+
+<span style=color:#75715e># ============================================================</span>
+<span style=color:#75715e># Bước 2: Khởi tạo Agent với tool list</span>
+<span style=color:#75715e># ============================================================</span>
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>create_customer_support_agent</span>(customer_id: str) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> AgentExecutor:
+    llm <span style=color:#f92672>=</span> ChatOpenAI(model<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>gpt-4o-mini</span><span style=color:#e6db74>&#34;</span>, temperature<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>)
+    
+    tools <span style=color:#f92672>=</span> [get_order_status, create_support_ticket, search_faq]
+    
+    prompt <span style=color:#f92672>=</span> ChatPromptTemplate<span style=color:#f92672>.</span>from_messages([
+        (<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>system</span><span style=color:#e6db74>&#34;</span>, f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>Bạn là trợ lý hỗ trợ khách hàng của Công ty ABC.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>ID khách hàng: {customer_id}</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>Nguyên tắc:</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>1. Luôn tìm kiếm FAQ trước khi tạo ticket</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>2. Không tạo ticket nếu đã có câu trả lời</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>3. Xác nhận với khách trước khi thực hiện write action</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>4. Ưu tiên giải quyết nhanh, chỉ escalate khi thực sự cần</span><span style=color:#e6db74>&#34;&#34;&#34;</span>),
+        MessagesPlaceholder(variable_name<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>chat_history</span><span style=color:#e6db74>&#34;</span>, optional<span style=color:#f92672>=</span>True),
+        (<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>human</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>{input}</span><span style=color:#e6db74>&#34;</span>),
+        MessagesPlaceholder(variable_name<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>agent_scratchpad</span><span style=color:#e6db74>&#34;</span>),
+    ])
+    
+    agent <span style=color:#f92672>=</span> create_openai_tools_agent(llm, tools, prompt)
+    
+    <span style=color:#66d9ef>return</span> AgentExecutor(
+        agent<span style=color:#f92672>=</span>agent,
+        tools<span style=color:#f92672>=</span>tools,
+        verbose<span style=color:#f92672>=</span>True,           <span style=color:#75715e># Log tool calls để debug</span>
+        max_iterations<span style=color:#f92672>=</span><span style=color:#ae81ff>5</span>,       <span style=color:#75715e># Giới hạn vòng lặp, tránh loop vô hạn</span>
+        handle_parsing_errors<span style=color:#f92672>=</span>True
+    )
+
+
+<span style=color:#75715e># ============================================================</span>
+<span style=color:#75715e># Bước 3: Sử dụng</span>
+<span style=color:#75715e># ============================================================</span>
+
+async <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>handle_message</span>(customer_id: str, message: str) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> str:
+    agent <span style=color:#f92672>=</span> create_customer_support_agent(customer_id)
+    result <span style=color:#f92672>=</span> await agent<span style=color:#f92672>.</span>ainvoke({
+        <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>input</span><span style=color:#e6db74>&#34;</span>: message,
+        <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>chat_history</span><span style=color:#e6db74>&#34;</span>: []
+    })
+    <span style=color:#66d9ef>return</span> result[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>output</span><span style=color:#e6db74>&#34;</span>]
+</code></pre></div><hr><h2 id=9-bo-mt--kim-sot>9. Bảo mật & Kiểm soát</h2><p>Tool Use mở ra khả năng hành động thực tế — đây cũng là nơi rủi ro tập trung nhất. Không kiểm soát tốt, agent có thể gây ra hậu quả không mong muốn trong hệ thống nghiệp vụ.</p><h3 id=91-allow-list-tool-theo-context>9.1. Allow-list Tool theo context</h3><p>Không cấp toàn bộ tool catalog cho mọi người dùng và mọi tình huống:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>get_tools_for_context</span>(user_role: str, conversation_stage: str) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> list:
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>Chỉ cấp tool phù hợp với role và giai đoạn hội thoại.</span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    
+    <span style=color:#75715e># Mọi người dùng: chỉ read + search</span>
+    base_tools <span style=color:#f92672>=</span> [get_order_status, search_faq]
+    
+    <span style=color:#75715e># Khách hàng đã xác thực: thêm notify</span>
+    <span style=color:#66d9ef>if</span> user_role <span style=color:#f92672>in</span> (<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>authenticated_customer</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>agent</span><span style=color:#e6db74>&#34;</span>):
+        base_tools<span style=color:#f92672>.</span>append(send_notification)
+    
+    <span style=color:#75715e># Nhân viên CS: thêm write tools</span>
+    <span style=color:#66d9ef>if</span> user_role <span style=color:#f92672>==</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>agent</span><span style=color:#e6db74>&#34;</span>:
+        base_tools<span style=color:#f92672>.</span>extend([create_support_ticket, update_ticket_status])
+    
+    <span style=color:#75715e># Chỉ mở write tools sau khi đã thu thập đủ thông tin</span>
+    <span style=color:#66d9ef>if</span> conversation_stage <span style=color:#f92672>==</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>resolution</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>and</span> user_role <span style=color:#f92672>==</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>agent</span><span style=color:#e6db74>&#34;</span>:
+        base_tools<span style=color:#f92672>.</span>append(schedule_callback)
+    
+    <span style=color:#66d9ef>return</span> base_tools
+</code></pre></div><h3 id=92-xc-thc-input-trc-khi-execute>9.2. Xác thực input trước khi execute</h3><p>Mỗi tool executor phải validate input — đừng tin tưởng hoàn toàn vào JSON LLM sinh ra:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>execute_tool_safely</span>(tool_name: str, args: dict, user_context: dict) <span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span> dict:
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>Wrapper bảo mật cho mọi tool execution.</span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    
+    <span style=color:#75715e># 1. Kiểm tra tool có trong allow-list không</span>
+    allowed <span style=color:#f92672>=</span> get_tools_for_context(user_context[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>role</span><span style=color:#e6db74>&#34;</span>], user_context[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>stage</span><span style=color:#e6db74>&#34;</span>])
+    <span style=color:#66d9ef>if</span> tool_name <span style=color:#f92672>not</span> <span style=color:#f92672>in</span> [t<span style=color:#f92672>.</span>name <span style=color:#66d9ef>for</span> t <span style=color:#f92672>in</span> allowed]:
+        <span style=color:#66d9ef>return</span> {<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>error</span><span style=color:#e6db74>&#34;</span>: f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Tool </span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>{tool_name}</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74> không được phép trong context này</span><span style=color:#e6db74>&#34;</span>}
+    
+    <span style=color:#75715e># 2. Validate schema bằng JSON Schema</span>
+    schema <span style=color:#f92672>=</span> TOOL_SCHEMAS[tool_name]
+    errors <span style=color:#f92672>=</span> jsonschema<span style=color:#f92672>.</span>validate(args, schema[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>parameters</span><span style=color:#e6db74>&#34;</span>])
+    <span style=color:#66d9ef>if</span> errors:
+        <span style=color:#66d9ef>return</span> {<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>error</span><span style=color:#e6db74>&#34;</span>: f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Invalid arguments: {errors}</span><span style=color:#e6db74>&#34;</span>}
+    
+    <span style=color:#75715e># 3. Business rule validation</span>
+    <span style=color:#66d9ef>if</span> tool_name <span style=color:#f92672>==</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>create_support_ticket</span><span style=color:#e6db74>&#34;</span>:
+        <span style=color:#66d9ef>if</span> args<span style=color:#f92672>.</span>get(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>priority</span><span style=color:#e6db74>&#34;</span>) <span style=color:#f92672>==</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>urgent</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>and</span> user_context[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>role</span><span style=color:#e6db74>&#34;</span>] <span style=color:#f92672>!=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>agent</span><span style=color:#e6db74>&#34;</span>:
+            args[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>priority</span><span style=color:#e6db74>&#34;</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>high</span><span style=color:#e6db74>&#34;</span>  <span style=color:#75715e># Downgrade nếu không có quyền</span>
+    
+    <span style=color:#75715e># 4. Audit log trước khi execute write</span>
+    <span style=color:#66d9ef>if</span> TOOL_WRITE_FLAG<span style=color:#f92672>.</span>get(tool_name):
+        audit_log<span style=color:#f92672>.</span>write({
+            <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>timestamp</span><span style=color:#e6db74>&#34;</span>: datetime<span style=color:#f92672>.</span>utcnow()<span style=color:#f92672>.</span>isoformat(),
+            <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>user_id</span><span style=color:#e6db74>&#34;</span>: user_context[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>user_id</span><span style=color:#e6db74>&#34;</span>],
+            <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>tool</span><span style=color:#e6db74>&#34;</span>: tool_name,
+            <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>args</span><span style=color:#e6db74>&#34;</span>: sanitize_pii(args),  <span style=color:#75715e># Mask PII trước khi log</span>
+            <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>session_id</span><span style=color:#e6db74>&#34;</span>: user_context[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>session_id</span><span style=color:#e6db74>&#34;</span>]
+        })
+    
+    <span style=color:#75715e># 5. Execute</span>
+    <span style=color:#66d9ef>return</span> TOOL_REGISTRY[tool_name](<span style=color:#f92672>*</span><span style=color:#f92672>*</span>args)
+</code></pre></div><h3 id=93-human-in-the-loop-trc-write-tools>9.3. Human-in-the-Loop trước Write Tools</h3><p>Với các hành động có tác động cao (hủy đơn, hoàn tiền, cập nhật hợp đồng), bắt buộc phải có bước xác nhận từ người:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#75715e># Pseudo workflow: human_approval_gate</span>
+name: write_tool_approval_flow
+trigger: tool_call_detected
+
+steps:
+  - name: classify_tool_impact
+    check:
+      - tool_name in HIGH_IMPACT_TOOLS  <span style=color:#75715e># cancel_order, process_refund, update_contract</span>
+    on_match: require_approval
+    on_no_match: auto_execute
+
+  - name: request_human_approval
+    action: send_approval_request
+    channels:
+      - slack_manager_channel
+      - email_supervisor
+    timeout: 30_minutes
+    payload:
+      tool: <span style=color:#e6db74>&#34;{{ tool_name }}&#34;</span>
+      args: <span style=color:#e6db74>&#34;{{ tool_args_sanitized }}&#34;</span>
+      context: <span style=color:#e6db74>&#34;{{ conversation_summary }}&#34;</span>
+      requested_by: <span style=color:#e6db74>&#34;{{ agent_id }}&#34;</span>
+
+  - name: wait_for_decision
+    action: pause_workflow
+    resume_on:
+      - approved: execute_tool_with_audit_log
+      - rejected: notify_agent_and_user
+      - timeout: escalate_to_level2
+
+on_error:
+  - default_action: reject_and_notify
+  - audit_log: always
+</code></pre></div><h3 id=94-checklist-bo-mt-tool-use>9.4. Checklist bảo mật Tool Use</h3><ul><li><input disabled type=checkbox>Allow-list tool theo role và context người dùng</li><li><input disabled type=checkbox>Validate JSON schema của mọi tool call trước khi execute</li><li><input disabled type=checkbox>Mask PII (email, phone, CCCD) trong audit log</li><li><input disabled type=checkbox>Rate limiting per user/session trên write tools</li><li><input disabled type=checkbox>Human approval gate cho high-impact write operations</li><li><input disabled type=checkbox>Circuit breaker cho external API calls</li><li><input disabled type=checkbox>Timeout toàn bộ tool execution (gợi ý: ≤ 10 giây)</li><li><input disabled type=checkbox>Dead letter queue cho failed tool calls</li><li><input disabled type=checkbox>Alert khi có pattern bất thường (nhiều urgent ticket trong 5 phút)</li></ul><hr><h2 id=10-checklist-thit-k-tool-use>10. Checklist thiết kế Tool Use</h2><h3 id=-checklist-nh-ngha-tool>✅ Checklist định nghĩa Tool</h3><ul><li><input disabled type=checkbox>Tên tool rõ ràng, dùng prefix hành động (get_, create_, send_)</li><li><input disabled type=checkbox>Description mô tả đủ &ldquo;khi nào dùng&rdquo; VÀ &ldquo;khi nào không dùng&rdquo;</li><li><input disabled type=checkbox>Mọi parameter có description đầy đủ, có enum cho giá trị giới hạn</li><li><input disabled type=checkbox>Mọi required parameter được đánh dấu rõ</li><li><input disabled type=checkbox>Tool đã được test với ít nhất 10 câu hỏi thực tế để kiểm tra routing</li><li><input disabled type=checkbox>Tool không làm nhiều hơn một việc (single responsibility)</li></ul><h3 id=-checklist-trin-khai>✅ Checklist triển khai</h3><ul><li><input disabled type=checkbox>Allow-list tool đã thiết lập theo role và context</li><li><input disabled type=checkbox>Validation schema cho tất cả input</li><li><input disabled type=checkbox>Audit log đã bật cho mọi write tool</li><li><input disabled type=checkbox>Timeout đã thiết lập (khuyến nghị 10s cho tool, 30s cho toàn bộ agent loop)</li><li><input disabled type=checkbox>Parallel tool call đã được xử lý đúng bằng async</li><li><input disabled type=checkbox>Max iteration đã đặt giới hạn (5–10 bước là đủ cho hầu hết use case)</li><li><input disabled type=checkbox>Error handling: tool failure không làm crash toàn bộ conversation</li><li><input disabled type=checkbox>Idempotency key đã implement cho write tools</li></ul><h3 id=-checklist-vn-hnh>✅ Checklist vận hành</h3><ul><li><input disabled type=checkbox>Dashboard theo dõi: tool call rate, error rate, latency per tool</li><li><input disabled type=checkbox>Alert khi tool error rate > 5%</li><li><input disabled type=checkbox>Định kỳ review audit log để phát hiện misuse</li><li><input disabled type=checkbox>Kiểm tra định kỳ tool definitions vẫn còn phù hợp với API backend</li><li><input disabled type=checkbox>Quy trình rollback khi tool gây ra kết quả không mong muốn</li></ul><hr><h2 id=11-kpi-chi-ph-v-roi>11. KPI, Chi phí và ROI</h2><h3 id=111-kpi-cho-tool-use>11.1. KPI cho Tool Use</h3><table><thead><tr><th>KPI</th><th>Định nghĩa</th><th>Mục tiêu MVP</th><th>Mục tiêu Production</th></tr></thead><tbody><tr><td><strong>Tool Call Accuracy</strong></td><td>% tool call LLM chọn đúng tool cần thiết</td><td>≥ 85%</td><td>≥ 95%</td></tr><tr><td><strong>Tool Execution Success Rate</strong></td><td>% tool call thực thi thành công (không lỗi)</td><td>≥ 90%</td><td>≥ 99%</td></tr><tr><td><strong>Avg Tool Latency (P95)</strong></td><td>Thời gian thực thi tool P95</td><td>≤ 3s</td><td>≤ 1s</td></tr><tr><td><strong>Automation Rate</strong></td><td>% yêu cầu giải quyết hoàn toàn tự động</td><td>≥ 50%</td><td>≥ 75%</td></tr><tr><td><strong>Human Escalation Rate</strong></td><td>% request cần human intervention</td><td>≤ 30%</td><td>≤ 15%</td></tr><tr><td><strong>Unnecessary Tool Calls</strong></td><td>% lần LLM gọi tool không cần thiết</td><td>≤ 15%</td><td>≤ 5%</td></tr></tbody></table><h3 id=112-c-lng-chi-ph-quy-m-smb-5000-requestsngy>11.2. Ước lượng chi phí (Quy mô SMB, 5.000 requests/ngày)</h3><table><thead><tr><th>Hạng mục</th><th>Chi phí thiết lập</th><th>Chi phí vận hành/tháng</th><th>Ghi chú</th></tr></thead><tbody><tr><td>LLM API (GPT-4o-mini)</td><td>—</td><td>$60–150</td><td>Tool use tăng ~30% token vs text-only</td></tr><tr><td>Backend API / Tool servers</td><td>$0 (code hiện có)</td><td>$20–50</td><td>Thêm endpoint cho tool execution</td></tr><tr><td>Logging & monitoring</td><td>—</td><td>$10–30</td><td>Elasticsearch hoặc Datadog</td></tr><tr><td>Audit log storage</td><td>—</td><td>$5–15</td><td>S3/MinIO lưu audit log</td></tr><tr><td><strong>Tổng ước lượng</strong></td><td><strong>$500–2.000</strong></td><td><strong>$95–245</strong></td><td>Bao gồm thiết lập & tích hợp ban đầu</td></tr></tbody></table><h3 id=113-roi-tham-chiu>11.3. ROI tham chiếu</h3><p><strong>Tình huống</strong>: Bộ phận CS xử lý 150 yêu cầu/ngày, mỗi request mất trung bình 8 phút nhân sự.</p><ul><li><strong>Trước Tool Use</strong>: 150 × 8 phút = 20 giờ/ngày → ~$600/ngày (tính $30/giờ)</li><li><strong>Sau Tool Use</strong> (70% automation): 45 request cần người → 6 giờ/ngày → ~$180/ngày</li><li><strong>Tiết kiệm</strong>: ~$420/ngày × 22 ngày = <strong>~$9.240/tháng</strong></li><li><strong>Chi phí hệ thống</strong>: ~$200/tháng</li><li><strong>ROI tháng đầu</strong>: <strong>~4.500%</strong> | <strong>Hoàn vốn thiết lập</strong>: <strong>&lt; 1 tuần</strong></li></ul><hr><h2 id=12-ri-ro-v-phng-n-gim-thiu>12. Rủi ro và Phương án Giảm Thiểu</h2><table><thead><tr><th>Rủi ro</th><th>Mức độ</th><th>Xác suất</th><th>Phương án giảm thiểu</th></tr></thead><tbody><tr><td><strong>LLM gọi sai tool</strong> (nhầm create khi chỉ cần get)</td><td>Cao</td><td>Trung bình</td><td>Description rõ ràng + unit test routing + allow-list</td></tr><tr><td><strong>Hallucinate tham số</strong> (bịa order_id không tồn tại)</td><td>Cao</td><td>Thấp–Trung bình</td><td>Validate schema + verify tham số với DB trước khi execute</td></tr><tr><td><strong>Prompt injection</strong> qua user input để gọi tool ngoài scope</td><td>Rất cao</td><td>Thấp</td><td>Sanitize input + allow-list tool + human approval cho write</td></tr><tr><td><strong>Tool chạy vòng lặp vô hạn</strong></td><td>Cao</td><td>Thấp</td><td>Max iteration limit + circuit breaker</td></tr><tr><td><strong>Chi phí token tăng đột biến</strong></td><td>Trung bình</td><td>Trung bình</td><td>Token budget per session + cảnh báo anomaly</td></tr><tr><td><strong>API backend bị quá tải</strong> do nhiều parallel tool calls</td><td>Trung bình</td><td>Trung bình</td><td>Rate limit + queue + circuit breaker</td></tr><tr><td><strong>Lộ PII trong tool args log</strong></td><td>Rất cao</td><td>Trung bình</td><td>PII masking trước khi log + RBAC trên log access</td></tr><tr><td><strong>Tool definition out-of-date</strong> khi backend API thay đổi</td><td>Trung bình</td><td>Cao</td><td>Versioning tool definitions + integration test tự động</td></tr></tbody></table><hr><h2 id=13-roadmap-trin-khai-3-giai-on>13. Roadmap Triển Khai 3 Giai Đoạn</h2><h3 id=giai-on-1-tun-13-tool-use-c-bn>Giai đoạn 1 (Tuần 1–3): Tool Use cơ bản</h3><p><strong>Mục tiêu</strong>: Agent có thể đọc dữ liệu nghiệp vụ và trả lời chính xác hơn.</p><ul><li><input disabled type=checkbox>Xác định 3–5 read tools quan trọng nhất (tra cứu đơn hàng, khách hàng, FAQ)</li><li><input disabled type=checkbox>Viết tool definitions theo chuẩn JSON Schema với description đầy đủ</li><li><input disabled type=checkbox>Tích hợp OpenAI Function Calling hoặc Semantic Kernel cơ bản</li><li><input disabled type=checkbox>Test routing với 50 câu hỏi mẫu đại diện</li><li><input disabled type=checkbox>Thiết lập logging tool calls cơ bản</li><li><input disabled type=checkbox><strong>KPI đo được</strong>: Tool Call Accuracy ≥ 85%, Tool Latency ≤ 3s</li></ul><h3 id=giai-on-2-tun-48-write-tools--bo-mt>Giai đoạn 2 (Tuần 4–8): Write Tools + Bảo mật</h3><p><strong>Mục tiêu</strong>: Agent có thể thực hiện hành động nghiệp vụ có kiểm soát.</p><ul><li><input disabled type=checkbox>Thêm 3–5 write tools (tạo ticket, gửi thông báo, cập nhật trạng thái)</li><li><input disabled type=checkbox>Triển khai allow-list tool theo role và context</li><li><input disabled type=checkbox>Implement audit log đầy đủ cho write operations</li><li><input disabled type=checkbox>Thiết lập human approval gate cho high-impact actions</li><li><input disabled type=checkbox>Kiểm thử bảo mật: prompt injection, schema validation</li><li><input disabled type=checkbox><strong>KPI đo được</strong>: Automation Rate ≥ 50%, Escalation Rate ≤ 30%</li></ul><h3 id=giai-on-3-tun-912-ti-u--scale>Giai đoạn 3 (Tuần 9–12): Tối ưu & Scale</h3><p><strong>Mục tiêu</strong>: Vận hành ổn định, chi phí tối ưu, có thể mở rộng tool catalog.</p><ul><li><input disabled type=checkbox>Parallel tool calls cho các read operations độc lập</li><li><input disabled type=checkbox>Tối ưu tool selection bằng dynamic context filtering</li><li><input disabled type=checkbox>Xem xét MCP nếu cần chia sẻ tool cho nhiều ứng dụng</li><li><input disabled type=checkbox>Dashboard KPI đầy đủ và alert tự động</li><li><input disabled type=checkbox>A/B test tool descriptions để cải thiện routing accuracy</li><li><input disabled type=checkbox><strong>KPI đo được</strong>: Tool Call Accuracy ≥ 95%, Automation Rate ≥ 75%</li></ul><hr><h2 id=14-kt-lun-v-kt-ni-sang-bi-5>14. Kết luận và Kết nối sang Bài 5</h2><p>Tool Use & Function Calling là <strong>bước nhảy vọt</strong> từ chatbot trả lời sang AI Agent hành động. Khi triển khai đúng:</p><ul><li>Agent không chỉ <strong>biết</strong> — mà còn <strong>làm được</strong></li><li>Hệ thống không chỉ <strong>phản hồi</strong> — mà còn <strong>tự động hóa</strong> được quy trình nghiệp vụ</li><li>ROI không chỉ là &ldquo;tiện hơn&rdquo; — mà đo được bằng <strong>số giờ nhân lực tiết kiệm mỗi ngày</strong></li></ul><p><strong>Ba nguyên tắc cốt lõi</strong> để Tool Use thành công trong thực tế:</p><ol><li><strong>Description trước, code sau</strong> — 80% vấn đề routing đến từ description mơ hồ, không phải lỗi kỹ thuật</li><li><strong>Read trước, Write sau</strong> — triển khai read tools, đo ROI, rồi mới mở rộng sang write</li><li><strong>Audit everything</strong> — mọi hành động của agent lên hệ thống nghiệp vụ đều phải có dấu vết</li></ol><hr><p>Bài tiếp theo trong series sẽ đi sâu vào <strong>Memory & Context Management</strong> — cách AI Agent ghi nhớ thông tin qua nhiều phiên hội thoại, quản lý long-context hiệu quả và xây dựng hồ sơ người dùng thông minh để cá nhân hóa trải nghiệm. Đây là yếu tố then chốt để đi từ &ldquo;agent trả lời được một câu&rdquo; sang &ldquo;agent hiểu khách hàng theo thời gian&rdquo;.</p><hr><p><em>Tác giả: AI Agent Series | Cập nhật: 14/05/2026</em></p></div><div class=article-tags><a class="badge badge-light" href=/tags/ai-agent/>AI Agent</a>
+<a class="badge badge-light" href=/tags/tool-use/>Tool Use</a>
+<a class="badge badge-light" href=/tags/function-calling/>Function Calling</a>
+<a class="badge badge-light" href=/tags/mcp/>MCP</a>
+<a class="badge badge-light" href=/tags/openai/>OpenAI</a>
+<a class="badge badge-light" href=/tags/langchain/>LangChain</a>
+<a class="badge badge-light" href=/tags/semantic-kernel/>Semantic Kernel</a>
+<a class="badge badge-light" href=/tags/.net/>.NET</a></div><div class=article-widget><div class=post-nav><div class=post-nav-item><div class=meta-nav>Previous</div><a href=/tutorials/ai-agent/rag-va-knowledge-base-xay-dung-kho-tri-thuc-cho-ai-agent/ rel=next>RAG & Knowledge Base — Xây dựng kho tri thức cho AI Agent</a></div><div class=post-nav-item><div class=meta-nav>Next</div><a href=/tutorials/ai-agent/memory-va-context-management-giup-ai-agent-ghi-nho-va-hieu-ngu-canh/ rel=prev>Memory & Context Management — Giúp AI Agent ghi nhớ và hiểu ngữ cảnh</a></div></div></div></div><div class=body-footer>Last updated on May 14, 2026</div></article><footer class=site-footer><p class=powered-by>Vunb © 2026 &#183;
+Powered by the
+<a href=https://sourcethemes.com/academic/ target=_blank rel=noopener>Academic theme</a> for
+<a href=https://gohugo.io target=_blank rel=noopener>Hugo</a>.</p></footer></main></div></div><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin=anonymous></script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/typescript.min.js></script><script id=dsq-count-scr src=//vunb.disqus.com/count.js async></script><script>hljs.initHighlightingOnLoad();</script><script>const search_index_filename="/index.json";const i18n={'placeholder':"Search...",'results':"results found",'no_results':"No results found"};const content_type={'post':"Posts",'project':"Projects",'publication':"Publications",'talk':"Talks"};</script><script src=https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js integrity="sha256-pB/deHc9CGfFpJRjC43imB29Rse8tak+5eXqntO94ck=" crossorigin=anonymous></script><script>anchors.add();</script><script id=search-hit-fuse-template type=text/x-template>
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin=anonymous></script><script src=/js/academic.min.9abf4910448e8cdd14f36192b71baff7.js></script><div id=modal class="modal fade" role=dialog><div class=modal-dialog><div class=modal-content><div class=modal-header><h5 class=modal-title>Cite</h5><button type=button class=close data-dismiss=modal aria-label=Close>
+<span aria-hidden=true>&#215;</span></button></div><div class=modal-body><pre><code class="tex hljs"></code></pre></div><div class=modal-footer><a class="btn btn-outline-primary my-1 js-copy-cite" href=# target=_blank><i class="fas fa-copy"></i>Copy</a>
+<a class="btn btn-outline-primary my-1 js-download-cite" href=# target=_blank><i class="fas fa-download"></i>Download</a><div id=modal-error></div></div></div></div></div></body></html>
