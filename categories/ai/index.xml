@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AI on &lt;Vunb /></title><link>https://vunb.github.io/categories/ai/</link><description>Recent content in AI on &lt;Vunb /></description><generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Vunb &amp;copy; {year}</copyright><lastBuildDate>Sat, 16 May 2026 08:30:00 +0700</lastBuildDate><atom:link href="https://vunb.github.io/categories/ai/index.xml" rel="self" type="application/rss+xml"/><item><title>Nghiên cứu các model chạy Vision và đề xuất ứng dụng thực tiễn</title><link>https://vunb.github.io/post/2026/05/16/nghien-cuu-cac-model-chay-vision-va-de-xuat-ung-dung/</link><pubDate>Sat, 16 May 2026 08:30:00 +0700</pubDate><guid>https://vunb.github.io/post/2026/05/16/nghien-cuu-cac-model-chay-vision-va-de-xuat-ung-dung/</guid><description>&lt;p>Nếu bạn đang tìm hiểu Vision AI, có một thực tế rất hay gặp: xem demo thì “rất đã”, nhưng đưa vào vận hành lại vướng đủ thứ — dữ liệu nhiễu, chi phí tăng nhanh, kết quả không ổn định, và đội vận hành phải “chữa cháy”.&lt;/p>
+&lt;p>Vì vậy trong bài này, mình đi theo hướng thực dụng: chọn model nào để &lt;strong>triển khai được thật&lt;/strong>, &lt;strong>vận hành được thật&lt;/strong>, và &lt;strong>tạo được giá trị thật&lt;/strong> cho doanh nghiệp.&lt;/p>
+&lt;h2 id="1-trc-khi-chn-model-xc-nh-ng-bi-ton">1) Trước khi chọn model: xác định đúng bài toán&lt;/h2>
+&lt;p>Rất nhiều dự án Vision thất bại không phải vì model yếu, mà vì chọn sai bài toán ngay từ đầu.&lt;/p>
+&lt;p>Tôi thường chia nhu cầu vision thành 5 nhóm:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Nhìn để đọc&lt;/strong>: OCR giấy tờ (CCCD, hóa đơn, phiếu xét nghiệm, đơn thuốc).&lt;/li>
+&lt;li>&lt;strong>Nhìn để phát hiện&lt;/strong>: object detection (PPE, lỗi bề mặt, biển số, người/vật thể).&lt;/li>
+&lt;li>&lt;strong>Nhìn để phân vùng&lt;/strong>: segmentation (vùng tổn thương, biên vật thể, vùng bất thường).&lt;/li>
+&lt;li>&lt;strong>Nhìn để hiểu ngữ cảnh&lt;/strong>: hỏi đáp trên ảnh, mô tả tình huống, kiểm tra workflow từ camera.&lt;/li>
+&lt;li>&lt;strong>Nhìn để ra quyết định&lt;/strong>: kết hợp vision + luật nghiệp vụ + người duyệt.&lt;/li>
+&lt;/ol>
+&lt;p>Chỉ cần lẫn lộn giữa “đọc”, “phát hiện” và “hiểu ngữ cảnh”, chi phí triển khai sẽ đội lên rất nhanh.&lt;/p>
+&lt;h2 id="2-cc-nhm-model-vision-hin-nay-v-khi-no-nn-dng">2) Các nhóm model Vision hiện nay và khi nào nên dùng&lt;/h2>
+&lt;h3 id="21-nhm-1--vision-model-dng-api-cloud">2.1 Nhóm 1 — Vision model dùng API cloud&lt;/h3>
+&lt;p>Ví dụ: GPT-4.1/4o vision, Gemini vision, Claude vision.&lt;/p>
+&lt;p>Nhóm này phù hợp khi bạn cần chạy nhanh MVP, đội kỹ thuật còn mỏng và muốn chứng minh giá trị sớm.&lt;/p>
+&lt;p>&lt;strong>Ưu điểm&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Ra kết quả nhanh.&lt;/li>
+&lt;li>Chất lượng tổng quát thường tốt.&lt;/li>
+&lt;li>Không cần tự vận hành GPU ngay từ đầu.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Nhược điểm&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Chi phí theo usage tăng mạnh khi scale.&lt;/li>
+&lt;li>Phụ thuộc nhà cung cấp.&lt;/li>
+&lt;li>Dữ liệu nhạy cảm đòi hỏi kiểm soát policy rất kỹ.&lt;/li>
+&lt;/ul>
+&lt;h3 id="22-nhm-2--open-source-vlm-chy-private-ollamavllmon-prem">2.2 Nhóm 2 — Open-source VLM chạy private (Ollama/vLLM/on-prem)&lt;/h3>
+&lt;p>Ví dụ: Qwen2.5-VL, Llama Vision, InternVL, MiniCPM-V, Phi-3.5-vision.&lt;/p>
+&lt;p>Nếu tổ chức yêu cầu dữ liệu nội bộ không ra ngoài, hoặc muốn tối ưu chi phí dài hạn, đây là hướng nên cân nhắc.&lt;br>
+Trong thực tế, nhiều đội chọn &lt;strong>Ollama cho giai đoạn thử nghiệm nội bộ&lt;/strong>, sau đó chuyển sang cụm GPU chuẩn production bằng vLLM/Triton để tăng throughput.&lt;/p>
+&lt;p>&lt;strong>Ưu điểm&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Chủ động dữ liệu và hạ tầng.&lt;/li>
+&lt;li>Linh hoạt tinh chỉnh theo domain.&lt;/li>
+&lt;li>Hạn chế lock-in vendor.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Nhược điểm&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Cần năng lực MLOps thật sự.&lt;/li>
+&lt;li>Cần đầu tư monitoring, scaling, fallback.&lt;/li>
+&lt;li>Chất lượng đầu ra cần benchmark kỹ theo domain, không thể “tin benchmark công khai”.&lt;/li>
+&lt;/ul>
+&lt;h3 id="23-nhm-3--model-chuyn-nhim-ocrdetectionsegmentation">2.3 Nhóm 3 — Model chuyên nhiệm (OCR/Detection/Segmentation)&lt;/h3>
+&lt;p>Ví dụ:&lt;/p>
+&lt;ul>
+&lt;li>OCR: PaddleOCR, TrOCR, Donut&lt;/li>
+&lt;li>Detection: YOLO, RT-DETR&lt;/li>
+&lt;li>Segmentation: SAM/SAM2, UNet biến thể&lt;/li>
+&lt;/ul>
+&lt;p>Nhóm này thường là “xương sống” trong production vì hiệu quả chi phí tốt cho tác vụ hẹp và lặp lại nhiều.&lt;/p>
+&lt;h2 id="3-cloud-hay-self-host-kinh-nghim-chn-hng-i">3) Cloud hay self-host? Kinh nghiệm chọn hướng đi&lt;/h2>
+&lt;p>Thay vì hỏi “model nào mạnh nhất”, hãy hỏi:&lt;/p>
+&lt;ul>
+&lt;li>Bài toán có cần &lt;strong>latency thấp ổn định&lt;/strong> không?&lt;/li>
+&lt;li>Dữ liệu có &lt;strong>nhạy cảm&lt;/strong> không?&lt;/li>
+&lt;li>Volume dự kiến 6–12 tháng tới là bao nhiêu?&lt;/li>
+&lt;li>Đội vận hành có đủ sức chạy GPU 24/7 không?&lt;/li>
+&lt;/ul>
+&lt;p>Một nguyên tắc rất thực tế:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Volume nhỏ, cần nhanh&lt;/strong> → đi cloud API trước.&lt;/li>
+&lt;li>&lt;strong>Volume tăng cao, dữ liệu nhạy cảm&lt;/strong> → chuyển dần sang hybrid/private.&lt;/li>
+&lt;li>&lt;strong>Nghiệp vụ quan trọng&lt;/strong> → luôn có human-in-the-loop cho case confidence thấp.&lt;/li>
+&lt;/ul>
+&lt;h2 id="4-framework-chn-model-chm-im-trc-khi-u-t">4) Framework chọn model: chấm điểm trước khi đầu tư&lt;/h2>
+&lt;p>Nên chấm 1–5 theo 6 tiêu chí:&lt;/p>
+&lt;ol>
+&lt;li>Tác động kinh doanh&lt;/li>
+&lt;li>Độ chính xác theo domain&lt;/li>
+&lt;li>Độ trễ (SLA/P95)&lt;/li>
+&lt;li>Chi phí trên mỗi request/tài liệu&lt;/li>
+&lt;li>Độ dễ tích hợp với HIS/EMR/ERP/CRM hiện tại&lt;/li>
+&lt;li>Khả năng mở rộng sau 12 tháng&lt;/li>
+&lt;/ol>
+&lt;p>Gợi ý trọng số:&lt;/p>
+&lt;ul>
+&lt;li>Impact: 25%&lt;/li>
+&lt;li>Accuracy: 25%&lt;/li>
+&lt;li>Cost: 20%&lt;/li>
+&lt;li>Integration: 15%&lt;/li>
+&lt;li>Latency: 10%&lt;/li>
+&lt;li>Scalability: 5%&lt;/li>
+&lt;/ul>
+&lt;p>Điểm mấu chốt: benchmark trên &lt;strong>golden dataset nội bộ&lt;/strong> (ít nhất vài trăm mẫu đã gán nhãn), không chọn model dựa vào leaderboard.&lt;/p>
+&lt;h2 id="5-kin-trc-trin-khai-tham-chiu---chy-tht">5) Kiến trúc triển khai tham chiếu (đủ để chạy thật)&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-text" data-lang="text">Camera / Mobile / Scanner
+│
+▼
+Ingestion API + Queue (RabbitMQ/Kafka)
+│
+▼
+Vision Orchestrator (route theo loại bài toán)
+├─ OCR service
+├─ Detection service
+├─ VLM reasoning service
+└─ Rule Validation + Confidence Gate
+│
+▼
+Human-in-the-loop UI
+│
+▼
+HIS/EMR/ERP/CRM + Data Warehouse
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Ba thành phần không nên bỏ qua:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Model router&lt;/strong>: chọn model theo loại dữ liệu và SLA.&lt;/li>
+&lt;li>&lt;strong>Observability&lt;/strong>: đo chất lượng theo thời gian, phát hiện drift.&lt;/li>
+&lt;li>&lt;strong>Fallback&lt;/strong>: model lỗi hoặc timeout phải có đường lui.&lt;/li>
+&lt;/ul>
+&lt;h2 id="6-ng-dng-u-tin-theo-ngnh">6) Ứng dụng ưu tiên theo ngành&lt;/h2>
+&lt;h3 id="healthcare-hisemr">Healthcare (HIS/EMR)&lt;/h3>
+&lt;ul>
+&lt;li>OCR chứng từ y tế, phiếu chỉ định, đơn thuốc.&lt;/li>
+&lt;li>QA chứng từ BHYT.&lt;/li>
+&lt;li>Hỗ trợ pre-screening ảnh y khoa (không thay thế bác sĩ).&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>KPI gợi ý&lt;/strong>: giảm 40–60% thời gian nhập liệu, giảm lỗi nhập tay 30%+.&lt;/p>
+&lt;h3 id="sn-xut">Sản xuất&lt;/h3>
+&lt;ul>
+&lt;li>Phát hiện lỗi bề mặt theo thời gian thực.&lt;/li>
+&lt;li>Giám sát PPE/an toàn lao động từ camera.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>KPI gợi ý&lt;/strong>: giảm phế phẩm 15–25%, giảm thời gian QC 30–50%.&lt;/p>
+&lt;h3 id="logistics--retail">Logistics &amp;amp; Retail&lt;/h3>
+&lt;ul>
+&lt;li>OCR vận đơn, biên nhận.&lt;/li>
+&lt;li>Đếm kiện hàng, phát hiện sai vị trí chất xếp.&lt;/li>
+&lt;li>Giám sát kệ hàng.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>KPI gợi ý&lt;/strong>: tăng năng suất kho 20–35%.&lt;/p>
+&lt;h3 id="bfsi">BFSI&lt;/h3>
+&lt;ul>
+&lt;li>eKYC giấy tờ + kiểm tra giả mạo cơ bản.&lt;/li>
+&lt;li>Tự động kiểm tra hồ sơ vay/mở tài khoản.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>KPI gợi ý&lt;/strong>: rút ngắn thời gian xử lý hồ sơ 30–50%.&lt;/p>
+&lt;h2 id="7-roadmap-trin-khai-gn-thc-dng">7) Roadmap triển khai gọn, thực dụng&lt;/h2>
+&lt;h3 id="giai-on-1-24-tun-discovery--poc">Giai đoạn 1 (2–4 tuần): Discovery + PoC&lt;/h3>
+&lt;ul>
+&lt;li>Chọn 1 use case hẹp, đo được KPI.&lt;/li>
+&lt;li>Thu thập dữ liệu và tạo golden set.&lt;/li>
+&lt;li>So sánh 2–3 phương án model.&lt;/li>
+&lt;/ul>
+&lt;h3 id="giai-on-2-48-tun-mvp">Giai đoạn 2 (4–8 tuần): MVP&lt;/h3>
+&lt;ul>
+&lt;li>Gắn vào quy trình thật.&lt;/li>
+&lt;li>Bật dashboard kỹ thuật + vận hành.&lt;/li>
+&lt;li>Cài confidence threshold + HITL.&lt;/li>
+&lt;/ul>
+&lt;h3 id="giai-on-3-816-tun-production">Giai đoạn 3 (8–16 tuần): Production&lt;/h3>
+&lt;ul>
+&lt;li>Tối ưu latency, retry, fallback.&lt;/li>
+&lt;li>Bắt đầu model routing để tối ưu chi phí.&lt;/li>
+&lt;li>Chuẩn hóa SLA/SLO.&lt;/li>
+&lt;/ul>
+&lt;h3 id="giai-on-4-scale">Giai đoạn 4: Scale&lt;/h3>
+&lt;ul>
+&lt;li>Mở rộng thêm use case.&lt;/li>
+&lt;li>Chuẩn hóa thành năng lực AI Hub dùng chung.&lt;/li>
+&lt;/ul>
+&lt;h2 id="8-chi-ph-v-roi-nn-nhn-th-no-cho-ng">8) Chi phí và ROI: nên nhìn thế nào cho đúng&lt;/h2>
+&lt;p>Có 3 mô hình triển khai phổ biến:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>API-first&lt;/strong>: đầu tư ban đầu thấp, trả theo mức dùng.&lt;/li>
+&lt;li>&lt;strong>Hybrid&lt;/strong>: tác vụ khó dùng cloud, tác vụ lặp lại lớn dùng self-host.&lt;/li>
+&lt;li>&lt;strong>Private/on-prem&lt;/strong>: đầu tư ban đầu cao hơn nhưng chủ động dữ liệu và tối ưu dài hạn.&lt;/li>
+&lt;/ol>
+&lt;p>Kinh nghiệm triển khai:&lt;/p>
+&lt;ul>
+&lt;li>Giai đoạn đầu: API-first thường thắng vì tốc độ.&lt;/li>
+&lt;li>Khi volume tăng mạnh: hybrid thường cân bằng tốt nhất giữa chất lượng, bảo mật và chi phí.&lt;/li>
+&lt;/ul>
+&lt;h2 id="9-ri-ro-chnh-v-cch-gim-thiu">9) Rủi ro chính và cách giảm thiểu&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Data drift&lt;/strong>&lt;br>
+→ theo dõi chất lượng theo thời gian, retrain/retune định kỳ.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Hallucination khi dùng VLM&lt;/strong>&lt;br>
+→ luôn có rule-based validation với nghiệp vụ quan trọng.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Rủi ro dữ liệu nhạy cảm&lt;/strong>&lt;br>
+→ masking, phân quyền, network private, audit log.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Chi phí tăng đột biến&lt;/strong>&lt;br>
+→ quota, cache, batching, model routing.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Lock-in vendor&lt;/strong>&lt;br>
+→ kiến trúc adapter, tách orchestration khỏi model provider.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="10-kt-lun">10) Kết luận&lt;/h2>
+&lt;p>Nếu cần một chiến lược an toàn và hiệu quả cho doanh nghiệp Việt Nam:&lt;/p>
+&lt;ul>
+&lt;li>Bắt đầu từ &lt;strong>1 use case có giá trị tài chính rõ ràng&lt;/strong>.&lt;/li>
+&lt;li>Đo KPI ngay từ PoC, tránh làm demo thuần kỹ thuật.&lt;/li>
+&lt;li>Đi theo hướng &lt;strong>hybrid cloud + private&lt;/strong> để vừa chạy nhanh vừa kiểm soát chi phí.&lt;/li>
+&lt;li>Chuẩn hóa kiến trúc sớm để mở rộng thành AI Hub.&lt;/li>
+&lt;/ul>
+&lt;p>Vision AI không còn là “tính năng cho vui”. Nếu làm đúng cách, nó trở thành năng lực vận hành cốt lõi giúp doanh nghiệp giảm chi phí, tăng tốc độ xử lý và nâng chất lượng dịch vụ một cách bền vững.&lt;/p></description></item></channel></rss>
